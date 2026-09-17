@@ -4,6 +4,27 @@
   "cleanUrls": false,
   "headers": [
     {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/icons/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=600, stale-while-revalidate=86400" }
@@ -20,6 +41,7 @@
   ],
   "redirects": [
     { "source": "/notes", "destination": "/#notes", "permanent": false },
-    { "source": "/quiz", "destination": "/#quizzes", "permanent": false }
+    { "source": "/quiz", "destination": "/#quizzes", "permanent": false },
+    { "source": "/revision", "destination": "/#revision", "permanent": false }
   ]
 }

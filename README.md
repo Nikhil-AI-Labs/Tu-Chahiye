@@ -69,7 +69,56 @@ Then send your friends the URL. Nothing else needs to happen.
 
 ---
 
-## 3. What is in here
+## 3. Installing it on a phone
+
+It is a progressive web app, so on Android it installs as a real app — its own icon in the
+drawer, no address bar, and it appears in the app switcher like anything else. Chrome builds a
+WebAPK for it behind the scenes. Nothing goes near a store.
+
+**On Android (Chrome, Edge, Samsung Internet).** Open the site, scroll to *Take it offline*, and
+press **Install the app**. If that panel does not appear, the browser has not offered it yet —
+open the ⋮ menu and choose **Install app**. Either way you get the installed version, not a
+bookmark.
+
+**On iPhone.** Safari has no install prompt. Tap **Share → Add to Home Screen**. It opens
+without Safari's chrome and works offline, but iOS does not give it a place in the app library
+the way Android does. That is Apple's limit, not the site's.
+
+### Why it was only making a shortcut before
+
+A browser will only offer a real install when all three of these are true. The site had none of
+them; it has all three now.
+
+| | file |
+|---|---|
+| a web app manifest, with 192px and 512px icons | `manifest.webmanifest`, `icons/` |
+| a registered service worker **with a fetch handler** | `sw.js`, registered by `assets/pwa.js` |
+| served over HTTPS | Vercel already does this |
+
+Without the manifest and the worker, "Add to Home Screen" only ever writes a bookmark that opens
+in a browser tab. That is what was happening.
+
+### What the service worker does
+
+Two things. It is what makes the install offer appear at all, and it makes every page you have
+already opened work with no signal — which matters, because the library has none.
+
+| | strategy |
+|---|---|
+| pages | network first, falling back to the copy from last time |
+| CSS, JS, fonts | cache first, refreshed in the background |
+| figures | cache first — they never change once published |
+| PDFs and the scanned papers | never cached; 32 MB has no business in a cache |
+| Supabase | never touched, so a leaderboard is never served stale |
+
+A page you have never opened, with no connection, gets `offline.html` instead of a browser error.
+
+**After you change a page**, the worker serves the new one on the next load automatically. If you
+change `sw.js` itself, bump `VERSION` at the top — that throws away every old cache.
+
+---
+
+## 4. What is in here
 
 ```
 Tu-Chahiye/
@@ -100,6 +149,7 @@ Tu-Chahiye/
 │   ├── revision.js         the summaries-only switch, the index, the theme
 │   ├── notes-theme.css     puts the five older note pages on the house theme, screen and print
 │   ├── notes-theme.js      shared theme switch, chapter reveals, print helper
+│   ├── pwa.js              registers the worker, drives the install button
 │   ├── motion.css          the motion layer
 │   └── motion.js           masthead, reveals, tallies, clock, print helper
 ├── tools/
@@ -114,7 +164,7 @@ questions, roughly 200 chapters of notes, **59** revision chapters with **314** 
 
 ---
 
-## 4. The revision sheets
+## 5. The revision sheets
 
 Four things now exist for every subject: the course, the quiz, the papers, and **the revision
 sheet**. They are not the same thing as the course.
@@ -140,7 +190,7 @@ rather than as a hole.
 
 ---
 
-## 5. The quizzes
+## 6. The quizzes
 
 Each quiz is one self-contained file. The bits you might want to change sit together near the
 top of the script block:
@@ -183,7 +233,7 @@ truncate public.dcn_quiz_scores;
 
 ---
 
-## 6. The PDFs
+## 7. The PDFs
 
 Everything on the site also exists as a PDF, and there are two different kinds.
 
@@ -220,12 +270,12 @@ collapsed solution opens itself before the dialog appears, so what you get is th
 
 ---
 
-## 7. Changing things
+## 8. Changing things
 
-**The exam date and countdown** — `index.html`, near the bottom:
+**The exam date and countdown** — the mid-sem starts 21 September 2026. One line in `index.html`, near the bottom:
 
 ```js
-var EXAM = new Date(2026, 8, 22, 9, 0, 0);   /* months are 0-based: 8 = September */
+var EXAM = new Date(2026, 8, 21, 9, 0, 0);   /* months are 0-based: 8 = September */
 ```
 
 **A subject's ink** — `assets/press.css`, in `:root`, with a matching pair in each of the two
@@ -249,7 +299,7 @@ site still works; it just stops moving.
 
 ---
 
-## 8. Notes on the design
+## 9. Notes on the design
 
 - **The syllabus spread** on the dashboard is the one full-bleed block on the site: five subjects
   down, 53 topics across, a solid spot-ink square where that topic was asked that year. It is
@@ -274,7 +324,7 @@ site still works; it just stops moving.
 
 ---
 
-## 9. One honest paragraph about the predicted papers
+## 10. One honest paragraph about the predicted papers
 
 They are a reading of a pattern, not a leak. Each subject's paper page opens with a grid — topic
 down the side, year across the top, a filled square where it appeared — and that table is doing

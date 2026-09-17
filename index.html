@@ -6,6 +6,13 @@
 <title>Tu Chahiye — Sem V study desk</title>
 <meta name="description" content="Notes, quizzes and solved papers for EC Semester V at SVNIT Surat. Five subjects, one desk.">
 <meta name="theme-color" content="#EAE8E1">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tu Chahiye">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Tu Chahiye">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -261,6 +268,49 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
   font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);line-height:2.1}
 .colo b{color:var(--ink-2);font-weight:400}
+
+/* ============ install ============ */
+.inst{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:0;align-items:stretch;
+  border-top:5px solid var(--ink);border-bottom:1px solid var(--hair);margin:0 0 26px}
+.inst .ib{padding:18px 22px 20px 0}
+.inst .il{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:700;color:var(--pink);margin:0 0 9px}
+.inst .ip{font-size:16px;line-height:1.5;color:var(--ink-2);margin:0 0 16px;max-width:52ch;
+  display:none}
+.inst .ip b{color:var(--ink);font-weight:600}
+.inst[data-state="ready"] .ip.ready,
+.inst[data-state="how"]   .ip.how,
+.inst[data-state="ios"]   .ip.ios,
+.inst[data-state="done"]  .ip.done{display:block}
+.inst .ig{appearance:none;border:0;cursor:pointer;
+  background:var(--ink);color:var(--stock);
+  font-family:var(--display);font-weight:800;font-size:21px;text-transform:uppercase;
+  letter-spacing:.02em;padding:0 22px;min-height:var(--tap);display:inline-flex;
+  align-items:center;transition:transform .08s ease,background var(--press);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.inst .ig:hover{background:var(--pink);transform:translate(-2px,-2px)}
+.inst .ig:active{transform:scale(.97);transition:transform var(--press)}
+.inst[data-state="done"] .ig,.inst[data-state="ios"] .ig{display:none}
+/* the monogram, printed the same way the masthead is */
+.inst .iart{position:relative;isolation:isolate;display:grid;place-items:center;
+  border-left:1px solid var(--hair);overflow:hidden}
+.inst .iart span{position:absolute;font-family:var(--display);font-weight:900;
+  font-size:104px;line-height:1;letter-spacing:-.05em;text-transform:uppercase}
+.inst .iart .p1{color:var(--pink);transform:translateX(-5px);mix-blend-mode:multiply}
+.inst .iart .p2{color:var(--blue);transform:translateX(5px);mix-blend-mode:multiply}
+.inst .iart .pk{color:var(--ink)}
+:root[data-theme="dark"] .inst .iart .p1,
+:root[data-theme="dark"] .inst .iart .p2{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .inst .iart .p1,
+  :root:not([data-theme="light"]) .inst .iart .p2{mix-blend-mode:screen}
+}
+@media (max-width:640px){
+  .inst{grid-template-columns:1fr}
+  .inst .iart{display:none}
+  .inst .ib{padding:16px 0 18px}
+}
+@media (prefers-reduced-motion:reduce){.inst .ig:hover,.inst .ig:active{transform:none}}
 </style>
 </head>
 <body>
@@ -303,7 +353,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
     <i><b>EC321</b> Communication Networks<s></s></i>
     <i><b>EC341</b> Digital Image Processing<s></s></i>
     <i><b>C++</b> Object Oriented Programming<s></s></i>
-    <i><em>Mid-sem &mdash; 22 September</em><s></s></i>
+    <i><em>Mid-sem starts 21 September</em><s></s></i>
     <i>5 subjects<s></s></i>
     <i>200 quiz questions<s></s></i>
     <i>11 past papers solved<s></s></i>
@@ -313,7 +363,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
     <i><b>EC321</b> Communication Networks<s></s></i>
     <i><b>EC341</b> Digital Image Processing<s></s></i>
     <i><b>C++</b> Object Oriented Programming<s></s></i>
-    <i><em>Mid-sem &mdash; 22 September</em><s></s></i>
+    <i><em>Mid-sem starts 21 September</em><s></s></i>
     <i>5 subjects<s></s></i>
     <i>200 quiz questions<s></s></i>
     <i>11 past papers solved<s></s></i>
@@ -608,6 +658,20 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
     <h2 class="sec">Take it offline</h2>
     <span class="tag">every page also exists as a PDF</span>
   </div>
+  <div class="inst" data-install-row hidden>
+    <div class="ib">
+      <span class="il">Put it on the home screen</span>
+      <p class="ip ready">It installs as a real app &mdash; its own icon in the drawer, no address bar, and every page you have opened works with no signal. <b>Nothing is downloaded from a store.</b></p>
+      <p class="ip how">Your browser has not offered it yet. Open the <b>&vellip;</b> menu and choose <b>Install app</b> &mdash; or <b>Add to Home screen</b>, which on Chrome installs it properly.</p>
+      <p class="ip ios">On an iPhone, tap <b>Share</b> and then <b>Add to Home Screen</b>. It opens without Safari&rsquo;s chrome and keeps working offline.</p>
+      <p class="ip done">Installed. Open it from the home screen and the address bar is gone.</p>
+      <button class="ig" type="button" data-install>Install the app</button>
+    </div>
+    <div class="iart" aria-hidden="true">
+      <span class="p1">TC</span><span class="p2">TC</span><span class="pk">TC</span>
+    </div>
+  </div>
+
   <p class="note" style="margin:0 0 22px">Fifteen PDFs, typeset from these same pages through a real print stylesheet &mdash; chapters start on their own sheet, every solution is already open, and the quizzes come as a printable question paper with the answer key at the back. <b>And the thirteen original question papers, exactly as they were handed out.</b></p>
 
   <div class="pgrid">
@@ -650,7 +714,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
 <div class="colo">
   <b>Tu Chahiye</b> &middot; built from the lecture slides, tutorials, handouts and past papers of B.Tech EC Semester V, DoECE &amp; DoCSE, SVNIT Surat<br>
   five subjects &middot; 200 quiz questions &middot; every mid-sem paper we had, solved &middot; predicted papers are our own reading of the pattern, not an official anything<br>
-  <b>mid-sem date</b> shown above is last year's date carried forward &mdash; check the notice board for the real one
+  <b>mid-sem</b> starts 21 september 2026 &mdash; the countdown above runs to 09:00 that morning
 </div>
 
 </div>
@@ -670,9 +734,8 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
 })();
 
 /* ---------- countdown ----------
-   Last year the papers ran 23–24 September. Same week is assumed here and
-   the colophon says so; change this one line if the real date is put up.   */
-var EXAM = new Date(2026, 8, 22, 9, 0, 0);   /* 22 Sept 2026, 09:00 */
+   The mid-sem starts on 21 September 2026. One line to change if it moves. */
+var EXAM = new Date(2026, 8, 21, 9, 0, 0);   /* 21 Sept 2026, 09:00 */
 (function(){
   function tick(){
     var ms = EXAM - new Date();
@@ -682,7 +745,7 @@ var EXAM = new Date(2026, 8, 22, 9, 0, 0);   /* 22 Sept 2026, 09:00 */
     var d = Math.floor(ms/86400000), h = Math.floor(ms/3600000)%24;
     if (d >= 1){ v.firstChild.nodeValue = d; u.textContent = d===1?"day":"days"; }
     else { v.firstChild.nodeValue = h; u.textContent = h===1?"hour":"hours"; }
-    w.textContent = "expected " + fmt;
+    w.textContent = "starts " + fmt;
   }
   tick(); setInterval(tick, 60000);
 })();
@@ -766,5 +829,6 @@ QUIZZES.forEach(function(q){
 });
 </script>
 <script src="assets/motion.js" defer></script>
+<script src="/assets/pwa.js" defer></script>
 </body>
 </html>

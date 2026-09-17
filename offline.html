@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>No signal &mdash; Tu Chahiye</title>
+<meta name="theme-color" content="#EAE8E1">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/press.css">
+<link rel="icon" href="/icons/icon-192.png">
+<style>
+  .sheet{max-width:1080px;margin:0 auto;padding:clamp(28px,7vw,72px) var(--gut) 60px}
+  .mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--pink);font-weight:700;margin:0 0 10px}
+  h1{font-family:var(--display);font-weight:900;font-size:clamp(56px,16vw,150px);
+    line-height:.86;letter-spacing:-.026em;text-transform:uppercase;margin:0 0 4px}
+  .rule{height:6px;background:var(--ink);margin:18px 0 22px}
+  p.say{font-size:19px;line-height:1.5;color:var(--ink-2);max-width:48ch;margin:0 0 16px;
+    text-wrap:pretty}
+  p.say b{color:var(--ink);font-weight:600}
+  .acts{display:flex;flex-wrap:wrap;gap:0;border-top:2px solid var(--ink);margin-top:30px}
+  .acts a{flex:1 1 180px;min-height:var(--tap);display:inline-flex;align-items:center;
+    justify-content:center;padding:14px;border-right:1px solid var(--hair);
+    border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.16em;text-transform:uppercase;font-weight:700;text-decoration:none;
+    color:var(--ink-2);transition:background var(--press),color var(--press)}
+  .acts button{flex:1 1 180px;min-height:var(--tap);border:0;border-right:1px solid var(--hair);
+    border-bottom:1px solid var(--hair);background:none;cursor:pointer;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:700;color:var(--ink-2);transition:background var(--press),color var(--press)}
+  .acts button:hover{background:var(--pink);color:var(--stock)}
+  .acts a:last-child,.acts button:last-child{border-right:0}
+  .acts a:hover{background:var(--pink);color:var(--stock)}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="press">
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+    <span>Tu Chahiye</span>
+    <span class="sp"></span>
+    <span class="hideS">Offline</span>
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  </div>
+
+  <p class="mono">The press has stopped</p>
+  <h1>No&nbsp;signal</h1>
+  <div class="rule"></div>
+  <p class="say">This page has not been opened on this phone before, so there is no copy of it
+  to fall back on. <b>Everything you have already read is still here</b> &mdash; open it from the
+  dashboard and it will come straight out of the cache.</p>
+  <p class="say">The leaderboards need a connection. Everything else does not.</p>
+
+  <div class="acts">
+    <a href="/">The dashboard</a>
+    <a href="/#revision">Revision</a>
+    <a href="/#papers">The papers</a>
+    <button type="button" id="again">Try again</button>
+  </div>
+</div>
+<script>
+  /* come back by itself the moment the signal does */
+  addEventListener("online", function () { location.reload(); });
+  document.getElementById("again").addEventListener("click", function () {
+    location.reload();
+  });
+</script>
+</body>
+</html>

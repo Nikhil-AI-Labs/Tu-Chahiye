@@ -1,0 +1,95 @@
+{
+  "id": "/",
+  "name": "Tu Chahiye — Sem V study desk",
+  "short_name": "Tu Chahiye",
+  "description": "Five subjects written out in full, revision sheets, one-shot quizzes with leaderboards, and every past paper solved — plus a predicted paper for each. B.Tech EC Semester V, SVNIT Surat.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#EAE8E1",
+  "theme_color": "#17171B",
+  "categories": ["education", "books", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/mono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/shot-phone.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The dashboard — five subjects, the countdown, and everything else one tap away"
+    },
+    {
+      "src": "/icons/shot-phone-2.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "A revision sheet, with the switch that shows nothing but the chapter summaries"
+    },
+    {
+      "src": "/icons/shot-wide.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Every past paper worked out question by question"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Revision sheets",
+      "short_name": "Revision",
+      "description": "The night-before version of all five subjects",
+      "url": "/#revision",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "The papers",
+      "short_name": "Papers",
+      "description": "Past papers solved, and the predicted paper",
+      "url": "/papers/index.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "The quizzes",
+      "short_name": "Quizzes",
+      "description": "Forty questions, one attempt, live leaderboard",
+      "url": "/#quizzes",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
