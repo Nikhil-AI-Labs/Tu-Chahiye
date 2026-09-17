@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Digital Image Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  --stock:#EAE8E1;
+  --stock-2:#DEDBD1;
+  --stock-3:#D2CEC2;
+  --ink:#17171B;
+  --ink-2:#4C4C55;
+  --ink-3:#7E7E88;
+  --hair:rgba(23,23,27,.22);
+  --pink:#DC1F68;
+  --pink-wash:#F7D6E2;
+  --blue:#0B5FC0;
+  --blue-wash:#CEDFF4;
+  --slab:#17171B;
+  --slab-ink:#E4E1D8;
+  --display:"Big Shoulders Display","Big Shoulders","Haettenschweiler","Arial Narrow",sans-serif;
+  --body:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --stock:#131317; --stock-2:#1C1C21; --stock-3:#26262D;
+    --ink:#EAE7DE; --ink-2:#A6A6AF; --ink-3:#73737D;
+    --hair:rgba(234,231,222,.22);
+    --pink:#FF5D96; --pink-wash:#3A1526;
+    --blue:#59A7FF; --blue-wash:#10243E;
+    --slab:#08080A; --slab-ink:#E4E1D8;
+  }
+}
+:root[data-theme="dark"]{
+  --stock:#131317; --stock-2:#1C1C21; --stock-3:#26262D;
+  --ink:#EAE7DE; --ink-2:#A6A6AF; --ink-3:#73737D;
+  --hair:rgba(234,231,222,.22);
+  --pink:#FF5D96; --pink-wash:#3A1526;
+  --blue:#59A7FF; --blue-wash:#10243E;
+  --slab:#08080A; --slab-ink:#E4E1D8;
+}
+
+*{box-sizing:border-box}
+a,button,summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--stock);color:var(--ink);
+  font-family:var(--body);font-size:16.5px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(var(--hair) .5px,transparent .5px);
+  background-size:4px 4px;opacity:.55;
+}
+::selection{background:var(--pink);color:var(--stock)}
+[hidden]{display:none!important}
+
+.sheet{position:relative;z-index:1;max-width:880px;margin:0 auto;
+  padding:0 22px calc(100px + env(safe-area-inset-bottom))}
+@media (max-width:430px){.sheet{padding:0 15px 70px}}
+
+.press{
+  display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid var(--hair);padding:12px 0 10px;margin-bottom:34px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+}
+.press .reg{flex:none;width:13px;height:13px;opacity:.75}
+.press .reg line{stroke:var(--ink-3);stroke-width:1}
+.press .reg circle{stroke:var(--ink-3);stroke-width:1;fill:none}
+.press .sp{flex:1}
+.press b{color:var(--ink-2);font-weight:400}
+
+.lockup{margin:0 0 6px}
+.kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--pink);font-weight:700;margin:0 0 12px;
+}
+.lockup h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(62px,15.5vw,148px);line-height:.79;letter-spacing:-.018em;
+  text-transform:uppercase;margin:0;
+}
+.lockup h1 .l2{display:block;color:var(--pink)}
+.lockup h1 .l3{display:block}
+.rule-heavy{height:7px;background:var(--ink);margin:18px 0 20px}
+.rule-thin{height:1px;background:var(--hair);margin:26px 0}
+.standfirst{font-size:19px;line-height:1.48;color:var(--ink-2);margin:0 0 30px;max-width:56ch;text-wrap:pretty}
+.standfirst b{color:var(--ink);font-weight:600}
+
+.specs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);color:var(--stock);margin:0 0 34px}
+.specs div{padding:16px 16px 14px;border-left:1px solid rgba(234,231,222,.2)}
+.specs div:first-child{border-left:0}
+.specs b{display:block;font-family:var(--display);font-weight:800;font-size:40px;line-height:.9;letter-spacing:-.02em}
+.specs span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.17em;text-transform:uppercase;opacity:.62;margin-top:6px}
+@media (max-width:560px){
+  .specs{grid-template-columns:repeat(2,1fr)}
+  .specs div:nth-child(3){border-left:0}
+  .specs div:nth-child(n+3){border-top:1px solid rgba(234,231,222,.2)}
+}
+
+.weight{margin:0 0 34px}
+.weight h2,.rules h2,.lb h2,.rev h2{
+  font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,36px);
+  line-height:.95;letter-spacing:-.012em;text-transform:uppercase;margin:0 0 14px;
+}
+.wrow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;margin-bottom:9px}
+.wbar{height:34px;display:flex;align-items:center;padding:0 12px;min-width:0}
+.wbar span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wbar.e{background:var(--stock-3);color:var(--ink);width:16.6%;min-width:150px}
+.wbar.m{background:var(--blue);color:#fff;width:33.3%;min-width:170px}
+.wbar.h{background:var(--pink);color:#fff;width:100%}
+.wpts{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.wnote{font-size:15px;color:var(--ink-2);margin:12px 0 0;max-width:52ch}
+
+.rules ol{list-style:none;margin:0;padding:0;counter-reset:hr}
+.rules li{counter-increment:hr;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--hair);align-items:start}
+.rules li:last-child{border-bottom:1px solid var(--hair)}
+.rules li::before{content:counter(hr,decimal-leading-zero);font-family:var(--display);font-weight:800;font-size:34px;line-height:.85;color:var(--pink);letter-spacing:-.02em}
+.rules p{margin:0;font-size:16px;line-height:1.5}
+.rules strong{font-weight:700}
+
+.entry{margin:38px 0 46px}
+.entry .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);display:block;margin:0 0 6px}
+.fieldrow{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+input[type=text]{
+  flex:1 1 260px;min-width:0;
+  font-family:var(--display);font-weight:700;font-size:clamp(30px,6vw,46px);
+  line-height:1.05;letter-spacing:-.015em;text-transform:uppercase;
+  padding:2px 2px 8px;color:var(--ink);
+  background:transparent;border:0;border-bottom:4px solid var(--ink);border-radius:0;
+}
+input[type=text]::placeholder{color:var(--ink-3);opacity:.5}
+input[type=text]:focus{outline:none;border-bottom-color:var(--pink)}
+
+button{font-family:inherit;font-size:inherit;cursor:pointer;border-radius:0}
+.stamp{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--pink);color:#fff;border:0;
+  font-family:var(--display);font-weight:800;font-size:25px;line-height:1;
+  letter-spacing:.02em;text-transform:uppercase;padding:15px 30px 13px;
+  transition:transform .08s ease;
+}
+.stamp:hover:not(:disabled){transform:translate(-2px,-2px)}
+.stamp:active:not(:disabled){transform:scale(.975);transition:transform 100ms ease-out}
+.stamp:disabled{opacity:.42;cursor:not-allowed}
+.stamp.ink{background:var(--ink);color:var(--stock)}
+.plain{
+  background:transparent;border:0;color:var(--ink);padding:10px 0;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  border-bottom:2px solid var(--ink);min-height:44px;
+}
+.plain:hover:not(:disabled){color:var(--pink);border-bottom-color:var(--pink)}
+.plain:disabled{opacity:.3;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+
+.msg{margin:16px 0 0;font-size:16px;line-height:1.5;display:none;max-width:60ch}
+.msg.show{display:block}
+.msg.err{color:var(--pink);font-weight:600}
+.msg.warn{color:var(--ink);background:var(--pink-wash);padding:14px 16px;font-size:15.5px}
+.msg.warn code{font-family:var(--mono);font-size:.86em;background:rgba(0,0,0,.08);padding:1px 5px}
+
+.lb{margin:0 0 42px}
+.lb-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 4px}
+.lb-head h2{margin:0}
+.lb-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.board{overflow-x:auto;border-top:5px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:11px 12px;white-space:nowrap;border-bottom:1px solid var(--hair)}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding-top:9px;padding-bottom:9px}
+td.pos{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;width:1%;padding-right:4px}
+td.nm{white-space:normal;font-weight:600;min-width:130px;font-size:16px}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:14px}
+tr.lead td{background:var(--ink);color:var(--stock);border-bottom-color:var(--ink)}
+tr.lead td.pos{color:var(--stock)}
+tr.me td.nm::after{content:"you";font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:var(--pink);color:#fff;padding:2px 6px;margin-left:9px;font-weight:700}
+tr.me:not(.lead) td{background:var(--pink-wash)}
+.lb-empty{padding:22px 2px;font-size:16px;color:var(--ink-2);border-bottom:1px solid var(--hair)}
+
+.hud{position:sticky;top:0;z-index:30;background:var(--ink);color:var(--stock);margin:0 -22px 30px;padding:11px 22px 0}
+@media (max-width:430px){.hud{margin:0 -15px 24px;padding:9px 15px 0}}
+.hud-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hud-who{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hud-who b{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:0;text-transform:uppercase;opacity:1;display:block;line-height:1.1;color:var(--stock)}
+.hud-clock{font-family:var(--display);font-weight:800;font-size:44px;line-height:.92;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hud-clock.warn{color:#FFC24D}
+.hud-clock.crit{color:var(--pink)}
+.hud-track{height:5px;background:rgba(234,231,222,.2);margin:9px -22px 0}
+@media (max-width:430px){.hud-track{margin:9px -15px 0}}
+.hud-track i{display:block;height:100%;background:var(--pink);width:0;transition:width .22s ease}
+
+.qtop{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin:0 0 16px}
+.qbig{font-family:var(--display);font-weight:800;font-size:46px;line-height:.85;letter-spacing:-.025em}
+.qof{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:4px 9px;margin-top:4px}
+.chip.easy{background:var(--stock-3);color:var(--ink)}
+.chip.medium{background:var(--blue);color:#fff}
+.chip.hard{background:var(--pink);color:#fff}
+.chip.pts{background:transparent;color:var(--ink-2);border:1px solid var(--hair)}
+
+.stem{font-size:22px;line-height:1.36;font-weight:500;letter-spacing:-.011em;margin:0 0 20px;text-wrap:pretty}
+.stem code,.opt code,.exp code{font-family:var(--mono);font-size:.82em;background:var(--stock-2);padding:1px 5px;border-bottom:1px solid var(--hair)}
+:root[data-theme="dark"] .stem code,:root[data-theme="dark"] .opt code{background:var(--stock-3)}
+
+.slab{background:var(--slab);margin:0 0 22px;overflow:hidden}
+.slab-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(228,225,216,.5);padding:8px 14px 0}
+.slab pre{margin:0;padding:10px 14px 15px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.62;color:var(--slab-ink);white-space:pre;-webkit-font-smoothing:auto}
+
+.opts{margin:0 0 28px;border-top:2px solid var(--ink)}
+.opt{
+  display:grid;grid-template-columns:44px minmax(0,1fr);gap:0;align-items:start;
+  width:100%;text-align:left;background:transparent;border:0;
+  border-bottom:1px solid var(--hair);padding:0;color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.42;transition:background .1s ease;
+}
+.opt .k{font-family:var(--display);font-weight:800;font-size:23px;line-height:1;color:var(--ink-3);padding:15px 0 14px}
+.opt .x{padding:16px 6px 15px 0;min-width:0;overflow-wrap:break-word}
+.opt:hover:not(:disabled){background:var(--stock-2)}
+.opt:active:not(:disabled){background:var(--stock-3)}
+.opt:hover:not(:disabled) .k{color:var(--pink)}
+.opt.sel{background:var(--ink);color:var(--stock)}
+.opt.sel .k{color:var(--stock)}
+.opt.sel code{background:rgba(234,231,222,.16);color:var(--stock);border-bottom-color:transparent}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--blue);color:#fff}
+.opt.right .k{color:#fff}
+.opt.right code{background:rgba(255,255,255,.18);color:#fff;border-bottom-color:transparent}
+.opt.wrong{background:var(--pink);color:#fff}
+.opt.wrong .k{color:#fff}
+.opt.wrong code{background:rgba(255,255,255,.18);color:#fff;border-bottom-color:transparent}
+.opt .mark{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.82;display:inline-block;margin-left:10px;white-space:nowrap}
+
+.nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin:0 0 40px}
+.nav .sp{flex:1;min-width:0}
+
+.gridwrap{border-top:1px solid var(--hair);padding-top:20px}
+.gridwrap h3{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:0 0 12px}
+.grid{display:flex;flex-wrap:wrap;gap:4px}
+.gq{width:34px;height:34px;border:1px solid var(--hair);background:transparent;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-3);display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.gq:hover{border-color:var(--pink);color:var(--pink)}
+.gq.done{background:var(--stock-3);color:var(--ink);border-color:var(--stock-3)}
+.gq.now{background:var(--pink);color:#fff;border-color:var(--pink)}
+
+.scoreline{display:flex;align-items:flex-end;gap:clamp(16px,4vw,40px);flex-wrap:wrap;margin:0 0 6px}
+.scorenum{font-family:var(--display);font-weight:900;font-size:clamp(110px,26vw,220px);line-height:.76;letter-spacing:-.045em;color:var(--pink)}
+.scoremeta{padding-bottom:12px}
+.scoremeta .of{font-family:var(--display);font-weight:700;font-size:clamp(30px,6vw,46px);line-height:.9;text-transform:uppercase;color:var(--ink);letter-spacing:-.018em}
+.scoremeta .sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-top:10px;line-height:1.9}
+.verdict{display:inline-block;font-family:var(--display);font-weight:800;font-size:23px;text-transform:uppercase;letter-spacing:.01em;padding:8px 16px 6px;margin:12px 0 34px;color:#fff}
+
+.brk{margin:0 0 42px;border-top:2px solid var(--ink)}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--hair)}
+.brow .bl{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.brow .bmeter{height:12px;background:var(--stock-3);margin-top:8px;max-width:420px}
+.brow .bmeter i{display:block;height:100%}
+.brow .bv{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
+
+.rev{margin-top:10px}
+.rev .intro{font-size:16px;color:var(--ink-2);margin:0 0 20px;max-width:56ch}
+.rq{border-bottom:1px solid var(--hair)}
+.rq:first-of-type{border-top:2px solid var(--ink)}
+.rq summary{cursor:pointer;padding:15px 0;list-style:none;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:start;font-size:16.5px;line-height:1.42;font-weight:500}
+.rq summary::-webkit-details-marker{display:none}
+.rq .mk{font-family:var(--display);font-weight:800;font-size:25px;line-height:1.05}
+.rq .mk.y{color:var(--blue)}
+.rq .mk.n{color:var(--pink)}
+.rq .sm{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;padding-top:6px}
+.rq[open] summary{padding-bottom:10px}
+.rbody{padding:0 0 22px}
+.rbody .opts{margin-bottom:0;border-top:1px solid var(--hair)}
+.noans{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);padding:12px 0 0;font-weight:700}
+.exp{background:var(--slab);color:var(--slab-ink);padding:18px 20px;margin-top:18px}
+.exp b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);margin-bottom:9px;font-weight:700}
+.exp span{display:block;font-size:16.5px;line-height:1.58}
+.exp code{background:rgba(228,225,216,.14);color:var(--slab-ink);border-bottom:0;padding:1px 5px}
+
+.colophon{margin-top:70px;padding-top:16px;border-top:5px solid var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:2.1}
+.colophon b{color:var(--ink-2);font-weight:400}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:120ms!important;
+    transition-property:opacity,color,background-color,border-color!important}
+  .stamp:hover:not(:disabled),.stamp:active:not(:disabled){transform:none}
+}
+@media (prefers-reduced-transparency:reduce){ body::before{opacity:.22} }
+@media (prefers-contrast:more){
+  :root{--hair:rgba(23,23,27,.58);--ink-2:#2A2A32;--ink-3:#4A4A54}
+  :root[data-theme="dark"]{--hair:rgba(234,231,222,.58)}
+  body::before{opacity:0}
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+<!-- ============ GATE ============ -->
+<section id="gate">
+
+  <div class="press">
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+    <span>EC341 &middot; SVNIT Surat</span>
+    <span class="sp"></span>
+    <a class="pdfget" href="../pdf/quiz-dip.pdf" download title="The 40 questions as a printable paper, with the answer key">Paper&nbsp;PDF</a>
+    <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  </div>
+
+  <div class="lockup">
+    <p class="kicker">Digital Image Processing &mdash; one shot each</p>
+    <h1>The Digital<span class="l2">Image</span><span class="l3">Quiz</span></h1>
+  </div>
+  <div class="rule-heavy"></div>
+
+  <p class="standfirst">Forty questions pulled straight out of the twenty course lectures. <b>Two thirds of the marks sit in the hard twenty</b> &mdash; so the easy ones will not save you, and the board will not lie.</p>
+
+  <div class="specs">
+    <div><b>40</b><span>questions</span></div>
+    <div><b>90</b><span>points</span></div>
+    <div><b>45:00</b><span>on the clock</span></div>
+    <div><b>1</b><span>attempt only</span></div>
+  </div>
+
+  <div class="weight">
+    <h2>Where the marks are</h2>
+    <div class="wrow"><div class="wbar e"><span>10 easy</span></div><div class="wpts">10 pts</div></div>
+    <div class="wrow"><div class="wbar m"><span>10 medium</span></div><div class="wpts">20 pts</div></div>
+    <div class="wrow"><div class="wbar h"><span>20 hard</span></div><div class="wpts">60 pts</div></div>
+    <p class="wnote">A hard question is worth three easy ones. Nobody tops this board by farming the recall questions.</p>
+  </div>
+
+  <div class="rule-thin"></div>
+
+  <div class="rules">
+    <h2>House rules</h2>
+    <ol>
+      <li><p><strong>One attempt per name.</strong> Once your name is on the board it can never sit the quiz again, so pick the name you want your friends to see.</p></li>
+      <li><p><strong>The clock does not stop.</strong> It starts when you press START and at 45:00 whatever you have is submitted for you.</p></li>
+      <li><p>Jump between questions and change your mind as often as you like &mdash; nothing is locked until you submit.</p></li>
+      <li><p>Close the tab by accident and you have not lost it. Reopen the link and you land on the same question with the time that was left.</p></li>
+      <li><p><strong>A tie goes to whoever finished faster.</strong> Think, but do not sit there admiring the question.</p></li>
+    </ol>
+  </div>
+
+  <div class="entry">
+    <label class="lab" for="pname">Sign the sheet &mdash; this is what goes on the board</label>
+    <div class="fieldrow">
+      <input type="text" id="pname" maxlength="40" placeholder="Arjun" autocomplete="off" spellcheck="false">
+      <button class="stamp" id="startBtn">Start &rarr;</button>
+    </div>
+    <p class="msg" id="gateMsg"></p>
+  </div>
+
+  <div class="lb" id="gateLb">
+    <div class="lb-head">
+      <h2>The board</h2>
+      <span class="lb-note" id="gateLbNote">connecting&hellip;</span>
+    </div>
+    <div class="board" id="gateLbBody"><div class="lb-empty">Loading standings&hellip;</div></div>
+  </div>
+
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" hidden>
+  <div class="hud">
+    <div class="hud-row">
+      <div class="hud-who">Sitting<b id="barName">&mdash;</b></div>
+      <div class="hud-clock" id="clock">45:00</div>
+    </div>
+    <div class="hud-track"><i id="track"></i></div>
+  </div>
+
+  <div class="qtop">
+    <div>
+      <div class="qbig" id="qbig">01</div>
+      <div class="qof" id="qn">of 40</div>
+    </div>
+    <span class="chip" id="qtag">easy</span>
+    <span class="chip pts" id="qpts">1 pt</span>
+  </div>
+
+  <p class="stem" id="stem"></p>
+  <div id="stemCode"></div>
+  <div class="opts" id="opts"></div>
+
+  <div class="nav">
+    <button class="plain" id="prevBtn">&larr; Back</button>
+    <button class="plain" id="nextBtn">Next &rarr;</button>
+    <span class="sp"></span>
+    <button class="stamp ink" id="submitBtn">Hand it in</button>
+  </div>
+
+  <div class="gridwrap">
+    <h3><span id="answeredCount">0</span> of 40 answered</h3>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section id="result" hidden>
+  <div class="press">
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+    <span id="resTitle">Final result</span>
+    <span class="sp"></span>
+    <a class="pdfget" href="../pdf/quiz-dip.pdf" download title="The 40 questions as a printable paper, with the answer key">Paper&nbsp;PDF</a>
+    <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+    <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  </div>
+
+  <div class="scoreline">
+    <div class="scorenum" id="resScore">0</div>
+    <div class="scoremeta">
+      <div class="of">out of 90</div>
+      <div class="sub" id="resSub"></div>
+    </div>
+  </div>
+  <div class="verdict" id="resBand"></div>
+
+  <div class="brk" id="resBrk"></div>
+
+  <div class="lb">
+    <div class="lb-head">
+      <h2>The board</h2>
+      <span class="lb-note" id="resLbNote">connecting&hellip;</span>
+    </div>
+    <div class="board" id="resLbBody"><div class="lb-empty">Loading standings&hellip;</div></div>
+  </div>
+
+  <div class="rev">
+    <h2>The answer key</h2>
+    <p class="intro">Every question, what you picked, what was right, and why &mdash; with the course chapter to go back to.</p>
+    <div id="review"></div>
+  </div>
+</section>
+
+<div class="colophon">
+  <b>The Digital Image Quiz</b> &middot; set from the twenty EC341 lectures, DoECE, SVNIT Surat<br>
+  easy 1 pt &middot; medium 2 pts &middot; hard 3 pts &middot; 90 points on the sheet
+</div>
+
+</div>
+
+<script>
+/* ======================================================================
+   ###  CONFIG  —  PASTE YOUR TWO SUPABASE VALUES BETWEEN THE QUOTES  ###
+
+   Supabase dashboard -> Project Settings -> API
+     SUPABASE_URL = the "Project URL"        e.g. https://abcdefgh.supabase.co
+     SUPABASE_KEY = the "anon public" key    (a long string starting eyJ...)
+
+   The anon key is meant to be public. The row-level-security policies on
+   the table are what protect the data, not secrecy of this key.
+   ==================================================================== */
+var SUPABASE_URL   = "https://trlbvgevoznwnbbihigk.supabase.co";
+var SUPABASE_KEY   = "sb_publishable_dDG_fHL2Pl8ASbUGl6w0rQ_H1iMh7je";
+var SUPABASE_TABLE = "dip_quiz_scores";
+
+/*  NEVER put the service_role key or the sb_secret_ key in this file.
+    They ignore row-level security. Only the publishable key belongs here. */
+/* ==================================================================== */
+
+
+/* ======================================================================
+   QUESTION BANK — 10 easy, 10 medium, 20 hard
+   ==================================================================== */
+var BANK = [
+/* ---------------- EASY (1 pt) ---------------- */
+{d:"easy",s:"In the image model `f(x, y)`, what does the value of f at a point represent?",
+ o:["The position of that pixel in the row","The intensity, or brightness, at that point","The number of colour channels","The size of the image in bytes"],a:1,
+ e:"x and y are the spatial coordinates, and the amplitude of f at any pair of coordinates is called the intensity or gray level of the image at that point. When x, y and f are all whole numbers, the image is a digital image.",ch:1},
+
+{d:"easy",s:"In an 8-bit grayscale image, which value is pure black?",
+ o:["255","128","0","1"],a:2,
+ e:"An 8-bit pixel holds one byte, so it can take 256 values from 0 to 255. By convention 0 is black and 255 is white, and everything in between is a shade of gray.",ch:1},
+
+{d:"easy",s:"Sampling and quantization digitise two different things. Sampling digitises the…",
+ o:["coordinates","amplitude","file format","colour model"],a:0,
+ e:"Sampling fixes how many points of the scene are measured, so it fixes M × N, the size of the image. Quantization fixes how many brightness values each of those points is allowed to take, so it fixes L, the number of gray levels.",ch:4},
+
+{d:"easy",s:"An image uses k bits per pixel. How many gray levels does it have?",
+ o:["k","2k","2 raised to the power k","k squared"],a:2,
+ e:"L = 2^k. So 1 bit gives 2 levels, 4 bits give 16, and 8 bits give 256. The intensity values are whole numbers in the interval [0, L−1].",ch:6},
+
+{d:"easy",s:"How many pixels are in the set N₄(p)?",
+ o:["2","4","8","9"],a:1,
+ e:"N₄(p) holds the pixels above, below, left and right of p — the ones sharing a full side. The four corner pixels form N_D(p), and the two sets joined together make N₈(p), which has eight.",ch:7},
+
+{d:"easy",s:"Which distance measure is known as the city-block distance?",
+ o:["The Euclidean distance","D₄","D₈","D_m"],a:1,
+ e:"D₄(p,q) = |x−s| + |y−t|. It is called city-block because only horizontal and vertical moves are allowed, like walking in a city laid out in a rectangular grid of streets. Pixels at equal D₄ distance form a diamond.",ch:9},
+
+{d:"easy",s:"What is the negative transformation of an image with gray levels in [0, L−1]?",
+ o:["`s = L - 1 - r`","`s = c log(1 + r)`","`s = c r^γ`","`s = r / (L - 1)`"],a:0,
+ e:"For an 8-bit image that is s = 255 − r. It reverses the intensity levels, and it is suited to enhancing white or gray detail embedded in dark regions, especially when the black area is dominant in size — an X-ray, for example.",ch:16},
+
+{d:"easy",s:"Image enhancement is described as subjective. Why?",
+ o:["Because it uses random numbers","Because the viewer is the ultimate judge of how well a particular method worked","Because it can only be done by hand","Because it always destroys information"],a:1,
+ e:"There is no general theory of image enhancement — it is problem-oriented, and a method that suits X-ray images may be wrong for infrared ones. Restoration is the opposite: it is objective, because it is built on a mathematical model of the degradation.",ch:15},
+
+{d:"easy",s:"Which band of the electromagnetic spectrum has the highest energy per photon?",
+ o:["Radio waves","Microwaves","X-rays","Gamma rays"],a:3,
+ e:"Ordered by falling energy per photon: gamma rays, X-rays, ultraviolet, visible, infrared, microwaves, radio waves. Wavelength runs the other way, so gamma rays are the shortest and radio waves the longest.",ch:3},
+
+{d:"easy",s:"In the histogram `h(rk) = nk`, what is nk?",
+ o:["The kth gray level itself","The number of pixels in the image having gray level rk","The probability of gray level rk","The total number of pixels in the image"],a:1,
+ e:"The histogram is a plot of the number of occurrences of each gray level against the gray level value. Dividing every nk by the total number of pixels gives the normalized histogram p(rk) = nk/MN, whose components sum to 1.",ch:19},
+
+/* ---------------- MEDIUM (2 pts) ---------------- */
+{d:"medium",s:"How many bits are needed to store a 512 × 512 image with 256 gray levels?",
+ o:["262,144","524,288","2,097,152","16,777,216"],a:2,
+ e:"256 = 2⁸, so k = 8. Then b = M × N × k = 512 × 512 × 8 = 2,097,152 bits. Divide by 8 for bytes: 262,144 bytes, which is 256 KB.",ch:6},
+
+{d:"medium",s:"For p = (2, 1) and q = (6, 4), what are D₄ and D₈?",
+ o:["5 and 5","7 and 4","4 and 7","5 and 4"],a:1,
+ e:"The differences are 4 and 3. D₄ = 4 + 3 = 7, D₈ = max(4, 3) = 4, and the Euclidean distance is √25 = 5. Notice the order that always holds: D₈ ≤ De ≤ D₄.",ch:9},
+
+{d:"medium",s:"A 3 × 3 matrix is convolved with a 2 × 2 kernel. What is the size of the result?",
+ o:["3 × 3","2 × 2","4 × 4","6 × 6"],a:2,
+ e:"The rule is (M₁+N₁−1) × (M₂+N₂−1), applied to each direction separately: (3+2−1) × (3+2−1) = 4 × 4. Add the sizes and subtract one — never multiply them.",ch:12},
+
+{d:"medium",s:"An image is too dark. Which value of γ should be used in `s = c r^γ`?",
+ o:["γ greater than 1","γ less than 1","γ exactly 1","γ equal to 0"],a:1,
+ e:"A fractional γ bulges the curve above the diagonal, mapping a narrow range of dark inputs into a wide range of outputs, so the picture brightens. γ greater than 1 does the opposite and is the cure for a washed-out image.",ch:16},
+
+{d:"medium",s:"Why is the histogram usually normalized by dividing every count by the total number of pixels?",
+ o:["To make the image brighter","So that each value estimates the probability of that gray level, and the whole histogram sums to 1","To remove noise from the image","To convert the image to binary"],a:1,
+ e:"p(rk) = nk/MN turns counts into probabilities. That is what allows the gray levels to be treated as a random variable, which is the whole basis of histogram equalization.",ch:19},
+
+{d:"medium",s:"An image is reduced from 1024 × 1024 to 256 × 256. What percentage of the pixels is discarded?",
+ o:["75 %","93.75 %","87.5 %","99.6 %"],a:1,
+ e:"1,048,576 pixels become 65,536, so 983,040 are lost — 93.75 %. Notice the side is divided by 4 but the pixel count by 16, because area goes as the square.",ch:6},
+
+{d:"medium",s:"In bit-plane slicing of an 8-bit image, which plane carries most of the visually significant information?",
+ o:["Plane 1, the least significant bit","Plane 4","Plane 8, the most significant bit","All planes carry equal information"],a:2,
+ e:"The higher-order bits contain the majority of the visually significant data. Plane 8 alone still looks like the picture, while plane 1 looks close to random noise.",ch:18},
+
+{d:"medium",s:"What problem does m-adjacency solve?",
+ o:["It makes the image file smaller","It removes the ambiguity of the multiple paths that 8-adjacency allows","It speeds up convolution","It converts colour images to gray"],a:1,
+ e:"Under 8-adjacency two pixels can be joined in more than one way at once, so 'the path' between them is not unique. m-adjacency allows a corner step only when there is no way round through a common side neighbour, which leaves exactly one path.",ch:7},
+
+{d:"medium",s:"The log transformation `s = c log(1 + r)` is mainly used to…",
+ o:["sharpen edges","compress the dynamic range, for example of a Fourier spectrum","convert an image to binary","rotate an image"],a:1,
+ e:"A Fourier spectrum can span 0 to 10⁶ or more, so on a 256-level display everything but the brightest spike looks black. The log squeezes a range of 0 to 1.5 × 10⁶ down to about 0 to 6.2, and the detail appears. It expands dark values and compresses bright ones.",ch:16},
+
+{d:"medium",s:"A grayscale image is converted into an RGB image. What is the result?",
+ o:["The picture gains colour","The array becomes three-channel but all three channels are equal, so it still looks gray","The picture becomes brighter","The conversion is impossible"],a:1,
+ e:"The shape changes from (rows, cols) to (rows, cols, 3), but copying one plane three times cannot invent colour that was thrown away earlier. The conversion changes the container, not the content.",ch:5},
+
+/* ---------------- HARD (3 pts) ---------------- */
+{d:"hard",s:"For the image segment below with V = {1}, are the pixels at (0,2) and (1,1) m-adjacent? Rows and columns are counted from 0.",
+ code:"0  1  1\n0  1  0\n0  0  1",
+ o:["Yes, because they are diagonal neighbours and both values are in V","No, because their common 4-neighbour (0,1) has the value 1, which is in V","Yes, because every 8-adjacent pair is also m-adjacent","No, because diagonal pixels can never be m-adjacent"],a:1,
+ e:"Test condition (ii): N₄(0,2) ∩ N₄(1,1) = {(0,1), (1,2)}. The value at (0,1) is 1, which is in V, so a way round already exists and the corner step is refused. Compare (1,1) and (2,2), whose common neighbours (1,2) and (2,1) are both 0 — those two are m-adjacent.",ch:7},
+
+{d:"hard",s:"Using the same segment and V = {1}, which statement about the route from (0,2) to (2,2) is correct?",
+ code:"0  1  1\n0  1  0\n0  0  1",
+ o:["There is a 4-path of length 2","The shortest 8-path is 2 steps long, and two different 8-paths exist","The shortest m-path is 2 steps long","No path exists under any of the three rules"],a:1,
+ e:"No 4-path exists at all, because (1,1) and (2,2) meet only at a corner. Under 8-adjacency the shortest route is (0,2)→(1,1)→(2,2), but (0,2)→(0,1)→(1,1)→(2,2) is equally valid, so there are two. m-adjacency leaves exactly one path, of length 3.",ch:8},
+
+{d:"hard",s:"A 64 × 64 image with L = 8 has 790, 1023, 850, 656, 329, 245, 122 and 81 pixels at levels 0 to 7. After histogram equalization, what does the level r = 2 become?",
+ o:["3","4","5","6"],a:2,
+ e:"MN = 4096. The cumulative count up to level 2 is 790 + 1023 + 850 = 2663, so the cumulative probability is 0.65. Then s = 7 × 0.65 = 4.55, which rounds to 5.",ch:20},
+
+{d:"hard",s:"For that same image, how many distinct gray levels remain after histogram equalization?",
+ o:["8","7","5","4"],a:2,
+ e:"The eight values of sk come out as 1, 3, 5, 6, 6, 7, 7, 7. Levels 3 and 4 both land on 6, and levels 5, 6 and 7 all land on 7, so only five distinct output levels survive: 1, 3, 5, 6 and 7.",ch:20},
+
+{d:"hard",s:"Why is the histogram after discrete equalization not perfectly uniform, even though the continuous proof says it should be?",
+ o:["Because the formula is wrong for digital images","Because rounding forces several input levels onto the same output level","Because the image is too small","Because the cumulative distribution is not monotonic"],a:1,
+ e:"In the continuous case ps(s) = 1/(L−1) exactly, whatever the input density. In the discrete case the values of sk must be rounded to whole numbers, which merges levels and leaves gaps, so a uniform histogram cannot be guaranteed.",ch:20},
+
+{d:"hard",s:"x is 2 × 2 and h is 2 × 2. What is the size of the block Toeplitz matrix used to compute their convolution?",
+ o:["4 × 4","9 × 4","9 × 9","16 × 4"],a:1,
+ e:"The result is 3 × 3, so it has 9 elements and the matrix needs 9 rows. The other matrix is written as a column of its 4 elements, so the matrix needs 4 columns. Rows = number of output pixels, columns = number of kernel pixels.",ch:14},
+
+{d:"hard",s:"For the two matrices below, what is y(1,1), the centre value of the 3 × 3 convolution result?",
+ code:"x = [ 1  2 ]        h = [ 5  6 ]\n    [ 3  4 ]            [ 7  8 ]",
+ o:["32","40","60","22"],a:2,
+ e:"Four products land on (1,1): x(0,0)h(1,1) + x(0,1)h(1,0) + x(1,0)h(0,1) + x(1,1)h(0,0) = 1×8 + 2×7 + 3×6 + 4×5 = 8 + 14 + 18 + 20 = 60. The full answer is [5 16 12; 22 60 40; 21 52 32].",ch:12},
+
+{d:"hard",s:"Which check can you always use to verify a 2D convolution answer?",
+ o:["The result must come out square","The sum of all values in y equals (sum of x) × (sum of h)","y must contain no zeros","y(0,0) is always zero"],a:1,
+ e:"Two free checks exist. The corner y(0,0) is always just x(0,0)·h(0,0), and the grand total obeys Σy = (Σx)(Σh). For x = [1 2; 3 4] and h = [5 6; 7 8] that is 10 × 26 = 260, and the 3 × 3 answer does add up to 260.",ch:12},
+
+{d:"hard",s:"Why can the D_m distance between two fixed pixels change while D₄ and D₈ between them stay the same?",
+ o:["Because D₄ and D₈ also change, but more slowly","Because m-adjacency refuses a corner step whenever a common 4-neighbour is in V, so the path has to detour","Because the coordinates of the pixels change","It cannot change — D_m depends only on the coordinates"],a:1,
+ e:"D₄ and D₈ are formulas on the coordinates alone, so nothing else can affect them. D_m is the length of the shortest m-path, and m-adjacency looks at the values of the neighbouring pixels. In the standard example the answer moves between 2, 3 and 4 as p₁ and p₃ change from 0 to 1.",ch:9},
+
+{d:"hard",s:"A monitor has a gamma of 2.5. What transformation must be applied to the image before it is displayed?",
+ o:["`s = c r^2.5`","`s = c r^0.4`","`s = 255 - r`","`s = c log(1 + r)`"],a:1,
+ e:"Gamma correction pre-distorts the image with the inverse power, s = c r^(1/γ) = c r^0.4. The two non-linearities then cancel, since (r^0.4)^2.5 = r. Without it the display crushes the mid-tones and the picture looks too dark.",ch:16},
+
+{d:"hard",s:"In histogram matching, a pixel has sk = 3 after equalization. The rounded table of G(zq) for q = 0 to 7 is 0, 0, 0, 1, 2, 5, 6, 7. Which zq does it map to?",
+ o:["z₃","z₄","z₅","z₆"],a:1,
+ e:"Look down the table for the value closest to 3. G(z₄) = 2 is one away, while G(z₅) = 5 is two away, so q = 4. This is why the inverse of G never has to be computed — you tabulate G and search it.",ch:21},
+
+{d:"hard",s:"Counting the centre pixel itself, how many pixels satisfy D₄ ≤ 2 from a given pixel?",
+ o:["9","13","25","5"],a:1,
+ e:"The D₄ contours form a diamond: 1 pixel at distance 0, 4 at distance 1 and 8 at distance 2, giving 13. For D₈ the contours are squares, so D₈ ≤ 2 covers a 5 × 5 block, which is 25 pixels.",ch:9},
+
+{d:"hard",s:"The pixel value 167 is rebuilt using only bit planes 8 and 7. What value results?",
+ code:"167 in binary  =  1 0 1 0 0 1 1 1\nplane weights  = 128 64 32 16  8  4  2  1",
+ o:["160","128","167","64"],a:1,
+ e:"Plane n contributes 2^(n−1). Plane 8 holds a 1 and is worth 128; plane 7 holds a 0 and is worth nothing. Everything below is discarded, so the rebuilt value is 128 + 0 = 128. Keeping only plane 8 can produce just two values, 0 and 128.",ch:18},
+
+{d:"hard",s:"Why does 4-connectivity usually find more objects in a binary image than 8-connectivity does?",
+ o:["Because it scans the image faster","Because it refuses corner contacts, so pixels touching only at a corner are counted as separate objects","Because it ignores the background","Because it uses a larger neighbourhood"],a:1,
+ e:"4-adjacency is the strictest rule and 8-adjacency the loosest, so a picture usually breaks into more objects under 4-connectivity. m-connectivity gives the same object count as 8-connectivity, because it only removes a corner link when a route round already exists — it changes the paths, never the objects.",ch:8},
+
+{d:"hard",s:"In a piecewise linear contrast stretch, what happens if r₁ = r₂, s₁ = 0 and s₂ = L − 1?",
+ o:["Nothing changes, because the function stays linear","It becomes a thresholding function, producing a binary image","It becomes the negative transformation","It becomes the identity transformation"],a:1,
+ e:"The middle segment turns vertical, so every input below the control point goes to 0 and every input above it goes to L−1. The other special case to remember is r₁ = s₁ and r₂ = s₂, which gives a straight line and changes nothing at all.",ch:17},
+
+{d:"hard",s:"A kernel made of four 1s, one step away from the origin in each direction, has the frequency response 2cos ω₁ + 2cos ω₂. What kind of filter is it?",
+ o:["A high-pass sharpening filter","A low-pass smoothing filter, because the response peaks at ω = 0","A band-reject filter","An all-pass filter"],a:1,
+ e:"Substituting z = e^(jω) and using e^(jθ) + e^(−jθ) = 2cos θ gives that response. It reaches its maximum of 4 at ω₁ = ω₂ = 0 and falls away as the frequency rises, so low frequencies — the smooth areas — are passed and high frequencies are suppressed.",ch:13},
+
+{d:"hard",s:"In the adaptive rule g = C·f applied when m_Sxy ≤ k₀m_G AND k₁σ_G ≤ σ_Sxy ≤ k₂σ_G, what does the lower limit k₁σ_G reject?",
+ o:["Bright regions of the image","Completely flat patches, which contain nothing to reveal","Regions that already have high contrast","Pixels on the border of the image"],a:1,
+ e:"The first condition picks patches that are darker than the image as a whole. The second says the patch must have some variation but not much: the lower limit throws away perfectly uniform patches where there is nothing hidden, and the upper limit k₂σ_G throws away patches that already have good contrast.",ch:22},
+
+{d:"hard",s:"Why does global histogram equalization fail to reveal small squares hidden inside larger dark squares?",
+ o:["Because the small squares are brighter than the background","Because they are too close in gray level to the larger squares and too small in size to influence the global histogram","Because equalization only works on colour images","Because the histogram has been normalized"],a:1,
+ e:"A global transformation is built from the gray-level content of the entire image, and a few hundred pixels cannot move a histogram computed from a quarter of a million. Local histogram equalization computes the transformation inside a small window, maps only the centre pixel, and so brings the small areas out.",ch:22},
+
+{d:"hard",s:"Which of these conversions throws information away and cannot be undone?",
+ o:["RGB to HSV","RGB to YCbCr","RGB to grayscale","YCbCr back to RGB"],a:2,
+ e:"HSV and YCbCr only rewrite the same information in another form, so the original comes back to within a gray level or two of rounding. Grayscale replaces three numbers per pixel by one, and the colour is gone for good — which is why turning a gray image back into three channels only produces three identical planes.",ch:5},
+
+{d:"hard",s:"For two object pixels the formula gives D₄ = 2, yet no 4-path exists between them inside the object. Why is that not a contradiction?",
+ o:["The formula is being applied wrongly","The formula assumes every pixel in between may be used, while a real path must stay on pixels whose value is in V","Because D₄ applies only to colour images","Because the image is too small for the formula to hold"],a:1,
+ e:"D₄ and D₈ are the shortest 4-path and 8-path lengths only when the whole rectangle between the two pixels is available. Inside a binary image the path is restricted to pixels in V, so the true path can be longer than the formula says, or may not exist at all.",ch:9}
+];
+
+/* ======================================================================
+   Constants / helpers
+   ==================================================================== */
+var PTS = {easy:1, medium:2, hard:3};
+var TOTAL_POINTS = 90;
+var LIMIT_MS = 45 * 60 * 1000;
+var LS_KEY = "dipquiz.v1";
+var LETTERS = ["A","B","C","D","E","F"];
+var POLL_MS = 12000;
+
+var $ = function (id) { return document.getElementById(id); };
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function fmt(s){ return esc(s).replace(/`([^`]+)`/g, function(_,c){ return "<code>"+c+"</code>"; }); }
+function pad2(n){ return (n<10?"0":"")+n; }
+function slugify(name){
+  var s = name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60);
+  if (s) return s;
+  var h=0,i; for(i=0;i<name.length;i++){ h=(h*31+name.charCodeAt(i))>>>0; }
+  return "p-"+h.toString(36);
+}
+function mulberry(seed){
+  var t = seed>>>0;
+  return function(){
+    t += 0x6D2B79F5; var r=t;
+    r = Math.imul(r ^ (r>>>15), r|1);
+    r ^= r + Math.imul(r ^ (r>>>7), r|61);
+    return ((r ^ (r>>>14))>>>0)/4294967296;
+  };
+}
+function seedFrom(str){
+  var h=2166136261,i;
+  for(i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619); }
+  return h>>>0;
+}
+function shuffled(arr,rnd){
+  var a=arr.slice(),i,j,t;
+  for(i=a.length-1;i>0;i--){ j=Math.floor(rnd()*(i+1)); t=a[i];a[i]=a[j];a[j]=t; }
+  return a;
+}
+function mmss(ms){ if(ms<0)ms=0; var s=Math.floor(ms/1000); return Math.floor(s/60)+":"+pad2(s%60); }
+function readLS(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||"null"); }catch(e){ return null; } }
+function writeLS(o){ try{ localStorage.setItem(LS_KEY,JSON.stringify(o)); }catch(e){} }
+
+/* ======================================================================
+   STORE — Supabase on any host; the Claude artifact db inside claude.ai
+   ==================================================================== */
+var CONFIGURED = SUPABASE_URL.indexOf("PASTE_") === -1 && SUPABASE_KEY.indexOf("PASTE_") === -1;
+var IN_CLAUDE  = (typeof window.claude !== "undefined" && window.claude && typeof window.claude.use === "function");
+
+var Store = { kind: "none", ready: false };
+
+/* ---- Supabase (PostgREST) ---- */
+function sb(path, opts){
+  opts = opts || {};
+  var h = { "apikey": SUPABASE_KEY };
+  /* Tested against this project: sb_publishable_ keys work with apikey
+     alone, and also work when additionally sent as a Bearer token.
+     Legacy anon keys (JWTs, "eyJ...") expect the Bearer header, so add
+     it only for those. Sending the minimum that is known to work. */
+  if (/^ey/.test(SUPABASE_KEY)) h["Authorization"] = "Bearer " + SUPABASE_KEY;
+  if (opts.body) h["Content-Type"] = "application/json";
+  if (opts.prefer) h["Prefer"] = opts.prefer;
+  return fetch(SUPABASE_URL.replace(/\/+$/,"") + "/rest/v1/" + path, {
+    method: opts.method || "GET",
+    headers: h,
+    body: opts.body ? JSON.stringify(opts.body) : undefined
+  });
+}
+var SupabaseStore = {
+  kind: "supabase",
+  list: function(){
+    return sb(SUPABASE_TABLE+"?select=slug,name,score,correct,duration_ms,submitted_at&status=eq.done&order=score.desc,duration_ms.asc&limit=500")
+      .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(function(rows){
+        return rows.map(function(v){
+          return {
+            slug: v.slug, name: v.name || v.slug,
+            score: v.score||0, correct: v.correct||0,
+            durationMs: v.duration_ms||0,
+            submittedAt: v.submitted_at ? Date.parse(v.submitted_at) : 0,
+            status: "done"
+          };
+        });
+      });
+  },
+  claim: function(name, slug){
+    return sb(SUPABASE_TABLE, {
+      method:"POST", prefer:"return=minimal",
+      body:{ slug:slug, name:name, status:"playing", started_at:new Date().toISOString() }
+    }).then(function(r){
+      if (r.ok || r.status === 201) return {ok:true, recorded:true};
+      if (r.status === 409) {
+        return sb(SUPABASE_TABLE+"?slug=eq."+encodeURIComponent(slug)+"&select=name,status")
+          .then(function(r2){ return r2.ok ? r2.json() : []; })
+          .then(function(rows){
+            var st = rows && rows[0] ? rows[0].status : "done";
+            return { ok:false, msg: st === "done"
+              ? "“"+name+"” has already sat this quiz. One attempt each — that result is on the board below."
+              : "“"+name+"” has an attempt already running. If that was you, reopen the link on the device you started on." };
+          });
+      }
+      return r.text().then(function(t){
+        return {ok:false, msg:"The board refused that (HTTP "+r.status+"). "+(t||"").slice(0,140)};
+      });
+    }).catch(function(){
+      return {ok:false, msg:"Could not reach the board. Check your connection and try again."};
+    });
+  },
+  finish: function(p){
+    return sb(SUPABASE_TABLE+"?slug=eq."+encodeURIComponent(p.slug), {
+      method:"PATCH", prefer:"return=minimal",
+      body:{ status:"done", score:p.score, correct:p.correct, duration_ms:p.durationMs,
+             easy:p.easy, medium:p.medium, hard:p.hard,
+             submitted_at:new Date(p.submittedAt).toISOString() }
+    }).then(function(r){ return r.ok; }).catch(function(){ return false; });
+  },
+  /* push a finished attempt that was never recorded (recovers old players) */
+  backfill: function(p){
+    return sb(SUPABASE_TABLE, {
+      method:"POST", prefer:"return=minimal",
+      body:{ slug:p.slug, name:p.name, status:"done", score:p.score, correct:p.correct,
+             duration_ms:p.durationMs, easy:p.easy, medium:p.medium, hard:p.hard,
+             started_at:new Date(p.startedAt||p.submittedAt).toISOString(),
+             submitted_at:new Date(p.submittedAt).toISOString() }
+    }).then(function(r){ return r.ok || r.status===201 || r.status===409; })
+      .catch(function(){ return false; });
+  }
+};
+
+/* ---- Claude artifact db (only inside claude.ai) ---- */
+var ClaudeStore = {
+  kind: "claude", db: null,
+  list: function(){
+    var self = this;
+    return self.db.collection("scores").limit(500).get().then(function(snap){
+      return snap.docs.map(function(d){
+        var v = d.data() || {};
+        return { slug:d.id, name:v.name||d.id, score:v.score||0, correct:v.correct||0,
+                 durationMs:v.durationMs||0, submittedAt:v.submittedAt||0, status:v.status||"playing" };
+      }).filter(function(r){ return r.status === "done"; });
+    });
+  },
+  claim: function(name, slug){
+    var ref = this.db.doc("scores/"+slug);
+    return ref.get().then(function(snap){
+      var body = snap.exists ? snap.data() : null;
+      if (body && body.name) {
+        return { ok:false, msg: body.status === "done"
+          ? "“"+name+"” has already sat this quiz. One attempt each — that result is on the board below."
+          : "“"+name+"” has an attempt already running. If that was you, reopen the link on the device you started on." };
+      }
+      return ref.set({ name:name, slug:slug, status:"playing", score:0, correct:0,
+                       durationMs:0, easy:0, medium:0, hard:0,
+                       startedAt:Date.now(), submittedAt:0 })
+        .then(function(){ return {ok:true, recorded:true}; });
+    }).catch(function(){
+      return {ok:false, msg:"Could not reach the board. Try again in a moment."};
+    });
+  },
+  finish: function(p){
+    return this.db.doc("scores/"+p.slug).update({
+      status:"done", score:p.score, correct:p.correct, durationMs:p.durationMs,
+      easy:p.easy, medium:p.medium, hard:p.hard, submittedAt:p.submittedAt
+    }).then(function(){ return true; }).catch(function(){ return false; });
+  },
+  backfill: function(p){
+    return this.db.doc("scores/"+p.slug).set({
+      name:p.name, slug:p.slug, status:"done", score:p.score, correct:p.correct,
+      durationMs:p.durationMs, easy:p.easy, medium:p.medium, hard:p.hard,
+      startedAt:p.startedAt||p.submittedAt, submittedAt:p.submittedAt
+    }).then(function(){ return true; }).catch(function(){ return false; });
+  }
+};
+
+/* ======================================================================
+   State
+   ==================================================================== */
+var S = null, lbRows = [], lbReady = false, lbErr = null, tick = null, poll = null;
+
+function buildOrder(slug){
+  var rnd = mulberry(seedFrom(slug));
+  var bands = {easy:[], medium:[], hard:[]};
+  BANK.forEach(function(q,i){ bands[q.d].push(i); });
+  var order = shuffled(bands.easy,rnd).concat(shuffled(bands.medium,rnd)).concat(shuffled(bands.hard,rnd));
+  var optOrder = order.map(function(qi){
+    return shuffled(BANK[qi].o.map(function(_,k){ return k; }), rnd);
+  });
+  return {order:order, optOrder:optOrder};
+}
+
+/* ======================================================================
+   Leaderboard
+   ==================================================================== */
+function renderLb(bodyEl, noteEl){
+  if (!bodyEl) return;
+
+  if (Store.kind === "none") {
+    noteEl.textContent = "not set up";
+    bodyEl.innerHTML = '<div class="lb-empty">'
+      + (CONFIGURED
+          ? "The board could not be reached. Check the Supabase URL and key in this file."
+          : "This copy has no scoreboard configured yet. Open <code>index.html</code>, paste your Supabase <code>SUPABASE_URL</code> and <code>SUPABASE_KEY</code> at the top of the script, and redeploy.")
+      + " Everything else in the quiz still works, and any result is kept in this browser.</div>";
+    return;
+  }
+  if (!lbReady) { noteEl.textContent = "connecting…"; return; }
+  if (lbErr)    { noteEl.textContent = "board error";
+    bodyEl.innerHTML = '<div class="lb-empty">Could not load the board: '+esc(lbErr)+'</div>'; return; }
+
+  var rows = lbRows.slice();
+  rows.sort(function(a,b){
+    if (b.score !== a.score) return b.score - a.score;
+    if (a.durationMs !== b.durationMs) return a.durationMs - b.durationMs;
+    return a.submittedAt - b.submittedAt;
+  });
+  noteEl.textContent = rows.length + (rows.length === 1 ? " name up" : " names up");
+
+  if (!rows.length) {
+    bodyEl.innerHTML = '<div class="lb-empty">Nobody has finished yet. Put the first name up there.</div>';
+    return;
+  }
+  var mySlug = S ? S.slug : null;
+  var html = '<table><thead><tr><th></th><th>Name</th><th style="text-align:right">Score</th>'
+           + '<th style="text-align:right">Right</th><th style="text-align:right">Time</th></tr></thead><tbody>';
+  rows.forEach(function(r,i){
+    var cls = [];
+    if (i === 0) cls.push("lead");
+    if (r.slug === mySlug) cls.push("me");
+    html += "<tr"+(cls.length?' class="'+cls.join(" ")+'"':"")+">"
+      + '<td class="pos">'+pad2(i+1)+"</td>"
+      + '<td class="nm">'+esc(r.name)+"</td>"
+      + '<td class="num">'+r.score+"</td>"
+      + '<td class="num">'+r.correct+"/40</td>"
+      + '<td class="num">'+mmss(r.durationMs)+"</td></tr>";
+  });
+  bodyEl.innerHTML = html + "</tbody></table>";
+}
+function renderAllLb(){
+  renderLb($("gateLbBody"), $("gateLbNote"));
+  renderLb($("resLbBody"),  $("resLbNote"));
+}
+function refreshBoard(){
+  if (Store.kind === "none") { renderAllLb(); return Promise.resolve(); }
+  return Store.list().then(function(rows){
+    lbRows = rows; lbErr = null; lbReady = true; renderAllLb();
+  }).catch(function(e){
+    lbErr = (e && e.message) ? e.message : "unknown"; lbReady = true; renderAllLb();
+  });
+}
+function startPolling(){ stopPolling(); poll = setInterval(refreshBoard, POLL_MS); }
+function stopPolling(){ if (poll) { clearInterval(poll); poll = null; } }
+
+/* ======================================================================
+   Screens
+   ==================================================================== */
+function show(which){
+  $("gate").hidden   = which !== "gate";
+  $("quiz").hidden   = which !== "quiz";
+  $("result").hidden = which !== "result";
+  if (which !== "quiz" && tick) { clearInterval(tick); tick = null; }
+  if (which === "quiz") stopPolling(); else startPolling();
+}
+function gateMsg(t,k){ var el=$("gateMsg"); el.innerHTML=t; el.className="msg show "+(k||""); }
+function clearGateMsg(){ $("gateMsg").className="msg"; }
+
+$("startBtn").addEventListener("click", startQuiz);
+$("pname").addEventListener("keydown", function(e){ if (e.key === "Enter") startQuiz(); });
+
+function startQuiz(){
+  var raw = $("pname").value.trim().replace(/\s+/g," ");
+  if (raw.length < 2) { gateMsg("Put a name down first — at least two characters.","err"); return; }
+  var slug = slugify(raw);
+
+  var btn = $("startBtn");
+  btn.disabled = true; btn.textContent = "Checking…";
+  clearGateMsg();
+
+  var claim = (Store.kind === "none")
+    ? Promise.resolve({ok:true, recorded:false})
+    : Store.claim(raw, slug);
+
+  claim.then(function(res){
+    if (!res.ok) {
+      btn.disabled = false; btn.innerHTML = "Start &rarr;";
+      gateMsg(esc(res.msg), "err");
+      return;
+    }
+    var built = buildOrder(slug), now = Date.now();
+    S = { name:raw, slug:slug, order:built.order, optOrder:built.optOrder,
+          answers:{}, idx:0, startedAt:now, endsAt:now+LIMIT_MS,
+          status:"playing", recorded:res.recorded, synced:false };
+    writeLS(S);
+    enterQuiz();
+  });
+}
+
+/* ---------------- quiz ---------------- */
+function enterQuiz(){
+  show("quiz");
+  $("barName").textContent = S.name;
+  buildGrid(); renderQ(); startClock();
+}
+function startClock(){ if (tick) clearInterval(tick); updateClock(); tick = setInterval(updateClock,1000); }
+function updateClock(){
+  var left = S.endsAt - Date.now(), el = $("clock");
+  el.textContent = mmss(left);
+  el.className = "hud-clock" + (left<=60000 ? " crit" : (left<=300000 ? " warn" : ""));
+  if (left <= 0) { clearInterval(tick); tick = null; finish(true); }
+}
+function currentQ(){ return BANK[S.order[S.idx]]; }
+
+function renderQ(){
+  var q = currentQ(), perm = S.optOrder[S.idx];
+  $("qbig").textContent = pad2(S.idx+1);
+  $("qn").textContent = "of " + S.order.length;
+  var tag = $("qtag"); tag.textContent = q.d; tag.className = "chip " + q.d;
+  $("qpts").textContent = PTS[q.d] + (PTS[q.d]===1 ? " pt" : " pts");
+  $("stem").innerHTML = fmt(q.s);
+
+  var sc = $("stemCode");
+  if (q.code) {
+    sc.innerHTML = '<div class="slab"><div class="slab-l">Given</div><pre></pre></div>';
+    sc.querySelector("pre").textContent = q.code;
+  } else { sc.innerHTML = ""; }
+
+  var box = $("opts"); box.innerHTML = "";
+  perm.forEach(function(origIdx, shown){
+    var b = document.createElement("button");
+    b.className = "opt" + (S.answers[S.idx] === shown ? " sel" : "");
+    b.innerHTML = '<span class="k">'+LETTERS[shown]+'</span><span class="x">'+fmt(q.o[origIdx])+"</span>";
+    b.addEventListener("click", function(){ pick(shown); });
+    box.appendChild(b);
+  });
+
+  $("prevBtn").disabled = S.idx === 0;
+  $("nextBtn").disabled = S.idx === S.order.length-1;
+  updateGrid(); updateProgress();
+  window.scrollTo({top:0, behavior:"auto"});
+}
+function pick(shown){
+  S.answers[S.idx] = shown; writeLS(S); renderQ();
+  if (S.idx < S.order.length-1) setTimeout(function(){ go(S.idx+1); }, 170);
+}
+function go(i){ if (i<0 || i>=S.order.length) return; S.idx=i; writeLS(S); renderQ(); }
+$("prevBtn").addEventListener("click", function(){ go(S.idx-1); });
+$("nextBtn").addEventListener("click", function(){ go(S.idx+1); });
+
+function buildGrid(){
+  var g = $("grid"); g.innerHTML = "";
+  S.order.forEach(function(_,i){
+    var b = document.createElement("button");
+    b.className = "gq"; b.textContent = i+1;
+    b.addEventListener("click", function(){ go(i); });
+    g.appendChild(b);
+  });
+}
+function updateGrid(){
+  var kids = $("grid").children, i;
+  for (i=0;i<kids.length;i++){
+    kids[i].className = "gq" + (i===S.idx ? " now" : (S.answers[i]!==undefined ? " done" : ""));
+  }
+}
+function updateProgress(){
+  var n = Object.keys(S.answers).length;
+  $("answeredCount").textContent = n;
+  $("track").style.width = (n/S.order.length*100)+"%";
+}
+$("submitBtn").addEventListener("click", function(){
+  var n = Object.keys(S.answers).length, left = S.order.length-n;
+  var warn = left>0 ? "You have left "+left+(left===1?" question":" questions")+" blank. " : "";
+  if (confirm(warn+"Hand it in now? Nothing can be changed afterwards, and there is no second attempt.")) finish(false);
+});
+
+/* ---------------- scoring ---------------- */
+function grade(){
+  var score=0, correct=0, by={easy:0,medium:0,hard:0}, byMax={easy:0,medium:0,hard:0};
+  S.order.forEach(function(qi,i){
+    var q = BANK[qi]; byMax[q.d] += PTS[q.d];
+    var shown = S.answers[i];
+    if (shown === undefined) return;
+    if (S.optOrder[i][shown] === q.a) { score += PTS[q.d]; correct++; by[q.d] += PTS[q.d]; }
+  });
+  return {score:score, correct:correct, by:by, byMax:byMax};
+}
+function payloadFrom(st){
+  return { slug:st.slug, name:st.name, score:st.score, correct:st.correct,
+           durationMs:st.durationMs, easy:st.by.easy, medium:st.by.medium, hard:st.by.hard,
+           startedAt:st.startedAt, submittedAt:st.submittedAt };
+}
+function finish(auto){
+  if (S.status === "done") return;
+  if (tick) { clearInterval(tick); tick = null; }
+
+  var g = grade(), dur = Math.min(Date.now()-S.startedAt, LIMIT_MS);
+  S.status="done"; S.score=g.score; S.correct=g.correct;
+  S.by=g.by; S.byMax=g.byMax; S.durationMs=dur; S.auto=!!auto;
+  S.submittedAt=Date.now(); S.synced=false;
+  writeLS(S);
+
+  showResult();
+
+  if (Store.kind !== "none") {
+    var p = payloadFrom(S);
+    var send = S.recorded ? Store.finish(p) : Store.backfill(p);
+    send.then(function(ok){
+      if (ok) { S.synced = true; writeLS(S); }
+      refreshBoard();
+    });
+  }
+}
+
+/* ---------------- result ---------------- */
+function verdictFor(pct){
+  if (pct>=90) return {t:"Nailed it", c:"var(--blue)"};
+  if (pct>=75) return {t:"Strong sheet", c:"var(--blue)"};
+  if (pct>=60) return {t:"Solid pass", c:"var(--ink)"};
+  if (pct>=40) return {t:"Needs another read", c:"var(--pink)"};
+  return {t:"Back to chapter one", c:"var(--pink)"};
+}
+function showResult(){
+  show("result");
+  var pct = Math.round(S.score/TOTAL_POINTS*100);
+  $("resTitle").textContent = S.auto ? "Time up — submitted for you" : "Final result";
+  $("resScore").textContent = S.score;
+  $("resSub").innerHTML = S.correct+" of 40 right &nbsp;/&nbsp; "+pct+"% &nbsp;/&nbsp; "+mmss(S.durationMs)+" taken";
+
+  var v = verdictFor(pct), b = $("resBand");
+  b.textContent = v.t; b.style.background = v.c;
+  b.style.color = (v.c === "var(--ink)") ? "var(--stock)" : "#fff";
+
+  var by = S.by || {easy:0,medium:0,hard:0}, bm = S.byMax || {easy:10,medium:20,hard:60};
+  var inks = {easy:"var(--ink)", medium:"var(--blue)", hard:"var(--pink)"};
+  var html = "";
+  ["easy","medium","hard"].forEach(function(k){
+    var w = bm[k] ? Math.round(by[k]/bm[k]*100) : 0;
+    html += '<div class="brow"><div>'
+      + '<div class="bl">'+k+" &middot; "+PTS[k]+(PTS[k]===1?" pt each":" pts each")+"</div>"
+      + '<div class="bmeter"><i style="width:'+w+"%;background:"+inks[k]+'"></i></div></div>'
+      + '<div class="bv">'+by[k]+" / "+bm[k]+"</div></div>";
+  });
+  $("resBrk").innerHTML = html;
+
+  renderReview();
+  renderAllLb();
+}
+function renderReview(){
+  var wrap = $("review"); wrap.innerHTML = "";
+  S.order.forEach(function(qi,i){
+    var q = BANK[qi], perm = S.optOrder[i], shown = S.answers[i];
+    var chosenOrig = shown === undefined ? -1 : perm[shown];
+    var right = chosenOrig === q.a;
+
+    var d = document.createElement("details"); d.className = "rq";
+    var sum = document.createElement("summary");
+    sum.innerHTML = '<span class="mk '+(right?"y":"n")+'">'+(right?"✓":"✗")+"</span>"
+      + "<span>"+fmt(q.s)+"</span>"
+      + '<span class="sm">'+pad2(i+1)+" · "+q.d+"</span>";
+    d.appendChild(sum);
+
+    var body = document.createElement("div"); body.className = "rbody";
+    if (q.code) {
+      var slab = document.createElement("div"); slab.className = "slab";
+      slab.innerHTML = '<div class="slab-l">Given</div><pre></pre>';
+      slab.querySelector("pre").textContent = q.code;
+      body.appendChild(slab);
+    }
+    var ob = document.createElement("div"); ob.className = "opts";
+    perm.forEach(function(origIdx,k){
+      var cls = "opt", mark = "";
+      if (origIdx === q.a) { cls += " right"; mark = '<span class="mark">correct</span>'; }
+      else if (k === shown) { cls += " wrong"; mark = '<span class="mark">you picked this</span>'; }
+      var b2 = document.createElement("button");
+      b2.className = cls; b2.disabled = true;
+      b2.innerHTML = '<span class="k">'+LETTERS[k]+'</span><span class="x">'+fmt(q.o[origIdx])+mark+"</span>";
+      ob.appendChild(b2);
+    });
+    body.appendChild(ob);
+
+    if (shown === undefined) {
+      var na = document.createElement("p"); na.className = "noans"; na.textContent = "left blank";
+      body.appendChild(na);
+    }
+    var ex = document.createElement("div"); ex.className = "exp";
+    ex.innerHTML = "<b>Why · course chapter "+q.ch+"</b><span>"+fmt(q.e)+"</span>";
+    body.appendChild(ex);
+
+    d.appendChild(body); wrap.appendChild(d);
+  });
+}
+
+/* ======================================================================
+   Boot
+   ==================================================================== */
+(function boot(){
+  var saved = readLS();
+  if (saved && saved.slug && saved.order) {
+    S = saved;
+    if (S.status === "done") showResult();
+    else if (Date.now() >= S.endsAt) { enterQuiz(); finish(true); }
+    else enterQuiz();
+  } else {
+    show("gate");
+  }
+})();
+
+/* pick a store, then load the board and recover anything stranded locally */
+(function connect(){
+  function ready(store){
+    Store = store;
+    refreshBoard().then(function(){
+      /* someone finished before the board existed — push their result up once */
+      if (S && S.status === "done" && !S.synced && Store.kind !== "none") {
+        Store.backfill(payloadFrom(S)).then(function(ok){
+          if (ok) { S.synced = true; writeLS(S); refreshBoard(); }
+        });
+      }
+    });
+  }
+  if (CONFIGURED) { ready(SupabaseStore); return; }
+  if (IN_CLAUDE) {
+    window.claude.use("db").then(function(ns){
+      if (!ns) { renderAllLb(); return; }
+      ClaudeStore.db = ns; ready(ClaudeStore);
+    }).catch(function(){ renderAllLb(); });
+    return;
+  }
+  renderAllLb();
+})();
+</script>
+</body>
+</html>

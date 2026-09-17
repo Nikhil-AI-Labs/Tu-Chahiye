@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu Chahiye — Sem V study desk</title>
+<meta name="description" content="Notes, quizzes and solved papers for EC Semester V at SVNIT Surat. Five subjects, one desk.">
+<meta name="theme-color" content="#EAE8E1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/press.css">
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>
+/* ============ masthead ============ */
+.mast{padding:8px 0 0;position:relative}
+.mislay{position:relative;display:block}
+.mislay h1{position:relative;z-index:2}
+/* bad registration: the name printed twice, a hair off, in the two house inks */
+.mislay .ghost{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(74px,18.5vw,168px);line-height:.78;letter-spacing:-.022em;
+  text-transform:uppercase;margin:0;
+}
+.mislay .g1{color:var(--pink);opacity:.62;transform:translate(-4px,3px)}
+.mislay .g2{color:var(--blue);opacity:.5;transform:translate(4px,-3px)}
+.mislay h1 span{display:block}
+.mislay .ghost span{display:block}
+@media (prefers-reduced-motion:no-preference){
+  .mislay .g1{animation:slipA 9s ease-in-out infinite}
+  .mislay .g2{animation:slipB 11s ease-in-out infinite}
+}
+@keyframes slipA{0%,100%{transform:translate(-4px,3px)}50%{transform:translate(-7px,1px)}}
+@keyframes slipB{0%,100%{transform:translate(4px,-3px)}50%{transform:translate(7px,-1px)}}
+
+.topgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end;margin:22px 0 0}
+@media (max-width:760px){.topgrid{grid-template-columns:1fr;gap:20px}}
+.hello{font-size:19px;line-height:1.45;color:var(--ink-2);margin:0;max-width:46ch;text-wrap:pretty}
+.hello b{color:var(--ink);font-weight:600}
+
+/* countdown, set like a scoreboard */
+.cd{background:var(--ink);color:var(--stock);padding:14px 20px 12px;min-width:250px}
+.cd .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+.cd .val{font-family:var(--display);font-weight:900;font-size:66px;line-height:.86;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;color:var(--stock)}
+.cd .val em{font-style:normal;color:var(--pink);font-size:30px;letter-spacing:.01em;margin-left:8px}
+.cd .when{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:7px}
+
+/* ============ sticky nav ============ */
+/* chrome is a translucent layer the page passes under, and the divider
+   only appears once there is actually something underneath it */
+.nav{position:sticky;top:0;z-index:50;
+  background:var(--veil);
+  -webkit-backdrop-filter:blur(18px) saturate(165%);
+  backdrop-filter:blur(18px) saturate(165%);
+  border-bottom:1px solid transparent;
+  margin:30px calc(var(--gut)*-1) 0;padding:0 var(--gut);
+  transition:border-color 180ms ease}
+.nav.stuck{border-bottom-color:var(--hair)}
+.nav.stuck::after{
+  content:"";position:absolute;left:0;right:0;top:100%;height:16px;pointer-events:none;
+  background:linear-gradient(var(--veil),rgba(0,0,0,0))}
+@supports not (backdrop-filter:blur(1px)){ .nav{background:var(--stock)} }
+.nav ul{display:flex;list-style:none;margin:0;padding:0;gap:0;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a{display:flex;align-items:center;min-height:42px;padding:10px 16px 8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--ink-2);
+  text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+.nav a:first-child{padding-left:0}
+.nav a:hover{color:var(--ink)}
+.nav a.on{color:var(--ink);border-bottom-color:var(--pink)}
+.nav .tog{margin-left:auto;background:transparent;border:0;color:var(--ink-3);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:12px 0 10px}
+.nav .tog:hover{color:var(--pink)}
+.nav .tog:active{opacity:.55}
+
+section.band{padding:52px 0 0;scroll-margin-top:60px}
+
+/* ============ the five ============ */
+.bill{border-top:3px solid var(--ink);counter-reset:sub}
+.row{counter-increment:sub;display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:18px;align-items:center;border-bottom:1px solid var(--hair);transition:background .12s ease}
+.row .lead{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;align-items:center;
+  text-decoration:none;color:inherit;padding:18px 10px 16px 0;min-width:0}
+.row .lead::before{
+  content:counter(sub,decimal-leading-zero);
+  font-family:var(--display);font-weight:800;font-size:58px;line-height:.8;
+  letter-spacing:-.03em;color:var(--sub-ink);transition:color .12s ease}
+.row .code{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.row .name{font-family:var(--display);font-weight:700;font-size:clamp(27px,4.6vw,44px);
+  line-height:.94;letter-spacing:-.016em;text-transform:uppercase;margin:3px 0 5px;display:block}
+.row .desc{font-size:15px;color:var(--ink-2);line-height:1.42;max-width:52ch;display:block}
+.row .meta{margin-top:8px;display:flex;gap:7px;flex-wrap:wrap}
+.row .acts{display:flex;gap:8px;padding-right:2px;flex:none}
+.row .acts a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;padding:0 14px;min-height:var(--tap);display:inline-flex;align-items:center;
+  text-decoration:none;color:var(--stock);background:var(--sub-ink);white-space:nowrap}
+.row .acts a.b{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair)}
+.row .acts a{transition:opacity var(--press),transform var(--settle)}
+.row .acts a:hover{opacity:.84}
+.row .acts a:active{transform:scale(.96);opacity:.75}
+.row .acts a.b:hover{box-shadow:inset 0 0 0 1.5px var(--sub-ink);color:var(--sub-ink);opacity:1}
+.row:hover{background:var(--sub-wash)}
+.row .lead:hover::before{color:var(--ink)}
+/* the flood lands on press, not on release — on touch there is no hover */
+.row .lead:active{background:var(--sub-wash)}
+.row:has(.lead:active){background:var(--sub-wash)}
+.row .lead:active .name{opacity:.72;transition:opacity var(--press)}
+@media (max-width:720px){
+  .row{grid-template-columns:1fr;gap:0;padding-bottom:14px}
+  .row .lead{grid-template-columns:52px minmax(0,1fr);gap:12px;padding:15px 0 8px}
+  .row .lead::before{font-size:40px}
+  .row .acts{padding-left:64px;flex-wrap:wrap}
+}
+@media (max-width:420px){.row .acts{padding-left:0}}
+
+/* ============ quizzes ============ */
+.qclip{overflow:hidden;border-top:3px solid var(--ink)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:0;margin-right:-1px}
+.qcard{border-bottom:1px solid var(--hair);border-right:1px solid var(--hair);padding:18px 18px 16px;
+  display:flex;flex-direction:column;min-width:0}
+.qcard.fill{justify-content:flex-start}
+.qcard.fill p{font-size:14px;color:var(--ink-2);line-height:1.5;margin:0}
+.qcard.fill h4{color:var(--ink-3);font-size:22px}
+.qhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+.qcard h4{font-family:var(--display);font-weight:800;font-size:27px;line-height:1;letter-spacing:-.015em;
+  text-transform:uppercase;margin:0;color:var(--sub-ink)}
+.qcard .qc{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.qcard .qsub{font-size:14px;color:var(--ink-2);margin:6px 0 12px;line-height:1.42}
+.board3{list-style:none;margin:0 0 14px;padding:0;border-top:1px solid var(--hair-2)}
+.board3 li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:9px;align-items:baseline;
+  padding:6px 0;border-bottom:1px solid var(--hair-2);font-size:14.5px}
+.board3 li b{font-family:var(--display);font-weight:800;font-size:17px;color:var(--ink-3);line-height:1}
+.board3 li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board3 li i{font-style:normal;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.board3 li:first-child b{color:var(--sub-ink)}
+.board3.empty{border:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);padding:10px 0 12px}
+.qgo{margin-top:auto;align-self:flex-start;background:var(--sub-ink);color:var(--stock);transition:transform .08s ease;
+  font-family:var(--display);font-weight:800;font-size:19px;text-transform:uppercase;
+  padding:10px 18px 8px;text-decoration:none;letter-spacing:.02em}
+.qgo:hover{transform:translate(-2px,-2px)}
+.qgo:active{transform:scale(.97);transition:transform var(--press)}
+
+/* ============ papers ============ */
+.pgrid{border-top:3px solid var(--ink)}
+.prow{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:16px;align-items:center;
+  border-bottom:1px solid var(--hair);padding:15px 0;text-decoration:none;color:inherit}
+.prow{transition:background var(--press)}
+.prow:hover,.prow:active{background:var(--sub-wash)}
+.prow:active .parrow{transform:translateX(3px);transition:transform var(--settle)}
+.prow .pcode{font-family:var(--display);font-weight:800;font-size:25px;line-height:1;color:var(--sub-ink)}
+.prow .pname{display:block;font-weight:600;font-size:17px;line-height:1.3}
+.prow .pmeta{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.prow .parrow{font-family:var(--display);font-weight:800;font-size:26px;color:var(--ink-3)}
+.prow:hover .parrow{color:var(--sub-ink)}
+@media (max-width:560px){
+  .prow{grid-template-columns:60px minmax(0,1fr) auto;gap:12px}
+  .prow .pcode{font-size:19px}
+}
+
+/* rotated ink stamp */
+.smudge{display:inline-block;transform:rotate(-4.5deg);background:var(--pink);color:var(--stock);
+  font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.06em;
+  text-transform:uppercase;padding:5px 12px 3px;margin-left:8px;vertical-align:middle}
+
+/* three-up explainer, hairlines only */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hair);margin-top:12px}
+.trio > div{padding:16px 20px 14px;border-left:1px solid var(--hair)}
+.trio > div:first-child{border-left:0;padding-left:0}
+.trio h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--pink);margin:0 0 7px;font-weight:700}
+.trio p{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+@media (max-width:700px){
+  .trio{grid-template-columns:1fr}
+  .trio > div{border-left:0;border-top:1px solid var(--hair);padding-left:0;padding-right:0}
+  .trio > div:first-child{border-top:0}
+}
+
+.colo{margin-top:64px;padding-top:15px;border-top:5px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);line-height:2.1}
+.colo b{color:var(--ink-2);font-weight:400}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="press">
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <span>B.Tech EC &middot; Sem V &middot; SVNIT Surat</span>
+  <span class="sp"></span>
+  <span class="hideS"><b>Edition</b> 2026&ndash;27</span>
+  <span class="clk" data-clock aria-label="The time in Surat">Surat</span>
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+</div>
+
+<header class="mast">
+  <p class="kicker">Everything for the mid-sem, on one desk</p>
+  <div class="mislay">
+    <div class="ghost g1" aria-hidden="true"><span>Tu</span><span>Chahiye</span></div>
+    <div class="ghost g2" aria-hidden="true"><span>Tu</span><span>Chahiye</span></div>
+    <h1 class="big"><span>Tu</span><span>Chahiye</span></h1>
+  </div>
+  <div class="rule-heavy"></div>
+
+  <div class="topgrid">
+    <p class="hello">Five subjects, written out from your own lecture slides, tutorials and handouts &mdash; then a quiz you can only sit once, and every past paper worked out line by line. <b>Nothing here is a link to somewhere else.</b> It is all in the page.</p>
+    <div class="cd">
+      <div class="lab">Mid-sem starts in</div>
+      <div class="val" id="cdVal">&mdash;<em id="cdUnit"></em></div>
+      <div class="when" id="cdWhen">&nbsp;</div>
+    </div>
+  </div>
+</header>
+
+<div class="tick" aria-hidden="true">
+  <div class="run">
+    <i><b>EC301</b> Digital Communication<s></s></i>
+    <i><b>EC303</b> Digital Signal Processing<s></s></i>
+    <i><b>EC321</b> Communication Networks<s></s></i>
+    <i><b>EC341</b> Digital Image Processing<s></s></i>
+    <i><b>C++</b> Object Oriented Programming<s></s></i>
+    <i><em>Mid-sem &mdash; 22 September</em><s></s></i>
+    <i>5 subjects<s></s></i>
+    <i>200 quiz questions<s></s></i>
+    <i>11 past papers solved<s></s></i>
+    <i>5 predicted papers<s></s></i>
+    <i><b>EC301</b> Digital Communication<s></s></i>
+    <i><b>EC303</b> Digital Signal Processing<s></s></i>
+    <i><b>EC321</b> Communication Networks<s></s></i>
+    <i><b>EC341</b> Digital Image Processing<s></s></i>
+    <i><b>C++</b> Object Oriented Programming<s></s></i>
+    <i><em>Mid-sem &mdash; 22 September</em><s></s></i>
+    <i>5 subjects<s></s></i>
+    <i>200 quiz questions<s></s></i>
+    <i>11 past papers solved<s></s></i>
+    <i>5 predicted papers<s></s></i>
+  </div>
+</div>
+
+<nav class="nav">
+  <ul>
+    <li><a href="#notes" class="on">The notes</a></li>
+    <li><a href="#quizzes">The quizzes</a></li>
+    <li><a href="#papers">The papers</a></li>
+    <li><a href="#offline">Downloads</a></li>
+    <li><a href="#how">How to use it</a></li>
+    <li style="margin-left:auto"><button class="tog" id="tog" type="button">Flip stock</button></li>
+  </ul>
+</nav>
+
+<!-- ============================ NOTES ============================ -->
+<section class="band" id="notes">
+  <div class="sechead">
+    <h2 class="sec">The five subjects</h2>
+    <span class="tag">tap a title for the full notes</span>
+  </div>
+
+  <div class="bill">
+
+    <article class="row" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
+      <a class="lead" href="notes/dip.html">
+        <div>
+          <span class="code">EC341 &middot; core elective</span>
+          <span class="name">Digital Image<br>Processing</span>
+          <span class="desc">From what a pixel actually is, through adjacency and 2&#8209;D convolution, to histogram matching and the sharpening masks.</span>
+          <span class="meta"><span class="chip">33 chapters</span><span class="chip out">93 figures</span><span class="chip out">solved problems</span></span>
+        </div>
+      </a>
+      <div class="acts">
+        <a href="quiz/dip.html">Quiz</a>
+        <a class="b" href="papers/dip.html">Papers</a>
+      </div>
+    </article>
+
+    <article class="row" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)">
+      <a class="lead" href="notes/dsp.html">
+        <div>
+          <span class="code">EC303 &middot; core</span>
+          <span class="name">Digital Signal<br>Processing</span>
+          <span class="desc">Sampling and aliasing, LTI systems and convolution, the z&#8209;transform, the DFT, and every radix of the FFT.</span>
+          <span class="meta"><span class="chip">5 units</span><span class="chip out">tutorials 1&ndash;5 solved</span><span class="chip out">29 diagrams</span></span>
+        </div>
+      </a>
+      <div class="acts">
+        <a href="quiz/dsp.html">Quiz</a>
+        <a class="b" href="papers/dsp.html">Papers</a>
+      </div>
+    </article>
+
+    <article class="row" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
+      <a class="lead" href="notes/dcomm.html">
+        <div>
+          <span class="code">EC301 &middot; core</span>
+          <span class="name">Digital<br>Communication</span>
+          <span class="desc">PCM and line codes, ISI and the raised cosine, entropy and capacity, source and channel coding, and the carrier schemes.</span>
+          <span class="meta"><span class="chip">10 modules</span><span class="chip out">all tutorials worked</span><span class="chip out">formula sheet</span></span>
+        </div>
+      </a>
+      <div class="acts">
+        <a href="quiz/dcomm.html">Quiz</a>
+        <a class="b" href="papers/dcomm.html">Papers</a>
+      </div>
+    </article>
+
+    <article class="row" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
+      <a class="lead" href="notes/dcn.html">
+        <div>
+          <span class="code">EC321 &middot; core</span>
+          <span class="name">Communication<br>Networks</span>
+          <span class="desc">Layers and addressing, media, framing and error control, the sliding windows, and every medium&#8209;access protocol on the list.</span>
+          <span class="meta"><span class="chip">8 modules</span><span class="chip out">37 syllabus topics</span><span class="chip out">94 figures</span></span>
+        </div>
+      </a>
+      <div class="acts">
+        <a href="quiz/dcn.html">Quiz</a>
+        <a class="b" href="papers/dcn.html">Papers</a>
+      </div>
+    </article>
+
+    <article class="row" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)">
+      <a class="lead" href="notes/oops.html">
+        <div>
+          <span class="code">CS &middot; open elective</span>
+          <span class="name">Object Oriented<br>Programming</span>
+          <span class="desc">C++ from the first <code>cout</code> to classes, constructors, operator overloading and the five kinds of inheritance.</span>
+          <span class="meta"><span class="chip">62 chapters</span><span class="chip out">230 code blocks</span><span class="chip out">self&#8209;test</span></span>
+        </div>
+      </a>
+      <div class="acts">
+        <a href="quiz/oops.html">Quiz</a>
+        <a class="b" href="papers/oops.html">Papers</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ QUIZZES ============================ -->
+<section class="band" id="quizzes">
+  <div class="sechead">
+    <h2 class="sec">The quizzes <span class="smudge">one shot each</span></h2>
+    <span class="tag">40 questions &middot; 90 points &middot; 45:00</span>
+  </div>
+  <p class="note" style="margin:0 0 22px">Same sheet every time: ten easy, ten medium, twenty hard, and two thirds of the marks sitting in the hard twenty. Your name goes on the board once and can never sit that quiz again, so send the link around and argue about it afterwards. Boards below are live.</p>
+
+  <div class="qclip"><div class="qgrid" id="qgrid"></div></div>
+</section>
+
+<!-- ============================ PAPERS ============================ -->
+<section class="band" id="papers">
+  <div class="sechead">
+    <h2 class="sec">The papers</h2>
+    <span class="tag">past papers solved + a predicted paper</span>
+  </div>
+  <p class="note" style="margin:0 0 22px">Every mid-sem paper we could find, worked out question by question &mdash; and then, from the pattern across those years plus what has actually been taught this semester, a <b>predicted paper</b> for September 2026 with full solutions.</p>
+
+  <div class="pgrid">
+    <a class="prow" href="papers/dip.html" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
+      <span class="pcode">EC341</span>
+      <span><span class="pname">Digital Image Processing</span><span class="pmeta">Sept 2025 solved &middot; pattern read &middot; predicted 2026</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="papers/dsp.html" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)">
+      <span class="pcode">EC303</span>
+      <span><span class="pname">Digital Signal Processing</span><span class="pmeta">2023 &middot; 2024 &middot; 2025 solved &middot; predicted 2026</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="papers/dcomm.html" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
+      <span class="pcode">EC301</span>
+      <span><span class="pname">Digital Communication</span><span class="pmeta">2022 &middot; 2023 &middot; 2024 &middot; 2025 solved &middot; predicted 2026</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="papers/dcn.html" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
+      <span class="pcode">EC321</span>
+      <span><span class="pname">Communication Networks</span><span class="pmeta">2023 &middot; 2024 &middot; 2025 solved &middot; predicted 2026</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="papers/oops.html" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)">
+      <span class="pcode">OOP</span>
+      <span><span class="pname">Object Oriented Programming</span><span class="pmeta">no past paper supplied &middot; predicted 2026 from the slides</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ OFFLINE ============================ -->
+<section class="band" id="offline">
+  <div class="sechead">
+    <h2 class="sec">Take it offline</h2>
+    <span class="tag">every page also exists as a PDF</span>
+  </div>
+  <p class="note" style="margin:0 0 22px">Fifteen PDFs, typeset from these same pages through a real print stylesheet &mdash; chapters start on their own sheet, every solution is already open, and the quizzes come as a printable question paper with the answer key at the back. <b>And the thirteen original question papers, exactly as they were handed out.</b></p>
+
+  <div class="pgrid">
+    <a class="prow" href="downloads.html" style="--sub-ink:var(--pink);--sub-wash:var(--pink-wash)">
+      <span class="pcode">15</span>
+      <span><span class="pname">Notes, papers and quizzes as PDFs</span><span class="pmeta">A4 &middot; 23 MB in total &middot; one file per subject per kind</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="papers/archive.html" style="--sub-ink:var(--blue);--sub-wash:var(--blue-wash)">
+      <span class="pcode">13</span>
+      <span><span class="pname">Previous year papers, the original scans</span><span class="pmeta">2022 to 2025 &middot; mid-sem and end-sem &middot; 9.3 MB</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+  </div>
+  <p class="freqkey" style="margin:12px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)">or press Ctrl+P on any page and choose save as PDF &mdash; same thing, current as of that moment</p>
+</section>
+
+<!-- ============================ HOW ============================ -->
+<section class="band" id="how">
+  <div class="sechead">
+    <h2 class="sec">How to use it</h2>
+    <span class="tag">three weeks, or three days</span>
+  </div>
+  <div class="trio">
+    <div>
+      <h5>1 &middot; Read the notes</h5>
+      <p>Each subject is written from zero in plain English &mdash; every formula is explained the first time it appears, and every worked example from your own tutorials is solved step by step. Start at chapter one and do not skip the examples.</p>
+    </div>
+    <div>
+      <h5>2 &middot; Sit the quiz</h5>
+      <p>Only once, so do it after a proper read rather than to see the questions. The answer key afterwards tells you which chapter every mistake came from, which is the fastest revision list you will get.</p>
+    </div>
+    <div>
+      <h5>3 &middot; Work the papers</h5>
+      <p>Do the past papers with the solution covered, then the predicted paper against a clock. The pattern page tells you which topics have appeared every single year &mdash; those are not optional.</p>
+    </div>
+  </div>
+</section>
+
+<div class="colo">
+  <b>Tu Chahiye</b> &middot; built from the lecture slides, tutorials, handouts and past papers of B.Tech EC Semester V, DoECE &amp; DoCSE, SVNIT Surat<br>
+  five subjects &middot; 200 quiz questions &middot; every mid-sem paper we had, solved &middot; predicted papers are our own reading of the pattern, not an official anything<br>
+  <b>mid-sem date</b> shown above is last year's date carried forward &mdash; check the notice board for the real one
+</div>
+
+</div>
+
+<script>
+/* ---------- theme ---------- */
+(function(){
+  var K="tc.theme", root=document.documentElement;
+  try{ var s=localStorage.getItem(K); if(s) root.setAttribute("data-theme",s); }catch(e){}
+  document.getElementById("tog").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    if(!cur) cur = window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark":"light";
+    var next = cur==="dark" ? "light":"dark";
+    root.setAttribute("data-theme",next);
+    try{ localStorage.setItem(K,next); }catch(e){}
+  });
+})();
+
+/* ---------- countdown ----------
+   Last year the papers ran 23–24 September. Same week is assumed here and
+   the colophon says so; change this one line if the real date is put up.   */
+var EXAM = new Date(2026, 8, 22, 9, 0, 0);   /* 22 Sept 2026, 09:00 */
+(function(){
+  function tick(){
+    var ms = EXAM - new Date();
+    var v=document.getElementById("cdVal"), u=document.getElementById("cdUnit"), w=document.getElementById("cdWhen");
+    var fmt = EXAM.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+    if (ms <= 0){ v.textContent="NOW"; u.textContent=""; w.textContent="week of "+fmt; return; }
+    var d = Math.floor(ms/86400000), h = Math.floor(ms/3600000)%24;
+    if (d >= 1){ v.firstChild.nodeValue = d; u.textContent = d===1?"day":"days"; }
+    else { v.firstChild.nodeValue = h; u.textContent = h===1?"hour":"hours"; }
+    w.textContent = "expected " + fmt;
+  }
+  tick(); setInterval(tick, 60000);
+})();
+
+/* ---------- nav highlight ---------- */
+(function(){
+  var links = [].slice.call(document.querySelectorAll(".nav a[href^='#']"));
+  var secs  = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function sync(){
+    var y = window.scrollY + 120, best = 0;
+    secs.forEach(function(s,i){ if (s && s.offsetTop <= y) best = i; });
+    links.forEach(function(a,i){ a.className = i===best ? "on" : ""; });
+  }
+  var nav = document.querySelector(".nav"), navTop = 0;
+  function stick(){
+    if (!navTop) navTop = nav.offsetTop;
+    nav.classList.toggle("stuck", window.scrollY > navTop - 1);
+  }
+  function onScroll(){ sync(); stick(); }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", function(){ navTop = 0; stick(); }, {passive:true});
+  onScroll();
+})();
+
+/* ---------- quiz cards + live boards ---------- */
+var SB_URL = "https://trlbvgevoznwnbbihigk.supabase.co";
+var SB_KEY = "sb_publishable_dDG_fHL2Pl8ASbUGl6w0rQ_H1iMh7je";
+
+var QUIZZES = [
+  {k:"dip",   code:"EC341", name:"Digital Image", tbl:"dip_quiz_scores",
+   sub:"Pixels, adjacency, convolution, histograms and the sharpening masks."},
+  {k:"dsp",   code:"EC303", name:"Signal Processing", tbl:"dsp_quiz_scores",
+   sub:"Sampling, LTI systems, z-transform, DFT and the FFT butterflies."},
+  {k:"dcomm", code:"EC301", name:"Digital Comm", tbl:"dcomm_quiz_scores",
+   sub:"PCM, line codes, ISI, entropy, capacity and the coding schemes."},
+  {k:"dcn",   code:"EC321", name:"Comm Networks", tbl:"dcn_quiz_scores",
+   sub:"Layers, media, framing, sliding windows and medium access."},
+  {k:"oops",  code:"CS",    name:"C++ Objects", tbl:"cpp_quiz_scores",
+   sub:"Classes, constructors, overloading and the five inheritances."}
+];
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+(function buildQuizCards(){
+  var g = document.getElementById("qgrid"), html = "";
+  QUIZZES.forEach(function(q){
+    html += '<div class="qcard" style="--sub-ink:var(--'+q.k+')">'
+          +   '<div class="qhead"><h4>'+q.name+'</h4><span class="qc">'+q.code+'</span></div>'
+          +   '<p class="qsub">'+q.sub+'</p>'
+          +   '<div id="bd-'+q.k+'"><ul class="board3 empty"><li style="border:0;display:block">loading the board&hellip;</li></ul></div>'
+          +   '<a class="qgo" href="quiz/'+q.k+'.html">Sit it &rarr;</a>'
+          + '</div>';
+  });
+  html += '<div class="qcard fill"><div class="qhead"><h4>The rules</h4></div>'
+        + '<p>One attempt per name, on any device. The clock runs for 45:00 and submits for you at zero. '
+        + 'Close the tab by accident and the link puts you back on the same question with the time that was left. '
+        + 'A tie goes to whoever finished faster.</p></div>';
+  g.innerHTML = html;
+})();
+
+function drawBoard(k, rows, err){
+  var host = document.getElementById("bd-"+k);
+  if (!host) return;
+  if (err){ host.innerHTML = '<ul class="board3 empty"><li style="border:0;display:block">board offline</li></ul>'; return; }
+  if (!rows.length){ host.innerHTML = '<ul class="board3 empty"><li style="border:0;display:block">no names up yet &mdash; go first</li></ul>'; return; }
+  var h = '<ul class="board3">';
+  rows.slice(0,3).forEach(function(r,i){
+    h += "<li><b>"+(i+1)+"</b><span>"+esc(r.name||r.slug)+"</span><i>"+(r.score||0)+"</i></li>";
+  });
+  h += "</ul>";
+  host.innerHTML = h;
+}
+
+QUIZZES.forEach(function(q){
+  var url = SB_URL + "/rest/v1/" + q.tbl
+          + "?select=name,slug,score,duration_ms&status=eq.done&order=score.desc,duration_ms.asc&limit=3";
+  fetch(url, { headers: { apikey: SB_KEY } })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(rows){ drawBoard(q.k, rows, null); })
+    .catch(function(){ drawBoard(q.k, [], true); });
+});
+</script>
+<script src="assets/motion.js" defer></script>
+</body>
+</html>

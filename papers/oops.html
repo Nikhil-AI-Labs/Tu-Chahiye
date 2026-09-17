@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Object Oriented Programming &mdash; the papers</title>
+<meta name="description" content="CS201 mid-sem papers worked out question by question, the pattern across the years, and a predicted paper for September 2026.">
+<meta name="theme-color" content="#EAE8E1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/press.css">
+<link rel="stylesheet" href="../assets/paper.css">
+<link rel="stylesheet" href="../assets/motion.css">
+<link rel="stylesheet" href="../assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>:root{--spot:var(--oops);--spot-wash:var(--oops-wash)}</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="press">
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+  <span class="sp"></span>
+  <span class="hideS"><a href="../notes/oops.html">the notes</a> &middot; <a href="../quiz/oops.html">the quiz</a></span>
+  <a class="pdfget" href="../pdf/papers-oops.pdf" download title="Every solution on this page as an A4 PDF">PDF</a>
+  <span class="clk" data-clock aria-label="The time in Surat">Surat</span>
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+</div>
+
+<header style="padding-top:14px">
+  <div class="subhead">
+    <div>
+      <div class="code">CS201 &middot; mid-sem</div>
+      <h1>The paper</h1>
+    </div>
+  </div>
+  <div class="rule-heavy"></div>
+  <p class="standfirst">No past mid-sem paper for this one exists in the folder &mdash; so this page does not pretend to read a pattern off thin air. Instead: an honest map of what the lecture slides actually weight, and a <b>full predicted paper</b> built from that, worked out line by line.</p>
+</header>
+
+<nav class="years">
+  <ul><li><a href="#pattern">What gets asked</a></li><li><a href="#predicted">Predicted paper</a></li><li><a href="#why">Why there is no past paper</a></li></ul>
+</nav>
+
+<section class="band" id="pattern" style="scroll-margin-top:70px;padding-top:10px">
+<div class="sechead"><h2 class="sec">What actually gets asked</h2><span class="tag">read off the slides, not off old papers</span></div>
+<p class="note" style="margin:0 0 22px">Every other subject on this site got its prediction by reading three or four old papers.
+Here there are none, so the method has to change. What we have instead is the complete set of
+lecture slides &mdash; seven decks plus the new inheritance deck &mdash; and slide decks leak their
+own priorities: the topics that get worked examples get asked, and the topics that get one bullet
+point do not.</p>
+<div class="freq"><table><thead><tr><th>Topic</th><th class="y">Deck</th><th class="n">marks</th></tr></thead><tbody><tr class="every"><td>Constructors, destructors and the order they run in</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-5</td><td class="n">4&ndash;5</td></tr><tr class="every"><td>Classes, objects, member functions, access specifiers</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-4</td><td class="n">4&ndash;5</td></tr><tr class="every"><td>Inheritance &mdash; modes, ambiguity, virtual base</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">new deck</td><td class="n">6&ndash;8</td></tr><tr class="every"><td>Function overloading and default arguments</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-3</td><td class="n">3</td></tr><tr class="every"><td>Call by value, address and reference</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-3</td><td class="n">3</td></tr><tr class="every"><td>Friend functions</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-4</td><td class="n">3</td></tr><tr class="every"><td>Operator overloading</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-6</td><td class="n">4</td></tr><tr><td>The copy constructor, shallow versus deep</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-5</td><td class="n">3&ndash;4</td></tr><tr><td>static data members and member functions</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-4</td><td class="n">3</td></tr><tr><td>new / delete and the scope resolution operator</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-2</td><td class="n">3</td></tr><tr><td>POP versus OOP, the six core ideas</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-1</td><td class="n">2&ndash;3</td></tr><tr><td>Tokens, data types, reference variables</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-2</td><td class="n">2</td></tr><tr><td>Inline functions, recursion</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-3</td><td class="n">2</td></tr><tr><td>String manipulation using overloaded operators</td><td class="y" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">mat-6</td><td class="n">0&ndash;3</td></tr></tbody></table></div>
+<p class="freqkey">tinted rows are the ones we would not sit the exam without &middot; marks are our estimate out of 30</p>
+<h3 class="sub">Read it this way</h3>
+<div class="caveat"><b>Programming papers are not theory papers.</b> Look at what the decks spend their pages on: almost every concept arrives attached to a <i>complete runnable program</i>, and the slides walk through its output. That is a very strong signal. The four question types that fall out of it &mdash; and that we have built the predicted paper from &mdash; are:
+<br><br><b>1. &ldquo;Predict the output, with justification.&rdquo;</b> The single most common shape. It is cheap to set, impossible to bluff, and it tests three things at once: the language rule, the order of execution, and whether you actually read the code. Constructor/destructor ordering and static members are the classic vehicle.
+<br><br><b>2. &ldquo;Find and correct the errors.&rdquo;</b> Usually four or five planted mistakes in a twenty-line program &mdash; a missing <code>ClassName::</code>, a private member touched from <code>main()</code>, a call to a constructor that does not exist. One mark per error found <i>and</i> fixed; naming the line without the fix gets half.
+<br><br><b>3. &ldquo;Write a class that&hellip;&rdquo;</b> The long one. Expect to declare a class, give it a constructor and a destructor, overload something, and demonstrate it in <code>main()</code>.
+<br><br><b>4. &ldquo;Distinguish between X and Y.&rdquo;</b> Member function vs friend function, call by value vs reference, overloading vs overriding, structure vs class. Answer in a table &mdash; it is faster to write and faster to mark.
+<br><br><b>Where the marks have moved.</b> The inheritance deck is new material and it is dense: three inheritance modes, the visibility table, single / multilevel / multiple / hierarchical / hybrid, the ambiguity problem, and the virtual base class. That is a whole question&rsquo;s worth of content and it has never been examined here before. Our prediction gives it 6 of 30, and if anything that is conservative.</div>
+</section>
+<section class="band" id="predicted" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Predicted paper</h2><span class="tag">our reading, with full solutions</span></div>
+<div class="caveat"><b>This is a prediction, and there is no past paper behind it.</b> It is built from the lecture decks, from the shape the other four subjects&rsquo; mid-sems take at this institute, and from what the slides chose to spend their worked examples on. Treat it as a very good revision set rather than as a forecast. Full solutions throughout, and every program has been traced by hand line by line.</div>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">S.V. National Institute of Technology, Surat-7</div>
+<div class="line">B.Tech. &ndash; Object Oriented Programming</div>
+<div class="line">MID-SEM EXAMINATION &mdash; <i>predicted</i></div>
+<div class="sub">CS-201 Object Oriented Programming</div>
+</div>
+<div class="qp-bar"><span>Marks: 30</span><span>Time: 1.5 Hrs</span><span>Assume necessary data wherever required</span></div>
+<p class="qp-note"><b>Instruction.</b> (i) Assume necessary header files are included wherever required. (ii) The figure to the right indicates marks. (iii) Justify every predicted output &mdash; an unexplained answer carries half credit.</p>
+<div class="q">
+  <div class="qn">Q-1 (a)</div>
+  <div class="qt">Predict the exact output of the following program and justify the order in which the lines appear.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">#include &lt;iostream&gt;
+using namespace std;
+
+class Item {
+    static int count;
+    int id;
+public:
+    Item()  { id = ++count; cout &lt;&lt; "ctor " &lt;&lt; id &lt;&lt; endl; }
+    ~Item() { cout &lt;&lt; "dtor " &lt;&lt; id &lt;&lt; endl; --count;  }
+    static int live() { return count; }
+};
+
+int Item::count = 0;          // definition outside the class
+
+int main() {
+    Item a;
+    {
+        Item b, c;
+        cout &lt;&lt; "inside : " &lt;&lt; Item::live() &lt;&lt; endl;
+    }
+    cout &lt;&lt; "outside: " &lt;&lt; Item::live() &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Trace it line by line.</b></p>
+<div class="solwrap"><table>
+<thead><tr><th>Statement</th><th>count</th><th>printed</th></tr></thead>
+<tbody>
+<tr><td><code>int Item::count = 0;</code></td><td>0</td><td>&mdash;</td></tr>
+<tr><td><code>Item a;</code> &rarr; id = ++count = 1</td><td>1</td><td><code>ctor 1</code></td></tr>
+<tr><td><code>Item b;</code> &rarr; id = 2</td><td>2</td><td><code>ctor 2</code></td></tr>
+<tr><td><code>Item c;</code> &rarr; id = 3</td><td>3</td><td><code>ctor 3</code></td></tr>
+<tr><td><code>Item::live()</code></td><td>3</td><td><code>inside : 3</code></td></tr>
+<tr><td>block ends &rarr; <b>c</b> destroyed first</td><td>2</td><td><code>dtor 3</code></td></tr>
+<tr><td>then <b>b</b> destroyed</td><td>1</td><td><code>dtor 2</code></td></tr>
+<tr><td><code>Item::live()</code></td><td>1</td><td><code>outside: 1</code></td></tr>
+<tr><td><code>main()</code> returns &rarr; <b>a</b> destroyed</td><td>0</td><td><code>dtor 1</code></td></tr>
+</tbody></table></div>
+<div class="eqn">ctor 1
+ctor 2
+ctor 3
+inside : 3
+dtor 3
+dtor 2
+outside: 1
+dtor 1</div>
+<p><span class="ans">Eight lines, in exactly that order</span></p>
+<p><b>The three justifications the question is asking for.</b></p>
+<ol>
+<li><b>One <code>count</code> for the whole class.</b> <code>count</code> is <code>static</code>, so it is not one variable per object &mdash; it is a single variable shared by every <code>Item</code> ever made. That is why the ids come out 1, 2, 3 instead of every object thinking it is number 1.</li>
+<li><b>Destruction is the reverse of construction.</b> Objects on the stack are destroyed in <b>last in, first out</b> order, so inside the block it is c before b. This is why you see <code>dtor 3</code> before <code>dtor 2</code>, never the other way round.</li>
+<li><b>The inner block has its own scope.</b> b and c die at the closing brace, not at the end of <code>main()</code> &mdash; which is the whole point of the printed counts, 3 inside and 1 outside.</li>
+</ol>
+<div class="tipbox"><span class="l">The line people forget</span>
+<p><code>int Item::count = 0;</code> outside the class is <b>not optional</b>. Declaring a static member inside the class only says it exists; it must be <b>defined</b> once at file scope or the linker fails with &ldquo;undefined reference to <code>Item::count</code>&rdquo;. Note also that the definition does <i>not</i> repeat the word <code>static</code>, and it is allowed to touch a private member because it is part of the class.</p>
+<p>And <code>live()</code> is <code>static</code>, so it is called as <code>Item::live()</code> with no object at all &mdash; a static member function has no <code>this</code> pointer and therefore cannot touch <code>id</code>.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-1 (b)</div>
+  <div class="qt">The following program does not compile. Identify <b>every</b> error, give the line, say why it is an error, and write the corrected line.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">1   #include &lt;iostream&gt;
+2   using namespace std;
+3
+4   class Box {
+5       int len;
+6   public:
+7       Box(int l) { len = l; }
+8       int area();
+9   };
+10
+11  int area() { return len * len; }
+12
+13  int main() {
+14      Box b;
+15      b.len = 5;
+16      cout &lt;&lt; b.area;
+17      return 0;
+18  }</div>
+<div class="solwrap"><table>
+<thead><tr><th>Line</th><th>What is wrong</th><th>Correction</th></tr></thead>
+<tbody>
+<tr><td><b>11</b></td><td>The function is defined without the class name, so it is a <i>global</i> function, not <code>Box</code>&rsquo;s member &mdash; and a global function has no access to <code>len</code>. Two errors for the price of one.</td><td><code>int Box::area() { return len * len; }</code></td></tr>
+<tr><td><b>14</b></td><td><code>Box b;</code> calls a <b>default constructor</b>, but the moment you write <i>any</i> constructor the compiler stops supplying one.</td><td><code>Box b(5);</code> &mdash; or add <code>Box() { len = 0; }</code> to the class</td></tr>
+<tr><td><b>15</b></td><td><code>len</code> is <b>private</b>. Nothing outside the class may touch it, and <code>main()</code> is outside the class.</td><td>Delete the line &mdash; <code>b</code> was built with 5 already. Or add a public <code>void set(int l){ len = l; }</code> and call <code>b.set(5);</code></td></tr>
+<tr><td><b>16</b></td><td><code>b.area</code> is the function itself, not a call. A member function name without <code>()</code> cannot be streamed and cannot decay to a pointer.</td><td><code>cout &lt;&lt; b.area() &lt;&lt; endl;</code></td></tr>
+</tbody></table></div>
+<p><b>The corrected program:</b></p>
+<div class="eqn">class Box {
+    int len;
+public:
+    Box(int l) { len = l; }
+    int area();
+};
+
+int Box::area() { return len * len; }
+
+int main() {
+    Box b(5);
+    cout &lt;&lt; b.area() &lt;&lt; endl;     // prints 25
+    return 0;
+}</div>
+<p><span class="ans">Four errors &mdash; lines 11, 14, 15, 16. Corrected output: 25</span></p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 (a)</div>
+  <div class="qt"><i>Attempt any three of (a) to (d).</i> &nbsp; Predict the output. Explain the three parameter-passing mechanisms it demonstrates and state when each one should be used.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">void f1(int  x) { x  = x  + 10; }
+void f2(int *x) { *x = *x + 10; }
+void f3(int &amp;x) { x  = x  + 10; }
+
+int main() {
+    int a = 5, b = 5, c = 5;
+    f1(a);
+    f2(&amp;b);
+    f3(c);
+    cout &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; " " &lt;&lt; c &lt;&lt; endl;
+    return 0;
+}</div>
+<div class="eqn">5 15 15</div>
+<p><span class="ans">Output: 5 15 15</span></p>
+<div class="solwrap"><table>
+<thead><tr><th></th><th>Call by value<br><code>f1(int x)</code></th><th>Call by address<br><code>f2(int *x)</code></th><th>Call by reference<br><code>f3(int &amp;x)</code></th></tr></thead>
+<tbody>
+<tr><th>What is passed</th><td>A <b>copy</b> of the value</td><td>The <b>address</b>, itself by value</td><td>An <b>alias</b> for the original</td></tr>
+<tr><th>Caller&rsquo;s variable</th><td><b>Unchanged</b> &mdash; a stays 5</td><td>Changed &mdash; b becomes 15</td><td>Changed &mdash; c becomes 15</td></tr>
+<tr><th>Call looks like</th><td><code>f1(a)</code></td><td><code>f2(&amp;b)</code> &mdash; the &amp; gives it away</td><td><code>f3(c)</code> &mdash; looks identical to call by value</td></tr>
+<tr><th>Inside, you write</th><td><code>x</code></td><td><code>*x</code>, every single time</td><td><code>x</code></td></tr>
+<tr><th>Can be null?</th><td>&mdash;</td><td><b>Yes</b> &mdash; must be checked</td><td><b>No</b> &mdash; a reference always refers to something</td></tr>
+</tbody></table></div>
+<p><b>When to use which.</b></p>
+<ul>
+<li><b>Value</b> &mdash; for small built-in types you do not intend to modify. It is the safest, because the function physically cannot damage the caller&rsquo;s data.</li>
+<li><b>Reference</b> &mdash; when the function must modify the argument, and for large objects you want to pass without copying. Add <code>const</code> (<code>f(const Big &amp;x)</code>) when you want the speed of a reference with the safety of a value.</li>
+<li><b>Address</b> &mdash; when the argument is genuinely optional (so a null pointer is meaningful), or when interfacing with C.</li>
+</ul>
+<p><b>The exam point:</b> references are a <b>C++ addition</b> &mdash; C has only value and address. That is why <code>f3</code>&rsquo;s call site looks exactly like <code>f1</code>&rsquo;s: the caller cannot tell, from the call alone, that <code>c</code> is about to be modified. Convenient, and occasionally dangerous.</p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 (b)</div>
+  <div class="qt">(i) The two declarations below cause a compilation error at one of the calls. Which call, and why? (ii) For the overload set that follows, state which function each call selects and give the rule.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>(i) Overloading against default arguments.</b></p>
+<div class="eqn">void show(int a, int b = 10);      // can be called with ONE argument
+void show(int a);                  // can also be called with ONE argument
+
+show(5, 6);     // fine
+show(5);        // ERROR</div>
+<p><span class="ans"><code>show(5)</code> is ambiguous</span></p>
+<p><b>Why.</b> A default argument does not create a second function &mdash; it lets the <i>existing</i> function be called with fewer arguments. So <code>show(5)</code> is a perfect, exact match for <b>both</b> declarations: for the first with <code>b</code> defaulted to 10, and for the second directly. Neither is better than the other, so the compiler cannot choose and reports the call as ambiguous.</p>
+<p>Note where the error appears: <b>at the call, not at the declaration</b>. Declaring the two overloads is legal &mdash; they have different signatures. The program only breaks the moment you write a one-argument call.</p>
+<p><b>The fix</b> is to remove the clash, either by deleting <code>void show(int)</code>, or by dropping the default so the first one always needs two arguments.</p>
+<p><b>(ii) Overload resolution.</b></p>
+<div class="eqn">void f(int);
+void f(double);
+
+f(10);      -&gt;
+f(3.5);     -&gt;
+f('A');     -&gt;
+f(3.5f);    -&gt;</div>
+<div class="solwrap"><table>
+<thead><tr><th>Call</th><th>Selects</th><th>Rule</th></tr></thead>
+<tbody>
+<tr><td><code>f(10)</code></td><td><code>f(int)</code></td><td><b>Exact match</b> &mdash; always wins, nothing else is even considered.</td></tr>
+<tr><td><code>f(3.5)</code></td><td><code>f(double)</code></td><td>Exact match &mdash; an unsuffixed literal like 3.5 is a <code>double</code>, not a <code>float</code>.</td></tr>
+<tr><td><code>f('A')</code></td><td><code>f(int)</code></td><td><b>Promotion beats conversion.</b> <code>char</code>&rarr;<code>int</code> is an integral promotion; <code>char</code>&rarr;<code>double</code> is a standard conversion. Promotion ranks higher, so <code>f(int)</code> wins and prints whatever 65 means to it.</td></tr>
+<tr><td><code>f(3.5f)</code></td><td><code>f(double)</code></td><td>Same rule, other direction &mdash; <code>float</code>&rarr;<code>double</code> is a promotion, <code>float</code>&rarr;<code>int</code> is a conversion (and a lossy one).</td></tr>
+</tbody></table></div>
+<div class="tipbox"><span class="l">The order the compiler works in</span>
+<p><b>Exact match &rarr; promotion &rarr; standard conversion &rarr; user-defined conversion &rarr; ellipsis.</b> It stops at the first level where exactly one candidate matches. If a level produces two candidates and no tie-break, the call is <b>ambiguous</b> &mdash; that is the error in part (i), and it is by far the most common overloading mistake.</p>
+<p>And the rule that catches people out: <b>the return type is not part of the signature.</b> <code>int f(int);</code> and <code>double f(int);</code> are not overloads, they are a redeclaration conflict.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 (c)</div>
+  <div class="qt">Write a program in which a single function accesses the private data of <b>two different</b> classes. Explain why the forward declaration is necessary and list the properties of a friend function.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">#include &lt;iostream&gt;
+using namespace std;
+
+class B;                          // forward declaration -- required
+
+class A {
+    int x;
+public:
+    A(int v) { x = v; }
+    friend int sum(A, B);         // B is only a NAME here, and that is enough
+};
+
+class B {
+    int y;
+public:
+    B(int v) { y = v; }
+    friend int sum(A, B);
+};
+
+int sum(A a, B b) {               // note: no 'friend', no 'A::'
+    return a.x + b.y;             // reaches inside both classes
+}
+
+int main() {
+    A a(10);
+    B b(20);
+    cout &lt;&lt; sum(a, b) &lt;&lt; endl;
+    return 0;
+}</div>
+<div class="eqn">30</div>
+<p><span class="ans">Output: 30</span></p>
+<p><b>Why the forward declaration is necessary.</b> Class <code>A</code> is compiled first, and its friend declaration <code>friend int sum(A, B);</code> mentions <code>B</code> &mdash; a name the compiler has not met yet. <code>class B;</code> on the line above is an <b>incomplete type declaration</b>: it promises &ldquo;a class called B exists, its definition is coming&rdquo;. That is all the compiler needs in order to parse the parameter list. Without it, the friend declaration fails with &ldquo;<code>B</code> has not been declared&rdquo;.</p>
+<p>An incomplete type is enough to <i>name</i> in a declaration, but not enough to use: you could not write <code>B b;</code> or <code>b.y</code> before <code>B</code>&rsquo;s full definition. In this program <code>sum</code>&rsquo;s <i>body</i> appears after both classes are complete, so by then everything is known.</p>
+<p><b>Properties of a friend function &mdash; the list the examiner wants.</b></p>
+<ul>
+<li>It is <b>not a member</b> of the class, even though it is declared inside it. It is not in the class&rsquo;s scope.</li>
+<li>It is <b>called like an ordinary function</b>, without an object &mdash; <code>sum(a, b)</code>, never <code>a.sum(b)</code>.</li>
+<li>It has <b>no <code>this</code> pointer</b>, so every object it works on must be passed as an argument. That is why <code>sum</code> takes two parameters where a member function would take one.</li>
+<li>It can be declared in the <b>public or the private</b> section &mdash; it makes no difference at all to the meaning.</li>
+<li>It can access both <b>private and protected</b> members of the class that granted the friendship.</li>
+<li><b>Friendship is granted, not taken.</b> A function cannot declare itself a friend; the class must invite it. This is what keeps encapsulation intact &mdash; you can always find every outsider with access by reading the class.</li>
+<li><b>Friendship is not inherited and not mutual.</b> If A befriends B, B does not automatically befriend A, and A&rsquo;s derived classes do not inherit its friends.</li>
+</ul>
+<div class="tipbox"><span class="l">Why friends exist at all</span>
+<p>It looks like a hole in encapsulation, and it is &mdash; a deliberate one. Two situations need it: a function that must reach inside <b>two unrelated classes</b>, as here; and an operator whose <b>left operand is not an object of your class</b> &mdash; which is exactly why <code>operator&lt;&lt;</code> is always a friend, since its left operand is a <code>cout</code>.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 (d)</div>
+  <div class="qt">Predict the output. Explain the role of the scope resolution operator in this program, and state the consequence of writing <code>delete arr;</code> in place of <code>delete[] arr;</code>.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">#include &lt;iostream&gt;
+using namespace std;
+
+int m = 100;                       // global
+
+int main() {
+    int m = 10;                    // local -- hides the global
+    cout &lt;&lt; m &lt;&lt; " " &lt;&lt; ::m &lt;&lt; endl;
+
+    int *p   = new int(7);
+    int *arr = new int[3];
+    arr[0] = 1; arr[1] = 2; arr[2] = 3;
+
+    cout &lt;&lt; *p &lt;&lt; " " &lt;&lt; arr[1] &lt;&lt; endl;
+
+    delete   p;
+    delete[] arr;
+    return 0;
+}</div>
+<div class="eqn">10 100
+7 2</div>
+<p><span class="ans">Two lines: &ldquo;10 100&rdquo; then &ldquo;7 2&rdquo;</span></p>
+<p><b>The scope resolution operator, both of its jobs.</b></p>
+<ol>
+<li><b>Unary <code>::m</code> &mdash; reach the global.</b> The local <code>m</code> hides the global one throughout <code>main()</code>, so plain <code>m</code> is 10. Writing <code>::m</code> with nothing to its left says &ldquo;the <code>m</code> at file scope&rdquo;, which is 100. In C this is impossible &mdash; a hidden global is simply unreachable &mdash; and it is one of the small additions C++ makes.</li>
+<li><b>Binary <code>Class::member</code> &mdash; name a member outside its class.</b> The same operator is what lets you define a member function outside the class body (<code>int Box::area() {&hellip;}</code>), define a static data member (<code>int Item::count = 0;</code>), call a static member function (<code>Item::live()</code>), and disambiguate an inherited name (<code>p.M::display()</code>).</li>
+</ol>
+<p><b><code>delete arr;</code> instead of <code>delete[] arr;</code>.</b> It is <b>undefined behaviour</b>. <code>new[]</code> and <code>delete[]</code> are a matched pair: <code>new[]</code> records how many elements it allocated, and <code>delete[]</code> reads that count so it can run the destructor on <i>every</i> element before releasing the block. Plain <code>delete</code> assumes a single object, so it:</p>
+<ul>
+<li>destroys <b>only the first element</b> &mdash; the other objects&rsquo; destructors never run, leaking whatever they owned;</li>
+<li>hands the wrong block back to the allocator, which typically <b>corrupts the heap</b>.</li>
+</ul>
+<p>Here the elements are plain <code>int</code>s with no destructor, so on most compilers it happens to survive &mdash; which makes it the worst kind of bug: correct-looking, silent, and fatal the moment the array holds real objects. <b>Whatever you allocate with <code>new[]</code>, release with <code>delete[]</code>.</b></p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3 (a)</div>
+  <div class="qt">Write a class <code>Complex</code> that overloads the <code>+</code> operator as a member function, and show its use. Then explain why <code>c = a + 2;</code> can be made to work while <code>c = 2 + a;</code> cannot, and how a friend function fixes it.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">#include &lt;iostream&gt;
+using namespace std;
+
+class Complex {
+    float re, im;
+public:
+    Complex()                  { re = im = 0;       }
+    Complex(float r, float i)  { re = r;  im = i;   }
+    Complex(float r)           { re = r;  im = 0;   }   // one-arg: also a CONVERTER
+
+    Complex operator+(Complex c) {        // 'this' is the LEFT operand
+        Complex t;
+        t.re = re + c.re;
+        t.im = im + c.im;
+        return t;
+    }
+
+    void show() { cout &lt;&lt; re &lt;&lt; " + j" &lt;&lt; im &lt;&lt; endl; }
+};
+
+int main() {
+    Complex a(2.5, 3.5), b(1.5, 2.5), c;
+    c = a + b;
+    c.show();
+    return 0;
+}</div>
+<div class="eqn">4 + j6</div>
+<p><span class="ans">Output: 4 + j6</span></p>
+<p><b>How the call is actually made.</b> <code>a + b</code> is rewritten by the compiler as</p>
+<div class="eqn">a.operator+(b)</div>
+<p>so the <b>left operand becomes the object</b> and the right one becomes the argument. A binary operator overloaded as a member therefore takes only <b>one</b> parameter &mdash; the other operand is <code>*this</code>. As a friend it would take <b>two</b>.</p>
+<p><b>Why <code>a + 2</code> works.</b> There is a one-argument constructor <code>Complex(float)</code>, so when the compiler sees <code>a.operator+(2)</code> and the parameter wants a <code>Complex</code>, it is allowed to build a temporary <code>Complex(2)</code> and pass that. A one-argument constructor is a <b>converting constructor</b>, whether you meant it to be or not.</p>
+<p><b>Why <code>2 + a</code> does not.</b> The same rewrite gives</p>
+<div class="eqn">2 . operator+(a)        &lt;-- nonsense</div>
+<p>The left operand is an <code>int</code>, and an <code>int</code> is a built-in type with no member functions. <b>The compiler will never convert the left operand of a member operator</b>, because it has to find the function <i>before</i> it can consider conversions, and it looks for it inside the type of the left operand. So the call fails.</p>
+<p><b>The friend fix.</b> Declare the operator as a non-member, and now <i>both</i> operands are ordinary parameters, so both are open to conversion:</p>
+<div class="eqn">class Complex {
+    ...
+    friend Complex operator+(Complex, Complex);
+};
+
+Complex operator+(Complex p, Complex q) {
+    return Complex(p.re + q.re, p.im + q.im);
+}
+
+// now all three of these compile:
+c = a + b;
+c = a + 2;      // 2 -&gt; Complex(2)
+c = 2 + a;      // 2 -&gt; Complex(2)   <-- this is what the member version could not do</div>
+<div class="tipbox"><span class="l">Member or friend? The one-line rule</span>
+<p><b>If the left operand may be something other than your class, it must be a friend.</b> That is why <code>operator&lt;&lt;</code> and <code>operator&gt;&gt;</code> are always friends &mdash; their left operand is a stream, not your object.</p>
+<p>The exceptions run the other way: <code>=</code>, <code>[]</code>, <code>()</code> and <code>-&gt;</code> <b>must</b> be members, by language rule. And the operators you cannot overload at all are <code>.</code> &nbsp;<code>.*</code> &nbsp;<code>::</code> &nbsp;<code>?:</code> &nbsp;and <code>sizeof</code>.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3 (b)</div>
+  <div class="qt">Predict the output of the program below and state the <b>two</b> defects it has. Rewrite the class so that both are removed.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class Str {
+    char *p;
+public:
+    Str(const char *s) {
+        p = new char[strlen(s) + 1];
+        strcpy(p, s);
+    }
+    ~Str() { delete[] p; }
+    void set(int i, char c) { p[i] = c; }
+    void show() { cout &lt;&lt; p &lt;&lt; endl; }
+};
+
+int main() {
+    Str a("HELLO");
+    Str b = a;            // no copy constructor written
+    b.set(0, 'J');
+    a.show();
+    b.show();
+    return 0;
+}</div>
+<p><b>The output.</b></p>
+<div class="eqn">JELLO
+JELLO
+
+...then the program crashes or corrupts the heap on exit.</div>
+<p><span class="ans">Both objects print JELLO &mdash; changing b changed a</span></p>
+<p><b>Why.</b> No copy constructor was written, so the compiler supplies one, and the compiler-supplied version does a <b>member-by-member copy</b>. <code>Str</code> has exactly one member, the pointer <code>p</code>, so what gets copied is the <b>address</b>:</p>
+<div class="eqn">   a.p ----+
+           |
+           +---&gt; [ H E L L O \0 ]      ONE buffer
+           |
+   b.p ----+</div>
+<p>That is a <b>shallow copy</b>. <code>b.set(0,'J')</code> writes through <code>b.p</code>, but <code>a.p</code> points at the same bytes, so <code>a</code> changes too.</p>
+<p><b>Defect 1 &mdash; aliasing.</b> Two objects that were supposed to be independent share one buffer, so modifying either one silently modifies the other.</p>
+<p><b>Defect 2 &mdash; the double delete.</b> At the end of <code>main()</code>, <code>b</code> is destroyed and runs <code>delete[] p</code>. Then <code>a</code> is destroyed and runs <code>delete[]</code> on <b>the same address</b>. Releasing the same block twice is <b>undefined behaviour</b> &mdash; in practice a heap corruption or a crash. This is the more serious of the two, because it can strike long after the real mistake.</p>
+<p><b>The fix &mdash; a deep copy constructor, and the assignment operator to match:</b></p>
+<div class="eqn">class Str {
+    char *p;
+public:
+    Str(const char *s) {
+        p = new char[strlen(s) + 1];
+        strcpy(p, s);
+    }
+
+    // DEEP copy constructor -- its own buffer
+    Str(const Str &amp;s) {
+        p = new char[strlen(s.p) + 1];
+        strcpy(p, s.p);
+    }
+
+    // and the assignment operator, or 'a = b;' has the same bug
+    Str&amp; operator=(const Str &amp;s) {
+        if (this != &amp;s) {                 // guard against  a = a;
+            delete[] p;
+            p = new char[strlen(s.p) + 1];
+            strcpy(p, s.p);
+        }
+        return *this;                     // so that a = b = c; works
+    }
+
+    ~Str() { delete[] p; }
+    void set(int i, char c) { p[i] = c; }
+    void show() { cout &lt;&lt; p &lt;&lt; endl; }
+};</div>
+<div class="eqn">with the fix:     HELLO
+                  JELLO        and no crash</div>
+<div class="tipbox"><span class="l">Why the parameter must be a reference</span>
+<p>The copy constructor is declared <code>Str(const Str &amp;s)</code> and the <code>&amp;</code> is <b>compulsory</b>. If you wrote <code>Str(Str s)</code>, passing the argument by value would itself require a copy &mdash; which would call the copy constructor &mdash; which would need to copy its argument &mdash; forever. The compiler rejects it outright.</p>
+<p><b>The rule to quote:</b> the moment a class owns a resource through a raw pointer, it needs <b>all three</b> of a destructor, a copy constructor and a copy assignment operator. Write one and you almost certainly need the other two.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4 (a)</div>
+  <div class="qt">Give the visibility table for the three modes of inheritance. For the code below, state the accessibility of <code>a</code>, <code>b</code> and <code>c</code> inside <code>B</code>, inside <code>C</code>, and from <code>main()</code>.<details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">class A {
+private:   int a;
+protected: int b;
+public:    int c;
+};
+
+class B : protected A { };      // protected inheritance
+class C : private   B { };      // private inheritance</div>
+<p><b>The visibility table.</b> Read it as: a base member of <i>this</i> kind, inherited in <i>that</i> mode, becomes&hellip;</p>
+<div class="solwrap"><table>
+<thead><tr><th>Member in the base</th><th><code>public</code> inheritance</th><th><code>protected</code> inheritance</th><th><code>private</code> inheritance</th></tr></thead>
+<tbody>
+<tr><th>private</th><td colspan="3" style="text-align:center"><b>Not inherited &mdash; never accessible in any derived class, in any mode</b></td></tr>
+<tr><th>protected</th><td>protected</td><td>protected</td><td>private</td></tr>
+<tr><th>public</th><td>public</td><td><b>protected</b></td><td><b>private</b></td></tr>
+</tbody></table></div>
+<p><b>The one-line way to remember it:</b> the inheritance mode is a <b>ceiling</b>, not a floor. A member can never come out <i>more</i> accessible than the mode allows; if it was already less accessible, it stays where it is. And a private base member is never inherited at all &mdash; not even privately.</p>
+<p><b>Applying it to the code.</b></p>
+<div class="solwrap"><table>
+<thead><tr><th></th><th>a (private in A)</th><th>b (protected in A)</th><th>c (public in A)</th></tr></thead>
+<tbody>
+<tr><th>Inside B<br><small>B : protected A</small></th><td><b>Inaccessible</b></td><td>protected</td><td><b>protected</b> &mdash; demoted from public</td></tr>
+<tr><th>Inside C<br><small>C : private B</small></th><td><b>Inaccessible</b></td><td><b>private</b> &mdash; demoted again</td><td><b>private</b></td></tr>
+<tr><th>From <code>main()</code></th><td>No</td><td>No</td><td><b>No</b> &mdash; it was public in A, but two modes have shut it away</td></tr>
+</tbody></table></div>
+<p><span class="ans">Nothing from A is reachable through a C object in <code>main()</code></span></p>
+<p><b>Two things worth adding.</b></p>
+<ul>
+<li>A private member of A is <i>physically present</i> in every B and C object &mdash; it occupies space &mdash; but no derived class may name it. The only route to it is a public or protected member function of A.</li>
+<li>Members of C <i>can</i> still use <code>b</code> and <code>c</code>, because private members are accessible inside their own class. What C cannot do is pass them on: a class derived from C gets nothing.</li>
+</ul>
+<div class="tipbox"><span class="l">The default nobody remembers</span>
+<p>If you leave the mode out, it depends on the keyword you used: <code>class D : B</code> is <b>private</b> inheritance, but <code>struct D : B</code> is <b>public</b> inheritance. Write the mode explicitly, every time. Nearly all real inheritance is <code>public</code>, because that is the only mode that models &ldquo;is-a&rdquo;.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4 (b)</div>
+  <div class="qt">Explain, with code, the ambiguity that arises in multiple inheritance and the two distinct situations in which it occurs. Give the fix for each.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Situation 1 &mdash; two bases with the same member name.</b></p>
+<div class="eqn">class M { public: void display() { cout &lt;&lt; "M" &lt;&lt; endl; } };
+class N { public: void display() { cout &lt;&lt; "N" &lt;&lt; endl; } };
+
+class P : public M, public N { };
+
+int main() {
+    P p;
+    p.display();          // ERROR -- which display()?
+}</div>
+<p>Both bases contribute a <code>display()</code>, neither is preferred, so the compiler reports <b>&ldquo;request for member display is ambiguous&rdquo;</b>. Note that the <i>class</i> <code>P</code> compiles perfectly &mdash; the error appears only at the call.</p>
+<p><b>Fix &mdash; the scope resolution operator:</b></p>
+<div class="eqn">p.M::display();       // prints M
+p.N::display();       // prints N</div>
+<p>Or, better, resolve it once inside the class so that users of <code>P</code> never see the problem:</p>
+<div class="eqn">class P : public M, public N {
+public:
+    void display() { M::display(); }      // P makes the choice
+};</div>
+<p><b>Situation 2 &mdash; the diamond, where the ambiguity is in the <i>data</i>.</b></p>
+<div class="eqn">        Student
+        /      \
+     Test      Sports
+        \      /
+         Result</div>
+<div class="eqn">class Student { protected: int roll; };
+
+class Test   : public Student { protected: int m1, m2; };
+class Sports : public Student { protected: int score;  };
+
+class Result : public Test, public Sports {
+public:
+    void show() { cout &lt;&lt; roll; }     // ERROR -- which roll?
+};</div>
+<p>This is <b>hybrid inheritance</b>, and it is a different problem from the first one: nobody wrote <code>roll</code> twice. <code>Result</code> inherits <code>Student</code> <b>twice over</b> &mdash; once down the <code>Test</code> path and once down the <code>Sports</code> path &mdash; so a <code>Result</code> object physically contains <b>two</b> copies of <code>roll</code>. Even <code>Test::roll</code> would work but is wrong in spirit: a student has one roll number, not two.</p>
+<p><b>Fix &mdash; the virtual base class.</b> Mark the inheritance <code>virtual</code> at <i>both</i> of the middle classes:</p>
+<div class="eqn">class Student { protected: int roll; };
+
+class Test   : virtual public Student { ... };
+class Sports : public virtual Student { ... };     // order of the two
+                                                   // keywords does not matter
+class Result : public Test, public Sports {
+public:
+    void show() { cout &lt;&lt; roll; }      // fine -- exactly one roll now
+};</div>
+<p><span class="ans">One shared <code>Student</code> sub-object instead of two</span></p>
+<p><b>What <code>virtual</code> actually does here.</b> It tells the compiler: however many paths reach <code>Student</code>, make only <b>one</b> copy of it in the final object and let every path share it. The keyword goes on the classes that do the <i>intermediate</i> inheriting, not on <code>Result</code> &mdash; by the time you are writing <code>Result</code> it is already too late.</p>
+<div class="tipbox"><span class="l">The consequence people get asked about</span>
+<p>With a virtual base, <b>the most derived class constructs it</b>. <code>Result</code>&rsquo;s constructor calls <code>Student</code>&rsquo;s directly; the calls that <code>Test</code> and <code>Sports</code> would normally make are <b>skipped</b>. That is the only way to guarantee the shared sub-object is built exactly once, and it surprises everybody the first time they hit it.</p>
+<p>Two more one-liners worth keeping: <b>virtual base class</b> &ne; <b>virtual function</b> &mdash; same keyword, unrelated jobs. And an <b>abstract class</b> is one with a pure virtual function (<code>virtual void f() = 0;</code>), which cannot be instantiated and exists only to be inherited from.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="why" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Why there is no past paper here</h2><span class="tag">and what we did instead</span></div>
+<div class="caveat" style="margin-bottom:22px">
+<b>The papers folder has four subjects in it, and this is not one of them.</b> DSP, DComm, DCN and DIP
+all have at least one scanned mid-sem; C++ has none. We could have invented one and called it 2024.
+We did not.</div>
+<p class="note" style="margin:0 0 16px">So the page you have just read is built the only honest way
+it can be: from the eight lecture decks, from the shape the other four mid-sems take at this
+institute &mdash; 30 marks, ninety minutes, four questions, one of them &ldquo;attempt any three&rdquo;
+&mdash; and from the observation that a programming paper asks you to <i>read and write code</i>
+rather than to describe it.</p>
+<p class="note" style="margin:0 0 16px"><b>What that means for you.</b> Use the predicted paper as a
+revision set with an unusually good hit rate on topics, and an unknown one on exact wording. If a
+past paper turns up, this page gets rebuilt around it the same day &mdash; and the first thing that
+would change is the mark split, which is the one number here we are genuinely guessing at.</p>
+<p class="note" style="margin:0 0 16px">Everything else on this page is checkable. Every program has
+been traced statement by statement, every predicted output is derived in the solution rather than
+asserted, and where the behaviour is undefined by the language &mdash; the double <code>delete</code>
+in Q-3(b), the wrong <code>delete</code> in Q-2(d) &mdash; it says so instead of inventing a
+number.</p>
+<p class="note" style="margin:0"><a href="../notes/oops.html" style="color:var(--spot);font-weight:600">
+The notes &rarr;</a> &nbsp;&middot;&nbsp; <a href="../quiz/oops.html" style="color:var(--spot);font-weight:600">
+The 40-question quiz &rarr;</a></p>
+</section>
+
+<div class="colo" style="margin-top:56px;padding-top:15px;border-top:5px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);line-height:2.1">
+  <b style="color:var(--ink-2);font-weight:400">CS201 &middot; Object Oriented Programming</b> &middot; papers worked by hand and checked numerically<br>
+  the predicted paper is our own reading of the pattern &mdash; it is not an official anything, and it is not a leak<br>
+  <a href="../index.html" style="color:var(--ink-2)">back to Tu Chahiye</a> &middot; <a href="archive.html" style="color:var(--ink-2)">the original scans</a> &middot; <a href="../downloads.html" style="color:var(--ink-2)">all the PDFs</a>
+</div>
+
+</div>
+<script>
+(function(){
+  var K="tc.theme", root=document.documentElement;
+  try{ var s=localStorage.getItem(K); if(s) root.setAttribute("data-theme",s); }catch(e){}
+})();
+(function(){
+  var bar=document.querySelector(".years");
+  if(!bar) return;
+  var links=[].slice.call(bar.querySelectorAll("a")),
+      secs=links.map(function(a){ return document.querySelector(a.getAttribute("href")); }),
+      top=0;
+  function sync(){
+    if(!top) top = bar.offsetTop;
+    bar.classList.toggle("stuck", window.scrollY > top - 1);
+    var y=window.scrollY+140, best=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+    links.forEach(function(a,i){ a.className = i===best ? "on" : ""; });
+  }
+  window.addEventListener("scroll", sync, {passive:true});
+  window.addEventListener("resize", function(){ top=0; sync(); }, {passive:true});
+  sync();
+})();
+</script>
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>

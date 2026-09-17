@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The papers &mdash; Tu Chahiye</title>
+<meta name="description" content="Eleven past mid-sem papers worked out question by question, and five predicted papers for September 2026 with full solutions.">
+<meta name="theme-color" content="#EAE8E1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/press.css">
+<link rel="stylesheet" href="../assets/paper.css">
+<link rel="stylesheet" href="../assets/motion.css">
+<link rel="stylesheet" href="../assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>
+/* ---- masthead, set twice and knocked out of register ---- */
+.mast{position:relative;margin:10px 0 0;isolation:isolate}
+.mast h1{font-family:var(--display);font-weight:900;
+  font-size:clamp(62px,17.5vw,188px);line-height:.78;letter-spacing:-.028em;
+  text-transform:uppercase;margin:0}
+.mast .g{position:absolute;inset:0;margin:0;pointer-events:none;user-select:none;z-index:-1}
+.mast .g1{color:var(--pink);transform:translate(-4px,3px);opacity:.82}
+.mast .g2{color:var(--blue);transform:translate(4px,-3px);opacity:.72}
+
+/* ---- the count strip ---- */
+.tally{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:5px solid var(--ink);border-bottom:1px solid var(--hair);margin:26px 0 30px}
+.tally > div{padding:13px 16px 12px;border-left:1px solid var(--hair)}
+.tally > div:first-child{border-left:0;padding-left:0}
+.tally .n{font-family:var(--display);font-weight:800;font-size:clamp(30px,6.5vw,46px);
+  line-height:.9;letter-spacing:-.02em;display:block}
+.tally .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-top:7px;line-height:1.4}
+.tally .n1{color:var(--pink)}
+.tally .n2{color:var(--blue)}
+@media (max-width:620px){
+  .tally{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tally > div{border-top:1px solid var(--hair)}
+  .tally > div:nth-child(-n+2){border-top:0}
+  .tally > div:nth-child(odd){border-left:0;padding-left:0}
+}
+
+/* ---- the five rows (same set as the dashboard) ---- */
+.pgrid{border-top:3px solid var(--ink)}
+.prow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px;align-items:center;
+  border-bottom:1px solid var(--hair);padding:17px 0;text-decoration:none;color:inherit;
+  transition:background var(--press)}
+.prow:hover,.prow:active{background:var(--sub-wash)}
+.prow:active .parrow{transform:translateX(3px);transition:transform var(--settle)}
+.prow .pcode{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--sub-ink)}
+.prow .pname{font-weight:600;font-size:17.5px;line-height:1.3;display:block}
+.prow .pmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:5px;display:block}
+.prow .parrow{font-family:var(--display);font-weight:800;font-size:27px;color:var(--ink-3)}
+.prow:hover .parrow{color:var(--sub-ink)}
+@media (max-width:560px){
+  .prow{grid-template-columns:62px minmax(0,1fr) auto;gap:12px}
+  .prow .pcode{font-size:20px}
+  .prow .pname{font-size:16px}
+}
+
+/* ---- the side-by-side bets ---- */
+.bets{overflow-x:auto;border-top:3px solid var(--ink);margin:0 0 12px;-webkit-overflow-scrolling:touch}
+.bets table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:580px}
+.bets th,.bets td{padding:11px 12px 11px 0;border-bottom:1px solid var(--hair);
+  text-align:left;vertical-align:top}
+.bets th{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;white-space:nowrap}
+.bets td.s{white-space:nowrap;width:1%;padding-right:20px}
+.bets td.s a{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;
+  color:var(--sub-ink);text-decoration:none;display:block}
+.bets td.s span{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);display:block;margin-top:4px}
+.bets td.w{color:var(--ink-2);line-height:1.5}
+.bets td.w b{color:var(--ink);font-weight:600}
+.bets td.r{white-space:nowrap;width:1%;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding-right:0}
+
+/* ---- method, numbered ---- */
+.steps{counter-reset:s;border-top:1px solid var(--hair);margin-top:12px}
+.steps > div{counter-increment:s;display:grid;grid-template-columns:50px minmax(0,1fr);gap:14px;
+  border-bottom:1px solid var(--hair);padding:16px 0}
+.steps > div::before{content:counter(s,decimal-leading-zero);
+  font-family:var(--display);font-weight:800;font-size:31px;line-height:.9;color:var(--pink)}
+.steps h4{font-size:16.5px;font-weight:600;margin:0 0 5px;letter-spacing:-.008em}
+.steps p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+@media (max-width:520px){
+  .steps > div{grid-template-columns:38px minmax(0,1fr);gap:11px}
+  .steps > div::before{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="press">
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+  <span class="sp"></span>
+  <span class="hideS">Sheet 3 of 3 &middot; the papers</span>
+  <a class="pdfget" href="../downloads.html">All&nbsp;PDFs</a>
+  <span class="clk" data-clock aria-label="The time in Surat">Surat</span>
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+</div>
+
+<header>
+  <p class="kicker" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+     text-transform:uppercase;color:var(--pink);margin:18px 0 8px;font-weight:700">
+     Every mid-sem we could find &middot; solved</p>
+  <div class="mast">
+    <h1 class="g g1" aria-hidden="true">The&nbsp;Papers</h1>
+    <h1 class="g g2" aria-hidden="true">The&nbsp;Papers</h1>
+    <h1>The&nbsp;Papers</h1>
+  </div>
+  <div class="rule-heavy"></div>
+  <p class="standfirst">Eleven past papers, read off the scans and worked out question by question &mdash; not summarised, <b>solved</b>, with the arithmetic shown. Then, for each subject, a <b>predicted paper for September 2026</b> built from the pattern across those years, the syllabus, and what has actually been taught this semester.</p>
+</header>
+
+<div class="tally">
+  <div><span class="n roll" data-count="11">11</span><span class="l">past papers<br>worked through</span></div>
+  <div><span class="n n1 roll" data-count="120">120</span><span class="l">questions, every one<br>with a full solution</span></div>
+  <div><span class="n n2 roll" data-count="5">5</span><span class="l">predicted papers<br>for Sept 2026</span></div>
+  <div><span class="n roll" data-count="4">4</span><span class="l">years of pattern<br>where the scans exist</span></div>
+</div>
+
+<!-- ============================ THE FIVE ============================ -->
+<section class="band">
+  <div class="sechead">
+    <h2 class="sec">Pick a subject</h2>
+    <span class="tag">solutions open in place, nothing to download</span>
+  </div>
+
+  <div class="pgrid">
+    <a class="prow" href="dcomm.html" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
+      <span class="pcode">EC301</span>
+      <span><span class="pname">Digital Communication</span><span class="pmeta">2022 &middot; 2023 &middot; 2024 &middot; 2025 solved &middot; 29 solutions</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="dcn.html" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
+      <span class="pcode">EC321</span>
+      <span><span class="pname">Communication Networks</span><span class="pmeta">2023 &middot; 2024 &middot; 2025 solved &middot; 39 solutions</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="dsp.html" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)">
+      <span class="pcode">EC303</span>
+      <span><span class="pname">Digital Signal Processing</span><span class="pmeta">2023 &middot; 2024 &middot; 2025 solved &middot; 22 solutions</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="dip.html" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
+      <span class="pcode">EC341</span>
+      <span><span class="pname">Digital Image Processing</span><span class="pmeta">Sept 2025 solved in full &middot; 20 solutions</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="oops.html" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)">
+      <span class="pcode">C++</span>
+      <span><span class="pname">Object Oriented Programming</span><span class="pmeta">no past paper exists &middot; predicted from the slides</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="archive.html" style="--sub-ink:var(--ink);--sub-wash:var(--stock-2)">
+      <span class="pcode">PDF</span>
+      <span><span class="pname">Previous year papers &mdash; the original scans</span><span class="pmeta">13 question papers &middot; 4 subjects &middot; download any of them</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ THE BETS ============================ -->
+<section class="band">
+  <div class="sechead">
+    <h2 class="sec">What each prediction is betting on</h2>
+    <span class="tag">the one thing per subject we would not skip</span>
+  </div>
+  <p class="note" style="margin:0 0 22px">Every predicted paper comes with its reasoning written out on its own page. This is the compressed version &mdash; the single call that most affects how you revise, and how sure we are of it.</p>
+
+  <div class="bets">
+    <table>
+      <thead><tr><th>Subject</th><th>The call</th><th>Confidence</th></tr></thead>
+      <tbody>
+        <tr style="--sub-ink:var(--dcomm)">
+          <td class="s"><a href="dcomm.html">EC301</a><span>Digital Comm</span></td>
+          <td class="w"><b>2025 broke the pattern and it will stay broken.</b> The older papers were quantisation-and-entropy arithmetic; 2025 went waveform-and-block-diagram heavy. We have predicted the newer shape, which means <b>drawing</b> matters as much as calculating.</td>
+          <td class="r">High</td>
+        </tr>
+        <tr style="--sub-ink:var(--dcn)">
+          <td class="s"><a href="dcn.html">EC321</a><span>Networks</span></td>
+          <td class="w"><b>The numerical core repeats almost verbatim.</b> ALOHA throughput, CSMA/CD minimum frame size, bandwidth-delay product and sliding-window efficiency, CRC by long division &mdash; all three years, every year. Learn the four calculations cold and a third of the paper is already written.</td>
+          <td class="r">Very high</td>
+        </tr>
+        <tr style="--sub-ink:var(--dsp)">
+          <td class="s"><a href="dsp.html">EC303</a><span>Signals</span></td>
+          <td class="w"><b>The DFT and its computational cost is the anchor question.</b> Every paper we have asks you to take a small DFT by hand and then compare direct evaluation against the FFT in multiplications. The rest moves; that does not.</td>
+          <td class="r">High</td>
+        </tr>
+        <tr style="--sub-ink:var(--dip)">
+          <td class="s"><a href="dip.html">EC341</a><span>Image Proc</span></td>
+          <td class="w"><b>Spatial filtering will appear, and it could not have appeared before.</b> Lectures 21&ndash;23 &mdash; masks, median, Laplacian, Sobel &mdash; were taught after the only past paper was set. They are dense, calculable, and exactly this examiner&rsquo;s style.</td>
+          <td class="r">Reasoned</td>
+        </tr>
+        <tr style="--sub-ink:var(--oops)">
+          <td class="s"><a href="oops.html">C++</a><span>Objects</span></td>
+          <td class="w"><b>It will be a code paper, not a theory paper.</b> Predict-the-output, find-the-errors, write-a-class. And inheritance &mdash; a whole new deck, never yet examined &mdash; is worth about a fifth of the marks.</td>
+          <td class="r">Unverified</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="freqkey">confidence is ours, and it is honest: &ldquo;very high&rdquo; means the same question appeared in every paper we hold &middot; &ldquo;unverified&rdquo; means there is no past paper at all to check against</p>
+</section>
+
+<!-- ============================ METHOD ============================ -->
+<section class="band">
+  <div class="sechead">
+    <h2 class="sec">How the predicting was done</h2>
+    <span class="tag">so you can judge it for yourself</span>
+  </div>
+
+  <div class="steps">
+    <div>
+      <div>
+        <h4>Read every scan, question by question</h4>
+        <p>Not skimmed for topics &mdash; transcribed. Marks, sub-parts, the wording of the instruction line, which questions offered a choice. The shape of a paper carries as much information as its content, and it is the part that changes least from year to year.</p>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h4>Tabulate what repeats</h4>
+        <p>Each subject&rsquo;s page opens with a grid: topic down the side, year across the top, a filled square where it appeared. Rows that are filled all the way across are tinted. That table is doing the actual predicting &mdash; everything after it is interpretation.</p>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h4>Correct for what has been taught since</h4>
+        <p>A pattern read alone will predict last year&rsquo;s paper. Two subjects have moved: DIP has three new lectures of spatial filtering, and C++ has a whole inheritance deck. Both are on the syllabus, neither is in any past paper, and both are weighted accordingly.</p>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h4>Solve it, then check the numbers</h4>
+        <p>Every predicted question is answered in full on the same page. Throughputs, frame sizes, DFTs, histogram tables, bit planes &mdash; each was computed independently rather than quoted, and where a scan is too faint to read, the page says so instead of inventing the question.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HONESTY ============================ -->
+<section class="band">
+  <div class="sechead">
+    <h2 class="sec">What this is not</h2>
+    <span class="tag">read this bit</span>
+  </div>
+  <div class="caveat" style="margin-bottom:20px">
+    <b>The predicted papers are a reading of a pattern. They are not a leak, and nobody has seen your paper.</b>
+    If a prediction is right it is because the same examiner sets the same kind of question every year, which is a real and useful regularity &mdash; not because we know anything.
+  </div>
+  <p class="note" style="margin:0 0 14px">Two more things worth being straight about. <b>Some scans are unreadable.</b> Where a question could not be made out, the page marks it as illegible rather than guessing at the wording &mdash; you will see that a few times in the older DSP and DComm papers. And <b>one subject has no past paper at all.</b> The C++ page says so at the top, in its own section, and explains exactly what its prediction is built from instead.</p>
+  <p class="note" style="margin:0">Use these the way you would use a senior&rsquo;s solved copy: excellent for finding out whether you can actually do the arithmetic under time pressure, useless as a substitute for the notes. <a href="../index.html#notes" style="color:var(--pink);font-weight:600">The notes are here &rarr;</a></p>
+</section>
+
+<div class="colo" style="margin-top:56px;padding-top:15px;border-top:5px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);line-height:2.1">
+  <b style="color:var(--ink-2);font-weight:400">Tu Chahiye &middot; the papers</b> &middot; 11 past papers &middot; 120 solutions &middot; 5 predictions<br>
+  worked by hand, every number checked &mdash; tell us where we got one wrong<br>
+  <a href="../index.html" style="color:var(--ink-2)">back to the dashboard</a>
+</div>
+
+</div>
+<script>
+(function(){
+  var K="tc.theme", root=document.documentElement;
+  try{ var s=localStorage.getItem(K); if(s) root.setAttribute("data-theme",s); }catch(e){}
+})();
+</script>
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>

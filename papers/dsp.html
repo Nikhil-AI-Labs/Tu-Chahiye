@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Signal Processing &mdash; the papers</title>
+<meta name="description" content="EC303 mid-sem papers worked out question by question, the pattern across the years, and a predicted paper for September 2026.">
+<meta name="theme-color" content="#EAE8E1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/press.css">
+<link rel="stylesheet" href="../assets/paper.css">
+<link rel="stylesheet" href="../assets/motion.css">
+<link rel="stylesheet" href="../assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>:root{--spot:var(--dsp);--spot-wash:var(--dsp-wash)}</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="press">
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+  <span class="sp"></span>
+  <span class="hideS"><a href="../notes/dsp.html">the notes</a> &middot; <a href="../quiz/dsp.html">the quiz</a></span>
+  <a class="pdfget" href="../pdf/papers-dsp.pdf" download title="Every solution on this page as an A4 PDF">PDF</a>
+  <span class="clk" data-clock aria-label="The time in Surat">Surat</span>
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+</div>
+
+<header style="padding-top:14px">
+  <div class="subhead">
+    <div>
+      <div class="code">EC303 &middot; mid-sem</div>
+      <h1>The papers</h1>
+    </div>
+  </div>
+  <div class="rule-heavy"></div>
+  <p class="standfirst">Three mid-sem papers &mdash; 2023, 2024 and 2025 &mdash; with every question worked out, and a <b>predicted paper for September 2026</b>. The 2023 and 2024 scans are poor in places; where a line is genuinely unreadable it is said so rather than guessed at.</p>
+</header>
+
+<nav class="years">
+  <ul><li><a href="#pattern">The pattern</a></li><li><a href="#predicted">Predicted 2026</a></li><li><a href="#p2025">2025</a></li><li><a href="#p2024">2024</a></li><li><a href="#p2023">2023</a></li></ul>
+</nav>
+
+<section class="band" id="pattern" style="scroll-margin-top:70px;padding-top:10px">
+<div class="sechead"><h2 class="sec">What actually gets asked</h2><span class="tag">3 papers read end to end</span></div>
+<p class="note" style="margin:0 0 22px">This paper has a very stable skeleton: five questions, 30 marks, and the same four areas every single year. What moves around is which corner of the DFT/FFT gets asked and how the difference equation is dressed up.</p>
+<div class="freq"><table><thead><tr><th>Topic</th><th class="y">23</th><th class="y">24</th><th class="y">25</th><th class="n">of&nbsp;3</th></tr></thead><tbody><tr class="every"><td>DFT or FFT &mdash; compute, count operations, or draw the butterfly</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr class="every"><td>Difference equation solved (step, particular, or full response)</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr class="every"><td>z-transform, ROC, and causality / stability from it</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr class="every"><td>Frequency response &mdash; magnitude and phase, or filter type</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr><td>Inverse system &mdash; find it and describe its behaviour</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2</td></tr><tr><td>A non-radix-2 FFT (radix-3, split-radix)</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2</td></tr><tr><td>Convolution worked by hand</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Periodicity, and energy versus power signals</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Structure realisation (delay, adder, multiplier blocks)</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>An analog RC circuit analysed as a filter</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>DFT property applied (frequency shift, symmetry)</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>System identified from its step response</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1</td></tr><tr><td>Time scaling / shifting inside a z-transform</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1</td></tr></tbody></table></div><p class="freqkey">filled = it appeared that year &middot; tinted rows came up in every paper we have</p>
+<h3 class="sub">Read it this way</h3>
+<div class="caveat"><b>Four areas, every year, without exception.</b> The DFT/FFT question, a difference equation, a z-transform with its ROC, and a frequency response. Those four are roughly 24 of the 30 marks. Everything else is the examiner&rsquo;s choice of garnish.
+<br><br><b>The FFT question is the one that moves.</b> 2023 asked for a <i>radix-3</i> flow graph for N = 9. 2024 asked for operation counts including <i>split-radix</i>, and separately for DIT applied to the <i>inverse</i> DFT. 2025 asked for <i>decimation in frequency</i> on 16 points. So do not learn only the 8-point DIT butterfly &mdash; learn the counting formulas, both decimations, and what changes for a different radix.
+<br><br><b>Watch the ROC wording.</b> Every year the z-transform question says &ldquo;<i>mention the ROC in all cases</i>&rdquo; or &ldquo;<i>find h(n) if the system is stable / causal / anti-causal</i>&rdquo;. It is asking for <b>three separate answers from one algebraic H(z)</b>, and most of the marks are there rather than in the partial fractions.
+<br><br><b>2025 added something new:</b> being handed a step response and asked to work backwards to the input. That is just differentiate-then-divide in the transform domain, and it is worth practising because it is an easy 7 marks once you see it.</div>
+</section>
+<section class="band" id="predicted" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Predicted paper &mdash; September 2026</h2><span class="tag">our reading, with full solutions</span></div>
+<div class="caveat"><b>Our prediction, not a leak.</b> Built from the shape that has held for three years: five questions, 30 marks, the four guaranteed areas, and one question that works backwards through a system. Full solutions on every part.</div>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">SVNIT, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">Mid-Semester Examination, September 2026 &mdash; <i>predicted</i></div>
+<div class="line">B.Tech. III Sem. V</div>
+<div class="sub">Digital Signal Processing (EC303)</div>
+</div>
+<div class="qp-bar"><span>Total marks: 30</span><span>Duration: 1 hour 30 minutes</span><span>Attempt all questions</span></div>
+<p class="qp-note"><b>Instructions.</b> Attempt all questions. Assume necessary data if required. The figure to the right indicates marks.</p>
+<div class="q">
+  <div class="qn">Q-1</div>
+  <div class="qt">A discrete-time LTI system is described by <b>y(n) &minus; &frac14;&middot;y(n&minus;1) = x(n) + x(n&minus;1)</b>. (i) Find the transfer function and sketch the pole-zero plot. (ii) Find the magnitude and phase of the frequency response, and state whether the system is low-pass or high-pass. (iii) Find the DC gain.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>(i) Transfer function.</b> Take the z-transform of both sides, using the delay property x(n&minus;k) &harr; z<sup>&minus;k</sup>X(z):</p>
+<div class="eqn">Y(z) - (1/4) z^-1 Y(z) = X(z) + z^-1 X(z)
+
+H(z) = Y(z)/X(z) = (1 + z^-1) / (1 - 0.25 z^-1)</div>
+<p>Multiply top and bottom by z to read the pole and zero off directly:</p>
+<div class="eqn">H(z) = (z + 1) / (z - 0.25)
+
+zero at z = -1     pole at z = +0.25</div>
+<p><b>Pole-zero plot:</b> a single pole at +0.25 on the real axis (well inside the unit circle) and a single zero at &minus;1 (exactly on the unit circle, at &omega; = &pi;).</p>
+<div class="eqn">        Im
+         |
+    o----+----x---+--->  Re
+   -1    0  0.25  1
+  zero        pole
+  (on the unit circle)</div>
+<p><b>(ii) Frequency response.</b> Put z = e<sup>j&omega;</sup>:</p>
+<div class="eqn">H(e^jw) = (1 + e^-jw) / (1 - 0.25 e^-jw)</div>
+<p>Magnitude &mdash; take the modulus of top and bottom separately:</p>
+<div class="eqn">|1 + e^-jw|      = sqrt( (1+cos w)^2 + sin^2 w ) = sqrt( 2 + 2cos w )
+|1 - 0.25 e^-jw| = sqrt( (1-0.25cos w)^2 + (0.25 sin w)^2 )
+                 = sqrt( 1.0625 - 0.5 cos w )
+
+|H(e^jw)| = sqrt(2 + 2cos w) / sqrt(1.0625 - 0.5 cos w)</div>
+<p>Phase &mdash; subtract the angle of the denominator from the angle of the numerator:</p>
+<div class="eqn">/_H(e^jw) = -arctan[ sin w / (1 + cos w) ]
+            + arctan[ 0.25 sin w / (1 - 0.25 cos w) ]</div>
+<p><b>Low-pass or high-pass?</b> Evaluate at the two ends:</p>
+<div class="eqn">w = 0  :  |H| = sqrt(4) / sqrt(0.5625) = 2 / 0.75   = 2.667
+w = pi :  |H| = sqrt(0)  / sqrt(1.5625)  = 0 / 1.25  = 0</div>
+<p><span class="ans">Low-pass &mdash; maximum gain at DC, and an exact null at &omega; = &pi;</span></p>
+<p>The null is no accident: the zero sits exactly at z = &minus;1, which <i>is</i> the point &omega; = &pi; on the unit circle, so that frequency is killed completely.</p>
+<p><b>(iii) DC gain</b> is just H(z) at z = 1:</p>
+<div class="eqn">H(1) = (1 + 1) / (1 - 0.25) = 2 / 0.75 = 8/3 = 2.667</div>
+<div class="tipbox"><span class="l">The shortcut worth knowing</span>
+<p>DC gain = H(z)|<sub>z=1</sub>, which is the same as summing all the coefficients: (1+1)/(1&minus;0.25). And the gain at the highest frequency is H(z)|<sub>z=&minus;1</sub>. Two substitutions tell you the filter type without plotting anything.</p></div></div></details></div>
+  <div class="qm">07</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2</div>
+  <div class="qt">A signal x(n) has the sample values x(0) = 1, x(1) = 2, x(2) = 3, x(3) = 4. (i) Compute the 4-point DFT X(k). (ii) Verify your answer using the property that X(0) is the sum of the samples. (iii) State what X(4), X(5), X(6) and X(7) would be, and why.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>(i)</b> With N = 4 the twiddle factor is W<sub>4</sub><sup>nk</sup> = e<sup>&minus;j2&pi;nk/4</sup> = (&minus;j)<sup>nk</sup>, so the whole thing is done with powers of &minus;j and no trigonometry at all.</p>
+<div class="eqn">X(k) = sum_{n=0..3} x(n) (-j)^(nk)
+
+X(0) = 1 + 2 + 3 + 4                              = 10
+
+X(1) = 1 + 2(-j)   + 3(-j)^2 + 4(-j)^3
+     = 1 - 2j      - 3       + 4j                 = -2 + 2j
+
+X(2) = 1 + 2(-j)^2 + 3(-j)^4 + 4(-j)^6
+     = 1 - 2       + 3       - 4                  = -2
+
+X(3) = 1 + 2(-j)^3 + 3(-j)^6 + 4(-j)^9
+     = 1 + 2j      - 3       - 4j                 = -2 - 2j</div>
+<p><span class="ans">X(k) = { 10, &minus;2+2j, &minus;2, &minus;2&minus;2j }</span></p>
+<p><b>(ii) Two free checks.</b></p>
+<ul>
+<li><b>X(0) = &Sigma;x(n)</b>, because every twiddle is 1 at k = 0. Here 1+2+3+4 = 10. &#10003;</li>
+<li><b>Conjugate symmetry.</b> x(n) is real, so X(N&minus;k) must be the complex conjugate of X(k). Check: X(3) = &minus;2&minus;2j is exactly the conjugate of X(1) = &minus;2+2j. &#10003; X(2) sits on its own at N/2 and must therefore be purely real &mdash; it is. &#10003;</li>
+</ul>
+<p><b>(iii)</b> The DFT is <b>periodic in k with period N</b>, so X(k + N) = X(k):</p>
+<div class="eqn">X(4) = X(0) = 10
+X(5) = X(1) = -2 + 2j
+X(6) = X(2) = -2
+X(7) = X(3) = -2 - 2j</div>
+<div class="tipbox"><span class="l">The trap</span>
+<p>Being asked for eight values does not make it an 8-point DFT. A 4-point DFT has exactly four distinct values and then repeats forever. The 2025 paper set precisely this trap with a different set of samples.</p></div></div></details></div>
+  <div class="qm">06</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3</div>
+  <div class="qt">A system has H(z) = (3 &minus; 4z<sup>&minus;1</sup>) / (1 &minus; 3.5z<sup>&minus;1</sup> + 1.5z<sup>&minus;2</sup>). Specify all possible regions of convergence, and find h(n) in each case. Say which one is causal and which is stable.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; factor the denominator.</b></p>
+<div class="eqn">1 - 3.5 z^-1 + 1.5 z^-2 = (1 - 3 z^-1)(1 - 0.5 z^-1)
+
+poles at  z = 3   and   z = 0.5</div>
+<p><b>Step 2 &mdash; partial fractions.</b></p>
+<div class="eqn">H(z) = (3 - 4z^-1) / [(1 - 3z^-1)(1 - 0.5z^-1)]
+     = A / (1 - 3z^-1)  +  B / (1 - 0.5z^-1)</div>
+<p>Multiply out and match: 3 &minus; 4z<sup>&minus;1</sup> = A(1 &minus; 0.5z<sup>&minus;1</sup>) + B(1 &minus; 3z<sup>&minus;1</sup>).</p>
+<div class="eqn">constant term : A + B     = 3
+z^-1 term     : -0.5A - 3B = -4
+
+solving:  A = 2,  B = 1</div>
+<div class="eqn">H(z) = 2/(1 - 3z^-1) + 1/(1 - 0.5z^-1)</div>
+<p><b>Step 3 &mdash; the three regions.</b> Two poles cut the plane into three rings, and each ring is a different sequence.</p>
+<div class="solwrap"><table>
+<thead><tr><th>ROC</th><th>h(n)</th><th>Causal?</th><th>Stable?</th></tr></thead>
+<tbody>
+<tr><td><b>|z| &gt; 3</b><br>outside both poles</td><td>2(3)<sup>n</sup>u(n) + (0.5)<sup>n</sup>u(n)</td><td><b>Yes</b> &mdash; entirely right-sided</td><td>No &mdash; the unit circle is not inside this ring</td></tr>
+<tr><td><b>0.5 &lt; |z| &lt; 3</b><br>the annulus between them</td><td>&minus;2(3)<sup>n</sup>u(&minus;n&minus;1) + (0.5)<sup>n</sup>u(n)</td><td>No &mdash; two-sided</td><td><b>Yes</b> &mdash; this ring does contain |z| = 1</td></tr>
+<tr><td><b>|z| &lt; 0.5</b><br>inside both poles</td><td>&minus;2(3)<sup>n</sup>u(&minus;n&minus;1) &minus; (0.5)<sup>n</sup>u(&minus;n&minus;1)</td><td>No &mdash; entirely left-sided, anti-causal</td><td>No</td></tr>
+</tbody></table></div>
+<p><b>The rule used twice:</b></p>
+<div class="eqn">a^n u(n)        &lt;-&gt;  1/(1 - a z^-1),  ROC |z| &gt; |a|    (right-sided)
+-a^n u(-n-1)    &lt;-&gt;  1/(1 - a z^-1),  ROC |z| &lt; |a|    (left-sided)</div>
+<p>Same algebra, opposite sequence &mdash; which is exactly why the ROC must always be stated.</p>
+<div class="tipbox"><span class="l">The conclusion to write out</span>
+<p>This system <b>cannot be both causal and stable</b>. Causal means the ROC is outside the outermost pole, |z| &gt; 3, which excludes the unit circle. Stable means the ROC contains the unit circle, which forces the annulus, which is two-sided. A causal system is stable only when <i>every</i> pole lies inside the unit circle, and the pole at z = 3 does not.</p></div></div></details></div>
+  <div class="qm">05</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4</div>
+  <div class="qt">Explain the decimation-in-time radix-2 FFT algorithm for an 8-point DFT. Draw the butterfly diagram, state the required input ordering, and count the complex multiplications and additions. Compare with the direct DFT.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The idea.</b> Split x(n) into its even-indexed and odd-indexed samples. Each half is an N/2-point DFT, and the two are recombined with one twiddle multiplication per output:</p>
+<div class="eqn">X(k)        = G(k) + W_N^k H(k)
+X(k + N/2)  = G(k) - W_N^k H(k)        for k = 0 .. N/2 - 1
+
+G(k) = DFT of the even samples,  H(k) = DFT of the odd samples</div>
+<p>Repeat the split until only 2-point DFTs are left. For N = 8 that takes log<sub>2</sub>8 = <b>3 stages</b>, each with N/2 = <b>4 butterflies</b>.</p>
+<p><b>Input ordering &mdash; bit reversal.</b> Splitting into evens and odds repeatedly leaves the input in bit-reversed order. Write each index in 3 bits and reverse them:</p>
+<div class="eqn">0 = 000 -> 000 = 0        4 = 100 -> 001 = 1
+1 = 001 -> 100 = 4        5 = 101 -> 101 = 5
+2 = 010 -> 010 = 2        6 = 110 -> 011 = 3
+3 = 011 -> 110 = 6        7 = 111 -> 111 = 7
+
+input order : x(0) x(4) x(2) x(6) x(1) x(5) x(3) x(7)
+output order: X(0) X(1) X(2) X(3) X(4) X(5) X(6) X(7)   (natural)</div>
+<p><b>The butterfly.</b> Each one takes two values, multiplies the lower by a twiddle, then adds and subtracts:</p>
+<div class="eqn">   a ------o------------o-----&gt; a + W^r b
+            \          /
+             \        /
+              \      /
+   b ---[W^r]--o----o-------&gt; a - W^r b</div>
+<div class="eqn">x(0) o---\---o-------\------o------\-------o X(0)
+x(4) o---/ W0 o--\    \  /   o--\   \  /   o X(1)
+x(2) o---\---o   \    \/    o   \   \/    o X(2)
+x(6) o---/ W0 o---\---/\----o----\--/\----o X(3)
+x(1) o---\---o     \ /  \   o     \/  \   o X(4)
+x(5) o---/ W0 o     X    \  o     /\   \  o X(5)
+x(3) o---\---o     / \    \ o    /  \   \ o X(6)
+x(7) o---/ W0 o---/   \----\o---/    \---\o X(7)
+
+  stage 1        stage 2         stage 3
+ twiddle W8^0   W8^0, W8^2    W8^0, W8^1, W8^2, W8^3</div>
+<p><b>Operation count.</b></p>
+<div class="eqn">complex multiplications = (N/2) log2 N = 4 x 3 = 12
+complex additions       =  N   log2 N = 8 x 3 = 24
+
+direct DFT:
+complex multiplications = N^2      = 64
+complex additions       = N(N - 1) = 56</div>
+<p><span class="ans">12 multiplications instead of 64 &mdash; about 5.3 times fewer</span></p>
+<div class="tipbox"><span class="l">Say this about the saving</span>
+<p>The saving grows with N, and fast: at N = 8 it is about 5&times;, at N = 512 it is 114&times;, and at N = 1024 it is 205&times;. That is why the algorithm was worth inventing &mdash; it turns an N&sup2; problem into an N&middot;log N one.</p>
+<p>Also worth a mark: the computation is <b>in place</b>. Each butterfly writes its two results back over the two inputs it just read, so no extra array is needed; bit reversal is the price paid for that.</p></div></div></details></div>
+  <div class="qm">06</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-5</div>
+  <div class="qt">A system is described by y(n) &minus; &frac12;&middot;y(n&minus;1) = x(n), and the input is x(n) = (&frac14;)<sup>n</sup>&middot;u(n) with the system initially relaxed. Find the complete response using the homogeneous-plus-particular method, and verify it with the z-transform.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Method 1 &mdash; homogeneous plus particular.</b></p>
+<p><b>Homogeneous solution.</b> Set the right-hand side to zero and try y<sub>h</sub>(n) = C&lambda;<sup>n</sup>:</p>
+<div class="eqn">lambda^n - (1/2) lambda^(n-1) = 0   ->   lambda = 1/2
+
+y_h(n) = C (1/2)^n</div>
+<p><b>Particular solution.</b> The forcing function is (&frac14;)<sup>n</sup>, so try y<sub>p</sub>(n) = K(&frac14;)<sup>n</sup> for n &ge; 0:</p>
+<div class="eqn">K(1/4)^n - (1/2) K(1/4)^(n-1) = (1/4)^n
+
+divide through by (1/4)^n :
+K - (1/2) K (4) = 1
+K - 2K = 1
+-K = 1   ->   K = -1
+
+y_p(n) = -(1/4)^n</div>
+<p><b>Complete solution.</b></p>
+<div class="eqn">y(n) = C (1/2)^n - (1/4)^n</div>
+<p><b>Apply the initial condition.</b> Relaxed means y(&minus;1) = 0, so from the difference equation at n = 0: y(0) = &frac12;&middot;y(&minus;1) + x(0) = 0 + 1 = 1.</p>
+<div class="eqn">y(0) = C - 1 = 1   ->   C = 2</div>
+<p><span class="ans">y(n) = 2(&frac12;)<sup>n</sup> &minus; (&frac14;)<sup>n</sup>, for n &ge; 0</span></p>
+<p><b>Method 2 &mdash; the z-transform, as a check.</b></p>
+<div class="eqn">H(z) = 1 / (1 - 0.5 z^-1)
+X(z) = 1 / (1 - 0.25 z^-1)
+
+Y(z) = 1 / [(1 - 0.5z^-1)(1 - 0.25z^-1)]
+     = A/(1 - 0.5z^-1) + B/(1 - 0.25z^-1)</div>
+<div class="eqn">1 = A(1 - 0.25z^-1) + B(1 - 0.5z^-1)
+
+constant : A + B = 1
+z^-1     : -0.25A - 0.5B = 0   ->   A = -2B
+
+-2B + B = 1  ->  B = -1,  A = 2</div>
+<div class="eqn">Y(z) = 2/(1 - 0.5z^-1) - 1/(1 - 0.25z^-1)
+
+y(n) = 2(0.5)^n u(n) - (0.25)^n u(n)      -- same answer</div>
+<p><b>Check the first two samples directly from the recursion</b> y(n) = &frac12;y(n&minus;1) + x(n):</p>
+<div class="eqn">y(0) = 0    + 1     = 1        formula: 2(1) - 1       = 1   OK
+y(1) = 0.5  + 0.25  = 0.75     formula: 2(0.5) - 0.25  = 0.75 OK
+y(2) = 0.375 + 0.0625 = 0.4375 formula: 2(0.25)-0.0625 = 0.4375 OK</div>
+<div class="tipbox"><span class="l">Which method to use in the exam</span>
+<p>If the question says &ldquo;using homogeneous and particular solution&rdquo;, you must show both parts &mdash; the z-transform alone will not score. But do the z-transform anyway on rough paper: it takes two minutes and catches arithmetic slips, which is where these marks are actually lost.</p></div></div></details></div>
+  <div class="qm">06</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2025" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, September 2025</h2><span class="tag">EC303 &middot; 30 marks &middot; 23 Sept 2025</span></div>
+<p class="note" style="margin:0 0 22px">A clean scan and a very typical paper: five questions, the four standing areas, plus one working-backwards question that was new that year.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">SVNIT, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">Mid-Semester Examination, September 2025</div>
+<div class="line">B.Tech. III Sem. V &middot; 23/09/2025</div>
+<div class="sub">Digital Signal Processing (EC303)</div>
+</div>
+<div class="qp-bar"><span>Total marks: 30</span><span>Duration: 1 hour 30 minutes</span><span>Five questions</span></div>
+<div class="q">
+  <div class="qn">Q-1</div>
+  <div class="qt">A discrete-time LTI system is described by <b>y(n) &minus; &frac12;&middot;y(n&minus;1) = x(n)</b>, where x(n) = {1, 2, 3, 4} for 0 &le; n &le; 3. (i) Calculate the magnitude and phase of the transfer function. (ii) Compute the magnitude and phase of the output signal y(n).<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>(i) Transfer function.</b></p>
+<div class="eqn">Y(z) - 0.5 z^-1 Y(z) = X(z)
+
+H(z) = 1 / (1 - 0.5 z^-1)        pole at z = 0.5, zero at z = 0
+
+H(e^jw) = 1 / (1 - 0.5 e^-jw)</div>
+<p><b>Magnitude.</b> Write the denominator in rectangular form: 1 &minus; 0.5cos&omega; + j(0.5 sin&omega;).</p>
+<div class="eqn">|1 - 0.5e^-jw| = sqrt( (1 - 0.5cos w)^2 + (0.5 sin w)^2 )
+               = sqrt( 1 - cos w + 0.25cos^2 w + 0.25 sin^2 w )
+               = sqrt( 1.25 - cos w )
+
+|H(e^jw)| = 1 / sqrt(1.25 - cos w)</div>
+<p><b>Phase.</b></p>
+<div class="eqn">/_H(e^jw) = - arctan[ (0.5 sin w) / (1 - 0.5 cos w) ]</div>
+<p><b>Check the two ends:</b></p>
+<div class="eqn">w = 0  : |H| = 1/sqrt(0.25) = 2      phase = 0
+w = pi : |H| = 1/sqrt(2.25) = 0.667  phase = 0</div>
+<p>Gain 2 falling to 0.667 &mdash; a <b>low-pass</b> system with a DC gain of 2.</p>
+<p><b>(ii) The output.</b> The input is a 4-point finite sequence, so</p>
+<div class="eqn">X(e^jw) = 1 + 2e^-jw + 3e^-j2w + 4e^-j3w
+
+Y(e^jw) = H(e^jw) X(e^jw)
+
+|Y(e^jw)|  = |H| x |X|  = |X(e^jw)| / sqrt(1.25 - cos w)
+/_Y(e^jw)  = /_H + /_X</div>
+<p>Because multiplying in the frequency domain means <b>magnitudes multiply and phases add</b>, that is the complete answer in closed form.</p>
+<p><b>The samples themselves</b> are easier to get straight from the recursion y(n) = &frac12;y(n&minus;1) + x(n), with y(&minus;1) = 0:</p>
+<div class="eqn">y(0) = 0      + 1 = 1
+y(1) = 0.5    + 2 = 2.5
+y(2) = 1.25   + 3 = 4.25
+y(3) = 2.125  + 4 = 6.125
+y(4) = 3.0625 + 0 = 3.0625      (input has ended; it now just decays)
+y(5) = 1.53125 , y(6) = 0.765625 , ...</div>
+<p>So the output is <b>not</b> a 4-point sequence &mdash; the pole at 0.5 gives it an infinite decaying tail. Say that; it is worth a mark.</p>
+<div class="tipbox"><span class="l">The identity that saves time</span>
+<p>|1 &minus; ae<sup>&minus;j&omega;</sup>|&sup2; = 1 &minus; 2a&middot;cos&omega; + a&sup2;. With a = 0.5 that is 1.25 &minus; cos&omega; immediately, without expanding sin&sup2; and cos&sup2; separately. It comes up in every single one of these questions.</p></div></div></details></div>
+  <div class="qm">07</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2</div>
+  <div class="qt">A signal x(n) has sample values x(0) = &minus;2, x(1) = 1, x(2) = 1 and x(3) = 2. The DFT of the signal is X(k). Calculate X(0), X(1), X(2), X(3), X(4), X(5), X(6) and X(7).<details class="sol"><summary>Solution</summary><div class="solbody"><p>Four samples means a <b>4-point</b> DFT, so W<sub>4</sub><sup>nk</sup> = (&minus;j)<sup>nk</sup>.</p>
+<div class="eqn">X(0) = -2 + 1 + 1 + 2                              =  2
+
+X(1) = -2 + 1(-j)   + 1(-j)^2 + 2(-j)^3
+     = -2 - j       - 1       + 2j                 = -3 + j
+
+X(2) = -2 + 1(-j)^2 + 1(-j)^4 + 2(-j)^6
+     = -2 - 1       + 1       - 2                  = -4
+
+X(3) = -2 + 1(-j)^3 + 1(-j)^6 + 2(-j)^9
+     = -2 + j       - 1       - 2j                 = -3 - j</div>
+<p><b>The remaining four are the trap.</b> The DFT is periodic in k with period N = 4, so it simply repeats:</p>
+<div class="eqn">X(4) = X(0) =  2
+X(5) = X(1) = -3 + j
+X(6) = X(2) = -4
+X(7) = X(3) = -3 - j</div>
+<p><span class="ans">X = { 2, &minus;3+j, &minus;4, &minus;3&minus;j, 2, &minus;3+j, &minus;4, &minus;3&minus;j }</span></p>
+<p><b>Two checks.</b> X(0) = &Sigma;x(n) = 2 &#10003;. And x(n) is real, so X(3) must be the conjugate of X(1): &minus;3&minus;j against &minus;3+j &#10003;. X(2) sits at N/2 and must be purely real &mdash; it is.</p>
+<div class="tipbox"><span class="l">Do not be tricked into an 8-point DFT</span>
+<p>Being asked for eight values does not change N. If the examiner had wanted an 8-point DFT they would have had to give eight samples, or say &ldquo;zero-pad to 8&rdquo; &mdash; and that would give genuinely different numbers, not repeats.</p></div></div></details></div>
+  <div class="qm">06</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3</div>
+  <div class="qt">A signal x(n) is given by x(n) = a<sup>n</sup>&middot;u(n+2), and another signal y(n) is related to x(n) by y(n) = x(&frac12;n + 2). Calculate the Z-transform of y(n). Also mention the ROC in all cases.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; X(z).</b> The step u(n+2) means x(n) is non-zero from n = &minus;2 upward.</p>
+<div class="eqn">X(z) = sum_{n=-2}^{inf} a^n z^-n
+
+substitute n = m - 2, so m runs from 0:
+     = sum_{m=0}^{inf} a^(m-2) z^-(m-2)
+     = a^-2 z^2 sum_{m=0}^{inf} (a z^-1)^m
+     = a^-2 z^2 / (1 - a z^-1)</div>
+<p><b>ROC of X(z):</b> the geometric series needs |a&middot;z<sup>&minus;1</sup>| &lt; 1, so <b>|z| &gt; |a|</b>. It is right-sided, so the ROC is the outside of the circle through the pole. Because the sequence starts at n = &minus;2 there is a z&sup2; term, so <b>z = &infin; is excluded</b>.</p>
+<p><b>Step 2 &mdash; what y(n) = x(&frac12;n + 2) means.</b> The argument must be a whole number, so y(n) is defined for <b>even n only</b> and is taken as zero at odd n. That is an <b>upsampling by 2</b> combined with a <b>time advance of 2</b>.</p>
+<div class="eqn">y(n) = x(n/2 + 2)   for n even,   0 for n odd</div>
+<p><b>Step 3 &mdash; the two properties needed.</b></p>
+<div class="eqn">time advance :  x(n + k)        &lt;-&gt;  z^k X(z)
+upsampling   :  v(n/2) (0 odd)  &lt;-&gt;  V(z^2),  ROC: |z| &gt; sqrt(R)</div>
+<p>Apply them in that order. Let v(n) = x(n + 2), so V(z) = z&sup2;X(z). Then y is v upsampled:</p>
+<div class="eqn">Y(z) = V(z^2) = (z^2)^2 X(z^2) = z^4 X(z^2)
+
+     = z^4 . a^-2 (z^2)^2 / (1 - a z^-2)
+
+Y(z) = a^-2 z^8 / (1 - a z^-2)</div>
+<p><b>ROC of Y(z):</b> replacing z by z&sup2; squares the boundary radius, so |z&sup2;| &gt; |a| becomes</p>
+<div class="eqn">|z| &gt; sqrt(|a|)      and z = infinity excluded</div>
+<p><b>&ldquo;In all cases&rdquo;</b> &mdash; the three readings the examiner is checking:</p>
+<div class="solwrap"><table>
+<thead><tr><th>Case</th><th>ROC of X(z)</th><th>ROC of Y(z)</th><th>Stable?</th></tr></thead>
+<tbody>
+<tr><td>|a| &lt; 1</td><td>|z| &gt; |a|</td><td>|z| &gt; &radic;|a|</td><td><b>Yes</b> &mdash; the ROC contains the unit circle</td></tr>
+<tr><td>|a| = 1</td><td>|z| &gt; 1</td><td>|z| &gt; 1</td><td>No &mdash; the pole sits <i>on</i> the unit circle</td></tr>
+<tr><td>|a| &gt; 1</td><td>|z| &gt; |a|</td><td>|z| &gt; &radic;|a|</td><td>No &mdash; the unit circle is outside the ROC</td></tr>
+</tbody></table></div>
+<div class="tipbox"><span class="l">Be explicit about the reading</span>
+<p>x(&frac12;n + 2) is genuinely ambiguous in discrete time, because &frac12;n is not an integer for odd n. State your interpretation in one line before you start &mdash; &ldquo;defined for even n, zero elsewhere, i.e. upsampling by 2&rdquo; &mdash; and the examiner can follow you. Answering without saying which reading you took is how marks get lost here.</p></div></div></details></div>
+  <div class="qm">05</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4</div>
+  <div class="qt">Explain the Decimation-in-frequency radix-2 FFT algorithm for a 16-point DFT calculation. Also draw the butterfly diagram with a detailed explanation of each step.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>How DIF splits.</b> Where DIT splits the <i>input</i> into evens and odds, DIF splits the input into its <b>first half and second half</b>, and splits the <i>output</i> into even and odd frequency bins.</p>
+<div class="eqn">X(2r)   = DFT_{N/2} of  [ x(n) + x(n + N/2) ]
+X(2r+1) = DFT_{N/2} of  [ ( x(n) - x(n + N/2) ) W_N^n ]
+
+for n = 0 .. N/2 - 1</div>
+<p>So the first operation is an add and a subtract on samples N/2 apart, and the twiddle multiplication comes <b>after</b> the subtraction &mdash; the opposite order to DIT.</p>
+<p><b>The DIF butterfly:</b></p>
+<div class="eqn">   a ------o--------------------o-----&gt;  a + b
+            \                  /
+             \                /
+   b ---------o--------[W^r]--o-----&gt;  (a - b) W^r</div>
+<p><b>For N = 16:</b></p>
+<div class="eqn">stages          = log2(16) = 4
+butterflies/stage = N/2   = 8
+total butterflies = 8 x 4 = 32
+
+stage 1: pairs 16 apart? no - pairs N/2 = 8 apart:
+         x(0)&amp;x(8), x(1)&amp;x(9), ... x(7)&amp;x(15)   twiddles W16^0..W16^7
+stage 2: pairs 4 apart within each half          twiddles W16^0,2,4,6
+stage 3: pairs 2 apart within each quarter       twiddles W16^0,4
+stage 4: pairs 1 apart                           twiddle  W16^0 only</div>
+<div class="eqn">x(0)  o--\-------------------o---- ... ----o X(0)
+x(1)  o--\\------------------o---- ... ----o X(8)
+  :        (add / subtract           :          :
+x(7)  o--\\ across 8 positions)      :          :
+x(8)  o--//---[W16^0]--------o---- ... ----o X(4)
+x(9)  o--//---[W16^1]--------o---- ... ----o X(12)
+  :                                  :          :
+x(15) o--/----[W16^7]--------o---- ... ----o X(15)
+
+  stage 1      stage 2     stage 3     stage 4
+  N/2 apart    N/4 apart   N/8 apart   adjacent</div>
+<p><b>Ordering.</b> Input in <b>natural order</b>, output in <b>bit-reversed order</b> &mdash; the exact mirror of DIT. For N = 16 the output sequence is</p>
+<div class="eqn">0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15</div>
+<p><b>Operation count for N = 16:</b></p>
+<div class="eqn">complex multiplications = (N/2) log2 N = 8 x 4 = 32
+complex additions       =  N   log2 N  = 16 x 4 = 64
+
+direct DFT: 16^2 = 256 multiplications, 16 x 15 = 240 additions
+saving: 256 / 32 = 8 times fewer multiplications</div>
+<div class="tipbox"><span class="l">DIT or DIF &mdash; which to write</span>
+<p>They cost <b>exactly the same</b>. The only differences are (a) which end is bit-reversed and (b) whether the twiddle multiply comes before or after the add-subtract. If a question asks you to compare them, those two sentences plus the identical operation counts are the whole answer.</p></div></div></details></div>
+  <div class="qm">05</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-5</div>
+  <div class="qt">A pressure gauge that can be modelled as an LTI system has an output (1 &minus; e<sup>&minus;t</sup> &minus; t&middot;e<sup>&minus;t</sup>)u(t) for a unit step input. For a certain input x(t) the output observed is (2 &minus; 3e<sup>&minus;t</sup> + e<sup>&minus;3t</sup>)u(t). What should the input be? Calculate it.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; get the impulse response from the step response.</b> The impulse response is the derivative of the step response (equivalently, multiply by s in the transform domain).</p>
+<div class="eqn">s(t) = (1 - e^-t - t e^-t) u(t)
+
+S(s) = 1/s - 1/(s+1) - 1/(s+1)^2
+
+H(s) = s . S(s) = 1 - s/(s+1) - s/(s+1)^2</div>
+<p>Combine over (s+1)&sup2;:</p>
+<div class="eqn">H(s) = [ (s+1)^2 - s(s+1) - s ] / (s+1)^2
+     = [ s^2 + 2s + 1 - s^2 - s - s ] / (s+1)^2
+     = 1 / (s+1)^2</div>
+<p><span class="ans">H(s) = 1/(s+1)&sup2;, so h(t) = t&middot;e<sup>&minus;t</sup>u(t)</span></p>
+<p>Check it the other way: differentiating (1 &minus; e<sup>&minus;t</sup> &minus; te<sup>&minus;t</sup>) gives e<sup>&minus;t</sup> &minus; (e<sup>&minus;t</sup> &minus; te<sup>&minus;t</sup>) = te<sup>&minus;t</sup>. &#10003;</p>
+<p><b>Step 2 &mdash; transform the observed output.</b></p>
+<div class="eqn">y(t) = (2 - 3e^-t + e^-3t) u(t)
+
+Y(s) = 2/s - 3/(s+1) + 1/(s+3)</div>
+<p>Put it over the common denominator s(s+1)(s+3) &mdash; the numerator collapses beautifully:</p>
+<div class="eqn">2(s+1)(s+3) - 3s(s+3) + s(s+1)
+= 2(s^2+4s+3) - 3(s^2+3s) + (s^2+s)
+= 2s^2 + 8s + 6 - 3s^2 - 9s + s^2 + s
+= (2-3+1)s^2 + (8-9+1)s + 6
+= 6
+
+Y(s) = 6 / [ s (s+1) (s+3) ]</div>
+<p><b>Step 3 &mdash; divide.</b> Since Y(s) = X(s)H(s), the input is X(s) = Y(s)/H(s) = Y(s)&middot;(s+1)&sup2;:</p>
+<div class="eqn">X(s) = 6 (s+1)^2 / [ s (s+1) (s+3) ]
+     = 6 (s+1)   / [ s (s+3) ]</div>
+<p><b>Step 4 &mdash; partial fractions and invert.</b></p>
+<div class="eqn">6(s+1) / [s(s+3)] = A/s + B/(s+3)
+
+6(s+1) = A(s+3) + B s
+
+s = 0  :  6      = 3A      ->  A = 2
+s = -3 :  6(-2)  = -3B     ->  B = 4
+
+X(s) = 2/s + 4/(s+3)</div>
+<p><span class="ans">x(t) = (2 + 4e<sup>&minus;3t</sup>) u(t)</span></p>
+<p><b>Verification &mdash; push it back through the system:</b></p>
+<div class="eqn">Y(s) = X(s) H(s) = [2/s + 4/(s+3)] / (s+1)^2
+     = [ 2(s+3) + 4s ] / [ s(s+3)(s+1)^2 ]
+     = (6s + 6) / [ s(s+3)(s+1)^2 ]
+     = 6(s+1)  / [ s(s+3)(s+1)^2 ]
+     = 6 / [ s(s+1)(s+3) ]                 -- matches Step 2</div>
+<div class="tipbox"><span class="l">The shape of this question</span>
+<p>It is deconvolution, and it is only three moves: <b>differentiate the step response to get h</b>, <b>transform both</b>, <b>divide</b>. The algebra looks heavy but almost always cancels &mdash; here (s+1)&sup2; against (s+1) &mdash; because the examiner built the question backwards from a tidy answer. If nothing cancels, check your arithmetic before pressing on.</p></div></div></details></div>
+  <div class="qm">07</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2024" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, September 2024</h2><span class="tag">30 marks &middot; 23 Sept 2024</span></div>
+<p class="note" style="margin:0 0 22px">A four-question paper. Parts of the scan are badly degraded; the questions below are given as far as they are legible, and where a coefficient genuinely cannot be read it is said so and the method is worked on a representative version instead.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">SVNIT, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">Mid-Semester Examination, September 2024</div>
+<div class="line">B.Tech. III Sem. V &middot; 23/09/2024</div>
+<div class="sub">Digital Signal Processing</div>
+</div>
+<div class="qp-bar"><span>Total marks: 30</span><span>Duration: 1 hour 30 minutes</span><span>Attempt all questions</span></div>
+<div class="q">
+  <div class="qn">Q-1 a</div>
+  <div class="qt">The z-transform H(z) of a system has three poles. Comment on the causality and stability of the system. <i>(The pole values are not legible in the scan; the method below applies to any of them.)</i><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The two tests, and they are separate.</b></p>
+<div class="solwrap"><table>
+<thead><tr><th>Property</th><th>Test on the ROC</th><th>Test on the poles</th></tr></thead>
+<tbody>
+<tr><td><b>Causal</b></td><td>ROC is the <i>outside</i> of the outermost pole, and H(z) has no positive powers of z</td><td>&mdash;</td></tr>
+<tr><td><b>Stable</b></td><td>ROC <i>contains</i> the unit circle |z| = 1</td><td>&mdash;</td></tr>
+<tr><td><b>Both at once</b></td><td>&mdash;</td><td><b>Every pole strictly inside the unit circle</b></td></tr>
+</tbody></table></div>
+<p><b>Worked on a representative system</b> with poles at 0.5, 2 and 5:</p>
+<div class="eqn">H(z) = 1 / [(1 - 0.5z^-1)(1 - 2z^-1)(1 - 5z^-1)]
+
+three poles -> four possible ROCs:
+
+|z| &gt; 5           causal          NOT stable  (unit circle outside)
+2 &lt; |z| &lt; 5       two-sided       NOT stable
+0.5 &lt; |z| &lt; 2     two-sided       STABLE      (contains |z| = 1)
+|z| &lt; 0.5         anti-causal     NOT stable</div>
+<p><b>Conclusion:</b> with poles outside the unit circle the system <b>cannot be both causal and stable</b>. Only one ROC is stable, and it is a two-sided one. State which ROC you are assuming before answering &mdash; the question is meaningless without it.</p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-1 b</div>
+  <div class="qt">Determine the unit step response for the system described by the second-order difference equation <b>y(n) &minus; 4y(n&minus;1) + 4y(n&minus;2) = x(n) &minus; x(n&minus;1)</b>, with the system initially at rest.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; transfer function.</b></p>
+<div class="eqn">H(z) = (1 - z^-1) / (1 - 4z^-1 + 4z^-2)
+     = (1 - z^-1) / (1 - 2z^-1)^2</div>
+<p>Note the denominator is a perfect square &mdash; a <b>double pole at z = 2</b>.</p>
+<p><b>Step 2 &mdash; the input.</b> For a unit step, X(z) = 1/(1 &minus; z<sup>&minus;1</sup>).</p>
+<p><b>Step 3 &mdash; and here is the gift:</b></p>
+<div class="eqn">Y(z) = H(z) X(z)
+     = (1 - z^-1) / (1 - 2z^-1)^2  .  1 / (1 - z^-1)
+
+the (1 - z^-1) cancels exactly:
+
+Y(z) = 1 / (1 - 2z^-1)^2</div>
+<p><b>Step 4 &mdash; invert.</b> Use the standard pair</p>
+<div class="eqn">(n + 1) a^n u(n)   &lt;-&gt;   1 / (1 - a z^-1)^2</div>
+<p><span class="ans">y(n) = (n + 1)&middot;2<sup>n</sup>&middot;u(n)</span></p>
+<p><b>Check the first few against the recursion</b> y(n) = 4y(n&minus;1) &minus; 4y(n&minus;2) + x(n) &minus; x(n&minus;1), with y(&minus;1) = y(&minus;2) = 0 and x = u(n):</p>
+<div class="eqn">n=0 : y(0) = 0 - 0 + 1 - 0 = 1        formula: (1)(1)  = 1   OK
+n=1 : y(1) = 4(1) - 0 + 1 - 1 = 4     formula: (2)(2)  = 4   OK
+n=2 : y(2) = 4(4) - 4(1) + 0  = 12    formula: (3)(4)  = 12  OK
+n=3 : y(3) = 4(12) - 4(4)     = 32    formula: (4)(8)  = 32  OK</div>
+<p><b>Comment:</b> the step response grows without limit, because the double pole at z = 2 is outside the unit circle. The system is <b>unstable</b> &mdash; a bounded input has produced an unbounded output.</p></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-1 c</div>
+  <div class="qt">The DFT of a 5-point signal x(n), 0 &le; n &le; 4, is X(k) = {5, 6, 1, 2, 9}. A new signal g(n) is defined by g(n) = W<sub>5</sub><sup>2n</sup>&middot;x(n) for 0 &le; n &le; 4. What are the DFT coefficients G(k)?<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Recognise the property.</b> Multiplying by a complex exponential in time is a <b>shift in frequency</b>:</p>
+<div class="eqn">x(n) W_N^(k0 n)   &lt;-&gt;   X( (k + k0) mod N )</div>
+<p>Here k0 = 2 and N = 5, so every coefficient moves two places &mdash; circularly.</p>
+<div class="eqn">G(k) = X( (k + 2) mod 5 )
+
+G(0) = X(2) = 1
+G(1) = X(3) = 2
+G(2) = X(4) = 9
+G(3) = X(0) = 5        (5 mod 5 = 0)
+G(4) = X(1) = 6        (6 mod 5 = 1)</div>
+<p><span class="ans">G(k) = { 1, 2, 9, 5, 6 }</span></p>
+<p><b>Check:</b> the set of values is unchanged &mdash; only their order has rotated. That must be so, since multiplying by a unit-magnitude exponential cannot change any magnitude.</p>
+<div class="tipbox"><span class="l">Which way does it rotate?</span>
+<p>Work one term from the definition rather than trusting memory. G(k) = &Sigma; x(n)W<sup>2n</sup>W<sup>nk</sup> = &Sigma; x(n)W<sup>n(k+2)</sup> = X(k+2). The sign of k0 in the exponent tells you the direction, and getting it backwards is the only real way to lose these marks.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 a</div>
+  <div class="qt">Consider a 2<sup>8</sup>-point DFT. How many computations are required if the direct DFT algorithm is used? What percentage improvement in computation is obtained if the radix-2 FFT algorithm is used? Also find the percentage improvement if the same DFT is done using the split-radix algorithm.<details class="sol"><summary>Solution</summary><div class="solbody"><p>N = 2<sup>8</sup> = <b>256</b>.</p>
+<p><b>Direct DFT:</b></p>
+<div class="eqn">complex multiplications = N^2      = 256^2   = 65,536
+complex additions       = N(N - 1) = 256x255 = 65,280</div>
+<p><b>Radix-2 FFT:</b></p>
+<div class="eqn">complex multiplications = (N/2) log2 N = 128 x 8 = 1,024
+complex additions       =  N   log2 N  = 256 x 8 = 2,048
+
+improvement = (65,536 - 1,024) / 65,536 x 100
+            = 64,512 / 65,536 x 100
+            = 98.44 %</div>
+<p><span class="ans">Radix-2: 98.44% fewer multiplications &mdash; a 64-fold speed-up</span></p>
+<p><b>Split-radix FFT.</b> It mixes a radix-2 split on the even outputs with a radix-4 split on the odd ones, which is the fewest operations of any power-of-two algorithm:</p>
+<div class="eqn">complex multiplications ~ (N/3) log2 N = (256/3) x 8 = 683
+
+improvement = (65,536 - 683) / 65,536 x 100 = 98.96 %</div>
+<p><span class="ans">Split-radix: 98.96% &mdash; about a 96-fold speed-up</span></p>
+<p><b>Put the three side by side</b>, which is what the question is really asking for:</p>
+<div class="solwrap"><table>
+<thead><tr><th>Algorithm</th><th>Complex multiplications</th><th>Speed-up over direct</th></tr></thead>
+<tbody>
+<tr><td>Direct DFT</td><td>65,536</td><td>&mdash;</td></tr>
+<tr><td>Radix-2 FFT</td><td>1,024</td><td>64&times;</td></tr>
+<tr><td>Split-radix</td><td>&asymp; 683</td><td>&asymp; 96&times;</td></tr>
+</tbody></table></div>
+<p>Split-radix beats radix-2 by roughly a further third, which sounds small against 64&times; &mdash; but on a processor doing this millions of times a second it is worth having.</p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 c</div>
+  <div class="qt">Explain the Decimation-in-time radix-2 FFT algorithm for calculation of the Inverse Discrete Fourier Transform. Draw the butterfly diagram with a detailed explanation of each step. How many multipliers and adders are needed?<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The point of the question.</b> The IDFT differs from the DFT in only two ways:</p>
+<div class="eqn">DFT  :  X(k) = sum x(n) W_N^(+nk)
+IDFT :  x(n) = (1/N) sum X(k) W_N^(-nk)</div>
+<p>So the twiddle exponent changes sign and there is a 1/N at the end. <b>The butterfly structure is completely unchanged</b> &mdash; only the twiddle values are conjugated.</p>
+<p><b>Two ways to do it:</b></p>
+<ol>
+<li><b>Change the twiddles.</b> Replace every W<sup>r</sup> with W<sup>&minus;r</sup> (its conjugate) and scale the final output by 1/N. Same diagram, same operation count.</li>
+<li><b>Reuse the forward FFT unchanged.</b> Since conjugating flips the sign of the exponent:
+<div class="eqn">x(n) = (1/N) . conj[ FFT( conj( X(k) ) ) ]</div>
+Conjugate the input, run the ordinary forward FFT, conjugate the result, divide by N. One hardware block then serves both directions, which is why a real FFT chip has no separate inverse unit.</li>
+</ol>
+<p><b>The butterfly (DIT, inverse):</b></p>
+<div class="eqn">   a ------o------------o-----&gt; a + W^-r b
+            \          /
+   b ---[W^-r]--o----o-------&gt; a - W^-r b</div>
+<p><b>Ordering:</b> DIT means the input X(k) goes in <b>bit-reversed</b> and x(n) comes out in <b>natural</b> order &mdash; same as the forward DIT.</p>
+<p><b>Counts for an N-point inverse FFT:</b></p>
+<div class="eqn">stages          = log2 N
+butterflies     = (N/2) log2 N
+complex multipliers = (N/2) log2 N   (one per butterfly)
+complex adders      =  N   log2 N    (two per butterfly)
+plus N divisions by N at the end
+
+for N = 8 :  12 multipliers, 24 adders, 8 scalings</div>
+<div class="tipbox"><span class="l">The line that earns the mark</span>
+<p><b>The inverse FFT costs exactly the same as the forward FFT</b>, apart from the final scaling by 1/N. If you say only that plus the conjugate trick, you have answered the question.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3 a</div>
+  <div class="qt">Determine the particular solution of the difference equation <b>y(n) &minus; &frac12;&middot;y(n&minus;1) = x(n)</b>, when the forcing function is x(n) = 2<sup>n</sup>&middot;u(n).<details class="sol"><summary>Solution</summary><div class="solbody"><p>For a forcing function of the form a<sup>n</sup>, try a particular solution of the <b>same form</b>: y<sub>p</sub>(n) = K&middot;2<sup>n</sup> for n &ge; 0.</p>
+<div class="eqn">K 2^n - (1/2) K 2^(n-1) = 2^n
+
+note 2^(n-1) = 2^n / 2, so the second term is (1/4) K 2^n :
+
+K 2^n - (1/4) K 2^n = 2^n
+
+divide through by 2^n :
+K (1 - 1/4) = 1
+K (3/4)     = 1
+K           = 4/3</div>
+<p><span class="ans">y<sub>p</sub>(n) = (4/3)&middot;2<sup>n</sup>, for n &ge; 0</span></p>
+<p><b>Note what the question did and did not ask.</b> Only the particular solution. The <i>complete</i> solution would add the homogeneous part C(&frac12;)<sup>n</sup>, with C fixed by the initial condition &mdash; but adding it here would be answering a question that was not set.</p>
+<div class="tipbox"><span class="l">When the trial form fails</span>
+<p>If the forcing function had been (&frac12;)<sup>n</sup> &mdash; the same as the natural mode &mdash; then K(&frac12;)<sup>n</sup> would give 0 = (&frac12;)<sup>n</sup>, which is impossible. In that case multiply the trial by n and use K&middot;n(&frac12;)<sup>n</sup> instead. Check for that clash before you start.</p></div></div></details></div>
+  <div class="qm">02</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-3 b</div>
+  <div class="qt">For the given RC filter circuit: (i) calculate the transfer function, (ii) identify whether the circuit is low-pass, high-pass, band-pass or another type, (iii) what is the cut-off frequency of the circuit?<details class="sol"><summary>Solution</summary><div class="solbody"><p>The circuit in the scan is a series R with C to ground, with the output taken across the capacitor &mdash; the standard first-order RC low-pass.</p>
+<p><b>(i) Transfer function</b> by the potential divider rule, with the capacitor&rsquo;s impedance 1/(sC):</p>
+<div class="eqn">H(s) = V_out / V_in = (1/sC) / ( R + 1/sC )
+
+multiply top and bottom by sC :
+
+H(s) = 1 / (1 + sRC)</div>
+<p>In the frequency domain, s = j&omega;:</p>
+<div class="eqn">H(jw) = 1 / (1 + jwRC)
+
+|H(jw)| = 1 / sqrt(1 + (wRC)^2)
+/_H(jw) = - arctan(wRC)</div>
+<p><b>(ii) Which type?</b> Check the two extremes:</p>
+<div class="eqn">w -&gt; 0   : |H| -&gt; 1     (DC passes untouched)
+w -&gt; inf : |H| -&gt; 0     (high frequencies are killed)</div>
+<p><span class="ans">First-order low-pass filter</span></p>
+<p>If the output were taken across the <i>resistor</i> instead, H(s) = sRC/(1+sRC) and it would be a <b>high-pass</b>. The component placement is what decides it, not the components themselves.</p>
+<p><b>(iii) Cut-off frequency</b> &mdash; where the gain falls to 1/&radic;2 of its maximum, which is &minus;3 dB:</p>
+<div class="eqn">1 / sqrt(1 + (wRC)^2) = 1/sqrt(2)
+     1 + (wRC)^2      = 2
+        (wRC)^2       = 1
+         w RC         = 1
+
+w_c = 1/(RC)  rad/s        f_c = 1/(2 pi R C)  Hz</div>
+<p>At that frequency the phase is &minus;arctan(1) = <b>&minus;45&deg;</b>, which is the other signature of a first-order cut-off.</p></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4 a</div>
+  <div class="qt">The system function is realised using the input&ndash;output relation <b>2y(n) + y(n&minus;2) &minus; 3y(n&minus;3) = x(n) &minus; x(n&minus;1) + 2x(n&minus;2) &minus; 3x(n&minus;4)</b>. Realise its structure using delay blocks, adders and multipliers. What is the overall DC gain? Find the frequency response and comment on whether the phase is linear.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; normalise so the y(n) coefficient is 1.</b> Divide everything by 2:</p>
+<div class="eqn">y(n) = -0.5 y(n-2) + 1.5 y(n-3)
+       + 0.5 x(n) - 0.5 x(n-1) + x(n-2) - 1.5 x(n-4)</div>
+<p><b>Step 2 &mdash; transfer function.</b></p>
+<div class="eqn">H(z) = (0.5 - 0.5z^-1 + z^-2 - 1.5z^-4) / (1 + 0.5z^-2 - 1.5z^-3)</div>
+<p><b>Step 3 &mdash; Direct Form II structure.</b> Because the same delay chain can serve both halves, Direct Form II needs only max(4, 3) = <b>4 delay elements</b>, not 7.</p>
+<div class="eqn">x(n) --&gt;(+)------------o------[0.5]----&gt;(+)---&gt; y(n)
+          ^             |                 ^
+          |            [z-1]              |
+          |             |                 |
+          |             o------[-0.5]----&gt;(+)
+          |             |                 ^
+          |            [z-1]              |
+          |             |                 |
+        [-0.5]&lt;---------o------[1.0]-----&gt;(+)
+          ^             |                 ^
+          |            [z-1]              |
+          |             |                 |
+        [1.5] &lt;---------o                 |
+                        |                 |
+                       [z-1]              |
+                        |                 |
+                        o------[-1.5]----&gt;(+)
+
+  feedback taps: -0.5 at z-2,  +1.5 at z-3
+  feedforward  : 0.5, -0.5, 1.0, 0, -1.5</div>
+<p><b>DC gain</b> &mdash; set z = 1, which means summing the coefficients:</p>
+<div class="eqn">H(1) = (0.5 - 0.5 + 1 - 1.5) / (1 + 0.5 - 1.5)
+     = (-0.5) / (0)
+     = infinite</div>
+<p><span class="ans">The DC gain is infinite &mdash; the denominator has a root at z = 1</span></p>
+<p>That is worth saying plainly: 1 + 0.5z<sup>&minus;2</sup> &minus; 1.5z<sup>&minus;3</sup> vanishes at z = 1, so there is a <b>pole exactly on the unit circle</b> at DC. The system is therefore <b>not BIBO stable</b>, and it behaves like an accumulator at low frequencies.</p>
+<p><b>Frequency response</b> &mdash; substitute z = e<sup>j&omega;</sup>:</p>
+<div class="eqn">H(e^jw) = (0.5 - 0.5e^-jw + e^-j2w - 1.5e^-j4w)
+          / (1 + 0.5e^-j2w - 1.5e^-j3w)</div>
+<p><b>Is the phase linear?</b> <b>No.</b> Linear phase requires the impulse response to be symmetric or antisymmetric about its centre, and that can only happen in an <b>FIR</b> system. This one has feedback, so it is IIR with an infinite impulse response and no centre of symmetry. Even the numerator alone is not symmetric: the coefficients read 0.5, &minus;0.5, 1, 0, &minus;1.5, which is neither a palindrome nor its negative.</p></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2023" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, September 2023</h2><span class="tag">30 marks &middot; 25 Sept 2023</span></div>
+<p class="note" style="margin:0 0 22px">Four questions with internal choice. This scan is the worst of the three &mdash; several coefficients are simply illegible &mdash; so the questions below are reconstructed only as far as they can be read honestly, and the solutions concentrate on the method.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">SVNIT, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">Mid-Semester Examination, September 2023</div>
+<div class="line">B.Tech. III Sem. V &middot; 25/09/2023</div>
+<div class="sub">Digital Signal Processing</div>
+</div>
+<div class="qp-bar"><span>Total marks: 30</span><span>Duration: 90 minutes</span><span>Attempt all questions</span></div>
+<div class="q">
+  <div class="qn">Q-1 a</div>
+  <div class="qt">Determine whether each of the following signals is periodic, and if so give its fundamental period. Also say whether each is an energy signal or a power signal. (1) x(n) = cos(&pi;n/8 + 0.2) &nbsp; (2) x(n) = e<sup>jn</sup>&middot;cos(n).<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The periodicity test.</b> A discrete sinusoid cos(&omega;<sub>0</sub>n + &phi;) is periodic only if &omega;<sub>0</sub>/2&pi; is a <b>rational number</b>. Then N = 2&pi;k/&omega;<sub>0</sub> for the smallest integer k that makes N a whole number.</p>
+<p><b>(1) x(n) = cos(&pi;n/8 + 0.2)</b></p>
+<div class="eqn">w0 = pi/8
+
+N = 2 pi k / w0 = 2 pi k / (pi/8) = 16 k
+
+smallest whole number: k = 1  ->  N = 16</div>
+<p><span class="ans">Periodic, fundamental period N = 16</span></p>
+<p>The phase 0.2 shifts the wave along but cannot change its period.</p>
+<p><b>Energy or power?</b> A sinusoid never dies away, so</p>
+<div class="eqn">E = sum |x(n)|^2  ->  infinite
+P = average of |x(n)|^2 over a period = 1/2  (finite, non-zero)</div>
+<p><span class="ans">Power signal, with average power &frac12;</span></p>
+<p><b>(2) x(n) = e<sup>jn</sup>&middot;cos(n)</b></p>
+<div class="eqn">both factors have w0 = 1
+
+N = 2 pi k / 1 = 2 pi k</div>
+<p>2&pi;k is never a whole number for any integer k, because &pi; is irrational.</p>
+<p><span class="ans">Not periodic</span></p>
+<p>Its magnitude is |e<sup>jn</sup>&middot;cos(n)| = |cos n|, which is bounded but does not decay, so the energy is infinite and the average power is finite and non-zero &mdash; a <b>power signal</b>.</p>
+<div class="tipbox"><span class="l">The idea behind the test</span>
+<p>The continuous-time signal cos(t) is perfectly periodic. Sampling it can destroy that, because the samples only line up again if the period contains a whole number of sample intervals. This is one of the genuine differences between the discrete and continuous worlds, and it is a favourite opening question.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-1 b</div>
+  <div class="qt">Determine the response of a system by the convolution method. The system&rsquo;s impulse response and the input signal are given in the paper; the exponents are not legible in the scan. <i>The method is worked below on a representative pair.</i><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Take h(n) = (&frac12;)<sup>n</sup>u(n) and x(n) = (&#8531;)<sup>n</sup>u(n)</b>, the usual shape of this question.</p>
+<p><b>Method 1 &mdash; direct convolution sum.</b></p>
+<div class="eqn">y(n) = sum_{k=0}^{n} x(k) h(n-k)
+     = sum_{k=0}^{n} (1/3)^k (1/2)^(n-k)
+     = (1/2)^n sum_{k=0}^{n} (1/3)^k (2)^k
+     = (1/2)^n sum_{k=0}^{n} (2/3)^k</div>
+<p>The sum is a finite geometric series with ratio r = 2/3:</p>
+<div class="eqn">sum_{k=0}^{n} r^k = (1 - r^(n+1)) / (1 - r)
+                  = (1 - (2/3)^(n+1)) / (1/3)
+                  = 3 [ 1 - (2/3)^(n+1) ]
+
+y(n) = 3 (1/2)^n [ 1 - (2/3)^(n+1) ] u(n)</div>
+<p>Expand to separate the two modes:</p>
+<div class="eqn">y(n) = 3(1/2)^n - 3(2/3)(2/3)^n (1/2)^n
+     = 3(1/2)^n - 2 (1/3)^n                 u(n)</div>
+<p><span class="ans">y(n) = [3(&frac12;)<sup>n</sup> &minus; 2(&#8531;)<sup>n</sup>]&middot;u(n)</span></p>
+<p><b>Method 2 &mdash; the z-transform, as a check.</b></p>
+<div class="eqn">H(z) = 1/(1 - 0.5z^-1)      X(z) = 1/(1 - (1/3)z^-1)
+
+Y(z) = 1 / [(1 - 0.5z^-1)(1 - (1/3)z^-1)]
+     = A/(1 - 0.5z^-1) + B/(1 - (1/3)z^-1)
+
+A = 1/(1 - (1/3)/(0.5)) = 1/(1 - 2/3) = 3
+B = 1/(1 - 0.5/(1/3))   = 1/(1 - 1.5) = -2
+
+y(n) = 3(0.5)^n - 2(1/3)^n , n &gt;= 0      -- same answer</div>
+<p><b>Check n = 0 and n = 1 by hand:</b></p>
+<div class="eqn">y(0) = x(0)h(0)                 = 1              formula: 3 - 2     = 1     OK
+y(1) = x(0)h(1) + x(1)h(0)
+     = 1(0.5) + (1/3)(1)        = 0.8333        formula: 1.5 - 0.667 = 0.833 OK</div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-2 b</div>
+  <div class="qt">An LTI system is characterised by the system function H(z) = (3 &minus; 4z<sup>&minus;1</sup>) / (1 &minus; z<sup>&minus;1</sup> + 0.5z<sup>&minus;2</sup>). Specify the region of convergence and find the impulse response h(n) if (1) the system is stable, (2) the system is causal, (3) the system is anti-causal.<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; find the poles.</b> Set the denominator to zero. Writing it in z:</p>
+<div class="eqn">1 - z^-1 + 0.5 z^-2 = 0
+
+multiply by z^2 :   z^2 - z + 0.5 = 0
+
+z = [ 1 +/- sqrt(1 - 2) ] / 2
+  = [ 1 +/- j ] / 2
+  = 0.5 +/- 0.5j</div>
+<p>A <b>complex conjugate pair</b>. Their magnitude is what matters:</p>
+<div class="eqn">|z| = sqrt(0.5^2 + 0.5^2) = sqrt(0.5) = 0.707</div>
+<p><b>Both poles are inside the unit circle</b> &mdash; and that single fact answers most of the question.</p>
+<p><b>Step 2 &mdash; the three cases.</b> Two poles at the same radius means only <b>two</b> possible ROCs, not three.</p>
+<div class="solwrap"><table>
+<thead><tr><th>Case</th><th>ROC</th><th>h(n)</th></tr></thead>
+<tbody>
+<tr><td><b>(2) Causal</b></td><td>|z| &gt; 0.707 &mdash; outside the poles</td><td>Right-sided, a decaying oscillation of the form r<sup>n</sup>(A cos&omega;<sub>0</sub>n + B sin&omega;<sub>0</sub>n)u(n) with r = 0.707 and &omega;<sub>0</sub> = &pi;/4</td></tr>
+<tr><td><b>(1) Stable</b></td><td>|z| &gt; 0.707 &mdash; the same region</td><td>The same h(n). Because both poles are inside the unit circle, that ROC already contains |z| = 1</td></tr>
+<tr><td><b>(3) Anti-causal</b></td><td>|z| &lt; 0.707 &mdash; inside the poles</td><td>Left-sided: the same modes but multiplied by &minus;u(&minus;n&minus;1), and <b>not</b> stable, since this ROC excludes the unit circle</td></tr>
+</tbody></table></div>
+<p><b>The angle of the poles</b>, which sets the oscillation frequency:</p>
+<div class="eqn">z = 0.5 + 0.5j = 0.707 e^(j pi/4)
+
+so r = 0.707  and  w0 = pi/4 radians/sample</div>
+<p><span class="ans">Causal and stable are the <b>same</b> ROC here, because every pole is inside the unit circle</span></p>
+<div class="tipbox"><span class="l">The sentence the examiner is waiting for</span>
+<p>&ldquo;<b>Since all poles lie inside the unit circle, the causal solution is also the stable one</b> &mdash; so cases (1) and (2) give the identical ROC and the identical h(n).&rdquo; The question is set to see whether you know that causal and stable coincide exactly when every pole is inside |z| = 1.</p></div></div></details></div>
+  <div class="qm">03</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q-4 b</div>
+  <div class="qt">Suppose we would like to find the N-point DFT where N = 3<sup>v</sup>. Develop a radix-3 decimation-in-time FFT algorithm, and draw the corresponding flow graph for N = 9. How many multiplications are required? Can the computation be performed in place?<details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The split.</b> Radix-2 divides the input into two interleaved sets; radix-3 divides it into <b>three</b>, taken every third sample:</p>
+<div class="eqn">x(3r)      r = 0 .. N/3 - 1
+x(3r + 1)
+x(3r + 2)</div>
+<p>Each subset gets an (N/3)-point DFT, and the three are recombined with twiddle factors:</p>
+<div class="eqn">X(k) = G0(k) + W_N^k G1(k) + W_N^2k G2(k)
+
+for k = 0 .. N/3 - 1, and then with W_N^(N/3) and W_N^(2N/3)
+rotations for the other two thirds of the output</div>
+<p><b>For N = 9:</b></p>
+<div class="eqn">stages             = log3(9) = 2
+butterflies/stage  = N/3     = 3
+each butterfly     = a 3-point DFT (3 inputs, 3 outputs)</div>
+<div class="eqn">x(0) o---\                      /---o X(0)
+x(3) o----+--[3-pt DFT]--[W]---+----o X(1)
+x(6) o---/                      \---o X(2)
+
+x(1) o---\                      /---o X(3)
+x(4) o----+--[3-pt DFT]--[W]---+----o X(4)
+x(7) o---/                      \---o X(5)
+
+x(2) o---\                      /---o X(6)
+x(5) o----+--[3-pt DFT]--[W]---+----o X(7)
+x(8) o---/                      \---o X(8)
+
+    stage 1                   stage 2
+   (three 3-point DFTs)   (recombine with twiddles)</div>
+<p><b>Input ordering: digit reversal in base 3.</b> Write each index in base 3 and reverse the digits &mdash; the base-3 version of bit reversal:</p>
+<div class="eqn">0 = 00 -> 00 = 0      3 = 10 -> 01 = 1      6 = 20 -> 02 = 2
+1 = 01 -> 10 = 3      4 = 11 -> 11 = 4      7 = 21 -> 12 = 5
+2 = 02 -> 20 = 6      5 = 12 -> 21 = 7      8 = 22 -> 22 = 8
+
+input order: x(0) x(3) x(6) x(1) x(4) x(7) x(2) x(5) x(8)</div>
+<p><b>Multiplication count.</b> Generalising the radix-2 formula (N/2)log<sub>2</sub>N to radix r:</p>
+<div class="eqn">complex multiplications ~ N (r - 1) / r  x  log_r N
+
+for N = 9, r = 3:
+  = 9 x (2/3) x 2 = 12 complex multiplications
+
+against the direct DFT: N^2 = 81
+speed-up ~ 6.75 times</div>
+<p><b>Can it be done in place? <span style="color:var(--spot)">Yes.</span></b> Each radix-3 butterfly reads three values, computes three outputs, and writes them straight back over the same three locations. Nothing else in the array is touched, so no second array is needed &mdash; exactly as with radix-2. The digit-reversal shuffle is the price paid for it.</p>
+<div class="tipbox"><span class="l">Why radix-3 exists at all</span>
+<p>Radix-2 only works when N is a power of two. If your data length is naturally 9, 27 or 81, zero-padding up to 16, 32 or 128 changes the frequency grid. Radix-3 lets you keep the natural length. The same divide-and-conquer argument drives every radix &mdash; split the DFT into smaller DFTs and reuse the twiddle symmetry.</p></div></div></details></div>
+  <div class="qm">04</div>
+</div>
+
+</div>
+</section>
+
+<div class="colo" style="margin-top:56px;padding-top:15px;border-top:5px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);line-height:2.1">
+  <b style="color:var(--ink-2);font-weight:400">EC303 &middot; Digital Signal Processing</b> &middot; papers worked by hand and checked numerically<br>
+  the predicted paper is our own reading of the pattern &mdash; it is not an official anything, and it is not a leak<br>
+  <a href="../index.html" style="color:var(--ink-2)">back to Tu Chahiye</a> &middot; <a href="archive.html" style="color:var(--ink-2)">the original scans</a> &middot; <a href="../downloads.html" style="color:var(--ink-2)">all the PDFs</a>
+</div>
+
+</div>
+<script>
+(function(){
+  var K="tc.theme", root=document.documentElement;
+  try{ var s=localStorage.getItem(K); if(s) root.setAttribute("data-theme",s); }catch(e){}
+})();
+(function(){
+  var bar=document.querySelector(".years");
+  if(!bar) return;
+  var links=[].slice.call(bar.querySelectorAll("a")),
+      secs=links.map(function(a){ return document.querySelector(a.getAttribute("href")); }),
+      top=0;
+  function sync(){
+    if(!top) top = bar.offsetTop;
+    bar.classList.toggle("stuck", window.scrollY > top - 1);
+    var y=window.scrollY+140, best=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+    links.forEach(function(a,i){ a.className = i===best ? "on" : ""; });
+  }
+  window.addEventListener("scroll", sync, {passive:true});
+  window.addEventListener("resize", function(){ top=0; sync(); }, {passive:true});
+  sync();
+})();
+</script>
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>

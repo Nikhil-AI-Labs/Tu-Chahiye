@@ -1,0 +1,128 @@
+/* ==========================================================================
+   TU CHAHIYE — the papers
+   Set like the question papers themselves: numbers in the margin, marks on
+   the right, hairline rules between questions. Solutions open in place.
+   Loads on top of press.css.
+   ========================================================================== */
+
+.subhead{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.subhead .code{font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--spot);font-weight:700}
+.subhead h1{font-family:var(--display);font-weight:800;
+  font-size:clamp(46px,10vw,104px);line-height:.82;letter-spacing:-.022em;
+  text-transform:uppercase;margin:0}
+
+/* ---------- year tabs ---------- */
+.years{position:sticky;top:0;z-index:40;background:var(--veil);
+  -webkit-backdrop-filter:blur(18px) saturate(165%);backdrop-filter:blur(18px) saturate(165%);
+  margin:26px calc(var(--gut)*-1) 24px;padding:0 var(--gut);
+  border-bottom:1px solid transparent;transition:border-color 180ms ease}
+.years.stuck{border-bottom-color:var(--hair)}
+@supports not (backdrop-filter:blur(1px)){.years{background:var(--stock)}}
+.years ul{display:flex;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.years ul::-webkit-scrollbar{display:none}
+.years a{display:flex;align-items:center;min-height:44px;padding:10px 15px 8px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  border-bottom:3px solid transparent;margin-bottom:-1px;transition:color var(--press)}
+.years a:first-child{padding-left:0}
+.years a:hover{color:var(--ink)}
+.years a.on{color:var(--ink);border-bottom-color:var(--spot)}
+
+/* ---------- the pattern read ---------- */
+.freq{overflow-x:auto;border-top:3px solid var(--ink);margin:0 0 10px;-webkit-overflow-scrolling:touch}
+.freq table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+.freq th,.freq td{padding:9px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:middle}
+.freq th{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;white-space:nowrap}
+.freq td.y{text-align:center;width:1%;padding:9px 6px}
+.freq .hit{display:inline-block;width:20px;height:20px;background:var(--spot)}
+.freq .miss{display:inline-block;width:20px;height:20px;background:var(--stock-3);opacity:.5}
+.freq td.n{font-family:var(--display);font-weight:800;font-size:21px;line-height:1;
+  text-align:right;width:1%;white-space:nowrap}
+.freq tr.every td{background:var(--spot-wash)}
+.freq tr.every td.n{color:var(--spot)}
+.freqkey{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 30px}
+
+/* ---------- a question paper ---------- */
+.qp{border-top:7px solid var(--ink);border-bottom:7px solid var(--ink);
+  padding:22px 0 8px;margin:0 0 40px}
+.qp-head{text-align:center;margin:0 0 20px;padding:0 4px}
+.qp-head .inst{font-weight:700;font-size:16px;line-height:1.35;letter-spacing:-.005em}
+.qp-head .line{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.qp-head .sub{font-family:var(--display);font-weight:800;font-size:clamp(22px,4vw,32px);
+  line-height:1;letter-spacing:-.012em;text-transform:uppercase;margin:9px 0 7px}
+.qp-bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  padding:8px 0;margin:0 0 6px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2)}
+.qp-note{font-size:14.5px;color:var(--ink-2);line-height:1.5;margin:14px 0 20px}
+.qp-note b{color:var(--ink)}
+
+.q{display:grid;grid-template-columns:52px minmax(0,1fr) 62px;gap:12px;
+  border-bottom:1px solid var(--hair);padding:15px 0}
+.q > .qn{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--spot);padding-top:2px}
+.q > .qm{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:right;
+  padding-top:3px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.q .qt{font-size:16.5px;line-height:1.52;min-width:0;text-wrap:pretty}
+.q .qt b{font-weight:600}
+.q .qt .co{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--hair);
+  padding:2px 6px;margin-left:8px;vertical-align:2px}
+.q ul,.q ol{margin:8px 0 0;padding-left:1.2rem}
+.q li{margin:4px 0}
+@media (max-width:560px){
+  .q{grid-template-columns:38px minmax(0,1fr);gap:9px}
+  .q > .qm{grid-column:2;text-align:left;padding-top:6px}
+}
+
+/* ---------- a solution ---------- */
+details.sol{margin:11px 0 0}
+details.sol > summary{
+  cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;
+  min-height:38px;padding:7px 0;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:700;color:var(--spot);border-bottom:2px solid var(--spot);
+  transition:opacity var(--press)}
+details.sol > summary::-webkit-details-marker{display:none}
+details.sol > summary::after{content:"\002B";font-family:var(--mono);font-size:14px;line-height:1}
+details.sol[open] > summary::after{content:"\2212"}
+details.sol > summary:active{opacity:.55}
+.solbody{padding:14px 0 6px;font-size:16px;line-height:1.6;max-width:70ch}
+.solbody p{margin:0 0 11px}
+.solbody p:last-child{margin-bottom:0}
+.solbody b{font-weight:600}
+.solbody ol,.solbody ul{margin:0 0 12px;padding-left:1.25rem}
+.solbody li{margin:5px 0}
+.eqn{font-family:var(--mono);font-size:14px;line-height:1.9;background:var(--stock-2);
+  padding:11px 14px;margin:0 0 12px;overflow-x:auto;white-space:pre-wrap;
+  border-left:3px solid var(--spot);-webkit-overflow-scrolling:touch}
+.ans{display:inline-block;font-family:var(--mono);font-weight:700;font-size:14px;
+  background:var(--ink);color:var(--stock);padding:5px 11px;margin:2px 0 12px}
+.solbody table{border-collapse:collapse;width:100%;font-size:14px;margin:0 0 13px}
+.solbody th,.solbody td{border-bottom:1px solid var(--hair);padding:7px 9px;text-align:left}
+.solbody th{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700}
+.solwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- little callout used inside solutions ---------- */
+.tipbox{border-left:4px solid var(--spot);background:var(--spot-wash);
+  padding:11px 14px;margin:0 0 13px}
+.tipbox .l{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;font-weight:700;color:var(--spot);margin-bottom:5px}
+.tipbox p{margin:0 0 7px;font-size:15px;line-height:1.55}
+.tipbox p:last-child{margin:0}
+
+/* ---------- honesty strip ---------- */
+.caveat{border:1px solid var(--hair);border-left:5px solid var(--ink);
+  padding:14px 16px;margin:0 0 32px;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.caveat b{color:var(--ink);font-weight:600}
+
+/* ---------- sections, and inline code inside a solution ---------- */
+.band{margin:0 0 54px}
+.band:last-of-type{margin-bottom:0}
+code{font-family:var(--mono);font-size:.86em;background:var(--stock-2);
+  padding:1px 5px;letter-spacing:-.012em;overflow-wrap:anywhere}
+.eqn code,.ans code{background:none;padding:0;font-size:1em}
+.solbody th code,.solbody td code{font-size:.9em;padding:1px 4px}

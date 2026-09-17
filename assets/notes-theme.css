@@ -1,0 +1,342 @@
+/* ==========================================================================
+   TU CHAHIYE — house theme for the five note pages
+   --------------------------------------------------------------------------
+   The notes were written long before the app existed, each with its own
+   palette and its own typeface pairing. Not one word of their content is
+   touched here: this file only re-points the custom properties they already
+   use at the house tokens, so five separate documents read as one publication.
+
+   Load order matters — this must come AFTER the page's own <style>.
+   ========================================================================== */
+
+:root{
+  /* ---------------- the house stock and inks ---------------- */
+  --tc-stock:#EAE8E1;
+  --tc-stock-2:#DEDBD1;
+  --tc-stock-3:#D2CEC2;
+  --tc-surface:#F1EFE9;          /* the sheet laid on the stock */
+  --tc-ink:#17171B;
+  --tc-ink-2:#4C4C55;
+  --tc-ink-3:#7E7E88;
+  --tc-hair:rgba(23,23,27,.22);
+  --tc-rule:#BCBAB5;             /* the hairline, flattened onto the stock */
+  --tc-rule-soft:#D3D1CB;
+  --tc-rule-strong:#A3A199;
+
+  --tc-pink:#DC1F68;  --tc-pink-wash:#F7D6E2;
+  --tc-blue:#0B5FC0;  --tc-blue-wash:#CEDFF4;
+
+  --tc-dcn:#1E8A5F;   --tc-dcn-wash:#CDE8DC;
+  --tc-dcomm:#0B5FC0; --tc-dcomm-wash:#CEDFF4;
+  --tc-dsp:#6A3EA1;   --tc-dsp-wash:#DED2EE;
+  --tc-dip:#DC1F68;   --tc-dip-wash:#F7D6E2;
+  --tc-oops:#C4571B;  --tc-oops-wash:#F4DDCB;
+
+  --tc-slab:#17171B;  --tc-slab-2:#1F1F26;
+  --tc-slab-ink:#E4E1D8; --tc-slab-rule:#32323C;
+
+  --tc-display:"Big Shoulders Display","Big Shoulders","Haettenschweiler","Arial Narrow",sans-serif;
+  --tc-body:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --tc-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+
+  --tc-spring:cubic-bezier(.32,.72,0,1);
+
+  /* the page sets --spot / --spot-wash to one of the five above.
+     the fallback keeps this file usable on its own. */
+  --spot:var(--tc-pink);       --spot-wash:var(--tc-pink-wash);
+  --spot-2:var(--tc-dcn);      --spot-2-wash:var(--tc-dcn-wash);
+  --spot-3:var(--tc-oops);     --spot-3-wash:var(--tc-oops-wash);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --tc-stock:#131317; --tc-stock-2:#1C1C21; --tc-stock-3:#26262D;
+    --tc-surface:#1A1A20;
+    --tc-ink:#EAE7DE; --tc-ink-2:#A6A6AF; --tc-ink-3:#73737D;
+    --tc-hair:rgba(234,231,222,.22);
+    --tc-rule:#33333B; --tc-rule-soft:#26262D; --tc-rule-strong:#484852;
+    --tc-pink:#FF5D96;  --tc-pink-wash:#3A1526;
+    --tc-blue:#59A7FF;  --tc-blue-wash:#10243E;
+    --tc-dcn:#3FCB93;   --tc-dcn-wash:#0D2A20;
+    --tc-dcomm:#59A7FF; --tc-dcomm-wash:#10243E;
+    --tc-dsp:#B48CEB;   --tc-dsp-wash:#21143A;
+    --tc-dip:#FF5D96;   --tc-dip-wash:#3A1526;
+    --tc-oops:#F58A4C;  --tc-oops-wash:#331A0C;
+    --tc-slab:#08080A;  --tc-slab-2:#141419;
+    --tc-slab-ink:#E4E1D8; --tc-slab-rule:#2A2A33;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --tc-stock:#131317; --tc-stock-2:#1C1C21; --tc-stock-3:#26262D;
+  --tc-surface:#1A1A20;
+  --tc-ink:#EAE7DE; --tc-ink-2:#A6A6AF; --tc-ink-3:#73737D;
+  --tc-hair:rgba(234,231,222,.22);
+  --tc-rule:#33333B; --tc-rule-soft:#26262D; --tc-rule-strong:#484852;
+  --tc-pink:#FF5D96;  --tc-pink-wash:#3A1526;
+  --tc-blue:#59A7FF;  --tc-blue-wash:#10243E;
+  --tc-dcn:#3FCB93;   --tc-dcn-wash:#0D2A20;
+  --tc-dcomm:#59A7FF; --tc-dcomm-wash:#10243E;
+  --tc-dsp:#B48CEB;   --tc-dsp-wash:#21143A;
+  --tc-dip:#FF5D96;   --tc-dip-wash:#3A1526;
+  --tc-oops:#F58A4C;  --tc-oops-wash:#331A0C;
+  --tc-slab:#08080A;  --tc-slab-2:#141419;
+  --tc-slab-ink:#E4E1D8; --tc-slab-rule:#2A2A33;
+}
+
+/* ==========================================================================
+   Re-point every token the five pages use.
+   Names that a given page does not define are simply unused by it.
+   Written three times over at matching specificity so the pages' own dark
+   blocks cannot win the cascade back.
+   ========================================================================== */
+
+:root,
+:root[data-theme="dark"]{
+  /* --- grounds --- */
+  --bg:var(--tc-stock);
+  --paper:var(--tc-stock);
+  --surface:var(--tc-surface);
+  --surface-2:var(--tc-stock-2);  --surface2:var(--tc-stock-2);
+  --surface-3:var(--tc-stock-3);  --surface3:var(--tc-stock-3);
+  --off:var(--tc-stock-2);
+  --grid:var(--tc-rule-soft);
+
+  /* --- ink --- */
+  --ink:var(--tc-ink);
+  --ink-2:var(--tc-ink-2);  --ink2:var(--tc-ink-2);
+  --ink-3:var(--tc-ink-3);  --ink3:var(--tc-ink-3);
+  --muted:var(--tc-ink-3);
+  --slate:var(--tc-ink-2);
+  --on:var(--tc-ink);
+  --on-text:var(--tc-stock);
+
+  /* --- rules --- */
+  --rule:var(--tc-rule);
+  --rule-2:var(--tc-rule-soft);  --rule2:var(--tc-rule-soft);
+  --rule-soft:var(--tc-rule-soft);
+  --rule-strong:var(--tc-rule-strong);
+
+  /* --- accents, all folded onto the three spot inks --- */
+  --accent:var(--spot);           --accent-soft:var(--spot-wash);
+  --accent2:var(--spot);          --accent-ink:var(--spot);
+  --optic:var(--spot);            --optic-soft:var(--spot-wash);
+  --prussian:var(--spot);         --prussian-2:var(--spot);
+
+  --signal:var(--spot-2);         --signal-soft:var(--spot-2-wash);
+  --signal-tint:var(--spot-2-wash);
+  --forest:var(--spot-2);         --forest-soft:var(--spot-2-wash);
+
+  --copper:var(--spot-3);         --copper-soft:var(--spot-3-wash);
+  --flag:var(--spot-3);           --flag-soft:var(--spot-3-wash);
+  --brass:var(--spot-3);          --brass-tint:var(--spot-3-wash);
+  --gold:var(--spot-3);           --gold-soft:var(--spot-3-wash);
+
+  --collision:var(--tc-pink);     --collision-soft:var(--tc-pink-wash);
+  --alert:var(--tc-pink);         --alert-tint:var(--tc-pink-wash);
+
+  /* --- code slabs --- */
+  --slab:var(--tc-slab);
+  --slab-2:var(--tc-slab-2);
+  --slab-ink:var(--tc-slab-ink);
+  --slab-rule:var(--tc-slab-rule);
+
+  /* --- type --- */
+  --sans:var(--tc-body);      --serif:var(--tc-body);
+  --f-body:var(--tc-body);    --f-display:var(--tc-body);
+  --mono:var(--tc-mono);      --f-mono:var(--tc-mono);
+
+  /* --- the house has no shadows and no soft plates --- */
+  --shadow:none;
+  --plate-filter:none;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:var(--tc-stock); --paper:var(--tc-stock);
+    --surface:var(--tc-surface);
+    --surface-2:var(--tc-stock-2); --surface2:var(--tc-stock-2);
+    --surface-3:var(--tc-stock-3); --surface3:var(--tc-stock-3);
+    --off:var(--tc-stock-2); --grid:var(--tc-rule-soft);
+    --ink:var(--tc-ink); --ink-2:var(--tc-ink-2); --ink2:var(--tc-ink-2);
+    --ink-3:var(--tc-ink-3); --ink3:var(--tc-ink-3);
+    --muted:var(--tc-ink-3); --slate:var(--tc-ink-2);
+    --on:var(--tc-ink); --on-text:var(--tc-stock);
+    --rule:var(--tc-rule); --rule-2:var(--tc-rule-soft); --rule2:var(--tc-rule-soft);
+    --rule-soft:var(--tc-rule-soft); --rule-strong:var(--tc-rule-strong);
+    --accent:var(--spot); --accent-soft:var(--spot-wash);
+    --accent2:var(--spot); --accent-ink:var(--spot);
+    --optic:var(--spot); --optic-soft:var(--spot-wash);
+    --prussian:var(--spot); --prussian-2:var(--spot);
+    --signal:var(--spot-2); --signal-soft:var(--spot-2-wash); --signal-tint:var(--spot-2-wash);
+    --forest:var(--spot-2); --forest-soft:var(--spot-2-wash);
+    --copper:var(--spot-3); --copper-soft:var(--spot-3-wash);
+    --flag:var(--spot-3); --flag-soft:var(--spot-3-wash);
+    --brass:var(--spot-3); --brass-tint:var(--spot-3-wash);
+    --gold:var(--spot-3); --gold-soft:var(--spot-3-wash);
+    --collision:var(--tc-pink); --collision-soft:var(--tc-pink-wash);
+    --alert:var(--tc-pink); --alert-tint:var(--tc-pink-wash);
+    --slab:var(--tc-slab); --slab-2:var(--tc-slab-2);
+    --slab-ink:var(--tc-slab-ink); --slab-rule:var(--tc-slab-rule);
+    --sans:var(--tc-body); --serif:var(--tc-body);
+    --f-body:var(--tc-body); --f-display:var(--tc-body);
+    --mono:var(--tc-mono); --f-mono:var(--tc-mono);
+    --shadow:none; --plate-filter:none;
+  }
+}
+
+/* ==========================================================================
+   The three things the house style is actually made of:
+   square corners, no shadows, and the stock showing through.
+   ========================================================================== */
+
+*{border-radius:0 !important; box-shadow:none !important}
+
+html{
+  background-color:var(--tc-stock);
+  background-image:radial-gradient(var(--tc-hair) .5px,transparent .5px);
+  background-size:4px 4px;
+}
+body{background:transparent !important}
+
+::selection{background:var(--spot);color:var(--tc-stock)}
+:focus-visible{outline:3px solid var(--spot);outline-offset:3px}
+
+/* headings are set in the house display face, condensed and tight */
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--tc-display) !important;
+  font-weight:800;
+  letter-spacing:-.012em;
+  text-wrap:balance;
+}
+h1{letter-spacing:-.022em}
+h5,h6{font-weight:700;letter-spacing:.01em}
+
+/* the house underline: a rule that wipes in from the left rather than a
+   browser underline that is simply there */
+.doc a:not([class]),
+.body a:not([class]),
+main a:not([class]),
+article a:not([class]){
+  text-decoration:none;
+  background-image:linear-gradient(currentColor,currentColor);
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:0 1px;
+  transition:background-size 260ms var(--tc-spring);
+  padding-bottom:1px;
+}
+.doc a:not([class]):hover,
+.body a:not([class]):hover,
+main a:not([class]):hover,
+article a:not([class]):hover{background-size:100% 1px}
+
+/* tap targets and tap feedback, same rules as the rest of the app */
+a,button,summary,[role="button"]{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+summary{cursor:pointer}
+summary:active{opacity:.6}
+
+/* ==========================================================================
+   Chapters arrive as you reach them — 14px and 240ms, nothing more.
+   The class is added by notes-theme.js; without JS everything is visible.
+   ========================================================================== */
+.tc-rv{opacity:0;transform:translateY(14px)}
+.tc-rv.tc-in{opacity:1;transform:none;
+  transition:opacity 420ms var(--tc-spring),transform 420ms var(--tc-spring)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .tc-rv,.tc-rv.tc-in{opacity:1;transform:none;transition:none}
+  *{animation:none !important}
+  *{transition-duration:120ms !important}
+}
+@media (prefers-contrast:more){
+  :root{--tc-rule:#6E6C66;--tc-rule-soft:#8C8A84;--tc-ink-2:#2A2A32;--tc-ink-3:#4A4A54}
+  html{background-image:none}
+}
+@media print{
+  html{background-image:none}
+  .tc-rv{opacity:1 !important;transform:none !important}
+}
+
+/* ==========================================================================
+   Narrow screens: a formula or a MAC address set with white-space:nowrap will
+   push the whole page sideways. Let inline code and inline maths wrap — but
+   never touch code inside <pre>, where the line breaks are the content.
+   ========================================================================== */
+@media (max-width:620px){
+  .m,.eq,kbd,samp,var,:not(pre) > code{
+    white-space:normal !important;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+}
+
+/* ==========================================================================
+   On paper
+   The note pages were built for a screen with an index rail down the side.
+   Printed, the rail is dead weight and the reading column should have the
+   whole sheet. Everything that is interactive goes; everything that is a
+   detail box opens; nothing that belongs together is split across a break.
+   ========================================================================== */
+@media print{
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --tc-stock:#fff; --tc-stock-2:#F2F0EA; --tc-stock-3:#E6E3DA;
+    --tc-surface:#fff;
+    --tc-ink:#101014; --tc-ink-2:#3A3A42; --tc-ink-3:#6A6A74;
+    --tc-hair:rgba(16,16,20,.34);
+    --tc-rule:#B4B2AC; --tc-rule-soft:#D6D4CE; --tc-rule-strong:#96948E;
+    --tc-pink:#C4185A;  --tc-pink-wash:#FBE7EE;
+    --tc-blue:#0A54AC;  --tc-blue-wash:#E2ECF9;
+    --tc-dcn:#16724E;   --tc-dcn-wash:#E0F1E9;
+    --tc-dcomm:#0A54AC; --tc-dcomm-wash:#E2ECF9;
+    --tc-dsp:#5A3390;   --tc-dsp-wash:#EBE2F7;
+    --tc-dip:#C4185A;   --tc-dip-wash:#FBE7EE;
+    --tc-oops:#A8480F;  --tc-oops-wash:#FBEADD;
+    --tc-slab:#17171B;  --tc-slab-2:#22222A;
+    --tc-slab-ink:#EFEDE6; --tc-slab-rule:#3A3A44;
+    color-scheme:light;
+  }
+  html{background:#fff !important;background-image:none !important}
+  body{background:#fff !important;font-size:10.4pt;line-height:1.5}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* the chrome has no job on paper */
+  .tcbar,.rail,.bar,#prog,.totop,.searchwrap,.search,.tools,
+  input,select,button,[role="button"]{display:none !important}
+
+  /* the reading column takes the sheet */
+  .shell,.body,.layout{display:block !important;max-width:none !important}
+  .doc,main,article,.content{max-width:none !important;padding:0 !important;margin:0 !important}
+  /* the reading measure is right; it just has to sit in the middle of the sheet */
+  .col,.doc > *,main > *,section.module,section.ch,section.chapter,article.ch,.wrap{
+    margin-left:auto !important;margin-right:auto !important}
+
+  /* keep things whole */
+  h1,h2,h3,h4{break-after:avoid;page-break-after:avoid}
+  figure,table,pre,blockquote,.eq,.eqn,.note,.callout,.box,.slab,
+  .tw,.tablewrap,.code{break-inside:avoid;page-break-inside:avoid}
+  tr,th,td,li{break-inside:avoid;page-break-inside:avoid}
+  thead{display:table-header-group}
+  img,svg{max-width:100% !important;height:auto !important;
+    break-inside:avoid;page-break-inside:avoid}
+
+  /* a chapter starts on its own sheet */
+  section.ch,section.module,section.unithead{break-before:page;page-break-before:always}
+  section.ch:first-of-type{break-before:auto;page-break-before:auto}
+
+  /* every detail box is open */
+  details{display:block !important}
+  details > summary{font-weight:700;list-style:none}
+  details > summary::marker,details > summary::-webkit-details-marker{display:none}
+
+  /* reveals never apply on paper */
+  .tc-rv,.tc-rv.tc-in{opacity:1 !important;transform:none !important;
+    transition:none !important;animation:none !important}
+
+  a{text-decoration:none;color:inherit}
+  a[href^="#"]{color:inherit}
+}

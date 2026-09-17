@@ -1,0 +1,102 @@
+/* ==========================================================================
+   TU CHAHIYE — print / PDF
+   The sheet was always the point, so printing is not an afterthought here.
+   On paper: the halftone comes off, the chrome goes away, every solution is
+   open, the spot inks stay, and nothing that belongs together is split across
+   a page break. A4, because that is what the department prints on.
+   ========================================================================== */
+
+@page{
+  size:A4;
+  margin:15mm 14mm 16mm;
+}
+
+@media print{
+
+  /* the dark sheet is for screens; paper is paper */
+  :root,:root[data-theme="dark"]{
+    --stock:#fff; --stock-2:#F2F0EA; --stock-3:#E6E3DA;
+    --ink:#101014; --ink-2:#3A3A42; --ink-3:#6A6A74;
+    --hair:rgba(16,16,20,.34); --hair-2:rgba(16,16,20,.16);
+    --pink:#C4185A; --pink-wash:#FBE7EE;
+    --blue:#0A54AC; --blue-wash:#E2ECF9;
+    --dcn:#16724E;   --dcn-wash:#E0F1E9;
+    --dcomm:#0A54AC; --dcomm-wash:#E2ECF9;
+    --dsp:#5A3390;   --dsp-wash:#EBE2F7;
+    --dip:#C4185A;   --dip-wash:#FBE7EE;
+    --oops:#A8480F;  --oops-wash:#FBEADD;
+    --slab:#17171B;  --slab-ink:#EFEDE6;
+    --veil:#fff;
+  }
+
+  html,body{background:#fff !important}
+  body::before{display:none !important}          /* the halftone */
+  body{font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  .wrap{max-width:none;padding:0;margin:0}
+
+  /* ------------------------------------------------ chrome that has no job */
+  .nav,.tick,.tcbar,.years,.tog,.clk,.press .sp,
+  .qgrid,.qcard,.qclip,.lb,.board,.pdfbar,.noprint,
+  button,[role="button"]{display:none !important}
+
+  /* the press line becomes the masthead rule */
+  .press{border-bottom:2px solid var(--ink);padding:0 0 6px;margin:0 0 10px;
+    font-size:7.5pt;letter-spacing:.16em}
+  .press .reg{display:none}
+  .press a{border:0}
+
+  /* ----------------------------------------------------------- the type */
+  h1,h2,h3,h4{break-after:avoid;page-break-after:avoid}
+  h1{font-size:34pt;line-height:.86;margin:0 0 6pt}
+  h2.sec{font-size:19pt;margin:0 0 4pt}
+  h3.sub{font-size:13pt}
+  .standfirst{font-size:11.5pt;line-height:1.42;max-width:none}
+  .note,.hello{max-width:none;font-size:10pt}
+  .kicker{font-size:7.5pt}
+  .rule-heavy{height:4px;transform:none !important;opacity:1 !important}
+
+  /* reveals never apply on paper */
+  [data-rv],[data-rv].in,.tc-rv,.tc-rv.tc-in,.ltr{
+    opacity:1 !important;transform:none !important;animation:none !important}
+
+  /* ----------------------------------------------- a question and its answer */
+  .band{break-inside:auto;margin:0 0 14pt}
+  .band + .band{break-before:page;page-break-before:always}
+  .qp{border-top:4px solid var(--ink);border-bottom:4px solid var(--ink);
+    padding:10pt 0 4pt;margin:0 0 14pt}
+  .qp-head .sub{font-size:15pt}
+  /* a question with a long solution is taller than a sheet, so it has to be
+     allowed to break — what must not break is the head of it, and the small
+     atomic blocks below */
+  .q{break-inside:auto}
+  .q > .qn,.q > .qm{break-after:avoid;page-break-after:avoid}
+  .q > .qt > p:first-child{break-after:avoid;page-break-after:avoid}
+  details.sol > summary{break-after:avoid;page-break-after:avoid}
+  p{orphans:3;widows:3}
+  .eqn{break-inside:avoid;page-break-inside:avoid;font-size:8.6pt;line-height:1.62;
+    background:var(--stock-2);border-left:2pt solid var(--spot,var(--ink))}
+  table{break-inside:auto}
+  tr,th,td{break-inside:avoid;page-break-inside:avoid}
+  thead{display:table-header-group}
+  figure,img,svg{break-inside:avoid;page-break-inside:avoid;max-width:100% !important}
+  .tipbox,.caveat,.ans{break-inside:avoid;page-break-inside:avoid}
+
+  /* every solution is open on paper — a closed <details> prints as a title */
+  details{display:block !important}
+  details > summary{list-style:none;font-weight:700;margin:0 0 4pt}
+  details > summary::marker,details > summary::-webkit-details-marker{display:none}
+  details.sol > summary::after{content:"" !important}
+  details > *{display:revert !important}
+
+  /* the year tabs and the pattern key are navigation, not content */
+  .freqkey{font-size:7.5pt}
+
+  /* a link in a PDF stays a link; printing the URL after it only adds noise */
+  a{text-decoration:none;color:inherit;background:none !important}
+  a[href^="http"]::after{content:""}
+
+  /* the colophon closes the document rather than starting a page */
+  .colo{break-before:avoid;page-break-before:avoid;font-size:7.5pt;margin-top:14pt}
+}

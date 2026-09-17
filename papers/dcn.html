@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Communication Networks &mdash; the papers</title>
+<meta name="description" content="EC321 mid-sem papers worked out question by question, the pattern across the years, and a predicted paper for September 2026.">
+<meta name="theme-color" content="#EAE8E1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/press.css">
+<link rel="stylesheet" href="../assets/paper.css">
+<link rel="stylesheet" href="../assets/motion.css">
+<link rel="stylesheet" href="../assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>:root{--spot:var(--dcn);--spot-wash:var(--dcn-wash)}</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="press">
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <span><a href="../index.html">&larr; Tu Chahiye</a></span>
+  <span class="sp"></span>
+  <span class="hideS"><a href="../notes/dcn.html">the notes</a> &middot; <a href="../quiz/dcn.html">the quiz</a></span>
+  <a class="pdfget" href="../pdf/papers-dcn.pdf" download title="Every solution on this page as an A4 PDF">PDF</a>
+  <span class="clk" data-clock aria-label="The time in Surat">Surat</span>
+  <svg class="reg" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+</div>
+
+<header style="padding-top:14px">
+  <div class="subhead">
+    <div>
+      <div class="code">EC321 &middot; mid-sem</div>
+      <h1>The papers</h1>
+    </div>
+  </div>
+  <div class="rule-heavy"></div>
+  <p class="standfirst">Three mid-sem papers &mdash; 2023, 2024 and 2025 &mdash; read end to end, every question worked out, and then a <b>predicted paper for September 2026</b> built from what actually repeats.</p>
+</header>
+
+<nav class="years">
+  <ul><li><a href="#pattern">The pattern</a></li><li><a href="#predicted">Predicted 2026</a></li><li><a href="#p2025">2025</a></li><li><a href="#p2024">2024</a></li><li><a href="#p2023">2023</a></li></ul>
+</nav>
+
+<section class="band" id="pattern" style="scroll-margin-top:70px;padding-top:10px">
+<div class="sechead"><h2 class="sec">What actually gets asked</h2><span class="tag">3 papers read end to end</span></div>
+<p class="note" style="margin:0 0 22px">Three papers is a small sample, but this department is unusually consistent: the same five or six things come back almost every year, in almost the same words. The rows tinted below appeared in <b>every single paper we have</b> &mdash; if you learn nothing else, learn those.</p>
+<div class="freq"><table><thead><tr><th>Topic</th><th class="y">23</th><th class="y">24</th><th class="y">25</th><th class="n">of&nbsp;3</th></tr></thead><tbody><tr class="every"><td>ALOHA &mdash; draw the flow chart and explain it</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr class="every"><td>Layers &mdash; name them and give each layer&rsquo;s job</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr class="every"><td>PDR, throughput, latency and its components</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3</td></tr><tr><td>Go-Back-N with timing and sliding-window diagrams</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2</td></tr><tr><td>CDMA &mdash; build a Walsh table and decode</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2</td></tr><tr><td>CSMA family (persistence methods, CD versus CA)</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2</td></tr><tr><td>Topologies compared</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2</td></tr><tr><td>Pure ALOHA throughput numerical</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>CSMA/CD minimum frame size numerical</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Bandwidth-delay product and link utilisation</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Connecting devices compared (hub, switch, router, gateway)</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Selective Repeat ARQ, drawn step by step</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>HDLC frame &mdash; read the fields off a diagram</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Optical fibre structure</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1</td></tr><tr><td>Five components of data communication</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1</td></tr><tr><td>Physical versus IP versus port address</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1</td></tr></tbody></table></div><p class="freqkey">filled = it appeared that year &middot; tinted rows came up in every paper we have</p>
+<h3 class="sub">Read it this way</h3>
+<div class="caveat"><b>Three things are effectively guaranteed.</b> The ALOHA flow chart, the layer list, and the latency breakdown have been on every paper we have, and they are worth about 9 marks between them. They are also pure recall &mdash; there is no excuse for dropping any of it.
+<br><br><b>Two things are near-certain.</b> Go-Back-N drawn properly and the CDMA Walsh table have both appeared in the last two years, and the CDMA question is worth 5 marks on its own. Note the instruction that came with it in 2024 and again in 2025: <i>&ldquo;only theoretical explanation is not sufficient &mdash; draw the appropriate codes, data, matrix, graph.&rdquo;</i> Words alone score nothing there.
+<br><br><b>The numericals rotate.</b> 2023 was the numerical-heavy paper (ALOHA throughput, CSMA/CD frame size, bandwidth-delay utilisation) and 2024 and 2025 were almost entirely descriptive. That is the main risk for 2026: two descriptive years in a row makes a numerical return more likely, not less, and the three in the 2023 paper are the three that exist.
+<br><br><b>What is on the syllabus but has not been asked yet:</b> CRC and Hamming worked by hand, bit and byte stuffing, and the learning bridge with the loop problem. All four are on the mid-sem topic list your sir gave out, and none has appeared in three years. Do not skip them.</div>
+</section>
+<section class="band" id="predicted" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Predicted paper &mdash; September 2026</h2><span class="tag">our reading, with full solutions</span></div>
+<div class="caveat">This is <b>our own prediction</b>, not a leaked paper and not an official anything. It is built by taking every topic that has appeared in the last three years, weighting it by how often, checking it against the 37-topic mid-sem list, and then writing a paper of the same shape and mark total as the real ones. Treat it as a mock. Every question here has a full solution attached.</div>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">S.V. National Institute of Technology, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">MID Semester Exam, September 2026 &mdash; <i>predicted</i></div>
+<div class="line">B. Tech. (EC) V Semester</div>
+<div class="sub">Communication Networks (EC321)</div>
+</div>
+<div class="qp-bar"><span>Maximum marks: 30</span><span>Duration: 1:30 hours</span><span>All questions compulsory</span></div>
+<p class="qp-note"><b>Instructions.</b> [CO] indicates course outcome. Marks are in the right-hand column. Where a diagram is asked for, a written description alone will not score.</p>
+<div class="q">
+  <div class="qn">Q.1 a</div>
+  <div class="qt">What are the five components of a data communication system? State the role of each, and say which one is not physically located between the sender and the receiver.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>The five components are <b>message, sender, receiver, transmission medium and protocol</b>.</p>
+<div class="solwrap"><table>
+<thead><tr><th>Component</th><th>Its role</th></tr></thead>
+<tbody>
+<tr><td><b>Message</b></td><td>The information being communicated &mdash; text, numbers, pictures, audio, video.</td></tr>
+<tr><td><b>Sender</b></td><td>The device that sends the message: a computer, phone, camera, sensor.</td></tr>
+<tr><td><b>Receiver</b></td><td>The device that receives it.</td></tr>
+<tr><td><b>Transmission medium</b></td><td>The physical path the message travels along: twisted pair, coax, fibre, or air.</td></tr>
+<tr><td><b>Protocol</b></td><td>The set of rules both ends agree on, so that the bits actually mean something at the far end.</td></tr>
+</tbody></table></div>
+<p>The one that is <b>not</b> in the path is the <b>protocol</b>. It is not a wire or a box &mdash; it is an agreement held simultaneously at both ends.</p>
+<div class="tipbox"><span class="l">The line that earns the mark</span>
+<p>Two devices can be joined by a perfect cable and still communicate nothing. A Hindi speaker and a Japanese speaker in the same room have message, sender, receiver and medium all present, and still exchange nothing. The missing piece is the protocol.</p></div></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 b</div>
+  <div class="qt">Compare the star, bus, ring and mesh topologies in terms of cost, robustness and performance. For a full mesh of n nodes, how many links are needed and how many ports must each node have?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="solwrap"><table>
+<thead><tr><th>Topology</th><th>Links</th><th>If one link fails</th><th>Main weakness</th></tr></thead>
+<tbody>
+<tr><td><b>Mesh</b></td><td>n(n&minus;1)/2</td><td>Nothing else is affected &mdash; there is always another path</td><td>Cost. Cabling and port count explode with n</td></tr>
+<tr><td><b>Star</b></td><td>n</td><td>Only that one station is cut off</td><td>The hub is a single point of failure</td></tr>
+<tr><td><b>Bus</b></td><td>1 backbone + n drops</td><td>A break in the backbone can split or kill the network</td><td>Hard to fault-find; limited length</td></tr>
+<tr><td><b>Ring</b></td><td>n</td><td>A single break stops the ring unless it is dual</td><td>A signal passes through every station, so delay grows with n</td></tr>
+</tbody></table></div>
+<p><b>Full mesh of n nodes:</b></p>
+<div class="eqn">number of links = n(n &minus; 1) / 2
+ports per node  = n &minus; 1</div>
+<p>Each node connects directly to every other node, which is n&minus;1 links from each node. Multiplying n &times; (n&minus;1) counts every link twice &mdash; once from each end &mdash; so divide by two.</p>
+<p>For six nodes: <span class="ans">15 links, 5 ports each</span></p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 c</div>
+  <div class="qt">Draw the flow chart of the pure ALOHA protocol and explain each step.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>This question has been on every paper we have. Draw the chart &mdash; do not just describe it.</p>
+<div class="eqn">            start
+              |
+       K = 0  (attempt counter)
+              |
+      +-----> send the frame
+      |       |
+      |   wait 2 x Tp  (one round trip)
+      |       |
+      |   ACK received?  ---- yes ---> success, stop
+      |       | no
+      |   K = K + 1
+      |       |
+      |   K &gt; Kmax ?    ---- yes ---> give up, abort
+      |       | no
+      |   choose R at random from 0 .. 2^K - 1
+      |       |
+      |   back off  R x Tp
+      |       |
+      +-------+</div>
+<p><b>Step by step:</b></p>
+<ol>
+<li><b>Send immediately.</b> A pure ALOHA station transmits whenever it has a frame. It does not listen first &mdash; that is what separates ALOHA from CSMA.</li>
+<li><b>Wait one round trip.</b> The station waits 2 &times; T<sub>p</sub> for an acknowledgement, which is the longest a reply can take.</li>
+<li><b>Acknowledged?</b> If yes the frame got through and the station stops.</li>
+<li><b>Increment K.</b> If no acknowledgement came, a collision is assumed and the attempt counter goes up.</li>
+<li><b>Check the limit.</b> If K exceeds K<sub>max</sub> (usually 15) the frame is abandoned &mdash; otherwise a permanently jammed channel would retry forever.</li>
+<li><b>Binary exponential back-off.</b> Pick R at random from 0 to 2<sup>K</sup>&minus;1 and wait R &times; T<sub>p</sub> before retrying.</li>
+</ol>
+<div class="tipbox"><span class="l">Why the back-off is random and doubling</span>
+<p><b>Random</b>, because two stations that collided would otherwise retry at exactly the same instant and collide again forever. <b>Doubling</b>, because a repeated collision is evidence that the channel is busy, so each failure widens the window a station picks from and thins the traffic out.</p></div></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 d</div>
+  <div class="qt">Explain Packet Delivery Ratio, Throughput, Latency and Jitter. Break latency into its components and say what each one depends on.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Packet Delivery Ratio</b> &mdash; the fraction of sent packets that actually arrive, as a percentage. It measures <b>reliability</b>; a low PDR points to loss, congestion or a poor link.</p>
+<div class="eqn">PDR = (packets received / packets sent) x 100%</div>
+<p><b>Throughput</b> &mdash; the rate at which data is <i>successfully</i> transmitted, in bits per second.</p>
+<div class="eqn">Throughput = total data successfully received / total time</div>
+<p>Throughput is not bandwidth. Bandwidth is the theoretical maximum the link could carry; throughput is what survives collisions, retransmissions, headers and congestion. It is always lower, often far lower.</p>
+<p><b>Latency</b> &mdash; the time for a packet to get from source to destination. It has <b>four</b> components:</p>
+<div class="solwrap"><table>
+<thead><tr><th>Component</th><th>What it is</th><th>What it depends on</th></tr></thead>
+<tbody>
+<tr><td>Propagation delay</td><td>Time for the signal to travel the distance</td><td>distance &divide; propagation speed. Nothing else &mdash; not bandwidth, not frame size</td></tr>
+<tr><td>Transmission delay</td><td>Time to push all the bits onto the link</td><td>frame size &divide; bandwidth</td></tr>
+<tr><td>Processing delay</td><td>Time for routers and switches to handle the headers</td><td>device speed, number of hops</td></tr>
+<tr><td>Queuing delay</td><td>Time spent waiting in buffers</td><td>traffic load &mdash; the only one that varies wildly</td></tr>
+</tbody></table></div>
+<div class="eqn">Latency = propagation + transmission + processing + queuing</div>
+<p><b>Jitter</b> &mdash; the variation in delay between consecutive packets.</p>
+<div class="eqn">Jitter = | D(i+1) - D(i) |</div>
+<p>It is an absolute value, so a delay that <i>falls</i> still counts. High jitter ruins voice and video even when the average latency is fine, because packets arrive unevenly.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 e</div>
+  <div class="qt">How does CSMA/CD work in Ethernet? Why can the same collision-detection method not be used in a wireless network, and what is used instead?<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>CSMA/CD &mdash; Carrier Sense Multiple Access with Collision Detection.</b></p>
+<ol>
+<li><b>Carrier sense.</b> Before transmitting, the station listens to the medium. If it is busy, it waits (1-persistent in Ethernet: it keeps listening and sends the moment it goes idle).</li>
+<li><b>Transmit and keep listening.</b> While sending, the station monitors the line. If what it hears differs from what it is sending, a collision has occurred.</li>
+<li><b>Abort and jam.</b> It stops immediately and sends a short jamming signal so that every other station also learns of the collision.</li>
+<li><b>Back off.</b> It waits a random binary-exponential time and goes back to step 1.</li>
+</ol>
+<p>For this to work the station must still be transmitting when the collision signal reaches it, which gives the minimum frame size condition:</p>
+<div class="eqn">T(frame) &gt;= 2 x T(propagation)</div>
+<p><b>Why wireless cannot do it.</b> Three separate reasons, and any of them alone is fatal:</p>
+<ul>
+<li><b>The transmitter is deaf while it transmits.</b> Its own signal at its own antenna is many orders of magnitude stronger than anything arriving from a distant station, so it simply cannot hear a collision happening.</li>
+<li><b>The hidden terminal problem.</b> A and C may both be in range of B but out of range of each other. Each senses an idle channel, both transmit, and the frames collide at B &mdash; and neither sender ever knows.</li>
+<li><b>The exposed terminal problem.</b> The reverse case, where a station holds back unnecessarily because it hears a transmission that would not actually have interfered.</li>
+</ul>
+<p><b>What is used instead: CSMA/CA</b> &mdash; collision <i>avoidance</i>. Since a collision cannot be detected, it must be prevented:</p>
+<ul>
+<li><b>Interframe space (IFS).</b> After the channel goes idle, wait a fixed gap before even starting the countdown. A shorter IFS means higher priority.</li>
+<li><b>Contention window with back-off.</b> Choose a random slot count and count down only while the channel is idle, freezing the counter when it goes busy.</li>
+<li><b>Explicit acknowledgement.</b> Silence cannot be read as success, so every frame must be acknowledged; no ACK means retransmit.</li>
+<li><b>Optional RTS/CTS handshake</b> to solve the hidden terminal problem.</li>
+</ul></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 f</div>
+  <div class="qt">Differentiate between a physical address, an IP address and a port address. Explain what changes and what stays the same as a packet travels from a host on one network to a host on another.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="solwrap"><table>
+<thead><tr><th>Address</th><th>Form</th><th>Scope of delivery</th><th>Used by</th></tr></thead>
+<tbody>
+<tr><td><b>Physical (MAC)</b></td><td>48 bits, burned into the NIC, six hex octets</td><td>Node to node, inside one LAN only</td><td>Switch / bridge, data link layer</td></tr>
+<tr><td><b>Logical (IP)</b></td><td>Assigned by software, hierarchical</td><td>Host to host, across networks</td><td>Router, network layer</td></tr>
+<tr><td><b>Port</b></td><td>A 16-bit number identifying a process</td><td>Process to process</td><td>Transport layer</td></tr>
+</tbody></table></div>
+<p><b>What changes on the way.</b> This is the part worth the marks:</p>
+<ul>
+<li>The <b>IP addresses stay the same</b> from end to end. They identify the two hosts, and that does not change just because the packet crosses a router.</li>
+<li>The <b>MAC addresses change on every hop</b>. A frame is addressed to the next device on this LAN &mdash; often a router, not the final destination &mdash; so the router strips the old frame, keeps the packet, and builds a new frame with a new source and destination MAC for the next link.</li>
+<li>The <b>port numbers stay the same</b> throughout; they are only read at the two ends.</li>
+</ul>
+<div class="tipbox"><span class="l">The sentence to write</span>
+<p>A MAC address is flat &mdash; it carries no network part &mdash; so a router cannot use it to decide where to send something. That is exactly why the IP address exists, and why a frame addressed only by MAC can never leave its LAN.</p></div></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 a</div>
+  <div class="qt">Explain the concept of layering in a data communication network, and describe the function of each layer of the OSI model. Also state how many layers the TCP/IP suite uses.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Why layers.</b> A network is far too complicated to design as one lump. Layering cuts the job into pieces, gives each piece one clear duty, and lets each layer use the one below without knowing how it works. The benefits: a layer can be replaced without touching the others, different vendors can implement different layers, and faults can be isolated to one layer.</p>
+<p><b>The seven OSI layers, bottom to top:</b></p>
+<div class="solwrap"><table>
+<thead><tr><th>#</th><th>Layer</th><th>Its job</th><th>Unit</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>Physical</b></td><td>Transmits raw bits over the medium: voltages, timing, connectors, data rate</td><td>bits</td></tr>
+<tr><td>2</td><td><b>Data link</b></td><td>Node-to-node delivery: framing, physical addressing, flow control, error control, access control</td><td>frame</td></tr>
+<tr><td>3</td><td><b>Network</b></td><td>Source-to-destination delivery across networks: logical addressing and routing</td><td>packet</td></tr>
+<tr><td>4</td><td><b>Transport</b></td><td>Process-to-process delivery: segmentation and reassembly, port addressing, end-to-end flow and error control</td><td>segment</td></tr>
+<tr><td>5</td><td><b>Session</b></td><td>Establishes, manages and synchronises the dialogue between the two ends</td><td>data</td></tr>
+<tr><td>6</td><td><b>Presentation</b></td><td>Translation, encryption and compression &mdash; the syntax and semantics of the data</td><td>data</td></tr>
+<tr><td>7</td><td><b>Application</b></td><td>Services to the user: mail, file transfer, web access</td><td>data</td></tr>
+</tbody></table></div>
+<p><b>Encapsulation.</b> Going down the stack each layer adds its own header, wrapping whatever came from above as pure data. Going up at the receiver each layer strips its own header &mdash; decapsulation. That is why a layer never has to understand the layers above it.</p>
+<p><b>TCP/IP</b> uses <b>five</b> layers in the practical drawing: physical, data link, network, transport and application. It collapses OSI&rsquo;s session, presentation and application into the single application layer.</p></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 b</div>
+  <div class="qt">In CDMA, design a Walsh table for a network of four nodes A, B, C and D (2 marks). Assign one code to each node. Node A transmits bit &lsquo;1&rsquo;, node B transmits bit &lsquo;0&rsquo;, node C transmits bit &lsquo;1&rsquo;, and node D is receiving. Show how D can detect the bits transmitted by A, B and C (3 marks). <b>A theoretical explanation alone is not sufficient &mdash; draw the codes, the data and the arithmetic.</b><span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; build the Walsh table.</b> Walsh matrices double in size by the rule</p>
+<div class="eqn">W(1)  = [ +1 ]
+
+W(2N) = |  W(N)   W(N) |
+        |  W(N)  -W(N) |</div>
+<div class="eqn">W(2) = | +1  +1 |          W(4) = | +1  +1  +1  +1 |   -&gt; A
+       | +1  -1 |                 | +1  -1  +1  -1 |   -&gt; B
+                                  | +1  +1  -1  -1 |   -&gt; C
+                                  | +1  -1  -1  +1 |   -&gt; D</div>
+<p>Every pair of rows is <b>orthogonal</b> &mdash; multiply any two different rows element by element and the four products add to zero. That property is the whole trick.</p>
+<p><b>Step 2 &mdash; what each station puts on the channel.</b> A 1 is sent as (+1 &times; its code), a 0 as (&minus;1 &times; its code), and a silent station contributes nothing.</p>
+<div class="eqn">A sends 1 :  +1 x [ +1 +1 +1 +1 ]  =  [ +1  +1  +1  +1 ]
+B sends 0 :  -1 x [ +1 -1 +1 -1 ]  =  [ -1  +1  -1  +1 ]
+C sends 1 :  +1 x [ +1 +1 -1 -1 ]  =  [ +1  +1  -1  -1 ]
+D is receiving, so it sends nothing.
+                                      -------------------
+channel   (add column by column)    =  [ +1  +3  -1  +1 ]</div>
+<p><b>Step 3 &mdash; D decodes each station in turn.</b> Multiply the channel signal element by element by that station&rsquo;s code, add the four products, and divide by N = 4.</p>
+<div class="eqn">For A:  [ +1 +3 -1 +1 ] . [ +1 +1 +1 +1 ]
+        = (+1) + (+3) + (-1) + (+1) = +4    -&gt;  +4/4 = +1   -&gt;  bit 1
+
+For B:  [ +1 +3 -1 +1 ] . [ +1 -1 +1 -1 ]
+        = (+1) + (-3) + (-1) + (-1) = -4    -&gt;  -4/4 = -1   -&gt;  bit 0
+
+For C:  [ +1 +3 -1 +1 ] . [ +1 +1 -1 -1 ]
+        = (+1) + (+3) + (+1) + (-1) = +4    -&gt;  +4/4 = +1   -&gt;  bit 1</div>
+<p><span class="ans">D recovers A = 1, B = 0, C = 1</span></p>
+<div class="tipbox"><span class="l">Why it works, in one line</span>
+<p>Each station&rsquo;s own code multiplied by itself gives +1 in every position, so its contribution adds up to &plusmn;N. Every <i>other</i> station&rsquo;s code is orthogonal to it, so those contributions cancel to zero. Dividing by N leaves exactly &plusmn;1 &mdash; the wanted bit, with everybody else subtracted out.</p>
+<p>If the question asks for <b>six</b> nodes, you cannot use W(4). Build W(8) the same way and use any six of its eight rows &mdash; Walsh tables only exist for sizes that are powers of two.</p></div></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.3 a</div>
+  <div class="qt">A pure ALOHA network transmits 200-bit frames on a shared channel of 200 kbps. What is the throughput if the system produces 1000 frames per second? What would it be if slotted ALOHA were used instead?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; frame time.</b></p>
+<div class="eqn">T(fr) = frame bits / bit rate = 200 / 200,000 = 1 ms</div>
+<p><b>Step 2 &mdash; offered load G.</b> G is the average number of frames generated during one frame time.</p>
+<div class="eqn">G = 1000 frames/s x 1 ms = 1</div>
+<p><b>Step 3 &mdash; pure ALOHA throughput.</b></p>
+<div class="eqn">S = G e^(-2G) = 1 x e^(-2) = 0.135</div>
+<p>So only 13.5% of the channel&rsquo;s frame slots carry a successful frame. The channel can hold 1000 frames per second, so</p>
+<p><span class="ans">about 135 frames per second get through</span></p>
+<p><b>Step 4 &mdash; slotted ALOHA on the same load.</b></p>
+<div class="eqn">S = G e^(-G) = 1 x e^(-1) = 0.368   ->  about 368 frames per second</div>
+<div class="tipbox"><span class="l">The comparison that earns the last mark</span>
+<p>Slotting forces every station to begin only at a slot boundary. That halves the vulnerable time from 2&middot;T<sub>fr</sub> to T<sub>fr</sub>, and halving the window is exactly what doubles the peak throughput &mdash; from <b>18.4% at G = 0.5</b> for pure ALOHA to <b>36.8% at G = 1</b> for slotted.</p></div></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.3 b</div>
+  <div class="qt">A network using CSMA/CD has a bandwidth of 10 Mbps. If the maximum propagation time is 25.6 &micro;s, what is the minimum frame size? Explain why such a minimum has to exist at all.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The condition.</b> A station must still be transmitting when the worst-case collision signal gets back to it &mdash; otherwise it would finish, believe it succeeded, and never learn that the frame was destroyed.</p>
+<div class="eqn">T(frame) &gt;= 2 x T(propagation) = 2 x 25.6 us = 51.2 us</div>
+<p><b>Convert time to bits.</b></p>
+<div class="eqn">minimum frame = bit rate x T(frame)
+              = 10 x 10^6 x 51.2 x 10^-6
+              = 512 bits</div>
+<p><span class="ans">512 bits = 64 bytes</span></p>
+<p>This is exactly the 64-byte minimum frame size of standard Ethernet, and it is where that number comes from.</p>
+<div class="tipbox"><span class="l">Watch the wording</span>
+<p>If the question gives the <b>round-trip</b> time rather than the one-way propagation time, do not double it again. The 2023 paper gave T<sub>p</sub> = 51.2 &micro;s one-way, which doubles to 102.4 &micro;s and gives 1024 bits &mdash; 128 bytes, not 64. Read which one you have been given.</p></div></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.3 c</div>
+  <div class="qt">In a Stop-and-Wait ARQ system the bandwidth of the line is 1 Mbps and one bit takes 20 ms to make a round trip. Find the bandwidth-delay product. If the data frames are 1000 bits long, what is the utilisation of the link? What window size would be needed to reach 100%?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Step 1 &mdash; bandwidth-delay product.</b> This is how many bits the &ldquo;pipe&rdquo; holds.</p>
+<div class="eqn">BDP = bandwidth x round-trip time
+    = 1 x 10^6 x 20 x 10^-3
+    = 20,000 bits</div>
+<p><b>Step 2 &mdash; Stop-and-Wait utilisation.</b> Stop-and-Wait puts exactly one frame in flight per round trip.</p>
+<div class="eqn">utilisation = frame size / BDP = 1000 / 20,000 = 0.05</div>
+<p><span class="ans">5% &mdash; the link is idle 95% of the time</span></p>
+<p><b>Step 3 &mdash; the window needed for 100%.</b></p>
+<div class="eqn">window = BDP / frame size = 20,000 / 1000 = 20 frames</div>
+<p>With a window of 15 the utilisation would be 15 &times; 1000 / 20,000 = <b>75%</b>. The rule to remember: <b>the window must be at least the bandwidth-delay product divided by the frame size.</b></p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2025" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, September 2025</h2><span class="tag">EC321 &middot; 30 marks &middot; 24 Sept 2025</span></div>
+<p class="note" style="margin:0 0 22px">The real paper, exactly as set. Every question is worked below.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">S.V. National Institute of Technology, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">MID Semester Exam, September 2025</div>
+<div class="line">B. Tech. (EC) V Semester &middot; 24/09/2025, 11:15 AM</div>
+<div class="sub">Communication Networks (EC321)</div>
+</div>
+<div class="qp-bar"><span>Maximum marks: 30</span><span>Duration: 1:30 hours</span><span>All questions compulsory</span></div>
+<div class="q">
+  <div class="qn">Q.1 a</div>
+  <div class="qt">What are the basic components of a data communication system, and what role does each component play?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>See the predicted Q.1 a above &mdash; the same five components, the same table. Message, sender, receiver, transmission medium, protocol. The protocol is the only one not physically in the path between the two ends.</p></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 b</div>
+  <div class="qt">Compare the star, bus and ring network topologies in terms of their advantages and disadvantages, with reference to performance parameters.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="solwrap"><table>
+<thead><tr><th></th><th>Star</th><th>Bus</th><th>Ring</th></tr></thead>
+<tbody>
+<tr><td>Cabling</td><td>n links, one per station</td><td>One backbone plus short drops &mdash; least cable</td><td>n links</td></tr>
+<tr><td>Single failure</td><td>Isolates one station only</td><td>A backbone break can bring down the whole network</td><td>Breaks the ring unless it is dual</td></tr>
+<tr><td>Weak point</td><td>The hub &mdash; if it dies, everything dies</td><td>The backbone, and reflections at a break</td><td>Any one station or link</td></tr>
+<tr><td>Latency</td><td>Two hops through the hub, constant</td><td>Shared medium &mdash; grows with load through contention</td><td>Grows with the number of stations, since the signal passes through each</td></tr>
+<tr><td>Throughput</td><td>Good; with a switch each pair gets full bandwidth</td><td>Falls as load rises because collisions rise</td><td>Predictable under token control</td></tr>
+<tr><td>Adding a station</td><td>Easy &mdash; one new cable to the hub</td><td>Easy, but the backbone has a length limit</td><td>Requires breaking the ring</td></tr>
+</tbody></table></div>
+<p>The mark is in the <i>performance</i> column, not the picture. The examiner is looking for the trade-off: the bus saves cable and pays in reliability and contention; the star spends cable and buys isolation; the ring gives predictable access and pays in delay.</p></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 c</div>
+  <div class="qt">Draw the flow chart of the ALOHA protocol and explain it.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Identical to the predicted Q.1 c above: the flow chart with K, the 2&times;T<sub>p</sub> wait, the K<sub>max</sub> check and the binary exponential back-off, plus the explanation of why the back-off must be both random and doubling. <b>This exact question has now appeared three years running.</b></p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 d</div>
+  <div class="qt">How does the CSMA/CD protocol work in Ethernet, and why can the same collision-detection method not be used in wireless networks, which use CSMA/CA instead?<span class="co">CO4</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the predicted Q.1 e above: the four steps of CSMA/CD, the T<sub>frame</sub> &ge; 2&middot;T<sub>prop</sub> condition, then the three reasons wireless cannot detect collisions (a transmitter is deaf to its own band, hidden terminals, exposed terminals) and the four things CSMA/CA does instead.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 e</div>
+  <div class="qt">Explain the Go-back-N protocol with proper timing diagrams and sliding window diagrams.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>The idea.</b> The sender may have up to <b>2<sup>m</sup> &minus; 1</b> unacknowledged frames outstanding. The receiver window is <b>1</b>, so anything arriving out of order is discarded. On a timeout the sender goes back to the oldest unacknowledged frame and resends <b>everything</b> from there.</p>
+<p><b>Timing diagram &mdash; frame 2 is lost, m = 3 so the window is 7:</b></p>
+<div class="eqn">  SENDER                                   RECEIVER
+    |--- frame 0 --------------------------&gt;|  accepted, expects 1
+    |--- frame 1 --------------------------&gt;|  accepted, expects 2
+    |--- frame 2 ------X   (lost)           |
+    |--- frame 3 --------------------------&gt;|  out of order -&gt; DISCARDED
+    |--- frame 4 --------------------------&gt;|  out of order -&gt; DISCARDED
+    |&lt;-------------------------- ACK 2 -----|  "still waiting for 2"
+    |                                       |
+    |   ... timer for frame 2 expires ...   |
+    |--- frame 2 (resend) ------------------&gt;|  accepted, expects 3
+    |--- frame 3 (resend) ------------------&gt;|  accepted, expects 4
+    |--- frame 4 (resend) ------------------&gt;|  accepted, expects 5
+    |&lt;-------------------------- ACK 5 -----|</div>
+<p><b>Sliding window, step by step:</b></p>
+<div class="eqn">start        | 0 1 2 3 4 5 6 |  7 0 1 ...      window = 7, base = 0
+after ACK 2  |     2 3 4 5 6 7 |  0 1 ...        base slides to 2
+after ACK 5  |           5 6 7 0 1 2 3 |         base slides to 5</div>
+<p>The window slides forward only when a cumulative acknowledgement arrives, and <b>ACK n means &ldquo;everything up to n&minus;1 is safely received&rdquo;</b>, not &ldquo;frame n arrived&rdquo;.</p>
+<div class="tipbox"><span class="l">The comparison the examiner wants</span>
+<p>Frames 3 and 4 arrived <i>perfectly</i> and were thrown away. That is the cost of Go-Back-N, and it is the whole reason Selective Repeat exists &mdash; SR buffers them and resends only frame 2, at the price of buffers and sorting at the receiver, and windows capped at 2<sup>m&minus;1</sup> instead of 2<sup>m</sup>&minus;1.</p></div></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 f</div>
+  <div class="qt">Explain Packet delivery ratio, Throughput and Latency and its components.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the predicted Q.1 d above, including the jitter formula. The four latency components &mdash; propagation, transmission, processing, queuing &mdash; are the part that carries the marks, along with what each one depends on.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 g</div>
+  <div class="qt">Differentiate between a physical address, an IP address and a port address in the context of networking. What is each one used for?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the predicted Q.1 f above, including the part that separates a good answer from a list: the IP addresses and port numbers stay the same end to end, while the MAC addresses are replaced on every single hop.</p></div></details></div>
+  <div class="qm">4</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 a</div>
+  <div class="qt">Explain the concept of layering in data communication networks and describe the functions of each layer of the OSI model.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the predicted Q.2 a above: why layering exists, the seven-layer table with each layer&rsquo;s job and its data unit, encapsulation and decapsulation, and the note that TCP/IP uses five.</p></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 b</div>
+  <div class="qt">In case of CDMA, design a Walsh table for a network having 6 nodes (A, B, C, D, E, F) [2 marks]. Assign one code to each node. Node A is transmitting bit &lsquo;1&rsquo;, B is transmitting bit &lsquo;0&rsquo; and C is transmitting bit &lsquo;1&rsquo;, and node D is receiving. Show how D can detect the bits transmitted by A, B and C [1+1+1 marks]. <b>Only theoretical explanation is not sufficient. Draw the appropriate codes / data / matrix / graph.</b><span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Six nodes needs W(8), not W(4)</b> &mdash; Walsh matrices only exist for sizes that are powers of two, so take the next one up and use six of its eight rows. That single decision is the first mark.</p>
+<div class="eqn">W(8), rows assigned A..F (rows 7 and 8 unused):
+
+A : +1  +1  +1  +1  +1  +1  +1  +1
+B : +1  -1  +1  -1  +1  -1  +1  -1
+C : +1  +1  -1  -1  +1  +1  -1  -1
+D : +1  -1  -1  +1  +1  -1  -1  +1
+E : +1  +1  +1  +1  -1  -1  -1  -1
+F : +1  -1  +1  -1  -1  +1  -1  +1</div>
+<p><b>What goes on the channel.</b> A sends 1 (+1 &times; code), B sends 0 (&minus;1 &times; code), C sends 1 (+1 &times; code); D, E and F are silent.</p>
+<div class="eqn">A (bit 1) : +1 +1 +1 +1 +1 +1 +1 +1
+B (bit 0) : -1 +1 -1 +1 -1 +1 -1 +1
+C (bit 1) : +1 +1 -1 -1 +1 +1 -1 -1
+            ---------------------------
+channel   : +1 +3 -1 +1 +1 +3 -1 +1</div>
+<p><b>D decodes each in turn</b> &mdash; multiply element by element by that node&rsquo;s code, add the eight products, divide by 8.</p>
+<div class="eqn">A: (+1)(+1)+(+3)(+1)+(-1)(+1)+(+1)(+1)
+  +(+1)(+1)+(+3)(+1)+(-1)(+1)+(+1)(+1)
+   = 1+3-1+1+1+3-1+1 = +8   ->  +8/8 = +1  ->  bit 1
+
+B: (+1)(+1)+(+3)(-1)+(-1)(+1)+(+1)(-1)
+  +(+1)(+1)+(+3)(-1)+(-1)(+1)+(+1)(-1)
+   = 1-3-1-1+1-3-1-1 = -8   ->  -8/8 = -1  ->  bit 0
+
+C: (+1)(+1)+(+3)(+1)+(-1)(-1)+(+1)(-1)
+  +(+1)(+1)+(+3)(+1)+(-1)(-1)+(+1)(-1)
+   = 1+3+1-1+1+3+1-1 = +8   ->  +8/8 = +1  ->  bit 1</div>
+<p><span class="ans">D recovers A = 1, B = 0, C = 1</span></p>
+<p>Orthogonality is what makes this work: a code multiplied by itself gives +1 in every position and sums to +N, while any two different Walsh rows sum to exactly zero &mdash; so everybody else subtracts out cleanly.</p></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2024" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, September 2024</h2><span class="tag">30 marks &middot; 27 Sept 2024</span></div>
+<p class="note" style="margin:0 0 22px">The scan of this paper is poor in places, so a couple of sub-questions are reconstructed from what is legible. Where that is the case it is said so.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">S.V. National Institute of Technology, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">MID Semester Exam, September 2024</div>
+<div class="line">B. Tech. (EC) V Semester &middot; 27/09/2024</div>
+<div class="sub">Communication Networks</div>
+</div>
+<div class="qp-bar"><span>Maximum marks: 30</span><span>Duration: 1:30 hours</span><span>All questions compulsory</span></div>
+<div class="q">
+  <div class="qn">Q.1 a</div>
+  <div class="qt">Answer the following about the frame shown in the figure: (i) which protocol does it belong to? (ii) what type of frame is it? (iii) in which phase is it used? (iv) name one method that can be used for the FCS. (v) what is B&prime;?<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>The frame drawn is <b>Flag &middot; Address &middot; Control &middot; Data &middot; FCS &middot; Flag</b> with the flag shown as 01111110, so:</p>
+<ol>
+<li><b>Which protocol:</b> <b>HDLC</b> &mdash; High-level Data Link Control. The 01111110 flag with bit stuffing and that field order is HDLC&rsquo;s signature.</li>
+<li><b>Type of frame:</b> read the first bits of the <b>control field</b>. First bit 0 &rarr; <b>I-frame</b> (carries data). 10 &rarr; <b>S-frame</b> (supervisory: acknowledgements and flow control, no data). 11 &rarr; <b>U-frame</b> (unnumbered: manages the link). A frame shown with a data field is an I-frame.</li>
+<li><b>Phase:</b> I-frames and S-frames belong to the <b>data transfer</b> phase; U-frames belong to the <b>connection establishment and release</b> phase.</li>
+<li><b>FCS method:</b> <b>CRC</b> &mdash; a cyclic redundancy check, normally CRC-16 or CRC-32. A checksum is the weaker alternative.</li>
+<li><b>What is B&prime;:</b> the <b>address field</b>, which in HDLC carries the address of the <i>secondary</i> station &mdash; because the primary is always one end of the link, naming the secondary is enough to identify the other end in both directions.</li>
+</ol></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 b</div>
+  <div class="qt">Explain latency and its components.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Same as the 2023 and 2025 papers &mdash; the four components with what each depends on, and the total. Worked at the predicted Q.1 d above.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 c</div>
+  <div class="qt">Write the names of each layer and the work associated with each layer.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>The seven-layer OSI table from the predicted Q.2 a above. If the question says only &ldquo;each layer&rdquo; without naming a model, give OSI&rsquo;s seven and then add the one line that TCP/IP uses five, collapsing session, presentation and application into one.</p></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 d</div>
+  <div class="qt">Draw the flow chart of the ALOHA protocol and explain it.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>The same flow chart as 2023 and 2025. See the predicted Q.1 c.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 e</div>
+  <div class="qt">Explain Go-back-N protocol with proper timing diagrams and sliding window diagrams.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the 2025 Q.1 e above, with the lost-frame timing diagram and the sliding window at three stages.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 f</div>
+  <div class="qt">Explain the structure of an optical fibre cable.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Structure, inside out:</b></p>
+<ul>
+<li><b>Core</b> &mdash; the central glass or plastic strand the light actually travels down. It has the <i>higher</i> refractive index.</li>
+<li><b>Cladding</b> &mdash; a glass layer around the core with a <i>lower</i> refractive index. The difference between the two is what traps the light.</li>
+<li><b>Buffer / coating</b> &mdash; a plastic layer that protects the glass from moisture and handling damage.</li>
+<li><b>Strength members</b> &mdash; usually Kevlar, so the cable can be pulled without stretching the fibre.</li>
+<li><b>Outer jacket</b> &mdash; the final protective sheath.</li>
+</ul>
+<p><b>How it guides light: total internal reflection.</b> A ray passing from a denser medium into a less dense one bends away from the normal. Beyond a certain angle &mdash; the <b>critical angle</b> &mdash; it stops passing through at all and is reflected entirely back into the core. So any ray entering within the acceptance cone bounces along the fibre instead of escaping.</p>
+<div class="eqn">theta &lt; critical angle  -&gt;  the ray refracts out and is lost
+theta = critical angle  -&gt;  the ray runs along the boundary
+theta &gt; critical angle  -&gt;  TOTAL INTERNAL REFLECTION, the ray stays in</div>
+<p><b>Three propagation modes:</b></p>
+<div class="solwrap"><table>
+<thead><tr><th>Mode</th><th>Core</th><th>Behaviour</th><th>Reach</th></tr></thead>
+<tbody>
+<tr><td><b>Single mode</b></td><td>Very narrow (about 8&ndash;10 &micro;m)</td><td>Essentially one path, so almost no modal dispersion</td><td>Longest &mdash; tens of km</td></tr>
+<tr><td><b>Multimode, step index</b></td><td>Wide, uniform index</td><td>Many paths of different lengths, so a pulse spreads out most</td><td>Shortest</td></tr>
+<tr><td><b>Multimode, graded index</b></td><td>Wide, index falls away from the centre</td><td>The longer outer paths travel faster and partly compensate, so less spreading</td><td>Middle</td></tr>
+</tbody></table></div>
+<p><b>Advantages:</b> enormous bandwidth, very low attenuation, light weight, complete immunity to electromagnetic interference, and it cannot be tapped without detection. <b>Disadvantages:</b> cost, fragility, and the skill and equipment needed to splice it.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 a</div>
+  <div class="qt">A sender and receiver use Selective Repeat ARQ with modulo-4 numbering and windows of size 3. Draw the timing diagram with sliding windows for this sequence: (A) frame 1 sent, received, ACK received. (B) frame 2 sent, received with an error. (C) frame 2 resent, received; ACK sent but lost. (D) frame 3 sent and received; ACK lost. (E) frame 4 sent and received; ACK lost. (F) after step E, draw the next frame the sender transmits and say whether it is correctly received.<span class="co">CO4</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="tipbox"><span class="l">First, spot the trap</span>
+<p>Modulo 4 means m = 2, so the sequence space is 4. Selective Repeat requires both windows to be <b>at most 2<sup>m&minus;1</sup> = 2</b>. The question sets them to <b>3</b>, which is illegal &mdash; and that is exactly the point of part (F). Say so in your answer; it is where the marks are.</p></div>
+<div class="eqn">  SENDER                                   RECEIVER
+A |--- frame 1 --------------------------&gt;|  accepted
+  |&lt;--------------------------- ACK 1 ----|  ACK arrives    window slides
+B |--- frame 2 ------X (error)            |  discarded / NAK
+C |--- frame 2 (resend) -----------------&gt;|  accepted
+  |        X &lt;---------------- ACK 2 -----|  ACK LOST
+D |--- frame 3 --------------------------&gt;|  accepted
+  |        X &lt;---------------- ACK 3 -----|  ACK LOST
+E |--- frame 0 --------------------------&gt;|  accepted   (4 mod 4 = 0)
+  |        X &lt;---------------- ACK 0 -----|  ACK LOST
+F |--- frame 2 (timeout, resend) --------&gt;|  ACCEPTED AS NEW  &lt;-- ERROR</div>
+<p><b>Windows, step by step</b> (sequence numbers 0,1,2,3 and back to 0):</p>
+<div class="eqn">after A : sender window {2,3,0}   receiver expects {2,3,0}
+after C : sender still waiting on ACK 2 - no slide at the sender
+after E : receiver has taken 2, 3 and 0, so it now expects {1,2,3}
+          the sender has had no ACKs at all since 1, so it still
+          has {2,3,0} outstanding and times out on frame 2</div>
+<p><b>(F) The next frame is a retransmission of frame 2 &mdash; and it is received <span style="color:var(--spot)">incorrectly</span>.</b></p>
+<p>The receiver&rsquo;s window has moved on to {1, 2, 3}. Sequence number 2 is inside that window, so the receiver has no way to tell this apart from a <i>brand new</i> frame 2 from the next cycle. It accepts a duplicate as fresh data, and the data stream is silently corrupted.</p>
+<div class="tipbox"><span class="l">The conclusion that finishes the answer</span>
+<p>This is precisely why Selective Repeat caps both windows at half the sequence space. With m = 2 the windows should be <b>2</b>, not 3. Then the old and new ranges never overlap and this failure cannot happen.</p></div></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 b</div>
+  <div class="qt">In case of CDMA, design a Walsh table for a network having 6 nodes A&ndash;F. Assign one code to each node. A transmits &lsquo;1&rsquo;, B transmits &lsquo;0&rsquo;, C transmits &lsquo;1&rsquo;, and D is receiving. Show how D detects the bits.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Word for word the same question as 2025 Q.2 b &mdash; worked in full there, using W(8) because six nodes do not fit in W(4).</p></div></details></div>
+  <div class="qm">5</div>
+</div>
+
+</div>
+</section>
+<section class="band" id="p2023" style="scroll-margin-top:70px">
+<div class="sechead"><h2 class="sec">Mid-sem, March 2023</h2><span class="tag">EC322 &middot; 30 marks &middot; 15 March 2023</span></div>
+<p class="note" style="margin:0 0 22px">Set for the even semester as EC322, but the same course and the same examiner style. This is the numerical-heavy paper &mdash; the only one of the three with three separate calculations.</p>
+<div class="qp">
+<div class="qp-head">
+<div class="inst">S.V. National Institute of Technology, Surat</div>
+<div class="line">Department of Electronics Engineering</div>
+<div class="line">MID Semester Exam, March 2023</div>
+<div class="line">B. Tech. (EC) VI Semester &middot; 15/03/2023</div>
+<div class="sub">Communication Networks (EC322)</div>
+</div>
+<div class="qp-bar"><span>Maximum marks: 30</span><span>Duration: 1:30 hours</span><span>All questions compulsory</span></div>
+<div class="q">
+  <div class="qn">Q.1 a</div>
+  <div class="qt">Draw the TCP/IP protocol suite. Describe the work of each layer.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">   +---------------------+
+   |     APPLICATION     |  HTTP, FTP, SMTP, DNS  (OSI layers 5-7)
+   +---------------------+
+   |      TRANSPORT      |  TCP, UDP  - process to process, ports
+   +---------------------+
+   |       NETWORK       |  IP, ICMP, ARP - host to host, routing
+   +---------------------+
+   |      DATA LINK      |  Ethernet, Wi-Fi - node to node, framing
+   +---------------------+
+   |      PHYSICAL       |  cables, radio - raw bits
+   +---------------------+</div>
+<ul>
+<li><b>Physical</b> &mdash; puts raw bits on the medium: voltages, timing, connectors.</li>
+<li><b>Data link</b> &mdash; framing, physical (MAC) addressing, error and flow control, and deciding who may transmit.</li>
+<li><b>Network</b> &mdash; logical (IP) addressing and routing a packet across networks.</li>
+<li><b>Transport</b> &mdash; process-to-process delivery using port numbers, segmentation and reassembly, end-to-end flow and error control. TCP is reliable and connection-oriented; UDP is neither and is faster for it.</li>
+<li><b>Application</b> &mdash; the services the user sees. It absorbs OSI&rsquo;s session and presentation layers as well.</li>
+</ul></div></details></div>
+  <div class="qm">1+2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 b</div>
+  <div class="qt">Take 5 nodes and connect them in mesh, bus and ring topologies.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">MESH (n = 5)                BUS                       RING
+   A ---- B                 A   B   C   D   E            A
+   |\   /|                  |   |   |   |   |          /   \
+   | \ / |                  +---+---+---+---+          E     B
+   |  X  |                   the backbone               |     |
+   | / \ |                                              D --- C
+   |/   \|
+   E ---- C
+     \   /
+       D
+ (every node joined
+  to every other)</div>
+<p><b>Count the links to earn the mark:</b></p>
+<div class="eqn">mesh : n(n-1)/2 = 5 x 4 / 2 = 10 links, 4 ports per node
+bus  : 1 backbone + 5 drop lines
+ring : 5 links, 2 ports per node</div>
+<p>Draw all five nodes in each case and label them. The mesh is the one people get wrong &mdash; ten links, not five.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 c</div>
+  <div class="qt">Explain PDR, Throughput and Latency (each component of latency).<span class="co">CO4</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>Worked in full at the predicted Q.1 d above. Note the phrase in brackets &mdash; the examiner explicitly wants all four components named, not just &ldquo;delay&rdquo;.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 d</div>
+  <div class="qt">Draw the flow chart of ALOHA and explain each step.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>See the predicted Q.1 c. Same question, same answer, three years running.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.1 e</div>
+  <div class="qt">Draw the flow chart of the CSMA 1-persistent, non-persistent and p-persistent algorithms.<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p>All three begin by sensing the channel. They differ only in what they do when it is <b>busy</b>.</p>
+<div class="eqn">1-PERSISTENT            NON-PERSISTENT          p-PERSISTENT
+                                                 (slotted channel)
+ sense the channel       sense the channel        sense the channel
+        |                       |                        |
+    busy? --yes--+          busy? --yes--+           busy? --yes--+
+        | no     |              | no     |               | no     |
+        |        |              |        |          generate random
+     TRANSMIT    |           TRANSMIT    |          number 0..1
+                 |                       |               |
+        keep sensing           wait a RANDOM        &lt;= p ? --yes--&gt; TRANSMIT
+        continuously,          time, then               | no
+        send the instant       sense again        wait one slot,
+        it goes idle                              then sense again</div>
+<div class="solwrap"><table>
+<thead><tr><th>Method</th><th>When busy</th><th>Collision risk</th><th>Channel idle time</th></tr></thead>
+<tbody>
+<tr><td><b>1-persistent</b></td><td>Keeps sensing, sends the moment it is free</td><td><b>Highest</b> &mdash; every waiting station jumps at the same instant</td><td>Lowest &mdash; the channel is grabbed immediately</td></tr>
+<tr><td><b>Non-persistent</b></td><td>Waits a random time, then senses again</td><td>Lowest</td><td><b>Highest</b> &mdash; the channel can sit idle while everyone is backing off</td></tr>
+<tr><td><b>p-persistent</b></td><td>Sends with probability p in each idle slot</td><td>Tunable &mdash; between the two</td><td>Tunable</td></tr>
+</tbody></table></div>
+<p>p-persistent is the compromise: it needs a slotted channel, and p is chosen so that the expected number of stations transmitting in a slot is about one.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 a</div>
+  <div class="qt">Write the differences among the passive hub, active hub, 2-layer switch, router and gateway.<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="solwrap"><table>
+<thead><tr><th>Device</th><th>Layer</th><th>What it does</th><th>Collision / broadcast domain</th></tr></thead>
+<tbody>
+<tr><td><b>Passive hub</b></td><td>&mdash;</td><td>Just a junction point for the wires. No power, no regeneration; the signal is only split.</td><td>One collision domain, one broadcast domain</td></tr>
+<tr><td><b>Active hub</b></td><td>Physical (1)</td><td>A multiport repeater: it <i>regenerates</i> the signal before flooding it out of every other port. Still address-blind.</td><td>One collision domain, one broadcast domain</td></tr>
+<tr><td><b>2-layer switch</b></td><td>Data link (2)</td><td>Reads the destination MAC and forwards the frame only to the correct port, using a table it learns from source addresses.</td><td><b>One collision domain per port</b>; one broadcast domain</td></tr>
+<tr><td><b>Router</b></td><td>Network (3)</td><td>Reads the destination IP, chooses a route, rebuilds the frame for the next hop and decrements the TTL.</td><td>Separate collision <i>and</i> <b>broadcast</b> domains</td></tr>
+<tr><td><b>Gateway</b></td><td>All layers</td><td>A protocol converter &mdash; joins two networks that speak completely different protocol stacks, translating between them.</td><td>Full separation</td></tr>
+</tbody></table></div>
+<p>The one-line distinction worth writing: <b>a hub floods, a switch filters, a router routes, and a gateway translates.</b></p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.2 b</div>
+  <div class="qt">A pure ALOHA network transmits 100-bit frames on a shared channel of 200 kbps. What is the throughput if the system produces (a) 1000 frames per second, (b) 200 frames per second, (c) 50 frames per second?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>Frame time, once for all three parts.</b> This is also how many frame-slots a second holds:</p>
+<div class="eqn">T(fr) = 100 bits / 200,000 bps = 0.5 ms
+so one second holds 1 / 0.0005 = 2000 frame times</div>
+<p>Throughput S is measured <b>per frame time</b>, so successful frames per second = S &times; 2000.</p>
+<p><b>(a) 1000 frames per second offered</b></p>
+<div class="eqn">G = 1000 x 0.5 ms                 = 0.5
+S = G e^(-2G) = 0.5 x e^(-1)      = 0.184
+successes/s   = 0.184 x 2000      = 368</div>
+<p><span class="ans">(a) 368 frames per second &mdash; 36.8% of the 1000 offered</span></p>
+<p><b>(b) 200 frames per second offered</b></p>
+<div class="eqn">G = 200 x 0.5 ms                  = 0.1
+S = 0.1 x e^(-0.2) = 0.1 x 0.8187 = 0.0819
+successes/s   = 0.0819 x 2000     = 164</div>
+<p><span class="ans">(b) about 164 frames per second &mdash; 81.9% of the 200 offered</span></p>
+<p><b>(c) 50 frames per second offered</b></p>
+<div class="eqn">G = 50 x 0.5 ms                   = 0.025
+S = 0.025 x e^(-0.05)             = 0.0238
+successes/s   = 0.0238 x 2000     = 47.6</div>
+<p><span class="ans">(c) about 48 frames per second &mdash; 95.1% of the 50 offered</span></p>
+<div class="tipbox"><span class="l">Read the pattern, and give both numbers</span>
+<p>As the offered load drops, the <i>number</i> getting through drops &mdash; 368, 164, 48 &mdash; but the <i>fraction</i> getting through climbs: 36.8%, 81.9%, 95.1%. Pure ALOHA is at its most efficient when it is barely used.</p>
+<p>The absolute peak is at <b>G = 0.5</b>, where S = 0.184 &mdash; which is case (a). Beyond that, offering more traffic delivers <i>less</i>, because collisions grow faster than attempts.</p>
+<p>Notice the shortcut hiding in the arithmetic: the fraction succeeding is just <b>S/G = e<sup>&minus;2G</sup></b>, so 0.368, 0.819 and 0.951 could have been written straight down.</p></div></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.3 a</div>
+  <div class="qt">A network using CSMA/CD has a bandwidth of 10 Mbps. If the maximum propagation time (including device delays, ignoring the jamming signal) is 51.2 &micro;s, what is the minimum size of the frame?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">T(frame) &gt;= 2 x T(propagation) = 2 x 51.2 us = 102.4 us
+
+minimum frame = 10 x 10^6 x 102.4 x 10^-6 = 1024 bits</div>
+<p><span class="ans">1024 bits = 128 bytes</span></p>
+<p>Note that this paper gives the <b>one-way</b> propagation time, so it must be doubled. Standard Ethernet&rsquo;s 64-byte minimum comes from the same rule with T<sub>p</sub> = 25.6 &micro;s &mdash; half of this.</p></div></details></div>
+  <div class="qm">3</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.3 b</div>
+  <div class="qt">How can the IFS be used to prioritise a node?<span class="co">CO2</span><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>IFS &mdash; interframe space.</b> In CSMA/CA, a station that finds the channel idle does not transmit at once. It first waits a fixed interframe space, and only then starts its back-off countdown.</p>
+<p><b>The priority mechanism:</b> give different classes of traffic <b>different IFS lengths</b>. A station with a <b>shorter IFS</b> finishes waiting first, so it starts &mdash; and usually wins &mdash; before a station with a longer IFS has even begun. The longer-IFS station then senses the channel busy and defers.</p>
+<div class="eqn">SIFS  (shortest)  - acknowledgements, CTS: highest priority
+PIFS              - point coordination, contention-free traffic
+DIFS  (longest)   - ordinary data: lowest priority</div>
+<p>So the rule is simply: <b>shorter IFS means higher priority</b>. It also has a second job &mdash; it stops two stations from transmitting immediately after the channel clears, which would otherwise guarantee a collision.</p></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.4 a</div>
+  <div class="qt">In a Stop-and-Wait ARQ system the bandwidth of the line is 1 Mbps and 1 bit takes 20 ms to make a round trip. What is the bandwidth-delay product? If the data frames are 1000 bits long, what is the utilisation percentage of the link?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">BDP = 1 x 10^6 x 20 x 10^-3 = 20,000 bits
+
+utilisation = 1000 / 20,000 = 0.05</div>
+<p><span class="ans">BDP = 20,000 bits &middot; utilisation = 5%</span></p>
+<p>The pipe holds 20,000 bits, and Stop-and-Wait only ever puts 1000 of them in flight at a time. The link is idle 95% of the time, waiting for an acknowledgement &mdash; which is the entire argument for sliding-window protocols.</p></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+<div class="q">
+  <div class="qn">Q.4 b</div>
+  <div class="qt">What is the utilisation percentage of the link in 4(a) if we use a protocol that can send up to 15 frames before stopping to worry about acknowledgements?<span class="co">CO1</span><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">bits in flight = 15 x 1000 = 15,000
+utilisation    = 15,000 / 20,000 = 0.75</div>
+<p><span class="ans">75%</span></p>
+<p>To reach 100% the window would need to be 20,000 / 1000 = <b>20 frames</b>. The general rule: the window must be at least the bandwidth-delay product divided by the frame size.</p></div></details></div>
+  <div class="qm">2</div>
+</div>
+
+</div>
+</section>
+
+<div class="colo" style="margin-top:56px;padding-top:15px;border-top:5px solid var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);line-height:2.1">
+  <b style="color:var(--ink-2);font-weight:400">EC321 &middot; Communication Networks</b> &middot; papers worked by hand and checked numerically<br>
+  the predicted paper is our own reading of the pattern &mdash; it is not an official anything, and it is not a leak<br>
+  <a href="../index.html" style="color:var(--ink-2)">back to Tu Chahiye</a> &middot; <a href="archive.html" style="color:var(--ink-2)">the original scans</a> &middot; <a href="../downloads.html" style="color:var(--ink-2)">all the PDFs</a>
+</div>
+
+</div>
+<script>
+(function(){
+  var K="tc.theme", root=document.documentElement;
+  try{ var s=localStorage.getItem(K); if(s) root.setAttribute("data-theme",s); }catch(e){}
+})();
+(function(){
+  var bar=document.querySelector(".years");
+  if(!bar) return;
+  var links=[].slice.call(bar.querySelectorAll("a")),
+      secs=links.map(function(a){ return document.querySelector(a.getAttribute("href")); }),
+      top=0;
+  function sync(){
+    if(!top) top = bar.offsetTop;
+    bar.classList.toggle("stuck", window.scrollY > top - 1);
+    var y=window.scrollY+140, best=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+    links.forEach(function(a,i){ a.className = i===best ? "on" : ""; });
+  }
+  window.addEventListener("scroll", sync, {passive:true});
+  window.addEventListener("resize", function(){ top=0; sync(); }, {passive:true});
+  sync();
+})();
+</script>
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>
