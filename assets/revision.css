@@ -44,6 +44,13 @@ body{background:transparent;color:var(--ink);font-family:var(--body);
   .tcbar .tcb-sub{display:none}
   .tcbar a,.tcbar .tcb-tog{padding:0 8px}
 }
+/* five items plus the name do not fit a 360px phone, and the last one was
+   hanging three pixels off the sheet */
+@media (max-width:400px){
+  .tcbar{padding-left:max(11px,env(safe-area-inset-left));
+         padding-right:max(11px,env(safe-area-inset-right))}
+  .tcbar a,.tcbar .tcb-tog{padding:0 6px}
+}
 
 /* ------------------------------------------------------------ the two columns */
 .shell{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;
@@ -64,16 +71,32 @@ body{background:transparent;color:var(--ink);font-family:var(--body);
   padding-top:14px;border-top:1px solid var(--hair-2)}
 .rail .railfoot a{color:var(--spot);font-weight:600;text-decoration:none}
 .rail .railfoot a:hover{text-decoration:underline}
+/* On a phone there is no margin to put a rail in, and a page whose first
+   screen is its own index is a page nobody reads. So the rail folds: the mode
+   switch stays out, the twelve chapters go behind one line you can open. */
+.railtog{display:none}
 @media (max-width:1000px){
   .rail{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--hair);
-    padding:20px var(--gut) 22px}
+    padding:14px var(--gut) 16px}
+  .rail .mark,.rail .sub,.rail .railfoot{display:none}
+  .rail .toc{display:none}
+  .rail.open .toc{display:block}
+  .railtog{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    width:100%;appearance:none;background:none;border:0;padding:10px 0 0;
+    min-height:var(--tap);cursor:pointer;text-align:left;
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);-webkit-tap-highlight-color:transparent}
+  .railtog:hover{color:var(--ink)}
+  .railtog i{font-style:normal;font-family:var(--display);font-weight:800;font-size:18px;
+    line-height:1;color:var(--spot)}
+  .railtog[aria-expanded="true"] i{transform:rotate(45deg)}
 }
 
 /* mode switch — the single best thing on this page */
-.modes{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--hair);margin:0 0 18px}
-.modes .mode{appearance:none;background:none;border:0;border-left:1px solid var(--hair);
+.modes{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--hair-ui);margin:0 0 18px}
+.modes .mode{appearance:none;background:none;border:0;border-left:1px solid var(--hair-ui);
   color:var(--ink-3);font-family:var(--mono);font-size:9px;letter-spacing:.11em;
-  text-transform:uppercase;font-weight:700;padding:9px 4px;min-height:38px;cursor:pointer;
+  text-transform:uppercase;font-weight:700;padding:9px 4px;min-height:var(--tap);cursor:pointer;
   transition:background var(--press),color var(--press);-webkit-tap-highlight-color:transparent}
 .modes .mode:first-child{border-left:0}
 .modes .mode.on{background:var(--spot);color:var(--stock)}
@@ -81,8 +104,9 @@ body{background:transparent;color:var(--ink);font-family:var(--body);
 
 /* the chapter index */
 .toc{display:block}
-.toc a{display:grid;grid-template-columns:26px minmax(0,1fr);gap:9px;align-items:baseline;
-  padding:7px 0;text-decoration:none;color:var(--ink-2);font-size:14px;line-height:1.35;
+.toc a{display:grid;grid-template-columns:26px minmax(0,1fr);gap:9px;align-content:center;
+  align-items:baseline;padding:7px 0;min-height:var(--tap);
+  text-decoration:none;color:var(--ink-2);font-size:14px;line-height:1.35;
   border-bottom:1px solid var(--hair-2);transition:color var(--press)}
 .toc a .n{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3)}
 .toc a:hover{color:var(--ink)}
@@ -257,6 +281,11 @@ body.glance-only .ch{padding-top:26px}
 body.glance-only .glance{margin-top:0;border-width:2px}
 body.glance-only .uptop{display:none}
 body.glance-only .doc > *{max-width:80ch}
+/* with the lede and the counts gone, the 6px rule and the first chapter's own
+   3px rule were left stacked with 44px of nothing between them */
+body.glance-only .top .rule{margin-bottom:0;height:3px}
+body.glance-only .ch:first-of-type{padding-top:22px}
+body.glance-only .ch:first-of-type .chhead{border-top:0}
 
 /* --------------------------------------------------------------- on paper */
 @media print{

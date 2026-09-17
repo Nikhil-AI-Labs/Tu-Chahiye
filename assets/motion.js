@@ -58,20 +58,71 @@
     for (var i = 0; i < hosts.length; i++) count = Math.max(count, setType(hosts[i]));
     if (count) {
       mis.classList.add("setting");
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          mis.classList.remove("setting");
-          mis.classList.add("set");
-          /* the off-register plates slide in — but only where they are not
-             already carrying a slow slip of their own */
-          [".g1", ".g2"].forEach(function (s) {
-            var g = mis.querySelector(s);
-            if (!g) return;
-            var running = getComputedStyle(g).animationName;
-            if (!running || running === "none") g.classList.add("plate-in");
-          });
+      /* rAF does not fire before first paint, and first paint waits on the
+         fonts. So the hide gets a hard ceiling: whichever comes first. */
+      var go = function () {
+        if (!mis.classList.contains("setting")) return;
+        mis.classList.remove("setting");
+        mis.classList.add("set");
+        /* the off-register plates slide in — but only where they are not
+           already carrying a slow slip of their own */
+        [".g1", ".g2"].forEach(function (s) {
+          var g = mis.querySelector(s);
+          if (!g) return;
+          var running = getComputedStyle(g).animationName;
+          if (!running || running === "none") g.classList.add("plate-in");
         });
-      });
+      };
+      requestAnimationFrame(function () { requestAnimationFrame(go); });
+      setTimeout(go, 400);       /* the name is never hidden for longer than this */
+    }
+  }
+
+  /* --------------------------------------------- the plates follow the hand */
+  /* The misregistration is the one thing this identity is about, so let the
+     reader push it. Integers only, one write per frame, and nothing at all if
+     the reader has asked for less motion. */
+  var mast = document.querySelector(".mast");
+  if (mis && mast && !still) {
+    /* the offsets are quoted against a 168px masthead; on a phone the type is
+       half that, so a fixed 8px would be twice the fringe. Scale, then round. */
+    var k = 1, h1 = mis.querySelector("h1");
+    if (h1) {
+      var fs = parseFloat(getComputedStyle(h1).fontSize);
+      if (fs) { k = fs / 168; if (k > 1) k = 1; if (k < 0.4) k = 0.4; }
+    }
+    var REST = Math.round(8 * k), LOW = Math.round(2 * k), HIGH = Math.round(14 * k);
+    var sep = REST, want = REST, queued = false;
+    mis.style.setProperty("--sep", sep + "px");
+    var write = function () {
+      queued = false;
+      if (want === sep) return;
+      sep = want;
+      mis.style.setProperty("--sep", sep + "px");
+    };
+    var ask = function (v) {
+      v = Math.round(v);
+      if (v < LOW) v = LOW; else if (v > HIGH) v = HIGH;
+      if (v === want) return;
+      want = v;
+      if (!queued) { queued = true; requestAnimationFrame(write); }
+    };
+    var fine = !!(window.matchMedia && window.matchMedia("(pointer:fine)").matches);
+    if (fine) {
+      mast.addEventListener("pointermove", function (e) {
+        var r = mast.getBoundingClientRect();
+        if (!r.width) return;
+        var off = Math.abs(e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        if (off > 1) off = 1;
+        ask(LOW + off * (HIGH - LOW));         /* centred: tight. edge: wide. */
+      }, { passive: true });
+      mast.addEventListener("pointerleave", function () { ask(REST); }, { passive: true });
+    } else {
+      /* no pointer to follow, so the first 300px of scroll pulls them apart */
+      window.addEventListener("scroll", function () {
+        var y = window.scrollY; if (y > 300) y = 300;
+        ask(REST + (HIGH - REST) * y / 300);
+      }, { passive: true });
     }
   }
 

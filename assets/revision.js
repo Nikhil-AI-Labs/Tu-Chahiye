@@ -68,6 +68,23 @@
   });
   apply(get(MODE) === "glance" ? "glance" : "all", false);
 
+  /* ------------------------------------------- the rail folds on a phone */
+  var rtog = document.querySelector(".railtog"),
+      railEl = document.querySelector(".rail");
+  if (rtog && railEl) {
+    rtog.addEventListener("click", function () {
+      var open = railEl.classList.toggle("open");
+      rtog.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    /* following a chapter link folds it back up behind you */
+    railEl.addEventListener("click", function (e) {
+      var a = e.target.closest ? e.target.closest(".toc a") : null;
+      if (!a) return;
+      railEl.classList.remove("open");
+      rtog.setAttribute("aria-expanded", "false");
+    });
+  }
+
   /* ------------------------------------------------- the index follows you */
   var links = [].slice.call(document.querySelectorAll(".toc a"));
   var secs = links.map(function (a) {

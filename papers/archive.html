@@ -19,10 +19,18 @@
 .mast h1 span{display:block}
 .mast h1{font-family:var(--display);font-weight:900;
   font-size:clamp(50px,13.5vw,142px);line-height:.8;letter-spacing:-.028em;
-  text-transform:uppercase;margin:0}
-.mast .g{position:absolute;inset:0;margin:0;pointer-events:none;user-select:none;z-index:-1}
-.mast .g1{color:var(--pink);transform:translate(-4px,3px);opacity:.82}
-.mast .g2{color:var(--blue);transform:translate(4px,-3px);opacity:.72}
+  text-transform:uppercase;margin:0;position:relative;z-index:2}
+/* real ink overprinting the stock, one axis, whole pixels — a plate that
+   missed register, not a lens that missed focus. --sep comes from motion.js. */
+.mast .g{position:absolute;inset:0;margin:0;pointer-events:none;user-select:none;
+  z-index:1;mix-blend-mode:multiply}
+:root[data-theme="dark"] .mast .g{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .mast .g{mix-blend-mode:screen}
+}
+.mast .g1{color:var(--pink);transform:translate(calc(var(--sep,7px) * -1),0);opacity:1}
+.mast .g2{color:var(--blue);transform:translate(var(--sep,7px),0);opacity:1}
+@media (max-width:760px){.mast{--sep:4px}}
 
 .subj{margin:0 0 40px}
 .subj h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,4.4vw,38px);
@@ -72,7 +80,7 @@
 <header>
   <p class="kicker" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
      text-transform:uppercase;color:var(--pink);margin:18px 0 8px;font-weight:700">The originals &middot; nothing rewritten</p>
-  <div class="mast">
+  <div class="mast long">
     <h1 class="g g1" aria-hidden="true"><span>Previous</span><span>Year Papers</span></h1>
     <h1 class="g g2" aria-hidden="true"><span>Previous</span><span>Year Papers</span></h1>
     <h1><span>Previous</span><span>Year Papers</span></h1>

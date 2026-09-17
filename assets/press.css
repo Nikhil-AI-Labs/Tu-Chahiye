@@ -11,21 +11,24 @@
   --stock-3:#D2CEC2;
   --ink:#17171B;
   --ink-2:#4C4C55;
-  --ink-3:#7E7E88;
+  --ink-3:#63636D;
   --hair:rgba(23,23,27,.22);
   --hair-2:rgba(23,23,27,.11);
+  /* a decorative rule between list rows may be faint; the only visible edge of
+     a control may not. This one is for controls. */
+  --hair-ui:rgba(23,23,27,.42);
 
-  --pink:#DC1F68;
+  --pink:#C21254;
   --pink-wash:#F7D6E2;
   --blue:#0B5FC0;
   --blue-wash:#CEDFF4;
 
   /* one spot ink per subject */
-  --dcn:#1E8A5F;    --dcn-wash:#CDE8DC;
+  --dcn:#166B49;    --dcn-wash:#CDE8DC;
   --dcomm:#0B5FC0;  --dcomm-wash:#CEDFF4;
   --dsp:#6A3EA1;    --dsp-wash:#DED2EE;
-  --dip:#DC1F68;    --dip-wash:#F7D6E2;
-  --oops:#C4571B;   --oops-wash:#F4DDCB;
+  --dip:#C21254;    --dip-wash:#F7D6E2;
+  --oops:#A5440F;   --oops-wash:#F4DDCB;
 
   --slab:#17171B;
   --slab-ink:#E4E1D8;
@@ -50,6 +53,7 @@
     --stock:#131317; --stock-2:#1C1C21; --stock-3:#26262D;
     --ink:#EAE7DE; --ink-2:#A6A6AF; --ink-3:#73737D;
     --hair:rgba(234,231,222,.22); --hair-2:rgba(234,231,222,.10);
+    --hair-ui:rgba(234,231,222,.42);
     --pink:#FF5D96; --pink-wash:#3A1526;
     --blue:#59A7FF; --blue-wash:#10243E;
     --dcn:#3FCB93;   --dcn-wash:#0D2A20;
@@ -65,6 +69,7 @@
   --stock:#131317; --stock-2:#1C1C21; --stock-3:#26262D;
   --ink:#EAE7DE; --ink-2:#A6A6AF; --ink-3:#73737D;
   --hair:rgba(234,231,222,.22); --hair-2:rgba(234,231,222,.10);
+  --hair-ui:rgba(234,231,222,.42);
   --pink:#FF5D96; --pink-wash:#3A1526;
   --blue:#59A7FF; --blue-wash:#10243E;
   --dcn:#3FCB93;   --dcn-wash:#0D2A20;
@@ -113,7 +118,12 @@ a,button,summary,[role="button"]{touch-action:manipulation;-webkit-tap-highlight
 .press .reg circle{stroke:var(--ink-3);stroke-width:1;fill:none}
 .press .sp{flex:1}
 .press b{color:var(--ink-2);font-weight:400}
-.press a{text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:1px}
+.press a{position:relative;text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:1px}
+/* the strip is 10px type, so the link itself is 15px tall. The target is not:
+   an invisible band centred on the word carries the tap without moving a pixel
+   of the setting. */
+.press a::before{content:"";position:absolute;left:-4px;right:-4px;top:50%;
+  height:var(--tap);transform:translateY(-50%)}
 .press a:hover{color:var(--pink);border-bottom-color:var(--pink)}
 @media (max-width:640px){.press .hideS{display:none}}
 
@@ -125,11 +135,11 @@ a,button,summary,[role="button"]{touch-action:manipulation;-webkit-tap-highlight
 /* ---------- headings ---------- */
 .kicker{
   font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--pink);font-weight:700;margin:0 0 10px;
+  color:var(--pink);font-weight:700;margin:0 0 10px;text-wrap:balance;
 }
 h1.big{
   font-family:var(--display);font-weight:800;
-  font-size:clamp(74px,18.5vw,168px);line-height:.78;letter-spacing:-.022em;
+  font-size:clamp(64px,23vw,168px);line-height:.86;letter-spacing:-.022em;
   text-transform:uppercase;margin:0;
 }
 h2.sec{
@@ -176,7 +186,7 @@ button,.btn{font-family:inherit;font-size:inherit;cursor:pointer;border-radius:0
 /* ---------- chips ---------- */
 .chip{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
   text-transform:uppercase;font-weight:700;padding:4px 9px;background:var(--stock-3);color:var(--ink)}
-.chip.out{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.chip.out{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--hair-ui)}
 
 /* ---------- tables ---------- */
 .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:3px solid var(--ink);margin:0 0 26px}
@@ -187,15 +197,37 @@ th{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:u
 td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 td.pos{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;width:1%;padding-right:6px}
 
+/* ---------- the pattern read ----------
+   Topic down, year across, a solid square of the subject's spot ink where it
+   came up. It reads five times on the subject pages and once, all five at
+   once, on the dashboard. Every page that uses it sets --spot / --spot-wash. */
+.freq{overflow-x:auto;border-top:3px solid var(--ink);margin:0 0 10px;-webkit-overflow-scrolling:touch}
+.freq table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+.freq th,.freq td{padding:9px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:middle}
+.freq th{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;white-space:nowrap}
+.freq td.y{text-align:center;width:1%;padding:9px 6px}
+.freq .hit{display:inline-block;width:20px;height:20px;background:var(--spot)}
+.freq .miss{display:inline-block;width:20px;height:20px;background:var(--stock-3);opacity:.5}
+/* no paper that year is not the same claim as "it did not come up" */
+.freq .nil{display:inline-block;width:20px;height:2px;vertical-align:middle;background:var(--hair)}
+.freq td.n{font-family:var(--display);font-weight:800;font-size:21px;line-height:1;
+  text-align:right;width:1%;white-space:nowrap}
+.freq tr.every td{background:var(--spot-wash)}
+.freq tr.every td.n{color:var(--spot)}
+.freqkey{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 30px}
+
 /* ---------- app bar injected on note pages ---------- */
 .tcbar{
   position:sticky;top:0;z-index:999;background:var(--ink);color:var(--stock);
   display:flex;align-items:center;gap:14px;
-  padding:6px max(18px,env(safe-area-inset-left)) 6px max(18px,env(safe-area-inset-right));
+  padding:0 max(18px,env(safe-area-inset-left)) 0 max(18px,env(safe-area-inset-right));
   font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
 }
 .tcbar a{color:var(--stock);text-decoration:none;border-bottom:1px solid transparent;
-  padding:8px 0;display:inline-flex;align-items:center;transition:opacity var(--press)}
+  padding:8px 0;min-height:var(--tap);display:inline-flex;align-items:center;
+  transition:opacity var(--press)}
 .tcbar a:hover{border-bottom-color:currentColor}
 .tcbar a:active{opacity:.55}
 .tcbar .sp{flex:1}
@@ -220,9 +252,10 @@ td.pos{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;w
 
 /* more contrast means near-solid surfaces with defined borders */
 @media (prefers-contrast:more){
-  :root{--hair:rgba(23,23,27,.58);--hair-2:rgba(23,23,27,.32);
+  :root{--hair:rgba(23,23,27,.58);--hair-2:rgba(23,23,27,.32);--hair-ui:rgba(23,23,27,.78);
         --ink-2:#2A2A32;--ink-3:#4A4A54;--veil:var(--stock)}
-  :root[data-theme="dark"]{--hair:rgba(234,231,222,.58);--hair-2:rgba(234,231,222,.32)}
+  :root[data-theme="dark"]{--hair:rgba(234,231,222,.58);--hair-2:rgba(234,231,222,.32);
+        --hair-ui:rgba(234,231,222,.78)}
   body::before{opacity:0}
   .chip.out{box-shadow:inset 0 0 0 1.5px currentColor}
 }
@@ -236,7 +269,7 @@ td.pos{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;w
   font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;
   text-transform:uppercase;text-decoration:none;white-space:nowrap;
   color:var(--ink);background:var(--stock-2);border:0;padding:0 12px;
-  min-height:40px;display:inline-flex;align-items:center;
+  min-height:var(--tap);display:inline-flex;align-items:center;
   transition:background var(--press),color var(--press),transform var(--settle)}
 .press .pdfget:hover{background:var(--ink);color:var(--stock);border:0}
 .press .pdfget:active{transform:scale(.96)}

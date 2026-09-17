@@ -231,6 +231,26 @@ article a:not([class]){
 main a:not([class]):hover,
 article a:not([class]):hover{background-size:100% 1px}
 
+/* the app bar's five items plus the name do not fit a 360px phone, and the
+   last one was hanging four pixels off the sheet. The bar is set inline on
+   each notes page, so this needs the extra weight to reach it. */
+@media (max-width:400px){
+  html .tcbar{padding-left:max(11px,env(safe-area-inset-left));
+              padding-right:max(11px,env(safe-area-inset-right))}
+  html .tcbar a,html .tcbar .tcb-tog{padding:0 6px}
+}
+
+/* the §-reference in a table cell is 18 x 27px, which is not a target. The
+   padding grows the hit area; the negative margin puts the setting back
+   exactly where it was. */
+.doc td a:not([class]),
+.body td a:not([class]),
+main td a:not([class]),
+article td a:not([class]){
+  display:inline-block;padding:12px 6px;margin:-12px -6px;
+  background-position:0 calc(100% - 12px);
+}
+
 /* tap targets and tap feedback, same rules as the rest of the app */
 a,button,summary,[role="button"]{
   touch-action:manipulation;

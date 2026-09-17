@@ -1,23 +1,23 @@
 [
  {
   "file": "papers-dcn.pdf",
-  "kb": 662
+  "kb": 1413
  },
  {
   "file": "papers-dcomm.pdf",
-  "kb": 759
+  "kb": 1554
  },
  {
   "file": "papers-dsp.pdf",
-  "kb": 690
+  "kb": 1093
  },
  {
   "file": "papers-dip.pdf",
-  "kb": 701
+  "kb": 1349
  },
  {
   "file": "papers-oops.pdf",
-  "kb": 672
+  "kb": 985
  },
  {
   "file": "quiz-dcn.pdf",
@@ -38,6 +38,26 @@
  {
   "file": "quiz-oops.pdf",
   "kb": 321
+ },
+ {
+  "file": "revision-dcn.pdf",
+  "kb": 1283
+ },
+ {
+  "file": "revision-dcomm.pdf",
+  "kb": 1346
+ },
+ {
+  "file": "revision-dsp.pdf",
+  "kb": 1259
+ },
+ {
+  "file": "revision-dip.pdf",
+  "kb": 1477
+ },
+ {
+  "file": "revision-oops.pdf",
+  "kb": 1074
  },
  {
   "file": "notes-dcn.pdf",

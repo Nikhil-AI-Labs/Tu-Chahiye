@@ -15,38 +15,67 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23DC1F68' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 <style>
 /* ============ masthead ============ */
+/* a two-column composition: the name, and the scoreboard beside it. Below
+   1100 the scoreboard drops to sit beside the paragraph; below 760, under it. */
 .mast{padding:8px 0 0;position:relative}
-.mislay{position:relative;display:block}
+@media (min-width:761px){
+  .mast{display:grid;grid-template-columns:minmax(0,1fr) 250px;column-gap:40px;align-items:end}
+  .mast > .kicker{grid-column:1 / -1;grid-row:1}
+  .mast > .mislay{grid-column:1 / -1;grid-row:2}
+  .mast > .rule-heavy{grid-column:1 / -1;grid-row:3}
+  .mast > .topgrid{grid-column:1;grid-row:4}
+  .mast > .cd{grid-column:2;grid-row:4;align-self:end;margin:22px 0 0}
+}
+/* only once there is room for both does the scoreboard come up beside the
+   name — below this the name needs the whole measure and gets it */
+@media (min-width:1100px){
+  .mast > .mislay{grid-column:1}
+  .mast > .topgrid{grid-column:1 / -1}
+  .mast > .cd{grid-row:2;margin:0}
+}
+
+/* bad registration: the name printed twice, one whole plate off, in the two
+   house inks. A sheet that came off a press does not wobble and the plates do
+   not split the difference of a pixel — one axis, whole numbers, real ink
+   overprinting the stock rather than a wash floating under it. */
+.mislay{position:relative;display:block;isolation:isolate}
 .mislay h1{position:relative;z-index:2}
-/* bad registration: the name printed twice, a hair off, in the two house inks */
 .mislay .ghost{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   font-family:var(--display);font-weight:800;
-  font-size:clamp(74px,18.5vw,168px);line-height:.78;letter-spacing:-.022em;
+  font-size:clamp(64px,23vw,168px);line-height:.86;letter-spacing:-.022em;
   text-transform:uppercase;margin:0;
+  mix-blend-mode:multiply;          /* light stock: inks darken where they overlap */
 }
-.mislay .g1{color:var(--pink);opacity:.62;transform:translate(-4px,3px)}
-.mislay .g2{color:var(--blue);opacity:.5;transform:translate(4px,-3px)}
-.mislay h1 span{display:block}
-.mislay .ghost span{display:block}
-@media (prefers-reduced-motion:no-preference){
-  .mislay .g1{animation:slipA 9s ease-in-out infinite}
-  .mislay .g2{animation:slipB 11s ease-in-out infinite}
+:root[data-theme="dark"] .mislay .ghost{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .mislay .ghost{mix-blend-mode:screen}
 }
-@keyframes slipA{0%,100%{transform:translate(-4px,3px)}50%{transform:translate(-7px,1px)}}
-@keyframes slipB{0%,100%{transform:translate(4px,-3px)}50%{transform:translate(7px,-1px)}}
+/* --sep is written by motion.js from the pointer; 8px is where it rests */
+.mislay .g1{color:var(--pink);opacity:1;transform:translate(calc(var(--sep,8px) * -1),0)}
+.mislay .g2{color:var(--blue);opacity:1;transform:translate(var(--sep,8px),0)}
+/* motion.js splits each line into per-letter inline-blocks, and an
+   inline-block is a break opportunity — so the line is told, once, that a
+   word is one impression and does not come apart */
+.mislay h1 span{display:block;white-space:nowrap}
+.mislay .ghost span{display:block;white-space:nowrap}
+/* half the type size wants half the plate offset — motion.js scales it too,
+   this is the value with no script and the value under reduced motion */
+@media (max-width:760px){.mislay{--sep:5px}}
 
-.topgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:end;margin:22px 0 0}
-@media (max-width:760px){.topgrid{grid-template-columns:1fr;gap:20px}}
-.hello{font-size:19px;line-height:1.45;color:var(--ink-2);margin:0;max-width:46ch;text-wrap:pretty}
+.topgrid{margin:22px 0 0}
+.hello{font-size:19px;line-height:1.45;color:var(--ink-2);margin:0;max-width:42ch;text-wrap:balance}
 .hello b{color:var(--ink);font-weight:600}
+.hello.claim{margin-top:14px;max-width:46ch;text-wrap:pretty}
 
-/* countdown, set like a scoreboard */
-.cd{background:var(--ink);color:var(--stock);padding:14px 20px 12px;min-width:250px}
+/* countdown, set like a scoreboard. It is a fixed-ink object, not a themed
+   surface — the same black box with the same pink on either stock. */
+.cd{background:#17171B;color:#EAE8E1;padding:14px 20px 12px;min-width:250px;margin-top:22px}
 .cd .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-.cd .val{font-family:var(--display);font-weight:900;font-size:66px;line-height:.86;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;color:var(--stock)}
-.cd .val em{font-style:normal;color:var(--pink);font-size:30px;letter-spacing:.01em;margin-left:8px}
+.cd .val{display:flex;align-items:baseline;
+  font-family:var(--display);font-weight:900;font-size:66px;line-height:.86;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;color:#EAE8E1}
+.cd .val em{font-style:normal;color:#FF5D96;font-size:30px;letter-spacing:.01em;margin-left:14px}
 .cd .when{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:7px}
 
 /* ============ sticky nav ============ */
@@ -66,7 +95,12 @@
 @supports not (backdrop-filter:blur(1px)){ .nav{background:var(--stock)} }
 .nav ul{display:flex;list-style:none;margin:0;padding:0;gap:0;overflow-x:auto;scrollbar-width:none}
 .nav ul::-webkit-scrollbar{display:none}
-.nav a{display:flex;align-items:center;min-height:42px;padding:10px 16px 8px;font-family:var(--mono);font-size:10.5px;
+/* the scrollbar is hidden on purpose, so the fade is the only thing left to
+   say that the row runs past the edge */
+.nav ul{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);
+        mask-image:linear-gradient(90deg,#000 88%,transparent)}
+@media (min-width:760px){.nav ul{-webkit-mask-image:none;mask-image:none}}
+.nav a{display:flex;align-items:center;min-height:var(--tap);padding:10px 16px 8px;font-family:var(--mono);font-size:10.5px;
   letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--ink-2);
   text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
 .nav a:first-child{padding-left:0}
@@ -80,14 +114,20 @@
 section.band{padding:52px 0 0;scroll-margin-top:60px}
 
 /* ============ the five ============ */
+/* a section rule and the list rule immediately under it are the same rule
+   drawn twice — the list only carries its own where nothing precedes it */
+.sechead + .bill,
+.sechead + .pgrid,
+.sechead + .qclip{border-top:0}
+
 .bill{border-top:3px solid var(--ink);counter-reset:sub}
 .row{counter-increment:sub;display:grid;grid-template-columns:minmax(0,1fr) auto;
   gap:18px;align-items:center;border-bottom:1px solid var(--hair);transition:background .12s ease}
-.row .lead{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;align-items:center;
+.row .lead{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;align-items:start;
   text-decoration:none;color:inherit;padding:18px 10px 16px 0;min-width:0}
 .row .lead::before{
   content:counter(sub,decimal-leading-zero);
-  font-family:var(--display);font-weight:800;font-size:58px;line-height:.8;
+  font-family:var(--display);font-weight:800;font-size:58px;line-height:.8;padding-top:31px;
   letter-spacing:-.03em;color:var(--sub-ink);transition:color .12s ease}
 .row .code{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
 .row .name{font-family:var(--display);font-weight:700;font-size:clamp(27px,4.6vw,44px);
@@ -98,7 +138,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
 .row .acts a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   font-weight:700;padding:0 14px;min-height:var(--tap);display:inline-flex;align-items:center;
   text-decoration:none;color:var(--stock);background:var(--sub-ink);white-space:nowrap}
-.row .acts a.b{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair)}
+.row .acts a.b{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair-ui)}
 .row .acts a.r{background:transparent;color:var(--sub-ink);box-shadow:inset 0 0 0 1.5px var(--sub-ink)}
 .row .acts a.r:hover{background:var(--sub-ink);color:var(--stock);opacity:1}
 .row .acts a{transition:opacity var(--press),transform var(--settle)}
@@ -165,6 +205,40 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
   .prow .pcode{font-size:19px}
 }
 
+/* ============ the syllabus spread ============
+   The .freq component from press.css, five times over, and the one block on
+   the page allowed off the 1080 measure. Rules top and bottom the weight of a
+   question paper's, register marks at the four corners. */
+.spread{position:relative;margin:52px calc(50% - 50vw) 0;padding:0;
+  border-top:7px solid var(--ink);border-bottom:7px solid var(--ink);overflow:hidden}
+.spread-in{max-width:1180px;margin:0 auto;padding:26px var(--gut) 30px}
+.spread .freq td.y,.spread .freq th.y{padding:8px 13px}
+.spread .freq .hit,.spread .freq .miss{width:24px;height:24px}
+.spread .freq .nil{width:24px}
+.spread .reg{position:absolute;width:13px;height:13px;opacity:.75;pointer-events:none}
+.spread .reg line{stroke:var(--ink-3);stroke-width:1}
+.spread .reg circle{stroke:var(--ink-3);stroke-width:1;fill:none}
+.spread .r1{left:9px;top:9px}   .spread .r2{right:9px;top:9px}
+.spread .r3{left:9px;bottom:9px}.spread .r4{right:9px;bottom:9px}
+@media (max-width:560px){.spread .reg{display:none}}
+.spread .sechead{border-bottom-width:3px}
+.spread .freq{border-top-width:3px}
+/* the subject band: the spot ink names itself, and the count sits beside it */
+.spread .freq tr.sgrp th{
+  white-space:normal;border-bottom:2px solid var(--ink);padding:26px 10px 7px;
+  font-family:var(--display);font-weight:800;font-size:23px;line-height:1;
+  letter-spacing:-.014em;text-transform:uppercase;color:var(--spot)}
+.spread .freq tbody:first-of-type tr.sgrp th{padding-top:6px}
+.spread .freq tr.sgrp th i{font-style:normal;font-family:var(--mono);font-size:9.5px;
+  font-weight:700;letter-spacing:.16em;color:var(--ink-3);margin-left:14px;
+  white-space:nowrap;vertical-align:2px}
+.spread .freq td.n i{font-style:normal;font-family:var(--mono);font-weight:400;
+  font-size:11px;letter-spacing:.04em;color:var(--ink-3)}
+.spread .freq tr.every td.n i{color:var(--spot)}
+.spread .freq tr.nopaper td{font-size:15px;line-height:1.55;color:var(--ink-2);
+  padding:14px 10px 15px}
+.spread .freq tr.nopaper td a{color:var(--spot);font-weight:600}
+
 /* rotated ink stamp */
 .smudge{display:inline-block;transform:rotate(-4.5deg);background:var(--pink);color:var(--stock);
   font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.06em;
@@ -202,7 +276,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
 </div>
 
 <header class="mast">
-  <p class="kicker">Everything for the mid-sem, on one desk</p>
+  <p class="kicker">Everything for the mid-sem</p>
   <div class="mislay">
     <div class="ghost g1" aria-hidden="true"><span>Tu</span><span>Chahiye</span></div>
     <div class="ghost g2" aria-hidden="true"><span>Tu</span><span>Chahiye</span></div>
@@ -211,12 +285,14 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
   <div class="rule-heavy"></div>
 
   <div class="topgrid">
-    <p class="hello">Five subjects, written out from your own lecture slides, tutorials and handouts &mdash; then a quiz you can only sit once, and every past paper worked out line by line. <b>Nothing here is a link to somewhere else.</b> It is all in the page.</p>
-    <div class="cd">
-      <div class="lab">Mid-sem starts in</div>
-      <div class="val" id="cdVal">&mdash;<em id="cdUnit"></em></div>
-      <div class="when" id="cdWhen">&nbsp;</div>
-    </div>
+    <p class="hello">Five subjects, written out from your own lecture slides, tutorials and handouts &mdash; then a quiz you can only sit once, and every past paper worked out line by line.</p>
+    <p class="hello claim"><b>Nothing here is a link to somewhere else.</b><br>It is all in the page.</p>
+  </div>
+
+  <div class="cd">
+    <div class="lab">Mid-sem starts in</div>
+    <div class="val" id="cdVal">&mdash;<em id="cdUnit"></em></div>
+    <div class="when" id="cdWhen">&nbsp;</div>
   </div>
 </header>
 
@@ -251,6 +327,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
     <li><a href="#revision">Revision</a></li>
     <li><a href="#quizzes">The quizzes</a></li>
     <li><a href="#papers">The papers</a></li>
+    <li><a href="#spread">The pattern</a></li>
     <li><a href="#offline">Downloads</a></li>
     <li><a href="#how">How to use it</a></li>
     <li style="margin-left:auto"><button class="tog" id="tog" type="button">Flip stock</button></li>
@@ -358,14 +435,9 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
   <p class="note" style="margin:0 0 22px">The course above explains things. <b>This does not &mdash; it reminds you.</b> Fifty-nine chapters across the five subjects, each one a screen or two, each one closing with four or five lines that are the whole chapter. And a switch in the margin that hides everything except those lines, which is what the last hour before a paper is actually for.</p>
 
   <div class="pgrid">
-    <a class="prow" href="revision/dcn.html" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
-      <span class="pcode">EC321</span>
-      <span><span class="pname">Communication Networks</span><span class="pmeta">11 chapters &middot; 58 summary lines &middot; 14 diagrams</span></span>
-      <span class="parrow">&rarr;</span>
-    </a>
-    <a class="prow" href="revision/dcomm.html" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
-      <span class="pcode">EC301</span>
-      <span><span class="pname">Digital Communication</span><span class="pmeta">12 chapters &middot; 60 summary lines &middot; 11 diagrams</span></span>
+    <a class="prow" href="revision/dip.html" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
+      <span class="pcode">EC341</span>
+      <span><span class="pname">Digital Image Processing</span><span class="pmeta">12 chapters &middot; 64 summary lines &middot; 11 diagrams</span></span>
       <span class="parrow">&rarr;</span>
     </a>
     <a class="prow" href="revision/dsp.html" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)">
@@ -373,9 +445,14 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
       <span><span class="pname">Digital Signal Processing</span><span class="pmeta">12 chapters &middot; 69 summary lines &middot; 9 diagrams</span></span>
       <span class="parrow">&rarr;</span>
     </a>
-    <a class="prow" href="revision/dip.html" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
-      <span class="pcode">EC341</span>
-      <span><span class="pname">Digital Image Processing</span><span class="pmeta">12 chapters &middot; 64 summary lines &middot; 11 diagrams</span></span>
+    <a class="prow" href="revision/dcomm.html" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
+      <span class="pcode">EC301</span>
+      <span><span class="pname">Digital Communication</span><span class="pmeta">12 chapters &middot; 60 summary lines &middot; 11 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="revision/dcn.html" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
+      <span class="pcode">EC321</span>
+      <span><span class="pname">Communication Networks</span><span class="pmeta">11 chapters &middot; 58 summary lines &middot; 14 diagrams</span></span>
       <span class="parrow">&rarr;</span>
     </a>
     <a class="prow" href="revision/oops.html" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)">
@@ -432,6 +509,96 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
       <span><span class="pname">Object Oriented Programming</span><span class="pmeta">no past paper supplied &middot; predicted 2026 from the slides</span></span>
       <span class="parrow">&rarr;</span>
     </a>
+  </div>
+</section>
+
+<!-- ============================ THE SPREAD ============================ -->
+<section class="band spread" id="spread">
+  <svg class="reg r1" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <svg class="reg r2" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <svg class="reg r3" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <svg class="reg r4" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></svg>
+  <div class="spread-in">
+    <div class="sechead">
+      <h2 class="sec">What is actually on the paper</h2>
+      <span class="tag">11 papers &middot; 2022&ndash;2025 &middot; read end to end</span>
+    </div>
+    <p class="note" style="margin:0 0 22px">Every past mid-sem we hold, read question by question, in one grid. A filled square means that topic was asked that year. A hollow one means the paper exists and it was not. A dash means there is no paper from that year to read. <b>The tinted rows came up in every single paper of that subject</b> &mdash; those are not optional.</p>
+    <div class="freq">
+      <table>
+      <thead><tr><th>Topic</th><th class="y">&rsquo;22</th><th class="y">&rsquo;23</th><th class="y">&rsquo;24</th><th class="y">&rsquo;25</th><th class="n">seen</th></tr></thead>
+      <tbody style="--spot:var(--dip);--spot-wash:var(--dip-wash)">
+      <tr class="sgrp"><th colspan="6">Digital Image Processing<i>EC341 &middot; 1 paper &middot; 10 topics</i></th></tr>
+      <tr><td>2D Fourier spectrum of a sinusoid or an impulse pair</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Convolution theorem read in the frequency domain</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Local versus global histogram processing</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Spatial filter masks &mdash; mean, Gaussian, Pascal</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Bit-plane slicing and reconstruction</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Mean and variance of a small image, two ways</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>N&#8324;, N&#8332;, N&#8328; and the shortest 4-, 8-, m-paths</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>First and second derivatives of a scan line</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Histogram matching, discrete, worked as a table</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      <tr><td>Continuous transformation derived from two PDFs</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/1</i></td></tr>
+      </tbody>
+      <tbody style="--spot:var(--dsp);--spot-wash:var(--dsp-wash)">
+      <tr class="sgrp"><th colspan="6">Digital Signal Processing<i>EC303 &middot; 3 papers &middot; 13 topics</i></th></tr>
+      <tr class="every"><td>DFT or FFT &mdash; compute, count operations, or draw the butterfly</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr class="every"><td>Difference equation solved (step, particular, or full response)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr class="every"><td>z-transform, ROC, and causality / stability from it</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr class="every"><td>Frequency response &mdash; magnitude and phase, or filter type</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr><td>Inverse system &mdash; find it and describe its behaviour</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>A non-radix-2 FFT (radix-3, split-radix)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>Convolution worked by hand</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Periodicity, and energy versus power signals</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Structure realisation (delay, adder, multiplier blocks)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>An analog RC circuit analysed as a filter</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>DFT property applied (frequency shift, symmetry)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>System identified from its step response</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Time scaling / shifting inside a z-transform</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/3</i></td></tr>
+      </tbody>
+      <tbody style="--spot:var(--dcomm);--spot-wash:var(--dcomm-wash)">
+      <tr class="sgrp"><th colspan="6">Digital Communication<i>EC301 &middot; 4 papers &middot; 14 topics</i></th></tr>
+      <tr class="every"><td>Shannon&ndash;Fano and / or Huffman coding, with efficiency</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">4<i>/4</i></td></tr>
+      <tr><td>Entropy or information rate of a source</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">3<i>/4</i></td></tr>
+      <tr><td>Channel capacity &mdash; Shannon&ndash;Hartley numerical</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">3<i>/4</i></td></tr>
+      <tr><td>Binary symmetric channel &mdash; model or capacity</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">3<i>/4</i></td></tr>
+      <tr><td>PCM &mdash; sampling rate, bits, SQNR, signalling rate</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2<i>/4</i></td></tr>
+      <tr><td>Line coding &mdash; draw the waveforms</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2<i>/4</i></td></tr>
+      <tr><td>Power spectral density of a line code</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2<i>/4</i></td></tr>
+      <tr><td>Linear block or cyclic code &mdash; G, H, syndrome decoding</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>ISI and the Nyquist criterion for zero ISI</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>ASK / FSK / PSK waveforms</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>BPSK modulator and demodulator block diagram</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>Duobinary signalling and its decoding</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>Block diagram of a digital communication system</td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/4</i></td></tr>
+      <tr><td>Delta modulation / adaptive step size</td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">2<i>/4</i></td></tr>
+      </tbody>
+      <tbody style="--spot:var(--dcn);--spot-wash:var(--dcn-wash)">
+      <tr class="sgrp"><th colspan="6">Communication Networks<i>EC321 &middot; 3 papers &middot; 16 topics</i></th></tr>
+      <tr class="every"><td>ALOHA &mdash; draw the flow chart and explain it</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr class="every"><td>Layers &mdash; name them and give each layer&rsquo;s job</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr class="every"><td>PDR, throughput, latency and its components</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">3<i>/3</i></td></tr>
+      <tr><td>Go-Back-N with timing and sliding-window diagrams</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>CDMA &mdash; build a Walsh table and decode</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>CSMA family (persistence methods, CD versus CA)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>Topologies compared</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">2<i>/3</i></td></tr>
+      <tr><td>Pure ALOHA throughput numerical</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>CSMA/CD minimum frame size numerical</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Bandwidth-delay product and link utilisation</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Connecting devices compared (hub, switch, router, gateway)</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Selective Repeat ARQ, drawn step by step</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>HDLC frame &mdash; read the fields off a diagram</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Optical fibre structure</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Five components of data communication</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/3</i></td></tr>
+      <tr><td>Physical versus IP versus port address</td><td class="y"><span class="nil" title="no paper"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="miss" title="did not appear"></span></td><td class="y"><span class="hit" title="appeared"></span></td><td class="n">1<i>/3</i></td></tr>
+      </tbody>
+      <tbody style="--spot:var(--oops);--spot-wash:var(--oops-wash)">
+      <tr class="sgrp"><th colspan="6">Object Oriented Programming<i>C++ &middot; no past paper exists</i></th></tr>
+      <tr class="nopaper"><td colspan="6">No mid-sem paper for this one has ever reached us, so there is nothing here to count and nothing has been invented to fill the row. Its predicted paper is built from the slides and the tutorial sheets instead, and <a href="papers/oops.html">that page says exactly what from</a>.</td></tr>
+      </tbody>
+      </table>
+    </div>
+    <p class="freqkey" style="margin:12px 0 0">filled = it was asked that year &middot; hollow = that paper exists and it was not &middot; dash = no paper from that year &middot; tinted = on every paper of that subject, which needs at least two &mdash; image processing has one paper, so nothing there is tinted</p>
   </div>
 </section>
 

@@ -19,10 +19,18 @@
 .mast h1 span{display:block}
 .mast h1{font-family:var(--display);font-weight:900;
   font-size:clamp(50px,13.5vw,142px);line-height:.8;letter-spacing:-.028em;
-  text-transform:uppercase;margin:0}
-.mast .g{position:absolute;inset:0;margin:0;pointer-events:none;user-select:none;z-index:-1}
-.mast .g1{color:var(--pink);transform:translate(-4px,3px);opacity:.82}
-.mast .g2{color:var(--blue);transform:translate(4px,-3px);opacity:.72}
+  text-transform:uppercase;margin:0;position:relative;z-index:2}
+/* real ink overprinting the stock, one axis, whole pixels — a plate that
+   missed register, not a lens that missed focus. --sep comes from motion.js. */
+.mast .g{position:absolute;inset:0;margin:0;pointer-events:none;user-select:none;
+  z-index:1;mix-blend-mode:multiply}
+:root[data-theme="dark"] .mast .g{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .mast .g{mix-blend-mode:screen}
+}
+.mast .g1{color:var(--pink);transform:translate(calc(var(--sep,7px) * -1),0);opacity:1}
+.mast .g2{color:var(--blue);transform:translate(var(--sep,7px),0);opacity:1}
+@media (max-width:760px){.mast{--sep:4px}}
 
 .subj{margin:0 0 40px}
 .subj h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,4.4vw,38px);
@@ -78,7 +86,7 @@
 <header>
   <p class="kicker" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
      text-transform:uppercase;color:var(--pink);margin:18px 0 8px;font-weight:700">For the bus, the library, and the printer</p>
-  <div class="mast">
+  <div class="mast long">
     <h1 class="g g1" aria-hidden="true"><span>Take it</span><span>Offline</span></h1>
     <h1 class="g g2" aria-hidden="true"><span>Take it</span><span>Offline</span></h1>
     <h1><span>Take it</span><span>Offline</span></h1>
@@ -87,6 +95,16 @@
   <p class="standfirst">The whole site as PDFs, typeset from the same pages and the same stylesheets &mdash; <b>not screenshots and not a print-out of a web page</b>. Chapters start on their own sheet, every solution is already open, and the quizzes come as a printable question paper with the answer key at the back.</p>
 </header>
 
+<section class="band dl">
+<h3>The revision sheets</h3><p class="sc">the short version &mdash; a chapter to a screen, and a five-line summary at the end of each</p>
+<div class="fl">
+<div class="fr" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)"><span class="yr">EC301</span><span class="wh"><b>Digital Communication</b><span>62 pages &middot; 1.3 MB &middot; A4 PDF</span></span><a class="view" href="revision/dcomm.html">The page</a><a class="get" href="pdf/revision-dcomm.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)"><span class="yr">EC321</span><span class="wh"><b>Communication Networks</b><span>47 pages &middot; 1.3 MB &middot; A4 PDF</span></span><a class="view" href="revision/dcn.html">The page</a><a class="get" href="pdf/revision-dcn.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)"><span class="yr">EC303</span><span class="wh"><b>Digital Signal Processing</b><span>56 pages &middot; 1.2 MB &middot; A4 PDF</span></span><a class="view" href="revision/dsp.html">The page</a><a class="get" href="pdf/revision-dsp.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)"><span class="yr">EC341</span><span class="wh"><b>Digital Image Processing</b><span>75 pages &middot; 1.4 MB &middot; A4 PDF</span></span><a class="view" href="revision/dip.html">The page</a><a class="get" href="pdf/revision-dip.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)"><span class="yr">C++</span><span class="wh"><b>Object Oriented Programming</b><span>66 pages &middot; 1.0 MB &middot; A4 PDF</span></span><a class="view" href="revision/oops.html">The page</a><a class="get" href="pdf/revision-oops.pdf" download>Download</a></div>
+</div>
+</section>
 <section class="band dl">
 <h3>The notes</h3><p class="sc">every chapter, every figure, every worked example</p>
 <div class="fl">
@@ -100,11 +118,11 @@
 <section class="band dl">
 <h3>The papers</h3><p class="sc">past papers solved, and the predicted paper, solutions open</p>
 <div class="fl">
-<div class="fr" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)"><span class="yr">EC301</span><span class="wh"><b>Digital Communication</b><span>39 pages &middot; 759 KB &middot; A4 PDF</span></span><a class="view" href="papers/dcomm.html">The page</a><a class="get" href="pdf/papers-dcomm.pdf" download>Download</a></div>
-<div class="fr" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)"><span class="yr">EC321</span><span class="wh"><b>Communication Networks</b><span>30 pages &middot; 662 KB &middot; A4 PDF</span></span><a class="view" href="papers/dcn.html">The page</a><a class="get" href="pdf/papers-dcn.pdf" download>Download</a></div>
-<div class="fr" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)"><span class="yr">EC303</span><span class="wh"><b>Digital Signal Processing</b><span>33 pages &middot; 690 KB &middot; A4 PDF</span></span><a class="view" href="papers/dsp.html">The page</a><a class="get" href="pdf/papers-dsp.pdf" download>Download</a></div>
-<div class="fr" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)"><span class="yr">EC341</span><span class="wh"><b>Digital Image Processing</b><span>34 pages &middot; 701 KB &middot; A4 PDF</span></span><a class="view" href="papers/dip.html">The page</a><a class="get" href="pdf/papers-dip.pdf" download>Download</a></div>
-<div class="fr" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)"><span class="yr">C++</span><span class="wh"><b>Object Oriented Programming</b><span>22 pages &middot; 672 KB &middot; A4 PDF</span></span><a class="view" href="papers/oops.html">The page</a><a class="get" href="pdf/papers-oops.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)"><span class="yr">EC301</span><span class="wh"><b>Digital Communication</b><span>51 pages &middot; 1.5 MB &middot; A4 PDF</span></span><a class="view" href="papers/dcomm.html">The page</a><a class="get" href="pdf/papers-dcomm.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)"><span class="yr">EC321</span><span class="wh"><b>Communication Networks</b><span>45 pages &middot; 1.4 MB &middot; A4 PDF</span></span><a class="view" href="papers/dcn.html">The page</a><a class="get" href="pdf/papers-dcn.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)"><span class="yr">EC303</span><span class="wh"><b>Digital Signal Processing</b><span>38 pages &middot; 1.1 MB &middot; A4 PDF</span></span><a class="view" href="papers/dsp.html">The page</a><a class="get" href="pdf/papers-dsp.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)"><span class="yr">EC341</span><span class="wh"><b>Digital Image Processing</b><span>40 pages &middot; 1.3 MB &middot; A4 PDF</span></span><a class="view" href="papers/dip.html">The page</a><a class="get" href="pdf/papers-dip.pdf" download>Download</a></div>
+<div class="fr" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)"><span class="yr">C++</span><span class="wh"><b>Object Oriented Programming</b><span>25 pages &middot; 985 KB &middot; A4 PDF</span></span><a class="view" href="papers/oops.html">The page</a><a class="get" href="pdf/papers-oops.pdf" download>Download</a></div>
 </div>
 </section>
 <section class="band dl">
@@ -147,7 +165,7 @@ inks stay, and nothing that belongs together is split across a page break.</p>
 <div class="colo" style="margin-top:56px;padding-top:15px;border-top:5px solid var(--ink);
   font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);line-height:2.1">
-  <b style="color:var(--ink-2);font-weight:400">Tu Chahiye &middot; 15 PDFs &middot; 23.3 MB &middot; built from the pages themselves</b><br>
+  <b style="color:var(--ink-2);font-weight:400">Tu Chahiye &middot; 15 PDFs &middot; 32.4 MB &middot; built from the pages themselves</b><br>
   <a href="index.html" style="color:var(--ink-2)">back to the dashboard</a>
   &middot; <a href="papers/index.html" style="color:var(--ink-2)">the solved papers</a>
 </div>

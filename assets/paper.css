@@ -5,6 +5,12 @@
    Loads on top of press.css.
    ========================================================================== */
 
+/* At two lines of short words ("TU / CHAHIYE") .78 is a lockup. At two lines
+   of long words the descenders of line one land on the cap line of line two,
+   so the long mastheads get their own leading. */
+.mislay.long h1,.mislay.long .ghost,
+.mast.long h1{line-height:.86;letter-spacing:-.018em}
+
 .subhead{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 6px}
 .subhead .code{font-family:var(--mono);font-size:11px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--spot);font-weight:700}
@@ -21,6 +27,11 @@
 @supports not (backdrop-filter:blur(1px)){.years{background:var(--stock)}}
 .years ul{display:flex;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
 .years ul::-webkit-scrollbar{display:none}
+/* the scrollbar is hidden on purpose, so the fade is the only thing left to
+   say that the row runs past the edge — the same fade the ticker uses */
+.years ul{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);
+          mask-image:linear-gradient(90deg,#000 88%,transparent)}
+@media (min-width:760px){.years ul{-webkit-mask-image:none;mask-image:none}}
 .years a{display:flex;align-items:center;min-height:44px;padding:10px 15px 8px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
   font-weight:700;color:var(--ink-2);text-decoration:none;white-space:nowrap;
@@ -29,21 +40,8 @@
 .years a:hover{color:var(--ink)}
 .years a.on{color:var(--ink);border-bottom-color:var(--spot)}
 
-/* ---------- the pattern read ---------- */
-.freq{overflow-x:auto;border-top:3px solid var(--ink);margin:0 0 10px;-webkit-overflow-scrolling:touch}
-.freq table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
-.freq th,.freq td{padding:9px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:middle}
-.freq th{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--ink-3);font-weight:700;white-space:nowrap}
-.freq td.y{text-align:center;width:1%;padding:9px 6px}
-.freq .hit{display:inline-block;width:20px;height:20px;background:var(--spot)}
-.freq .miss{display:inline-block;width:20px;height:20px;background:var(--stock-3);opacity:.5}
-.freq td.n{font-family:var(--display);font-weight:800;font-size:21px;line-height:1;
-  text-align:right;width:1%;white-space:nowrap}
-.freq tr.every td{background:var(--spot-wash)}
-.freq tr.every td.n{color:var(--spot)}
-.freqkey{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-3);margin:0 0 30px}
+/* the pattern read (.freq / .freqkey) now lives in press.css, because the
+   dashboard's syllabus spread is the same component at five times the size. */
 
 /* ---------- a question paper ---------- */
 .qp{border-top:7px solid var(--ink);border-bottom:7px solid var(--ink);
@@ -81,7 +79,7 @@
 details.sol{margin:11px 0 0}
 details.sol > summary{
   cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;
-  min-height:38px;padding:7px 0;
+  min-height:var(--tap);padding:7px 0;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
   font-weight:700;color:var(--spot);border-bottom:2px solid var(--spot);
   transition:opacity var(--press)}
