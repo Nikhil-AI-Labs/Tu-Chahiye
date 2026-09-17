@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Object Oriented Programming &mdash; revision</title>
+<meta name="description" content="Twelve chapters, each a screen or two, weighted the way the paper is weighted &mdash; this is a code paper, so the programs come first and the prose comes second. Every chapter clo">
+<meta name="theme-color" content="#17171B">
+<script>(function(){try{var s=localStorage.getItem("tc.theme");if(s)document.documentElement.setAttribute("data-theme",s);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/press.css">
+<link rel="stylesheet" href="../assets/revision.css">
+<link rel="stylesheet" href="../assets/print.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317171B'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,Arial' font-weight='bold' font-size='22' fill='%23C4571B' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<style>:root{--spot:var(--oops);--spot-wash:var(--oops-wash)}</style>
+</head>
+<body>
+
+<div class="tcbar">
+  <a href="../index.html" aria-label="Back to Tu Chahiye"><span class="tcb-dot"></span><span class="tcb-n">Tu&nbsp;Chahiye</span></a>
+  <span class="tcb-sub">C++ &middot; revision</span>
+  <span class="tcb-sp"></span>
+  <button class="tcb-tog" type="button">Dark</button>
+  <a href="../pdf/revision-oops.pdf" download title="This whole revision set as an A4 PDF">PDF</a>
+  <a href="../notes/oops.html">Notes</a>
+  <a href="../papers/oops.html">Papers</a>
+</div>
+
+<div class="shell">
+
+<aside class="rail">
+  <p class="mark">Object Oriented Programming</p>
+  <p class="sub">C++ &middot; 12 chapters &middot; the fast read</p>
+  <div class="modes">
+    <button type="button" class="mode on" data-mode="all">Everything</button>
+    <button type="button" class="mode" data-mode="glance">Just the summaries</button>
+  </div>
+  <nav class="toc"><a href="#c1"><span class="n">01</span><span class="t">Procedural versus object oriented</span></a><a href="#c2"><span class="n">02</span><span class="t">Tokens, types and references</span></a><a href="#c3"><span class="n">03</span><span class="t">The operators C++ adds</span></a><a href="#c4"><span class="n">04</span><span class="t">Overloading, inline and default arguments</span></a><a href="#c5"><span class="n">05</span><span class="t">Call by value, address and reference</span></a><a href="#c6"><span class="n">06</span><span class="t">Classes and objects</span></a><a href="#c7"><span class="n">07</span><span class="t">static members, friends, const and this</span></a><a href="#c8"><span class="n">08</span><span class="t">Constructors and destructors</span></a><a href="#c9"><span class="n">09</span><span class="t">The copy constructor, shallow and deep</span></a><a href="#c10"><span class="n">10</span><span class="t">Operator overloading, member or friend</span></a><a href="#c11"><span class="n">11</span><span class="t">Inheritance and the three modes</span></a><a href="#c12"><span class="n">12</span><span class="t">Shapes, ambiguity and the virtual base</span></a><a href="#end" class="fin"><span class="n">&sum;</span><span class="t">Everything, condensed</span></a></nav>
+  <p class="railfoot">the course explains it &mdash; this reminds you.<br>
+    <a href="../notes/oops.html">the long version &rarr;</a></p>
+</aside>
+
+<main class="doc">
+
+<header class="top" id="top">
+  <p class="kick">Class notes &middot; complete series</p>
+  <h1>Objects,<br>fast</h1>
+  <p class="tagline">POP vs OOP &middot; Classes and objects &middot; Constructors &middot; Overloading &middot; Inheritance</p>
+  <div class="rule"></div>
+  <p class="lede">Twelve chapters, each a screen or two, weighted the way the paper is weighted &mdash; this is a code paper, so the programs come first and the prose comes second. Every chapter closes with five lines that are the whole chapter, and there is a switch in the margin that hides everything except those lines. <b>That is the last-hour version.</b></p>
+  <div class="counts">
+    <div><b>12</b><span>chapters</span></div>
+    <div><b>56</b><span>sections</span></div>
+    <div><b>9</b><span>diagrams</span></div>
+    <div><b>63</b><span>summary lines</span></div>
+  </div>
+</header>
+
+
+<section class="ch" id="c1">
+<div class="chhead"><span class="cn">Chapter 01</span><h2>Procedural versus object oriented</h2></div>
+<p class="chintro">This chapter settles the two or three marks that ask you to compare the two styles, and it settles the vocabulary used by every chapter after it. One sentence carries the whole idea: in a procedural program the data is out in the open and any function may change it, and in an object oriented program the data is locked inside an object with the functions that guard it.</p>
+<div class="body">
+<h4 class="sec">1.1 How a procedural program is arranged</h4>
+<p>You write a list of instructions, wrap groups of them in functions, and the functions pass data between themselves. The design is <b>top-down</b>: start with the big job, break it into smaller jobs. Most of the data sits outside all the functions, where every function can reach it.</p>
+<ul class="bul"><li>Emphasis is on <b>doing things</b> &mdash; on the algorithm, on the sequence.</li><li>A large program is split into smaller programs called <b>functions</b>.</li><li>Most functions share <b>global data</b>, and data moves openly between them.</li><li>A function transforms data from one form into another.</li></ul>
+<div class="box"><span class="l">The drawback, in the words the examiner wants</span><p>If asked for the main drawback of procedure oriented programming, the answer is <b>global data is exposed</b>. Data moves freely, any function can change it, so a bug in one function can break a completely unrelated part of the program. Object oriented programming exists to fix exactly this.</p></div>
+<h4 class="sec">1.2 How an object oriented program is arranged</h4>
+<p>OOP turns the picture inside out. The data becomes the critical element and is not allowed to flow freely. A problem is broken into entities called <b>objects</b>, and the data of an object can be reached only by the functions belonging to that object. Objects talk to each other by calling each other&rsquo;s functions, never by reaching into each other&rsquo;s data.</p>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 700 300" width="700" height="300" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="Procedure oriented against object oriented" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="24" y="26" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none" letter-spacing="1.6">PROCEDURE ORIENTED</text><rect x="24" y="42" width="290" height="54" fill="var(--pink-wash)" stroke="var(--pink)" stroke-width="1.8" /><text x="169" y="74" font-size="12" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--pink)" stroke="none">GLOBAL DATA</text><rect x="24" y="156" width="90" height="44" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="69" y="183" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">f1()</text><line x1="69" y1="152" x2="69" y2="102" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="124" y="156" width="90" height="44" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="169" y="183" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">f2()</text><line x1="169" y1="152" x2="169" y2="102" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="224" y="156" width="90" height="44" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="269" y="183" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">f3()</text><line x1="269" y1="152" x2="269" y2="102" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><text x="24" y="232" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">every function can reach the data.</text><text x="24" y="250" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">change the data and you must check</text><text x="24" y="268" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">every function that touches it.</text><text x="392" y="26" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.6">OBJECT ORIENTED</text><rect x="392" y="42" width="132" height="158" fill="none" stroke="var(--spot)" stroke-width="2" /><rect x="410" y="62" width="96" height="44" fill="var(--spot-wash)" stroke="var(--spot)" stroke-width="1.5" /><text x="458" y="90" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">data</text><rect x="410" y="122" width="96" height="30" fill="none" stroke="currentColor" stroke-width="1.4" /><text x="458" y="142" font-size="10.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">get()</text><rect x="410" y="158" width="96" height="30" fill="none" stroke="currentColor" stroke-width="1.4" /><text x="458" y="178" font-size="10.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">set()</text><text x="458" y="32" font-size="9.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">object 1</text><rect x="544" y="42" width="132" height="158" fill="none" stroke="var(--spot)" stroke-width="2" /><rect x="562" y="62" width="96" height="44" fill="var(--spot-wash)" stroke="var(--spot)" stroke-width="1.5" /><text x="610" y="90" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">data</text><rect x="562" y="122" width="96" height="30" fill="none" stroke="currentColor" stroke-width="1.4" /><text x="610" y="142" font-size="10.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">get()</text><rect x="562" y="158" width="96" height="30" fill="none" stroke="currentColor" stroke-width="1.4" /><text x="610" y="178" font-size="10.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">set()</text><text x="610" y="32" font-size="9.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">object 2</text><line x1="524" y1="120" x2="544" y2="120" stroke="var(--spot)" stroke-width="1.5" marker-end="url(#ahs)"/><text x="392" y="232" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the data is inside, and only the object&rsquo;s own</text><text x="392" y="250" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">functions can reach it. Objects talk by</text><text x="392" y="268" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">calling each other, not by sharing memory.</text><line x1="360" y1="36" x2="360" y2="278" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".4"/></svg></div><figcaption>Fig. 1.1 The same program drawn twice. On the left, one block of global data with arrows running into it from every function &mdash; any arrow can change it. On the right, three closed boxes, each holding its data with its functions wrapped around it, and the only arrows between boxes are function calls.</figcaption></figure>
+<h4 class="sec">1.3 The comparison, in the form to write it</h4>
+<div class="tw"><table><thead><tr><th>Question</th><th>Procedure oriented</th><th>Object oriented</th></tr></thead><tbody><tr><td>Emphasis is on</td><td>Doing things &mdash; the algorithm</td><td>The data</td></tr><tr><td>Program is divided into</td><td>Functions</td><td>Objects</td></tr><tr><td>Where data lives</td><td>Global, shared by functions</td><td>Hidden inside the object</td></tr><tr><td>Who may change data</td><td>Any function that can see it</td><td>Only that object&rsquo;s own functions</td></tr><tr><td>Design direction</td><td>Top-down</td><td>Bottom-up</td></tr><tr><td>Adding new data</td><td>Means touching many functions</td><td>Added to one class, nothing else moves</td></tr><tr><td>Languages</td><td>C, Pascal, FORTRAN</td><td>C++, Java, C#</td></tr></tbody></table></div>
+<h4 class="sec">1.4 The six core ideas</h4>
+<ol class="num"><li><b>Class</b> &mdash; a user-defined data type that acts as a blueprint. It wraps data members and the member functions that work on them into one unit.</li><li><b>Object</b> &mdash; an instance of a class, the actual thing built from the blueprint. Each object keeps its own copy of the data members.</li><li><b>Encapsulation</b> &mdash; wrapping data and functions into one unit and keeping the data hidden. In C++ the keyword that does it is <code>private</code>.</li><li><b>Abstraction</b> &mdash; showing only what the user needs and hiding the machinery. Encapsulation is <i>how</i> you hide; abstraction is <i>why</i>.</li><li><b>Inheritance</b> &mdash; one class takes on the properties of another. The giver is the base class, the receiver is the derived class. This is what gives OOP its reusability.</li><li><b>Polymorphism</b> &mdash; one name, many behaviours. Two forms in this course: function overloading and operator overloading.</li></ol>
+<h4 class="sec">1.5 The benefits, if they ask for four</h4>
+<ul class="bul"><li><b>Data security</b> &mdash; data is hidden, so outside functions cannot damage it by accident.</li><li><b>Reusability</b> &mdash; through inheritance, code written once is used in many classes.</li><li><b>Easy to extend</b> &mdash; new data and functions are added to a class without disturbing the rest of the program.</li><li><b>Manageable complexity</b> &mdash; a big problem becomes a set of objects, each small enough to understand alone.</li><li><b>Easier maintenance</b> &mdash; when a car misbehaves you look inside the <code>Car</code> class and nowhere else.</li></ul>
+<div class="box tip"><span class="l">Exam tip</span><p>Every "distinguish between X and Y" question on this paper should be answered as a <b>table</b>, not as paragraphs. It is faster to write, faster to mark, and it stops you from repeating yourself. Four or five rows with a labelled first column is a full answer.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 01 at a glance</span><ul><li>The drawback of procedure oriented programming is that <b>global data is exposed</b> &mdash; any function can change it, so a bug anywhere can break anything.</li><li>Object oriented programming locks the data inside the object and lets only that object&rsquo;s functions touch it.</li><li>POP is top-down and organised around functions; OOP is bottom-up and organised around objects.</li><li>The six core ideas: <b>class, object, encapsulation, abstraction, inheritance, polymorphism</b>.</li><li>Encapsulation is the mechanism of hiding; abstraction is the purpose of hiding. That pair is asked constantly.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c2">
+<div class="chhead"><span class="cn">Chapter 02</span><h2>Tokens, types and references</h2></div>
+<p class="chintro">Two marks live here, and they are the cheapest two on the paper. This chapter settles the five kinds of token, the constants that are written in a way that catches people out, the difference between a structure, a union and a class, and the one derived type that C does not have at all &mdash; the reference.</p>
+<div class="body">
+<h4 class="sec">2.1 The five kinds of token</h4>
+<p>The smallest individual units of a program are <b>tokens</b>. There are five: <b>keywords, identifiers, constants, strings, operators</b>. C++ has <b>63 keywords</b>, all in lower case, and none of them may be used as a name of your own.</p>
+<div class="box"><span class="l">Learn this line</span><p>C++ Programs = Tokens + White Spaces + Syntax of the Programming Language + Logic. The keywords worth noticing are the new ones &mdash; <code>class</code>, <code>new</code>, <code>delete</code>, <code>friend</code>, <code>operator</code>, <code>public</code>, <code>private</code>, <code>this</code>, <code>virtual</code> &mdash; because they are exactly the object oriented features this course teaches.</p></div>
+<h4 class="sec">2.2 The constants that catch people out</h4>
+<div class="tw"><table><thead><tr><th>Written as</th><th>What it actually is</th></tr></thead><tbody><tr><td><code>123</code></td><td>Decimal integer</td></tr><tr><td><code>037</code></td><td>Octal &mdash; a leading zero means base 8, so this is <b>31</b>, not 37</td></tr><tr><td><code>0X2</code></td><td>Hexadecimal &mdash; a leading <code>0X</code> means base 16</td></tr><tr><td><code>&#39;A&#39;</code></td><td>One character, one byte</td></tr><tr><td><code>"A"</code></td><td>A string &mdash; one character plus a hidden <code>\0</code>, so two bytes</td></tr><tr><td><code>L&#39;ab&#39;</code></td><td>Wide-character constant &mdash; the <code>L</code> prefix</td></tr></tbody></table></div>
+<div class="box warn"><span class="l">Watch out</span><p>A character array in C++ must have room for the terminating null. <code>char s[3] = "xyz";</code> is legal C and illegal C++; C++ needs <code>char s[4] = "xyz";</code>. This exact pair of lines is a classic one-mark question.</p></div>
+<h4 class="sec">2.3 Structure, union and class</h4>
+<div class="tw"><table><thead><tr><th></th><th>struct</th><th>union</th><th>class</th></tr></thead><tbody><tr><td>Size</td><td>Sum of the sizes of its members</td><td>Size of the largest member</td><td>Sum, like a struct</td></tr><tr><td>Memory</td><td>Each member has its own storage</td><td>All members share one piece of storage</td><td>Each member has its own storage</td></tr><tr><td>Changing one member</td><td>Does not affect the others</td><td>Destroys the others&rsquo; values</td><td>Does not affect the others</td></tr><tr><td>Members by default</td><td>public</td><td>public</td><td><b>private</b></td></tr><tr><td>Can hold functions</td><td>Yes, in C++</td><td>Yes, in C++</td><td>Yes</td></tr></tbody></table></div>
+<div class="box"><span class="l">The one-line answer for struct versus class</span><p>In C++ they are almost the same thing. The only real difference is that members of a <code>struct</code> are <b>public by default</b> and members of a <code>class</code> are <b>private by default</b>. The same default carries into inheritance: <code>struct D : B</code> is public inheritance, <code>class D : B</code> is private inheritance.</p></div>
+<h4 class="sec">2.4 enum, and how it counts</h4>
+<div class="eq">enum shape { circle, square, triangle };   // 0, 1, 2
+enum color { red, blue = 4, green };       // 0, 4, 5
+enum color { red = 5, blue, green };       // 5, 6, 7</div>
+<p>The rule is the exam trick: once you give one enumerator a value, the ones after it <b>carry on counting from there</b> unless they are given a value of their own.</p>
+<h4 class="sec">2.5 The reference variable</h4>
+<p>A reference is an <b>alias</b> &mdash; a second name for a variable that already exists. It does not exist in C. Declare it with <code>&amp;</code> in the declaration, and it must be initialised at that moment.</p>
+<div class="eq">float total = 100;
+float &amp;sum = total;      // sum and total are ONE variable
+
+int n[10];
+int &amp;x = n[8];           // x is another name for n[8]</div>
+<div class="box warn"><span class="l">Three rules that cost marks</span><p><b>1.</b> A reference must be initialised when it is declared &mdash; <code>int &amp;r;</code> alone is an error. <b>2.</b> Once bound it can never be re-pointed; <code>r = y;</code> copies the value of <code>y</code> into whatever <code>r</code> already refers to. <b>3.</b> Never return a reference to a local variable &mdash; it dies when the function ends.</p></div>
+<div class="work"><span class="l">Predict the output</span>
+<p>Two small traps in one program: an assignment through a reference, and an enum that counts on
+from a value you gave it.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10;
+    int &amp;r = a;          // r is an alias for a
+    int b = 20;
+
+    r = b;                // does NOT re-point r -- copies b's value into a
+    cout &lt;&lt; a &lt;&lt; " " &lt;&lt; r &lt;&lt; " " &lt;&lt; b &lt;&lt; endl;
+
+    enum color { red, blue = 4, green };
+    cout &lt;&lt; red &lt;&lt; " " &lt;&lt; blue &lt;&lt; " " &lt;&lt; green &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">20 20 20
+0 4 5</div>
+<p>Line by line. <code>r</code> is bound to <code>a</code> for life, so <code>r = b;</code> is
+read as "put 20 into the thing <code>r</code> names", which is <code>a</code>. Now
+<code>a</code> and <code>r</code> are both 20, and <code>b</code> was never touched, so it is
+still 20 as well &mdash; three twenties, for two different reasons.</p>
+<p>In the enum, <code>red</code> takes the default 0, <code>blue</code> is forced to 4, and
+<code>green</code> simply continues from <code>blue</code>, so it is 5. It is not 1, and it is
+not 2.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 02 at a glance</span><ul><li>Five kinds of token: <b>keywords, identifiers, constants, strings, operators</b>. C++ has <b>63</b> keywords.</li><li>A leading zero means octal, so <code>037</code> is 31. <code>&#39;A&#39;</code> is one byte; <code>"A"</code> is two, because of the hidden <code>\0</code>.</li><li>A <code>struct</code> is public by default, a <code>class</code> is private by default &mdash; that is the only real difference between them in C++.</li><li>In an <code>enum</code>, numbering continues from the last value you assigned, so <code>{red, blue = 4, green}</code> gives 0, 4, 5.</li><li>A <b>reference</b> is an alias, must be initialised at declaration, and can never be made to refer to a different variable afterwards.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c3">
+<div class="chhead"><span class="cn">Chapter 03</span><h2>The operators C++ adds</h2></div>
+<p class="chintro">Every C operator is still valid. On top of them C++ adds ten, and three of them are worth three marks on their own: the scope resolution operator, the new and delete pair, and the manipulators. This chapter settles what each one does and what happens when you use the wrong form of delete.</p>
+<div class="body">
+<h4 class="sec">3.1 The ten new operators</h4>
+<div class="tw"><table><thead><tr><th>Operator</th><th>Name</th><th>What it is for</th></tr></thead><tbody><tr><td><code>&lt;&lt;</code></td><td>Insertion</td><td>Sends data to an output stream</td></tr><tr><td><code>&gt;&gt;</code></td><td>Extraction</td><td>Reads data from an input stream</td></tr><tr><td><code>::</code></td><td>Scope resolution</td><td>Reaches a hidden global, or names a member outside its class</td></tr><tr><td><code>::*</code></td><td>Pointer to member declarator</td><td>Declares a pointer to a class member</td></tr><tr><td><code>-&gt;&#42;</code> and <code>.&#42;</code></td><td>Pointer to member</td><td>Uses such a pointer, through a pointer or through an object</td></tr><tr><td><code>new</code></td><td>Memory allocation</td><td>Takes memory from the free store</td></tr><tr><td><code>delete</code></td><td>Memory release</td><td>Gives it back</td></tr><tr><td><code>endl</code></td><td>Line feed</td><td>Ends the line and flushes</td></tr><tr><td><code>setw</code></td><td>Field width</td><td>Sets the width of the next item</td></tr></tbody></table></div>
+<h4 class="sec">3.2 The scope resolution operator, both of its jobs</h4>
+<p>The same operator does two completely different things, and the paper asks about both.</p>
+<ol class="num"><li><b>Unary <code>::name</code></b> &mdash; reach the <i>global</i> version of a name that a local declaration is hiding. In C a hidden global is simply unreachable; this is one of the small additions C++ makes.</li><li><b>Binary <code>Class::member</code></b> &mdash; name a member outside its class. This is what lets you define a member function outside the class body, define a static data member, call a static member function without an object, and disambiguate an inherited name.</li></ol>
+<div class="eq">int Box::area() { return len * len; }   // define a member function
+int Item::count = 0;                    // define a static data member
+Item::live();                           // call a static member function
+p.M::display();                         // pick one of two inherited names</div>
+<h4 class="sec">3.3 new and delete</h4>
+<div class="eq">int   *p = new int;          // one int, uninitialised
+int   *q = new int(25);      // one int, initialised to 25
+int   *a = new int[10];      // an array of ten ints
+
+delete p;                    // one object
+delete[] a;                  // an array -- note the brackets</div>
+
+<div class="tw"><table><thead><tr><th></th><th>C &mdash; malloc / free</th><th>C++ &mdash; new / delete</th></tr></thead><tbody><tr><td>What it is</td><td>A library function</td><td>An operator, built into the language</td></tr><tr><td>Needs a header</td><td>Yes, <code>stdlib.h</code></td><td>No</td></tr><tr><td>Size</td><td>You calculate it: <code>malloc(sizeof(int))</code></td><td>Worked out for you: <code>new int</code></td></tr><tr><td>Return type</td><td><code>void</code> pointer, usually needs a cast</td><td>Already the right pointer type</td></tr><tr><td>With an object</td><td>Does <b>not</b> call the constructor</td><td><b>Calls</b> the constructor</td></tr><tr><td>Releasing</td><td><code>free(p)</code> &mdash; no destructor runs</td><td><code>delete p</code> &mdash; the destructor runs</td></tr></tbody></table></div>
+<div class="box warn"><span class="l">The three classic memory errors</span><p><b>1.</b> Never calling <code>delete</code> &mdash; a memory leak. <b>2.</b> Writing <code>delete p;</code> for memory made with <code>new[]</code> &mdash; undefined behaviour: only the first element is destroyed and the wrong block is handed back, which usually corrupts the heap. With plain <code>int</code> it often seems to work, which makes it the worst kind of bug. <b>3.</b> Deleting the same pointer twice &mdash; also undefined, and usually a crash.</p></div>
+<h4 class="sec">3.4 Manipulators</h4>
+<p>Manipulators format the output. Only <code>endl</code> comes free with <code>iostream</code>; <code>setw</code>, <code>setfill</code> and <code>setprecision</code> all need <code>iomanip</code>.</p>
+<div class="eq">#include &lt;iomanip>
+
+cout &lt;&lt; setw(10) &lt;&lt; "Basic" &lt;&lt; setw(10) &lt;&lt; 10000 &lt;&lt; endl;
+cout &lt;&lt; setw(20) &lt;&lt; setfill('*') &lt;&lt; "SVNIT" &lt;&lt; endl;
+cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; 3.141592653 &lt;&lt; endl;
+
+     Basic     10000
+***************SVNIT
+3.14</div>
+<div class="box tip"><span class="l">Exam tip</span><p><code>setw</code> applies to the <b>next item only</b>, so it has to be repeated for every column. <code>setfill</code> and <code>setprecision</code>, by contrast, stay in force until you change them.</p></div>
+<div class="work"><span class="l">Predict the output</span>
+<p>The scope resolution operator and the two forms of <code>new</code> in one short program.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+int n = 5;                    // global n
+
+int main() {
+    int n = 50;               // hides the global
+    {
+        int n = 500;          // hides main's n
+        cout &lt;&lt; n &lt;&lt; " " &lt;&lt; ::n &lt;&lt; endl;
+    }
+    cout &lt;&lt; n &lt;&lt; " " &lt;&lt; ::n &lt;&lt; endl;
+
+    int *p = new int(7);
+    int *a = new int[3];
+    a[0] = 1; a[1] = 2; a[2] = 3;
+    cout &lt;&lt; *p + a[2] &lt;&lt; endl;
+
+    delete p;
+    delete[] a;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">500 5
+50 5
+10</div>
+<p>Plain <code>n</code> always means the innermost declaration that is still in scope &mdash; 500
+inside the block, 50 once the block has closed. <code>::n</code> ignores all of that and goes
+straight to file scope, so it is 5 both times, no matter how deep you are.</p>
+<p>The last line is <code>7 + 3</code>. Note the two releases: <code>delete p;</code> for the
+single <code>int</code> and <code>delete[] a;</code> for the array. Swapping them is undefined
+behaviour, not a compile error, so the compiler will not warn you.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 03 at a glance</span><ul><li>Unary <code>::name</code> reaches the <b>global</b> version of a name that a local declaration is hiding &mdash; something C cannot do at all.</li><li>Binary <code>Class::member</code> names a member outside its class: member function definitions, static data definitions, static calls, inherited-name disambiguation.</li><li><code>new</code> calls the constructor and returns the right pointer type; <code>malloc</code> does neither. <code>delete</code> calls the destructor; <code>free</code> does not.</li><li>Whatever you take with <code>new[]</code>, give back with <code>delete[]</code>. Using plain <code>delete</code> on an array is <b>undefined behaviour</b>.</li><li><code>setw</code> affects only the next item and needs <code>iomanip</code>; <code>endl</code> is the only manipulator that comes free with <code>iostream</code>.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c4">
+<div class="chhead"><span class="cn">Chapter 04</span><h2>Overloading, inline and default arguments</h2></div>
+<p class="chintro">Function overloading is your first taste of polymorphism, and together with default arguments it is worth about five marks. This chapter settles what makes two functions different, the exact order the compiler searches in, why defaults belong in the prototype, and the one place where overloading and defaults collide.</p>
+<div class="body">
+<h4 class="sec">4.1 What makes two functions different</h4>
+<p>Overloaded functions must differ in the <b>type, number or order</b> of their parameters. That set of things is called the signature.</p>
+<div class="tw"><table><thead><tr><th>Can you overload on...</th><th>Yes or no</th><th>Why</th></tr></thead><tbody><tr><td>A different number of parameters</td><td>Yes</td><td>The call itself shows how many you passed</td></tr><tr><td>Different parameter types</td><td>Yes</td><td>The compiler reads the types at the call</td></tr><tr><td>A different order of parameters</td><td>Yes</td><td><code>(int, float)</code> and <code>(float, int)</code> are distinguishable</td></tr><tr><td><code>const</code> on a pointer parameter</td><td>Yes</td><td><code>char</code> pointer and <code>const char</code> pointer are genuinely different types</td></tr><tr><td>The return type only</td><td><b>No</b></td><td>The call does not reveal the return type</td></tr><tr><td>A <code>typedef</code> name</td><td><b>No</b></td><td><code>typedef</code> renames a type, it does not create one</td></tr></tbody></table></div>
+<div class="box warn"><span class="l">Watch out</span><p><code>int f(int);</code> and <code>double f(int);</code> are not overloads, they are a redeclaration conflict. Think of the statement <code>f(3);</code> written on its own line with the result thrown away &mdash; the compiler sees only the argument, so it has nothing to choose with.</p></div>
+<h4 class="sec">4.2 The order the compiler searches in</h4>
+<div class="box"><span class="l">Overload resolution, in order</span><p>Exact match &rarr; promotion &rarr; standard conversion &rarr; user-defined conversion &rarr; ellipsis. The compiler stops at the first level where <b>exactly one</b> candidate matches. If a level produces two candidates and there is no tie-break, the call is ambiguous &mdash; and the error appears at the call, not at the declarations.</p></div>
+<p>The one that catches people: <b>promotion beats conversion</b>. Given <code>f(int)</code> and <code>f(double)</code>, a <code>char</code> argument goes to <code>f(int)</code>, because <code>char</code> to <code>int</code> is a promotion while <code>char</code> to <code>double</code> is only a conversion. A <code>float</code> argument goes the other way, to <code>f(double)</code>, for exactly the same reason.</p>
+<h4 class="sec">4.3 Default arguments</h4>
+<div class="eq">int sum(int n1, int n2, int n3 = 0, int n4 = 0);   // defaults go HERE
+
+int sum(int n1, int n2, int n3, int n4)            // NOT here
+{ return n1 + n2 + n3 + n4; }
+
+sum(10, 20);            // 30
+sum(10, 20, 30);        // 60
+sum(10, 20, 30, 40);    // 100</div>
+<ol class="num"><li>Default values go in the <b>prototype</b>, not in the definition. The compiler builds a call from the prototype.</li><li>Only <b>trailing</b> arguments may have defaults. A gap in the middle is illegal, because arguments are matched left to right and <code>sum(1, 2)</code> would become impossible to read.</li><li>The default may be a global constant, a global variable, or even a function call &mdash; <code>int f(int flag = display());</code> is legal.</li></ol>
+<div class="box tip"><span class="l">Exam tip</span><p>The best reason to give for default arguments: they let you <b>add a parameter to a function without breaking any code that already calls it</b>. Old calls keep working with the old number of arguments.</p></div>
+<h4 class="sec">4.4 Where overloading and defaults collide</h4>
+<div class="eq">void show(int a, int b = 10);   // can be called with ONE argument
+void show(int a);               // can ALSO be called with one
+
+show(5, 6);    // fine
+show(5);       // ERROR -- ambiguous</div>
+<p>A default argument does not create a second function. It lets the existing one be called with fewer arguments. So <code>show(5)</code> is an exact match for both declarations and neither is better. The fix is to remove the clash: delete one declaration, or drop the default.</p>
+<h4 class="sec">4.5 Inline functions</h4>
+<p>Every call costs time: arguments are pushed on the stack, control is transferred, registers are saved, control comes back. For a two-line function that overhead can be most of the work. An <b>inline</b> function is expanded where it is called, so there is no call at all.</p>
+<div class="eq">inline double cube(double a) { return a * a * a; }
+
+c = cube(3.0);        // becomes 3.0 * 3.0 * 3.0
+d = cube(2.5 + 1.5);  // correct -- a macro would get this WRONG</div>
+<ul class="bul"><li><code>inline</code> is a <b>request, not a command</b>. The compiler may refuse, and usually does for a function with a loop, a switch, or recursion.</li><li>A member function defined <b>inside</b> the class body is inline automatically &mdash; you do not write the keyword.</li><li>The gain shrinks as the function grows, and each call site gets its own copy of the code, so a large inline function causes <b>code bloat</b>.</li><li>It beats a macro because a macro is text substitution with no type checking: <code>#define Square(x) (x*x)</code> turns <code>Square(3+1)</code> into <code>3+1*3+1</code>, which is 7.</li></ul>
+<div class="work"><span class="l">Predict the output</span>
+<p>Default arguments and overload resolution in one go. Trace the two calls to <code>show</code>
+carefully &mdash; neither argument is an exact match for anything.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+int sum(int a, int b, int c = 100);         // default in the prototype
+
+void show(int x)    { cout &lt;&lt; "int "    &lt;&lt; x &lt;&lt; endl; }
+void show(double x) { cout &lt;&lt; "double " &lt;&lt; x &lt;&lt; endl; }
+
+int main() {
+    cout &lt;&lt; sum(1, 2) &lt;&lt; endl;
+    cout &lt;&lt; sum(1, 2, 3) &lt;&lt; endl;
+    show('A');
+    show(2.5f);
+    return 0;
+}
+
+int sum(int a, int b, int c) { return a + b + c; }   // no default here</div>
+<p><b>Output</b></p>
+<div class="eq">103
+6
+int 65
+double 2.5</div>
+<p><code>sum(1, 2)</code> takes the default, so it is 1 + 2 + 100. <code>sum(1, 2, 3)</code>
+supplies its own third argument, so the default is never used.</p>
+<p><code>show('A')</code> has no exact match. <code>char</code> to <code>int</code> is an
+<b>integral promotion</b>; <code>char</code> to <code>double</code> is only a standard conversion.
+Promotion ranks higher, so <code>show(int)</code> wins and prints the code for 'A', which is
+<b>65</b>.</p>
+<p><code>show(2.5f)</code> is the same rule running the other way: <code>float</code> to
+<code>double</code> is a promotion, <code>float</code> to <code>int</code> is a lossy conversion.
+So <code>show(double)</code> wins and prints 2.5.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 04 at a glance</span><ul><li>Overloaded functions must differ in the <b>type, number or order</b> of parameters. A different return type alone is not an overload, it is an error.</li><li>Resolution order: exact match, then promotion, then standard conversion, then user-defined conversion, then ellipsis &mdash; and <b>promotion beats conversion</b>.</li><li>Default argument values belong in the <b>prototype</b>, and only trailing arguments may have them.</li><li>A one-argument call that matches both an overload and a defaulted parameter is <b>ambiguous</b>, and the error appears at the call, not at the declaration.</li><li><code>inline</code> is a request the compiler may refuse; a member function defined inside the class body is inline automatically.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c5">
+<div class="chhead"><span class="cn">Chapter 05</span><h2>Call by value, address and reference</h2></div>
+<p class="chintro">Three marks, almost guaranteed, and the classic question is the swap program written all three ways. This chapter settles what is actually passed in each case, what the call site looks like, and which one to choose &mdash; plus the one thing that makes call by reference slightly dangerous.</p>
+<div class="body">
+<h4 class="sec">5.1 The three mechanisms</h4>
+<div class="eq">void swap(int a, int b)      // by VALUE -- a and b are copies
+{ int t = a; a = b; b = t; }
+swap(x, y);                  // x and y are unchanged
+
+void swap(int *a, int *b)    // by ADDRESS -- a and b hold addresses
+{ int t = *a; *a = *b; *b = t; }
+swap(&amp;x, &amp;y);                // the &amp; at the call gives it away
+
+void swap(int &amp;a, int &amp;b)    // by REFERENCE -- a and b are aliases
+{ int t = a; a = b; b = t; }
+swap(x, y);                  // looks exactly like call by value</div>
+
+<h4 class="sec">5.2 The table to write in the exam</h4>
+<div class="tw"><table><thead><tr><th></th><th>Call by value</th><th>Call by address</th><th>Call by reference</th></tr></thead><tbody><tr><td>What is passed</td><td>A copy of the value</td><td>The address, itself passed by value</td><td>An alias for the original</td></tr><tr><td>Header looks like</td><td><code>f(int a)</code></td><td><code>f(int *a)</code></td><td><code>f(int &amp;a)</code></td></tr><tr><td>Call looks like</td><td><code>f(x);</code></td><td><code>f(&amp;x);</code></td><td><code>f(x);</code></td></tr><tr><td>Inside, you write</td><td><code>a</code></td><td><code>*a</code>, every single time</td><td><code>a</code></td></tr><tr><td>Changes the original</td><td>No</td><td>Yes</td><td>Yes</td></tr><tr><td>Can be null</td><td>Not applicable</td><td>Yes, so it must be checked</td><td>No &mdash; a reference always refers to something</td></tr><tr><td>Available in</td><td>C and C++</td><td>C and C++</td><td><b>C++ only</b></td></tr></tbody></table></div>
+<h4 class="sec">5.3 Which to use, and why</h4>
+<ul class="bul"><li><b>Value</b> &mdash; for small built-in types you do not intend to modify. It is the safest, because the function physically cannot damage the caller&rsquo;s data.</li><li><b>Reference</b> &mdash; when the function must modify the argument, and for large objects you want to pass without copying. Add <code>const</code> when you want the speed of a reference with the safety of a value.</li><li><b>Address</b> &mdash; when the argument is genuinely optional, so that a null pointer means something, or when interfacing with C.</li></ul>
+<div class="box warn"><span class="l">The one real downside of call by reference</span><p>The call site is identical to call by value. A reader of <code>f(x);</code> cannot tell that <code>x</code> is about to be modified &mdash; only the function header says so. Call by address at least announces itself with the <code>&amp;</code> at the call.</p></div>
+<div class="work"><span class="l">Predict the output</span>
+<p>Three functions, three mechanisms, one line of output.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+void f1(int x)  { x = x * 2; }
+void f2(int *x) { *x = *x * 2; }
+void f3(int &amp;x) { x = x * 2; }
+
+int main() {
+    int a = 3, b = 3, c = 3;
+    f1(a);
+    f2(&amp;b);
+    f3(c);
+    cout &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; " " &lt;&lt; c &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">3 6 6</div>
+<p><code>f1</code> doubled its own private copy and then threw it away, so <code>a</code> is
+still 3. <code>f2</code> received the address of <code>b</code> and wrote through it, so
+<code>b</code> is 6. <code>f3</code> received an alias for <code>c</code>, so writing to
+<code>x</code> is writing to <code>c</code>, and it is 6 as well.</p>
+<p>The exam point is the pair of call sites <code>f1(a)</code> and <code>f3(c)</code>. They look
+identical, yet one is harmless and the other modifies the caller. References are a C++ addition
+&mdash; C has only value and address &mdash; and this is the price of the convenience.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 05 at a glance</span><ul><li>Call by value passes a <b>copy</b>, so the caller&rsquo;s variable can never change.</li><li>Call by address passes the <b>address</b>; inside the function you must dereference with a star every time, and the call site shows an <code>&amp;</code>.</li><li>Call by reference passes an <b>alias</b>; the function body looks like call by value and so does the call, but the original does change.</li><li>Call by reference is the only one of the three that C does not have.</li><li>Use value for small unmodified types, reference to modify or to avoid copying a large object, address when a null argument has to be meaningful.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c6">
+<div class="chhead"><span class="cn">Chapter 06</span><h2>Classes and objects</h2></div>
+<p class="chintro">This is the subject itself, and four or five marks of the paper. The chapter settles how a class is declared, what private really means, the two places a member function body may live, and what memory actually looks like when you make ten objects. It ends with the find-the-errors question in the shape the paper sets it.</p>
+<div class="body">
+<h4 class="sec">6.1 Declaring a class</h4>
+<div class="eq">class item
+{
+    int number;            // private by default
+    float cost;
+
+public:
+    void getdata(int a, float b);
+    void putdata(void);
+};                          // the semicolon is part of the syntax
+
+item x;                     // an object
+item arr[10];               // an array of objects</div>
+<div class="box warn"><span class="l">The most common syntax error in the course</span><p>A class declaration ends with <code>};</code> and not with <code>}</code>. Leave the semicolon out and the compiler reports a wall of errors that all point at the <b>next</b> line, not at the class.</p></div>
+<h4 class="sec">6.2 private, public, protected</h4>
+<div class="tw"><table><thead><tr><th>Specifier</th><th>Its own class</th><th>A derived class</th><th>The outside world</th></tr></thead><tbody><tr><td><code>private</code></td><td>yes</td><td>no</td><td>no</td></tr><tr><td><code>protected</code></td><td>yes</td><td>yes</td><td>no</td></tr><tr><td><code>public</code></td><td>yes</td><td>yes</td><td>yes</td></tr></tbody></table></div>
+<p>Members are <b>private by default</b> in a class. An object may call a public member function, but it may not touch a private data member: <code>x.getdata(100, 75.5);</code> is legal and <code>x.number = 100;</code> is not. That is encapsulation actually working &mdash; and it is the planted error in nearly every find-the-errors question.</p>
+<div class="box"><span class="l">State it in exactly these words</span><p>Objects cannot access the private members of a class directly. They must go through a public member function &mdash; which can check the value first.</p></div>
+<h4 class="sec">6.3 Where the member function body goes</h4>
+<div class="eq">// OUTSIDE the class -- the usual form
+void item :: getdata(int a, float b)
+{ number = a; cost = b; }
+
+// INSIDE the class -- automatically inline
+class item {
+    int number;
+public:
+    void putdata(void) { cout &lt;&lt; number &lt;&lt; endl; }
+};</div>
+<p>The membership label <code>item ::</code> is what tells the compiler the function belongs to <code>item</code>, and that is what gives it permission to touch the private members. Leave it out and you have written an ordinary global function that cannot see them. Three facts follow: several classes may use the same function name, a member function may reach the private data, and a member function may call another member function of the same class with no dot at all.</p>
+<h4 class="sec">6.4 What memory looks like</h4>
+<div class="box"><span class="l">One sentence, one whole answer</span><p>Memory for <b>data members is allocated separately for each object</b>; <b>member functions are stored once</b> and shared by every object of the class. Ten objects means ten sets of data and one copy of the code.</p></div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 700 290" width="700" height="290" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="Memory allocation for objects" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><rect x="120" y="44" width="460" height="52" fill="var(--spot-wash)" stroke="var(--spot)" stroke-width="2" /><text x="350" y="68" font-size="12" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--spot)" stroke="none">MEMBER FUNCTIONS &mdash; one copy, shared</text><text x="350" y="86" font-size="10.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="var(--spot)" stroke="none">area()   set()   show()</text><rect x="120" y="156" width="140" height="72" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="190" y="180" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">object 1</text><text x="190" y="204" font-size="13" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">len = 3</text><line x1="190" y1="152" x2="190" y2="100" stroke="var(--spot)" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#ahs)"/><rect x="280" y="156" width="140" height="72" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="350" y="180" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">object 2</text><text x="350" y="204" font-size="13" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">len = 5</text><line x1="350" y1="152" x2="350" y2="100" stroke="var(--spot)" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#ahs)"/><rect x="440" y="156" width="140" height="72" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="510" y="180" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">object 3</text><text x="510" y="204" font-size="13" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">len = 7</text><line x1="510" y1="152" x2="510" y2="100" stroke="var(--spot)" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#ahs)"/><text x="14" y="26" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.6">WHAT AN OBJECT ACTUALLY COSTS</text><text x="14" y="246" font-size="9.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">every object gets its own copy of the DATA members &mdash; that is all sizeof(obj) measures.</text><text x="14" y="262" font-size="9.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the FUNCTIONS exist once for the whole class. Three objects do not mean three copies of area().</text><text x="14" y="282" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">the this pointer is how one shared function knows which object it was called on.</text></svg></div><figcaption>Fig. 6.1 One wide box at the top labelled with the member functions, marked "one copy, shared". Below it, three small identical boxes, one per object, each holding its own <code>number</code> and <code>cost</code>, with dotted arrows from all three up to the shared code.</figcaption></figure>
+<h4 class="sec">6.5 Objects as arguments and return values</h4>
+<div class="eq">class complex {
+    float x, y;
+public:
+    void input(float r, float i) { x = r; y = i; }
+
+    complex sum(complex c)          // object in, object out
+    {
+        complex temp;
+        temp.x = x + c.x;           // c.x is PRIVATE -- and legal
+        temp.y = y + c.y;
+        return temp;
+    }
+    void show() { cout &lt;&lt; x &lt;&lt; " + j" &lt;&lt; y &lt;&lt; endl; }
+};
+
+c3 = c1.sum(c2);                    // 2.5+j3.5 plus 1.6+j2.7 -> 4.1 + j6.2</div>
+<div class="box tip"><span class="l">The surprising rule</span><p>Privacy in C++ is <b>per class, not per object</b>. A member function of <code>complex</code> may read the private members of any <code>complex</code>, not only its own. That is why <code>temp.x</code> and <code>c.x</code> are both allowed inside <code>sum</code>. Remember this program &mdash; in Chapter 10 it becomes <code>c3 = c1 + c2;</code>.</p></div>
+<div class="work"><span class="l">Find the five errors</span>
+<p>The program below does not compile. Give the line, say why, and write the correction &mdash;
+that is exactly how the marks are split, one per error, half for naming a line without fixing it.</p>
+<div class="eq"> 1  #include &lt;iostream&gt;
+ 2  using namespace std;
+ 3
+ 4  class Box {
+ 5      int len;
+ 6  public:
+ 7      Box(int l) { len = l; }
+ 8      int area();
+ 9  }
+10
+11  int area() { return len * len; }
+12
+13  int main() {
+14      Box b;
+15      b.len = 5;
+16      cout &lt;&lt; b.area;
+17      return 0;
+18  }</div>
+<p><b>Line 9</b> &mdash; a class declaration must end with <code>};</code>. Add the semicolon.</p>
+<p><b>Line 11</b> &mdash; the function is defined without the class name, so it is a global
+function, not <code>Box</code>'s member, and a global function cannot see <code>len</code>. Two
+errors for the price of one. Write <code>int Box::area() { return len * len; }</code>.</p>
+<p><b>Line 14</b> &mdash; <code>Box b;</code> calls a default constructor, but the moment you
+write any constructor of your own the compiler stops supplying one. Write <code>Box b(5);</code>,
+or add <code>Box() { len = 0; }</code> to the class.</p>
+<p><b>Line 15</b> &mdash; <code>len</code> is private and <code>main()</code> is outside the
+class. Delete the line, or add a public <code>void set(int l) { len = l; }</code> and call
+<code>b.set(5);</code>.</p>
+<p><b>Line 16</b> &mdash; <code>b.area</code> is the function itself, not a call. A member
+function name without brackets cannot be streamed. Write
+<code>cout &lt;&lt; b.area() &lt;&lt; endl;</code>.</p>
+<p>Corrected, the program prints <b>25</b>.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 06 at a glance</span><ul><li>A class declaration ends with <code>};</code> &mdash; the missing semicolon is the single most common syntax error in this subject.</li><li>Members of a class are <b>private by default</b>, and an object may reach them only through a public member function.</li><li>A member function defined outside the class needs the membership label <code>ClassName::</code>; without it, it is a global function with no access to private data.</li><li>A member function defined <b>inside</b> the class body is inline automatically.</li><li>Data members get one copy <b>per object</b>; member functions get <b>one copy for the whole class</b>.</li><li>Privacy is per class, not per object &mdash; a member function may read the private data of any object of its own class.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c7">
+<div class="chhead"><span class="cn">Chapter 07</span><h2>static members, friends, const and this</h2></div>
+<p class="chintro">Six marks are spread across this chapter: a static question and a friend question are both very likely. What they have in common is that each one breaks a rule you were taught earlier &mdash; static data belongs to no object, a friend is not a member, a const function may not write, and <code>this</code> is the hidden argument that explains all of it.</p>
+<div class="body">
+<h4 class="sec">7.1 static data members</h4>
+<ol class="num"><li>Only <b>one copy</b> exists for the entire class, shared by every object, no matter how many objects are created.</li><li>It is initialised to <b>zero</b> when the first object is created. No other initialisation is permitted.</li><li>It is visible only within the class, but its lifetime is the whole program.</li><li>It must be <b>defined outside the class</b> to give it storage.</li></ol>
+<div class="eq">class item {
+    static int count;        // declared -- says it exists
+    int number;
+public:
+    void getdata(int a) { number = a; count++; }
+    static int live()   { return count; }
+};
+
+int item :: count = 0;       // DEFINED -- storage happens here</div>
+<div class="box warn"><span class="l">The line everybody forgets</span><p><code>int item::count = 0;</code> at file scope is not optional. Without it the program compiles and then fails at <b>link</b> time with "undefined reference to item::count". Note that the definition does not repeat the word <code>static</code>, and that it is allowed to touch a private member because it is part of the class.</p></div>
+<h4 class="sec">7.2 static member functions</h4>
+<ul class="bul"><li>It can be called using the <b>class name</b>, with no object at all: <code>item::live();</code></li><li>It has <b>no <code>this</code> pointer</b>, and therefore it may only touch other static members.</li><li>The reason is simple: it can be called before any object exists, so if it tried to read <code>number</code> the compiler would have to ask "whose number?" and there would be no answer.</li></ul>
+<h4 class="sec">7.3 friend functions</h4>
+<div class="eq">class B;                          // forward declaration -- REQUIRED
+
+class A {
+    int x;
+public:
+    A(int v) { x = v; }
+    friend int sum(A, B);         // B is only a NAME here, and that is enough
+};
+
+class B {
+    int y;
+public:
+    B(int v) { y = v; }
+    friend int sum(A, B);
+};
+
+int sum(A a, B b) { return a.x + b.y; }   // no "friend", no "A::"</div>
+<p>The forward declaration is needed because class <code>A</code> is compiled first and its friend declaration mentions <code>B</code>, a name the compiler has not met. <code>class B;</code> promises that a class of that name exists, which is all the compiler needs to parse the parameter list.</p>
+<div class="box"><span class="l">The properties of a friend function &mdash; the list they want</span><p><b>1.</b> It is not a member of the class, even though it is declared inside it, and it is not in the class scope. <b>2.</b> It is called like an ordinary function, with no object: <code>sum(a, b)</code>, never <code>a.sum(b)</code>. <b>3.</b> It has <b>no <code>this</code> pointer</b>, so every object it works on must be passed as an argument &mdash; which is why it takes one more argument than the member version would. <b>4.</b> It may be declared in the public or the private section; it makes no difference. <b>5.</b> It can reach both private and protected members. <b>6.</b> Friendship is <b>granted, not taken</b>; it is <b>not mutual</b>; and it is <b>not inherited</b>.</p></div>
+<div class="box tip"><span class="l">Why C++ allows it at all</span><p>It looks like a hole in encapsulation and it is &mdash; a deliberate one. Two situations need it: a function that must reach inside two unrelated classes, and an operator whose left operand is not an object of your class. The class still controls who gets in, because the invitation is written in the class itself.</p></div>
+<h4 class="sec">7.4 const member functions</h4>
+<div class="eq">class item {
+    int number;
+public:
+    int getnumber() const;       // const goes at the END
+};
+
+int item :: getnumber() const    // and again in the definition
+{ return number; }               // writing number = 5; here is a compile error</div>
+<p>Mark every getter and every display function <code>const</code>. It documents the promise, the compiler enforces it, and &mdash; the practical reason &mdash; a <code>const</code> object can only call <code>const</code> member functions. Forget the <code>const</code> and your function becomes unusable on const objects and on const references.</p>
+<h4 class="sec">7.5 The this pointer</h4>
+<p>Every non-static member function receives a hidden extra argument: a pointer to the object it was called on, named <code>this</code>. When you write <code>number</code> inside a member function, the compiler reads it as <code>this-&gt;number</code>. Three places where you have to write it yourself:</p>
+<ul class="bul"><li>To return the object itself, so that chained assignment works: <code>return *this;</code></li><li>To guard against self-assignment: <code>if (this != &amp;other) { ... }</code></li><li>When a parameter has the same name as a data member.</li></ul>
+<p>It also explains two rules you already know. A <b>static</b> member function has no <code>this</code>, which is why it cannot touch ordinary data members. A <b>friend</b> function has no <code>this</code> either, which is why it needs every object handed to it as an argument.</p>
+<div class="work"><span class="l">Predict the output</span>
+<p>One shared counter, three separate ids, and a call with no object.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+class Item {
+    static int count;
+    int id;
+public:
+    void set()  { id = ++count; }
+    void show() { cout &lt;&lt; "id " &lt;&lt; id &lt;&lt; ", count " &lt;&lt; count &lt;&lt; endl; }
+    static int live() { return count; }
+};
+
+int Item::count = 0;              // definition at file scope
+
+int main() {
+    Item a, b, c;
+    a.set();  b.set();  c.set();
+    a.show();
+    c.show();
+    cout &lt;&lt; Item::live() &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">id 1, count 3
+id 3, count 3
+3</div>
+<p><code>count</code> is not one variable per object &mdash; it is a single variable shared by
+every <code>Item</code>. That is why the ids come out 1, 2, 3 instead of every object thinking it
+is number 1, and why <code>a</code> reports a count of 3 even though <code>a</code> itself was
+the first one made.</p>
+<p><code>live()</code> is <code>static</code>, so it is called as <code>Item::live()</code> with
+no object at all. It is allowed to read <code>count</code> because <code>count</code> is static
+too; it could not read <code>id</code>, because there would be no object to read it from.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 07 at a glance</span><ul><li>A <code>static</code> data member is <b>one variable shared by the whole class</b>, and it must be defined once outside the class or the program will not link.</li><li>A <code>static</code> member function is called as <code>ClassName::f()</code>, has no <code>this</code>, and may touch only other static members.</li><li>A <b>friend function is not a member</b>: no dot, no <code>ClassName::</code>, no <code>this</code>, and every object it works on is passed as an argument.</li><li>Friendship is granted by the class, is not mutual, and is not inherited.</li><li>A <code>const</code> member function may not modify the object, and a const object can call nothing else.</li><li><code>this</code> is the hidden pointer to the calling object; <code>return *this;</code> and <code>if (this != &amp;other)</code> are the two places you write it.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c8">
+<div class="chhead"><span class="cn">Chapter 08</span><h2>Constructors and destructors</h2></div>
+<p class="chintro">Four or five marks, and the single most likely predict-the-output question on the paper. This chapter settles the four rules a constructor obeys, the four kinds of constructor, the trap where the free default constructor disappears, and the ordering rule that every trace question is really testing.</p>
+<div class="body">
+<h4 class="sec">8.1 The four rules</h4>
+<ol class="num"><li>It has the <b>same name as the class</b>.</li><li>It is called <b>automatically</b> when an object is created. You never call it yourself.</li><li>It has <b>no return type</b> &mdash; not even <code>void</code>.</li><li>It should be declared in the <b>public</b> section.</li></ol>
+<p>Why they exist: without a constructor a freshly made object holds whatever rubbish was in that memory. A constructor guarantees an object is never in an invalid state, not even for one instruction.</p>
+<h4 class="sec">8.2 The four kinds</h4>
+<div class="eq">class integer {
+    int m, n;
+public:
+    integer()            { m = 0; n = 0; }      // 1 default
+    integer(int a, int b){ m = a; n = b; }      // 2 parameterized
+    integer(integer &amp;i)  { m = i.m; n = i.n; }  // 3 copy
+};
+
+integer I1;                  // default
+integer I2(20, 40);          // parameterized, implicit
+integer I3 = integer(0,10);  // parameterized, explicit
+integer I4(I2);              // copy</div>
+<p>The fourth kind is the <b>dynamic constructor</b> &mdash; one that calls <code>new</code> while the object is being built, so the object decides at run time how much memory it needs. That is the <code>String</code> class of Chapter 9, and whatever it takes with <code>new</code> the destructor must give back with <code>delete</code>.</p>
+<h4 class="sec">8.3 The default constructor that disappears</h4>
+<div class="box warn"><span class="l">The planted error in every find-the-errors question</span><p>The compiler supplies a free default constructor <b>only while you have written none of your own</b>. Write <code>Box(int l)</code> and <code>Box b;</code> becomes a compile error. If you need both forms, write both constructors.</p></div>
+<p>A second, quieter trap: if a class has both <code>complex()</code> and <code>complex(float r = 0, float i = 0)</code>, then <code>complex c;</code> is <b>ambiguous</b>, because both can be called with zero arguments. Do not write both.</p>
+<h4 class="sec">8.4 Destructors</h4>
+<ul class="bul"><li>Same name as the class with a tilde in front: <code>~item()</code>.</li><li>Takes <b>no arguments</b> and returns nothing.</li><li>Called <b>automatically</b> when the object goes out of scope.</li><li>There is exactly <b>one per class</b> &mdash; a destructor cannot be overloaded.</li><li>Its real job is releasing what the constructor took: <code>delete[] name;</code></li></ul>
+<div class="tw"><table><thead><tr><th></th><th>Constructor</th><th>Destructor</th></tr></thead><tbody><tr><td>Name</td><td>Same as the class</td><td>Same as the class with <code>~</code> in front</td></tr><tr><td>When it runs</td><td>When an object is created</td><td>When an object is destroyed</td></tr><tr><td>Arguments</td><td>Can take them</td><td>Never</td></tr><tr><td>Return type</td><td>None</td><td>None</td></tr><tr><td>Overloading</td><td>Can be overloaded</td><td><b>Cannot</b> &mdash; one per class</td></tr><tr><td>Typical job</td><td>Initialise data, allocate memory</td><td>Release memory, close files</td></tr><tr><td>Order for several objects</td><td>Order of creation</td><td><b>Reverse</b> order of creation</td></tr></tbody></table></div>
+<h4 class="sec">8.5 The ordering rule</h4>
+<div class="box"><span class="l">The rule every trace question is testing</span><p>Objects are destroyed in the <b>exact reverse</b> of the order they were created, and destruction follows <b>scope</b>: an object declared inside an inner block dies at that block&rsquo;s closing brace, not at the end of <code>main</code>.</p></div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 700 300" width="700" height="300" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="Construction and destruction order" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="16" y="22" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.8">CONSTRUCTION</text><text x="392" y="22" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none" letter-spacing="1.8">DESTRUCTION</text><rect x="30" y="48" width="300" height="46" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="46" y="76" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">Item a;</text><text x="180" y="76" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">ctor 1</text><line x1="16" y1="52" x2="16" y2="100" stroke="var(--spot)" stroke-width="1.6" marker-end="url(#ahs)"/><rect x="30" y="110" width="300" height="46" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="46" y="138" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">Item b;</text><text x="180" y="138" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">ctor 2</text><line x1="16" y1="114" x2="16" y2="162" stroke="var(--spot)" stroke-width="1.6" marker-end="url(#ahs)"/><rect x="30" y="172" width="300" height="46" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="46" y="200" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">Item c;</text><text x="180" y="200" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">ctor 3</text><line x1="16" y1="176" x2="16" y2="224" stroke="var(--spot)" stroke-width="1.6" marker-end="url(#ahs)"/><rect x="392" y="48" width="300" height="46" fill="none" stroke="var(--pink)" stroke-width="1.8" /><text x="408" y="76" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">~Item c</text><text x="556" y="76" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">dtor 3</text><rect x="392" y="110" width="300" height="46" fill="none" stroke="var(--pink)" stroke-width="1.8" /><text x="408" y="138" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">~Item b</text><text x="556" y="138" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">dtor 2</text><rect x="392" y="172" width="300" height="46" fill="none" stroke="var(--pink)" stroke-width="1.8" /><text x="408" y="200" font-size="13" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">~Item a</text><text x="556" y="200" font-size="11" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">dtor 1</text><line x1="360" y1="40" x2="360" y2="244" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".4"/><text x="16" y="256" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">last in, first out. Objects on the stack are destroyed in exactly</text><text x="16" y="272" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the reverse of the order they were built in &mdash; always, with no exceptions.</text><text x="16" y="292" font-size="11.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">ctor 1  ctor 2  ctor 3  &rarr;  dtor 3  dtor 2  dtor 1</text></svg></div><figcaption>Fig. 8.1 A stack drawn as boxes pushed left to right for x, then y and z inside an inner block. Arrows below show construction running left to right and destruction running right to left, with a vertical line at the inner closing brace where y and z are popped while x is still alive.</figcaption></figure>
+<div class="work"><span class="l">Predict the output</span>
+<p>Eight lines of output, and the order is the whole question. Trace it with a finger on the
+closing brace.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+class A {
+    int n;
+public:
+    A(int k) { n = k; cout &lt;&lt; "ctor " &lt;&lt; n &lt;&lt; endl; }
+    ~A()     {         cout &lt;&lt; "dtor " &lt;&lt; n &lt;&lt; endl; }
+};
+
+int main() {
+    A x(1);
+    {
+        A y(2), z(3);
+        cout &lt;&lt; "-- leaving block --" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "-- back in main --" &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">ctor 1
+ctor 2
+ctor 3
+-- leaving block --
+dtor 3
+dtor 2
+-- back in main --
+dtor 1</div>
+<p>Two things produce that order. First, objects on the stack are destroyed last in, first out,
+so inside the block it is <code>z</code> before <code>y</code> &mdash; you see
+<code>dtor 3</code> before <code>dtor 2</code>, never the other way round.</p>
+<p>Second, the inner block has its own scope, so <code>y</code> and <code>z</code> die at the
+closing brace, while <code>x</code> is still alive and keeps going until <code>main</code> ends.
+That is why <code>dtor 1</code> is last and appears after the final message, not before it.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 08 at a glance</span><ul><li>A constructor has the class&rsquo;s name, no return type, runs automatically, and belongs in the public section.</li><li>Four kinds: <b>default, parameterized, copy, dynamic</b>. Constructors can be overloaded; a destructor cannot.</li><li>Write any constructor of your own and the free default one disappears &mdash; <code>Box b;</code> then fails to compile.</li><li>A destructor is <code>~ClassName()</code>, takes no arguments, and releases whatever the constructor allocated.</li><li>Objects are destroyed in the <b>reverse order of creation</b>, and an object in an inner block dies at that block&rsquo;s closing brace.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c9">
+<div class="chhead"><span class="cn">Chapter 09</span><h2>The copy constructor, shallow and deep</h2></div>
+<p class="chintro">Three or four marks, and the question is almost always the same one: a class holding a raw pointer, no copy constructor, and two objects that end up sharing one buffer. This chapter settles when the copy constructor runs, why its parameter must be a reference, what a shallow copy breaks, and the rule of three that fixes it.</p>
+<div class="body">
+<h4 class="sec">9.1 When the copy constructor runs</h4>
+<div class="eq">integer I2(20, 40);
+
+integer I3(I2);       // 1. explicit copy
+integer I4 = I2;      // 2. copy initialisation -- SAME thing
+
+integer I5;
+I5 = I2;              // NOT the copy constructor -- assignment</div>
+<ul class="bul"><li>When an object is used to build another: <code>I3(I2)</code> and <code>I4 = I2</code>.</li><li>When an object is passed to a function <b>by value</b> &mdash; the function&rsquo;s copy is built by the copy constructor.</li><li>When an object is returned from a function <b>by value</b>.</li></ul>
+<div class="box"><span class="l">The distinction people get wrong</span><p><code>integer I4 = I2;</code> calls the <b>copy constructor</b>, because <code>I4</code> is being created. <code>I4 = I2;</code> on a later line, when <code>I4</code> already exists, calls the <b>assignment operator</b>. Same symbol, two different jobs, decided by whether the object already exists.</p></div>
+<h4 class="sec">9.2 Why the parameter must be a reference</h4>
+<div class="eq">class A { public: A(A);  };   // ERROR -- by value
+class A { public: A(A&amp;); };   // correct -- by reference</div>
+<p>Passing an object by value means making a copy. Making a copy means calling the copy constructor. So <code>A(A)</code> would have to call itself to build its own argument, which would call itself again, forever. The compiler rejects it outright. Write it as <code>A(const A &amp;a)</code> &mdash; the <code>const</code> is good practice, the <code>&amp;</code> is compulsory.</p>
+<h4 class="sec">9.3 What a shallow copy breaks</h4>
+<p>If you write no copy constructor, the compiler supplies one, and it does a plain <b>member by member copy</b>. When the only member is a pointer, what gets copied is the address &mdash; not the thing it points at.</p>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 720 290" width="720" height="290" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="Shallow copy against deep copy" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="30" y="24" font-size="9.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none" letter-spacing="1.4">SHALLOW &mdash; THE DEFAULT</text><rect x="30" y="42" width="116" height="42" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="88" y="68" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">a.p</text><rect x="30" y="158" width="116" height="42" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="88" y="184" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">b.p</text><rect x="198" y="100" width="132" height="42" fill="none" stroke="var(--pink)" stroke-width="2.2" /><text x="264" y="126" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">J E L L O</text><path d="M146,63 L174,63 L194,118" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><path d="M146,179 L174,179 L194,124" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><text x="30" y="234" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">one buffer, two owners. Changing b changes a,</text><text x="30" y="250" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">and it is freed twice at the end &mdash; undefined.</text><text x="392" y="24" font-size="9.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.4">DEEP &mdash; WHAT YOU MUST WRITE</text><rect x="392" y="42" width="116" height="42" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="450" y="68" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">a.p</text><rect x="392" y="158" width="116" height="42" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="450" y="184" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">b.p</text><rect x="560" y="42" width="132" height="42" fill="none" stroke="var(--spot)" stroke-width="1.8" /><text x="626" y="68" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">H E L L O</text><rect x="560" y="158" width="132" height="42" fill="none" stroke="var(--spot)" stroke-width="1.8" /><text x="626" y="184" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none">J E L L O</text><line x1="508" y1="63" x2="556" y2="63" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><line x1="508" y1="179" x2="556" y2="179" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><text x="392" y="234" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">two buffers. Changing b leaves a alone,</text><text x="392" y="250" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">and each destructor frees its own.</text><line x1="362" y1="34" x2="362" y2="262" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".4"/><text x="30" y="284" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">own a pointer and you need all three: destructor, copy constructor, copy assignment.</text></svg></div><figcaption>Fig. 9.1 Two panels. Left, shallow: two objects <code>a</code> and <code>b</code>, each holding a pointer, both arrows landing on the same buffer, with two <code>delete[]</code> labels aimed at that single buffer. Right, deep: two objects with two arrows into two separate buffers holding the same characters, each with its own <code>delete[]</code>.</figcaption></figure>
+<div class="tw"><table><thead><tr><th></th><th>Shallow copy</th><th>Deep copy</th></tr></thead><tbody><tr><td>Who writes it</td><td>The compiler, if you write nothing</td><td>You, by hand</td></tr><tr><td>What is copied</td><td>The pointer &mdash; the address</td><td>A fresh buffer with the same contents</td></tr><tr><td>After the copy</td><td>Two objects share one buffer</td><td>Two independent objects</td></tr><tr><td>Changing one</td><td>Silently changes the other</td><td>Changes only that one</td></tr><tr><td>At destruction</td><td>The same block is released twice &mdash; undefined behaviour</td><td>Each object releases its own block</td></tr><tr><td>Needed when</td><td>Never, if the class owns a pointer</td><td>Always, if the class owns a pointer</td></tr></tbody></table></div>
+<h4 class="sec">9.4 The fix, in full</h4>
+<div class="eq">class Str {
+    char *p;
+public:
+    Str(const char *s) { p = new char[strlen(s)+1]; strcpy(p, s); }
+
+    Str(const Str &amp;s)              // DEEP copy constructor
+    {
+        p = new char[strlen(s.p)+1];
+        strcpy(p, s.p);
+    }
+
+    Str&amp; operator=(const Str &amp;s)   // or "a = b;" has the same bug
+    {
+        if (this != &amp;s) {          // guard against a = a;
+            delete[] p;
+            p = new char[strlen(s.p)+1];
+            strcpy(p, s.p);
+        }
+        return *this;              // so that a = b = c; works
+    }
+
+    ~Str() { delete[] p; }
+};</div>
+<div class="box"><span class="l">The rule of three, in the form to quote it</span><p>The moment a class owns a resource through a raw pointer it needs all three of a <b>destructor</b>, a <b>copy constructor</b> and a <b>copy assignment operator</b>. Write one and you almost certainly need the other two.</p></div>
+<div class="work"><span class="l">Predict the output</span>
+<p>Two defects, one output. Say what is printed and then name both defects &mdash; that is how
+the question is set.</p>
+<div class="eq">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class Str {
+    char *p;
+public:
+    Str(const char *s) { p = new char[strlen(s)+1]; strcpy(p, s); }
+    ~Str()                   { delete[] p; }
+    void set(int i, char c)  { p[i] = c; }
+    void show()              { cout &lt;&lt; p &lt;&lt; endl; }
+};
+
+int main() {
+    Str a("HELLO");
+    Str b = a;          // no copy constructor written
+    b.set(0, 'J');
+    a.show();
+    b.show();
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">JELLO
+JELLO</div>
+<p>...and then, on the way out of <code>main</code>, the program has <b>undefined behaviour</b>.
+Say that plainly rather than inventing a result: in practice it is a heap corruption or a crash,
+but the language does not define what happens.</p>
+<p><b>Defect 1, aliasing.</b> No copy constructor was written, so the compiler supplied one, and
+it copied the single member <code>p</code> &mdash; the address. Both objects now point at the one
+buffer, so <code>b.set(0,'J')</code> writes through <code>b.p</code> and <code>a</code> reads the
+same bytes. Two objects that were meant to be independent are not.</p>
+<p><b>Defect 2, the double delete.</b> At the end of <code>main</code>, <code>b</code> is
+destroyed and runs <code>delete[] p</code>. Then <code>a</code> is destroyed and runs
+<code>delete[]</code> on the same address. This is the more serious of the two, because it can
+strike long after the real mistake.</p>
+<p>The fix is a deep copy constructor plus a matching assignment operator, as in section 9.4.
+With them, the output becomes <code>HELLO</code> then <code>JELLO</code>, and nothing
+crashes.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 09 at a glance</span><ul><li>The copy constructor runs when an object is <b>created</b> from another, and when an object is passed or returned <b>by value</b>.</li><li><code>X b = a;</code> is the copy constructor because <code>b</code> is being created; <code>b = a;</code> on a later line is assignment.</li><li>The parameter must be a reference &mdash; <code>A(A)</code> would need a copy to build its own argument, forever.</li><li>A compiler-supplied copy is <b>shallow</b>: it copies the pointer, so two objects end up sharing one buffer and deleting it twice.</li><li>The <b>rule of three</b>: a class that owns memory through a raw pointer needs a destructor, a copy constructor and a copy assignment operator.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c10">
+<div class="chhead"><span class="cn">Chapter 10</span><h2>Operator overloading, member or friend</h2></div>
+<p class="chintro">Four marks, usually a Complex class you have to write and then a "why does this not work" follow-up. Everything in this chapter falls out of one fact: the compiler rewrites every operator as a function call, and which rewrite it picks decides what is possible.</p>
+<div class="body">
+<h4 class="sec">10.1 What the compiler actually does</h4>
+<div class="eq">c3 = c1 + c2;
+
+as a MEMBER   ->   c3 = c1.operator+(c2);    // left operand is the object
+as a FRIEND   ->   c3 = operator+(c1, c2);   // both operands are arguments</div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 720 280" width="720" height="280" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="How the compiler rewrites a + b" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><rect x="280" y="34" width="160" height="48" fill="none" stroke="var(--spot)" stroke-width="2.2" /><text x="360" y="66" font-size="20" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">a + b</text><line x1="320" y1="82" x2="220" y2="122" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><line x1="400" y1="82" x2="500" y2="122" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/><rect x="66" y="126" width="300" height="56" fill="none" stroke="currentColor" stroke-width="1.8" /><text x="216" y="152" font-size="14" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">a.operator+(b)</text><text x="216" y="172" font-size="9.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">as a MEMBER &mdash; one parameter</text><rect x="392" y="126" width="300" height="56" fill="none" stroke="var(--spot)" stroke-width="1.8" /><text x="542" y="152" font-size="14" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">operator+(a, b)</text><text x="542" y="172" font-size="9.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="var(--spot)" stroke="none">as a FRIEND &mdash; two parameters</text><text x="216" y="206" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the left operand becomes this,</text><text x="216" y="221" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">so it is never converted.</text><text x="216" y="240" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">2 + a  fails</text><text x="542" y="206" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">both operands are ordinary parameters,</text><text x="542" y="221" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">so both are open to conversion.</text><text x="542" y="240" font-size="12" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">2 + a  works</text><text x="14" y="272" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">if the left operand might not be your class, it has to be a friend &mdash; which is why &lt;&lt; always is.</text></svg></div><figcaption>Fig. 10.1 The expression <code>a + b</code> with two arrows leaving it. One leads to <code>a.operator+(b)</code> with <code>a</code> labelled "the calling object, supplied as this" and <code>b</code> labelled "the one argument". The other leads to <code>operator+(a, b)</code> with both operands labelled "ordinary argument, open to conversion".</figcaption></figure>
+<div class="box"><span class="l">The one sentence everything follows from</span><p>For a <b>member</b> operator, <code>a + b</code> becomes <code>a.operator+(b)</code>: the left operand becomes the calling object and the right one becomes the argument. So a binary member operator takes <b>one</b> parameter and a binary friend takes <b>two</b>.</p></div>
+<h4 class="sec">10.2 Writing one</h4>
+<div class="eq">class Complex {
+    float re, im;
+public:
+    Complex()                  { re = im = 0; }
+    Complex(float r, float i)  { re = r; im = i; }
+
+    Complex operator+(Complex c)      // binary, member: ONE argument
+    {
+        Complex t;
+        t.re = re + c.re;
+        t.im = im + c.im;
+        return t;
+    }
+
+    void operator-()                  // unary, member: NO arguments
+    { re = -re; im = -im; }
+
+    void show() { cout &lt;&lt; re &lt;&lt; " + j" &lt;&lt; im &lt;&lt; endl; }
+};</div>
+<div class="tw"><table><thead><tr><th>Operator kind</th><th>As a member function</th><th>As a friend function</th></tr></thead><tbody><tr><td>Unary &mdash; one operand</td><td>0 arguments</td><td>1 argument</td></tr><tr><td>Binary &mdash; two operands</td><td>1 argument</td><td>2 arguments</td></tr></tbody></table></div>
+<p>A friend always needs one more argument than the member version, because it has no calling object to supply the left operand.</p>
+<h4 class="sec">10.3 Prefix and postfix</h4>
+<div class="eq">void operator++()      { ... }   // prefix   ++x
+void operator++(int)   { ... }   // postfix  x++</div>
+<p>The <code>int</code> is never used and has no name. It exists purely as a signal to the compiler meaning "this is the postfix version". Odd syntax, but it is the standard way and it is examinable.</p>
+<h4 class="sec">10.4 Why 2 + a fails, and how a friend fixes it</h4>
+<p>Suppose <code>Complex</code> has a one-argument constructor <code>Complex(float)</code>. Then <code>c = a + 2;</code> works: the compiler sees <code>a.operator+(2)</code>, the parameter wants a <code>Complex</code>, and a one-argument constructor is a <b>converting constructor</b>, whether you meant it to be or not.</p>
+<div class="eq">c = a + 2;      // becomes a.operator+(2)  -- fine, 2 converts to Complex
+c = 2 + a;      // would become 2.operator+(a)  -- NONSENSE</div>
+<p>The left operand is an <code>int</code>, and an <code>int</code> is a built-in type with no member functions. The compiler will never convert the left operand of a member operator, because it has to find the function before it can consider conversions, and it looks for it inside the type of the left operand. Declare the operator a <b>friend</b> and both operands become ordinary parameters, so both are open to conversion and all three forms compile.</p>
+<div class="tw"><table><thead><tr><th>Use a member function when</th><th>Use a friend function when</th></tr></thead><tbody><tr><td>The left operand is always an object of your class</td><td>The left operand may be a built-in type, as in <code>2 + a</code></td></tr><tr><td>The operator modifies the object: <code>=</code>, <code>+=</code>, <code>++</code></td><td>You want both operand orders to work</td></tr><tr><td>The language requires it: <code>=</code>, <code>()</code>, <code>[]</code>, <code>-&gt;</code></td><td>The operation is symmetric and belongs to neither side</td></tr></tbody></table></div>
+<div class="box tip"><span class="l">The one-line rule</span><p>If the left operand may be something other than your class, it must be a friend. That is why <code>operator&lt;&lt;</code> and <code>operator&gt;&gt;</code> are always friends &mdash; their left operand is a stream, not your object.</p></div>
+<h4 class="sec">10.5 The two lists to memorise</h4>
+<div class="box"><span class="l">Two different lists, both asked</span><p>Cannot be overloaded <b>at all</b>: <code>::</code> <code>.</code> <code>.*</code> <code>?:</code> &mdash; four of them. Must be a <b>member</b>, never a friend: <code>=</code> <code>()</code> <code>[]</code> <code>-&gt;</code> &mdash; also four. Do not mix the lists up.</p></div>
+<ul class="bul"><li>Only existing operators can be overloaded &mdash; you cannot invent a symbol.</li><li>At least one operand must be a user-defined type.</li><li>You cannot change an operator&rsquo;s basic meaning, its precedence, its associativity, or the number of operands it takes.</li></ul>
+<h4 class="sec">10.6 A string class, which is the whole syllabus in forty lines</h4>
+<div class="eq">class String {
+    char *p;
+    int len;
+public:
+    String()                { len = 0; p = new char[1]; p[0] = '\0'; }
+    String(const char *s)   { len = strlen(s); p = new char[len+1]; strcpy(p,s); }
+    String(const String &amp;s) { len = s.len;    p = new char[len+1]; strcpy(p,s.p); }
+    ~String()               { delete[] p; }
+
+    friend String operator+(const String &amp;a, const String &amp;b);
+    friend int    operator>(const String &amp;a, const String &amp;b);
+
+    void display() { cout &lt;&lt; p &lt;&lt; endl; }
+};
+
+s3 = s1 + s2;      // instead of strcat
+if (s1 > s2) ...   // instead of strcmp</div>
+<p>If you are asked to demonstrate string manipulation using operator overloading, this is the model answer. The two things the examiner is looking for are a <b>friend operator function</b> and a <b>destructor that releases what the constructor took</b>.</p>
+<div class="work"><span class="l">Predict the output</span>
+<p>A binary member operator and a unary member operator in the same class.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+class Counter {
+    int n;
+public:
+    Counter(int k = 0) { n = k; }
+    Counter operator+(Counter c) { return Counter(n + c.n); }
+    void    operator-()          { n = -n; }
+    void show() { cout &lt;&lt; n &lt;&lt; endl; }
+};
+
+int main() {
+    Counter a(7), b(3), c;
+    c = a + b;
+    c.show();
+    -c;
+    c.show();
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">10
+-10</div>
+<p><code>c = a + b;</code> is rewritten as <code>c = a.operator+(b);</code>. Inside, plain
+<code>n</code> is <code>a</code>'s 7 and <code>c.n</code> is <code>b</code>'s 3, so a new
+<code>Counter(10)</code> comes back and is assigned to <code>c</code>.</p>
+<p><code>-c;</code> is rewritten as <code>c.operator-();</code>. A unary member operator takes no
+argument at all, because its single operand is the calling object &mdash; so it flips
+<code>c</code>'s own <code>n</code> in place, and the second <code>show()</code> prints
+-10.</p>
+<p>One extra thing to notice: <code>Counter(int k = 0)</code> is doing two jobs. It is the
+default constructor, which is how <code>Counter c;</code> compiles, and it is also a
+<b>converting constructor</b>, which is why <code>c = a + 2;</code> would work here &mdash;
+while <code>c = 2 + a;</code> would not, because <code>operator+</code> is a member.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 10 at a glance</span><ul><li>For a member operator, <code>a + b</code> becomes <code>a.operator+(b)</code>; for a friend it becomes <code>operator+(a, b)</code>.</li><li>A binary operator takes <b>one</b> argument as a member and <b>two</b> as a friend; a unary takes <b>none</b> as a member and <b>one</b> as a friend.</li><li><code>2 + a</code> cannot work with a member operator, because an <code>int</code> has no member functions &mdash; a friend function fixes it.</li><li>Cannot be overloaded at all: <code>::</code> <code>.</code> <code>.*</code> <code>?:</code>. Must be a member: <code>=</code> <code>()</code> <code>[]</code> <code>-&gt;</code>.</li><li>Postfix <code>++</code> is marked by a dummy <code>int</code> parameter that is never used.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c11">
+<div class="chhead"><span class="cn">Chapter 11</span><h2>Inheritance and the three modes</h2></div>
+<p class="chintro">The inheritance deck is new material and is the densest thing on the paper &mdash; six to eight marks across two questions. This chapter settles the syntax, the reason <code>protected</code> exists, and the visibility table, which is the one table on this paper you should be able to draw from memory.</p>
+<div class="body">
+<h4 class="sec">11.1 Why, and the is-a test</h4>
+<p>The word the lecture opens with is <b>reusability</b>. Write the common part once in a base class and derive from it, instead of writing the same three functions into <code>Bus</code>, <code>Car</code> and <code>Truck</code> and then fixing a bug in three places. Use inheritance only when the sentence "a derived <b>is a</b> base" is actually true: a car is a vehicle, a surgeon is a doctor.</p>
+<div class="box warn"><span class="l">The commonest design mistake</span><p>"A car <b>has an</b> engine" is not an is-a relationship, so <code>Car</code> must not inherit from <code>Engine</code> &mdash; it should hold an <code>Engine</code> as a member. Getting is-a and has-a the wrong way round is asked about directly.</p></div>
+<div class="tw"><table><thead><tr><th>The old class</th><th>The new class</th></tr></thead><tbody><tr><td>Base class</td><td>Derived class</td></tr><tr><td>Parent class</td><td>Child class</td></tr><tr><td>Super class</td><td>Sub class</td></tr></tbody></table></div>
+<h4 class="sec">11.2 The syntax</h4>
+<div class="eq">class derived_name : mode base_name
+{
+    // members of the derived class
+};
+
+class Car : public Vehicle { public: void horn(); };</div>
+<div class="box warn"><span class="l">The default nobody remembers</span><p><code>class Car : Vehicle</code> and <code>class Car : private Vehicle</code> mean exactly the same thing. The class still compiles and its own member functions can use everything they inherited &mdash; but every public member of <code>Vehicle</code> is now private inside <code>Car</code>, so <code>main()</code> can no longer call any of them. For a <code>struct</code> the default is the opposite: public. Write the mode explicitly, every time.</p></div>
+<h4 class="sec">11.3 Why protected exists</h4>
+<p>A private member of a base class is not accessible to the derived class at all. You could make it public so the derived class can reach it &mdash; but then the whole program can reach it and you have thrown away data hiding. <code>protected</code> is the third level that solves exactly this: <b>private to the family</b>.</p>
+<div class="eq">class Base {
+private:   int a;
+protected: int b;
+public:    int c;
+           Base() { a = 1; b = 2; c = 3; }
+           int getA() { return a; }      // the only route to a
+};
+
+class Derived : public Base {
+public:
+    void show() {
+        // cout &lt;&lt; a;            ERROR -- private, not accessible
+        cout &lt;&lt; b &lt;&lt; endl;    // fine, protected
+        cout &lt;&lt; c &lt;&lt; endl;    // fine, public
+        cout &lt;&lt; getA() &lt;&lt; endl;  // fine, through a public function
+    }
+};</div>
+<h4 class="sec">11.4 The visibility table</h4>
+<div class="tw"><table><thead><tr><th>Member in the base</th><th>public inheritance</th><th>protected inheritance</th><th>private inheritance</th></tr></thead><tbody><tr><td><code>private</code></td><td>Not accessible</td><td>Not accessible</td><td>Not accessible</td></tr><tr><td><code>protected</code></td><td>protected</td><td>protected</td><td>private</td></tr><tr><td><code>public</code></td><td>public</td><td>protected</td><td>private</td></tr></tbody></table></div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 700 290" width="700" height="290" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="The inheritance visibility table" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="16" y="26" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.6">THE MODE IS A CEILING, NOT A FLOOR</text><text x="156" y="58" font-size="9.5" text-anchor="end" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">in the base</text><text x="251" y="58" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">public</text><text x="417" y="58" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">protected</text><text x="583" y="58" font-size="11" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">private</text><text x="156" y="103" font-size="12" text-anchor="end" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">private</text><rect x="168" y="72" width="166" height="52" fill="var(--stock-2)" stroke="currentColor" stroke-width="1.3" /><text x="251" y="103" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="var(--ink-3)" stroke="none" style="opacity:.6">not inherited</text><rect x="334" y="72" width="166" height="52" fill="var(--stock-2)" stroke="currentColor" stroke-width="1.3" /><text x="417" y="103" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="var(--ink-3)" stroke="none" style="opacity:.6">not inherited</text><rect x="500" y="72" width="166" height="52" fill="var(--stock-2)" stroke="currentColor" stroke-width="1.3" /><text x="583" y="103" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="var(--ink-3)" stroke="none" style="opacity:.6">not inherited</text><text x="156" y="155" font-size="12" text-anchor="end" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">protected</text><rect x="168" y="124" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="251" y="155" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">protected</text><rect x="334" y="124" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="417" y="155" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">protected</text><rect x="500" y="124" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="583" y="155" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">private</text><text x="156" y="207" font-size="12" text-anchor="end" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">public</text><rect x="168" y="176" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="251" y="207" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">public</text><rect x="334" y="176" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="417" y="207" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">protected</text><rect x="500" y="176" width="166" height="52" fill="none" stroke="currentColor" stroke-width="1.3" /><text x="583" y="207" font-size="11.5" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="currentColor" stroke="none">private</text><text x="16" y="250" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">a member never comes out MORE accessible than the mode allows;</text><text x="16" y="266" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">if it was already less accessible, it stays where it was.</text><text x="16" y="284" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">class D : B  is private. struct D : B  is public. Write the mode every time.</text></svg></div><figcaption>Fig. 11.1 The three modes drawn as three ceilings. A base class at the bottom with its public, protected and private members as three levels, and above it three copies of a derived class with a horizontal bar set at public, protected and private &mdash; each member rising only as far as the bar allows, and the private member never rising at all.</figcaption></figure>
+<div class="box"><span class="l">How to remember it in one line</span><p>The mode is a <b>ceiling, not a floor</b>. Nothing comes out more accessible than the mode allows; anything already less accessible stays where it is. And the top row never changes: a private member of the base is not accessible in any derived class, in any mode.</p></div>
+<p>Two things worth adding if there is room. A private member of the base is physically present in every derived object &mdash; it occupies space &mdash; but no derived class may name it. And a class that inherits privately can still <b>use</b> what it got; what it cannot do is pass it on, so anything derived from it gets nothing.</p>
+<div class="work"><span class="l">Predict the output</span>
+<p>The same base class inherited two different ways. One call in <code>main</code> has been
+commented out &mdash; say why it had to be.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+class Base {
+public:
+    void hello() { cout &lt;&lt; "hello" &lt;&lt; endl; }
+};
+
+class Pub : public  Base { };
+
+class Pri : private Base {
+public:
+    void callIt() { hello(); }        // a member function -- allowed
+};
+
+int main() {
+    Pub p;
+    p.hello();          // fine
+    Pri q;
+    // q.hello();       // would not compile
+    q.callIt();
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">hello
+hello</div>
+<p>Inside <code>Pub</code>, <code>hello()</code> is still public, so an object of
+<code>Pub</code> may call it directly.</p>
+<p>Inside <code>Pri</code>, private inheritance has pushed <code>hello()</code> down to private.
+<code>Pri</code>'s own member functions can still call it &mdash; private members are accessible
+inside their own class, which is why <code>callIt()</code> compiles &mdash; but an object of
+<code>Pri</code> cannot, so <code>q.hello()</code> is an error. The route out is through
+<code>Pri</code>'s own public function, and that is the second <code>hello</code>.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 11 at a glance</span><ul><li>Inheritance exists for <b>reusability</b>, and it is only the right tool when "derived <b>is a</b> base" is literally true.</li><li><code>class D : B</code> defaults to <b>private</b> inheritance, which usually breaks <code>main()</code> while leaving the class itself legal.</li><li><code>protected</code> means accessible in its own class and in derived classes, but not outside &mdash; private to the family.</li><li>The visibility table: private is never accessible; protected stays protected except under private inheritance; public becomes public, protected or private to match the mode.</li><li>The mode is a <b>ceiling</b> &mdash; nothing comes through more open than the mode, and nothing is ever made more accessible than it was.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+<section class="ch" id="c12">
+<div class="chhead"><span class="cn">Chapter 12</span><h2>Shapes, ambiguity and the virtual base</h2></div>
+<p class="chintro">The second half of the inheritance question. This chapter settles the five shapes and their names, the order constructors run in when there is more than one base, the two completely different situations that both get called "ambiguity", and the diamond that the virtual base class exists to fix.</p>
+<div class="body">
+<h4 class="sec">12.1 The five kinds</h4>
+<div class="tw"><table><thead><tr><th>Kind</th><th>Shape</th><th>In one line</th></tr></thead><tbody><tr><td>Single</td><td>A &rarr; B</td><td>One derived class, one base class.</td></tr><tr><td>Multilevel</td><td>A &rarr; B &rarr; C</td><td>A class derived from another derived class.</td></tr><tr><td>Hierarchical</td><td>A &rarr; B, A &rarr; C</td><td>Several derived classes from one base class.</td></tr><tr><td>Multiple</td><td>A, B &rarr; C</td><td>One derived class from several base classes.</td></tr><tr><td>Hybrid</td><td>a mix</td><td>Two or more of the above combined &mdash; usually needs a virtual base.</td></tr></tbody></table></div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 880 250" width="880" height="250" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="The five shapes of inheritance" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="90" y="24" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.2">Single</text><line x1="90" y1="134" x2="90" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="70" y="44" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="90" y="66" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">A</text><rect x="70" y="134" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="90" y="156" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">B</text><text x="250" y="24" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.2">Multilevel</text><line x1="250" y1="100" x2="250" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="250" y1="172" x2="250" y2="132" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="230" y="28" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="250" y="50" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">A</text><rect x="230" y="100" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="250" y="122" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">B</text><rect x="230" y="172" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="250" y="194" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">C</text><text x="425" y="24" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.2">Multiple</text><line x1="425" y1="144" x2="380" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="425" y1="144" x2="470" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="360" y="44" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="380" y="66" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">A</text><rect x="450" y="44" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="470" y="66" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">B</text><rect x="405" y="144" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="425" y="166" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">C</text><text x="640" y="24" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.2">Hierarchical</text><line x1="595" y1="144" x2="640" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="685" y1="144" x2="640" y2="76" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="620" y="44" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="640" y="66" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">A</text><rect x="575" y="144" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="595" y="166" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">B</text><rect x="665" y="144" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="685" y="166" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">C</text><text x="810" y="24" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.2">Hybrid</text><line x1="768" y1="100" x2="810" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="852" y1="100" x2="810" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="810" y1="172" x2="768" y2="132" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><line x1="810" y1="172" x2="852" y2="132" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><rect x="790" y="28" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="810" y="50" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">A</text><rect x="748" y="100" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="768" y="122" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">B</text><rect x="832" y="100" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="852" y="122" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">C</text><rect x="790" y="172" width="40" height="32" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="810" y="194" font-size="14" text-anchor="middle" font-family="'Big Shoulders Display','Arial Narrow',sans-serif" font-weight="800" fill="currentColor" stroke="none">D</text><line x1="170" y1="34" x2="170" y2="214" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".3"/><line x1="330" y1="34" x2="330" y2="214" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".3"/><line x1="534" y1="34" x2="534" y2="214" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".3"/><line x1="732" y1="34" x2="732" y2="214" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".3"/><text x="14" y="242" font-size="9.5" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.66">the arrow points from the derived class up to its base &mdash; read it as "is a".</text></svg></div><figcaption>Fig. 12.1 The five shapes drawn as small class diagrams side by side, arrows pointing from derived up to base: a single edge, a chain of three, one base fanning out to two, two bases converging on one, and a mixed graph that is hierarchical at the top and multiple at the bottom.</figcaption></figure>
+<div class="eq">class D : mode B1, mode B2, mode B3 { ... };
+
+class Result : public Maths, public English { ... };   // correct
+class Result : public Maths, English { ... };          // English is PRIVATE</div>
+<div class="box warn"><span class="l">Two rules of the multiple-inheritance syntax</span><p>The base classes are separated by commas, and the access mode must be written for <b>every one of them</b>. Writing <code>class D : public B1, B2</code> silently makes <code>B2</code> a private base, because the missing mode defaults to private.</p></div>
+<h4 class="sec">12.2 Constructor order with several bases</h4>
+<div class="box"><span class="l">The rule</span><p>Base class constructors run <b>first, in the order they are listed after the colon</b> &mdash; not alphabetical order, and not the order the classes were declared in. The derived class&rsquo;s own constructor runs last. Destructors run in exactly the reverse order.</p></div>
+<h4 class="sec">12.3 Ambiguity: two situations, not one</h4>
+<p>The same word covers two different things, and the paper separates them.</p>
+<div class="eq">// Situation 1 -- two bases with the same member name
+class M { public: void display() { cout &lt;&lt; "M" &lt;&lt; endl; } };
+class N { public: void display() { cout &lt;&lt; "N" &lt;&lt; endl; } };
+class P : public M, public N { };
+
+P p;
+p.display();       // ERROR -- request for member display is ambiguous
+p.M::display();    // fix -- prints M
+p.N::display();    // fix -- prints N</div>
+<p>Note that class <code>P</code> itself compiles perfectly; the error appears only at the call. The better fix is to resolve it once inside <code>P</code>, so that users of <code>P</code> never see the problem: give <code>P</code> its own <code>display()</code> whose body calls <code>M::display();</code>.</p>
+<div class="eq">// Situation 2 -- same name in base and derived: NO error
+class A { public: void display() { cout &lt;&lt; "From A" &lt;&lt; endl; } };
+class B : public A { public: void display() { cout &lt;&lt; "From B" &lt;&lt; endl; } };
+
+B b;
+b.display();       // prints "From B" -- the nearer one hides the other
+b.A::display();    // prints "From A" -- reached on purpose</div>
+<div class="tw"><table><thead><tr><th></th><th>Same name in two bases</th><th>Same name in base and derived</th></tr></thead><tbody><tr><td>Shape</td><td>Side by side</td><td>One below the other</td></tr><tr><td>What the compiler does</td><td>Stops &mdash; neither is preferred</td><td>Nothing &mdash; the nearer one hides the other</td></tr><tr><td>A plain call goes to</td><td>Nowhere &mdash; it is an error</td><td>The <b>derived</b> version</td></tr><tr><td>How to reach the other</td><td><code>obj.Base::func();</code></td><td><code>obj.Base::func();</code></td></tr></tbody></table></div>
+<h4 class="sec">12.4 The diamond</h4>
+<div class="eq">        Student
+        /     \          hierarchical
+     Test     Sports
+        \     /          multiple
+        Result</div>
+<p><code>Test</code> inherits <code>Student</code>. <code>Sports</code> also inherits <code>Student</code>. <code>Result</code> inherits both, so a <code>Result</code> object physically contains <b>two copies</b> of everything <code>Student</code> owns. Now <code>roll</code> is ambiguous inside <code>Result</code> &mdash; and this time writing <code>Test::roll</code> would compile but be wrong in spirit, because a student has one roll number, not two.</p>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 760 330" width="760" height="330" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="The diamond problem and the virtual base class" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="180" y="26" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none" letter-spacing="1.4">WITHOUT virtual</text><line x1="180" y1="220" x2="86" y2="170" stroke="currentColor" stroke-width="1.6" /><line x1="180" y1="220" x2="274" y2="170" stroke="currentColor" stroke-width="1.6" /><line x1="86" y1="130" x2="180" y2="82" stroke="currentColor" stroke-width="1.6" /><line x1="274" y1="130" x2="180" y2="82" stroke="currentColor" stroke-width="1.6" /><rect x="100" y="42" width="100" height="40" fill="var(--stock)" stroke="var(--pink)" stroke-width="1.8" /><text x="150" y="68" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--pink)" stroke="none">Student</text><rect x="164" y="50" width="100" height="40" fill="var(--stock)" stroke="var(--pink)" stroke-width="1.8" /><text x="214" y="76" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--pink)" stroke="none">Student</text><rect x="34" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="86" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Test</text><rect x="222" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="274" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Sports</text><rect x="128" y="220" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="180" y="246" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Result</text><text x="180" y="282" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">two copies of Student &mdash; roll is ambiguous</text><text x="180" y="300" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the compiler refuses to choose</text><text x="560" y="26" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.4">WITH virtual</text><line x1="560" y1="220" x2="466" y2="170" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="560" y1="220" x2="654" y2="170" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="466" y1="130" x2="560" y2="82" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="654" y1="130" x2="560" y2="82" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><rect x="508" y="42" width="104" height="40" fill="var(--stock)" stroke="var(--spot)" stroke-width="1.8" /><text x="560" y="68" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--spot)" stroke="none">Student</text><rect x="414" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="466" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Test</text><rect x="602" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="654" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Sports</text><rect x="508" y="220" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="560" y="246" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Result</text><text x="560" y="282" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">one shared Student &mdash; roll is unambiguous</text><text x="560" y="300" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">class Test : virtual public Student</text><line x1="388" y1="40" x2="388" y2="308" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".4"/><text x="40" y="324" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">virtual goes on the middle classes, not on Result &mdash; by the time you write Result it is already too late.</text></svg></div><figcaption>Fig. 12.2 A <code>Result</code> object drawn as one outer box containing a <code>Test</code> block and a <code>Sports</code> block, each of which contains its own complete <code>Student</code> block with its own <code>roll</code> slot &mdash; two <code>roll</code> boxes inside one object, each reachable by a different path.</figcaption></figure>
+<h4 class="sec">12.5 The virtual base class</h4>
+<div class="eq">class Student { protected: int roll;
+                public: void setRoll(int r) { roll = r; } };
+
+class Test   : virtual public Student { protected: float marks; };
+class Sports : public virtual Student { protected: float score; };
+
+class Result : public Test, public Sports {
+public:
+    void show() { cout &lt;&lt; roll &lt;&lt; endl; }    // fine -- exactly ONE roll now
+};</div>
+<figure class="fig"><span class="lab">Diagram</span><div class="hold"><svg viewBox="0 0 760 330" width="760" height="330" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-size="12" role="img" aria-label="The diamond problem and the virtual base class" style="max-width:100%;height:auto"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" stroke="none"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--spot)" stroke="none"/></marker></defs><text x="180" y="26" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none" letter-spacing="1.4">WITHOUT virtual</text><line x1="180" y1="220" x2="86" y2="170" stroke="currentColor" stroke-width="1.6" /><line x1="180" y1="220" x2="274" y2="170" stroke="currentColor" stroke-width="1.6" /><line x1="86" y1="130" x2="180" y2="82" stroke="currentColor" stroke-width="1.6" /><line x1="274" y1="130" x2="180" y2="82" stroke="currentColor" stroke-width="1.6" /><rect x="100" y="42" width="100" height="40" fill="var(--stock)" stroke="var(--pink)" stroke-width="1.8" /><text x="150" y="68" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--pink)" stroke="none">Student</text><rect x="164" y="50" width="100" height="40" fill="var(--stock)" stroke="var(--pink)" stroke-width="1.8" /><text x="214" y="76" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--pink)" stroke="none">Student</text><rect x="34" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="86" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Test</text><rect x="222" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="274" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Sports</text><rect x="128" y="220" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="180" y="246" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Result</text><text x="180" y="282" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--pink)" stroke="none">two copies of Student &mdash; roll is ambiguous</text><text x="180" y="300" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">the compiler refuses to choose</text><text x="560" y="26" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none" letter-spacing="1.4">WITH virtual</text><line x1="560" y1="220" x2="466" y2="170" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="560" y1="220" x2="654" y2="170" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="466" y1="130" x2="560" y2="82" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><line x1="654" y1="130" x2="560" y2="82" stroke="var(--spot)" stroke-width="1.6" stroke-dasharray="5 4" /><rect x="508" y="42" width="104" height="40" fill="var(--stock)" stroke="var(--spot)" stroke-width="1.8" /><text x="560" y="68" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="var(--spot)" stroke="none">Student</text><rect x="414" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="466" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Test</text><rect x="602" y="130" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="654" y="156" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Sports</text><rect x="508" y="220" width="104" height="40" fill="var(--stock)" stroke="currentColor" stroke-width="1.8" /><text x="560" y="246" font-size="12.5" text-anchor="middle" font-family="'Familjen Grotesk','Helvetica Neue',Arial,sans-serif" font-weight="700" fill="currentColor" stroke="none">Result</text><text x="560" y="282" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">one shared Student &mdash; roll is unambiguous</text><text x="560" y="300" font-size="10" text-anchor="middle" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="400" fill="currentColor" stroke="none" style="opacity:.72">class Test : virtual public Student</text><line x1="388" y1="40" x2="388" y2="308" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5" opacity=".4"/><text x="40" y="324" font-size="10" text-anchor="start" font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace" font-weight="700" fill="var(--spot)" stroke="none">virtual goes on the middle classes, not on Result &mdash; by the time you write Result it is already too late.</text></svg></div><figcaption>Fig. 12.3 The same object after <code>virtual</code>. One outer <code>Result</code> box with a <code>Test</code> block and a <code>Sports</code> block, and a <b>single</b> shared <code>Student</code> block off to one side with two arrows into it &mdash; one from each path.</figcaption></figure>
+<ul class="bul"><li>The keyword goes on the classes doing the <b>intermediate</b> inheriting &mdash; <code>Test</code> and <code>Sports</code> &mdash; not on <code>Result</code>. By the time you are writing <code>Result</code> it is too late.</li><li><code>virtual public</code> and <code>public virtual</code> are the same thing; the order of the two keywords does not matter.</li><li>Remove the two <code>virtual</code> keywords and the program stops compiling, because <code>roll</code> inside <code>show()</code> becomes ambiguous again.</li><li>With a virtual base, the <b>most derived class constructs it</b>. <code>Result</code>&rsquo;s constructor calls <code>Student</code>&rsquo;s directly, and the calls <code>Test</code> and <code>Sports</code> would normally make are skipped &mdash; that is the only way to build the shared sub-object exactly once.</li></ul>
+<div class="box"><span class="l">Two one-liners worth keeping</span><p>A <b>virtual base class is not a virtual function</b> &mdash; same keyword, unrelated jobs. And an <b>abstract class</b> is one with a pure virtual function, <code>virtual void f() = 0;</code>, which cannot be instantiated and exists only to be inherited from.</p></div>
+<div class="work"><span class="l">Predict the output</span>
+<p>Six letters, in two lines. The base list is the whole question.</p>
+<div class="eq">#include &lt;iostream&gt;
+using namespace std;
+
+class A { public: A() { cout &lt;&lt; "A"; }  ~A() { cout &lt;&lt; "a"; } };
+class B { public: B() { cout &lt;&lt; "B"; }  ~B() { cout &lt;&lt; "b"; } };
+
+class C : public B, public A {
+public:
+    C() { cout &lt;&lt; "C"; }
+    ~C() { cout &lt;&lt; "c"; }
+};
+
+int main() {
+    C obj;
+    cout &lt;&lt; endl;
+    return 0;
+}</div>
+<p><b>Output</b></p>
+<div class="eq">BAC
+cab</div>
+<p>Construction follows the order in the base list, which is <code>B</code> then
+<code>A</code> &mdash; not alphabetical order, and not the order the classes were declared in
+above. So the bases run first, <code>B</code> then <code>A</code>, and then
+<code>C</code>'s own constructor: <b>BAC</b>.</p>
+<p>The <code>endl</code> ends that line while <code>obj</code> is still alive. Destruction is
+always the exact reverse of construction &mdash; <code>C</code>, then <code>A</code>, then
+<code>B</code> &mdash; and it happens when <code>obj</code> goes out of scope at the end of
+<code>main</code>, which is after the <code>endl</code>. So the second line is
+<b>cab</b>.</p>
+<p>Swap the base list to <code>class C : public A, public B</code> and the output becomes
+<code>ABC</code> and <code>cba</code>.</p></div>
+</div>
+<div class="glance"><span class="l">Chapter 12 at a glance</span><ul><li>Five kinds: <b>single, multilevel, hierarchical, multiple, hybrid</b> &mdash; and the access mode must be written for every base in a multiple-inheritance list.</li><li>Base constructors run first, <b>in the order listed after the colon</b>; destructors run in exactly the reverse order.</li><li>The same name in <b>two bases</b> is a compile error at the call, fixed with <code>obj.Base::func();</code>.</li><li>The same name in <b>base and derived</b> is not an error &mdash; the derived one hides the base one, and <code>obj.Base::func()</code> reaches the other.</li><li>In the diamond, a <code>Result</code> object holds <b>two copies</b> of <code>Student</code>; declaring the base <code>virtual</code> in the two intermediate classes leaves exactly one.</li><li>The <code>virtual</code> keyword goes on the intermediate classes, and the most derived class then constructs the shared base itself.</li></ul></div>
+<p class="uptop"><a href="#top">back to the top</a></p>
+</section>
+
+<footer class="end" id="end">
+  <div class="rule"></div>
+  <p class="kick">The whole subject in one screen</p>
+  <h2>Everything, condensed</h2>
+  <div class="allglance"><div class="ag"><a href="#c1"><span class="n">01</span>Procedural versus object oriented</a><ul><li>The drawback of procedure oriented programming is that <b>global data is exposed</b> &mdash; any function can change it, so a bug anywhere can break anything.</li><li>Object oriented programming locks the data inside the object and lets only that object&rsquo;s functions touch it.</li><li>POP is top-down and organised around functions; OOP is bottom-up and organised around objects.</li><li>The six core ideas: <b>class, object, encapsulation, abstraction, inheritance, polymorphism</b>.</li><li>Encapsulation is the mechanism of hiding; abstraction is the purpose of hiding. That pair is asked constantly.</li></ul></div><div class="ag"><a href="#c2"><span class="n">02</span>Tokens, types and references</a><ul><li>Five kinds of token: <b>keywords, identifiers, constants, strings, operators</b>. C++ has <b>63</b> keywords.</li><li>A leading zero means octal, so <code>037</code> is 31. <code>&#39;A&#39;</code> is one byte; <code>"A"</code> is two, because of the hidden <code>\0</code>.</li><li>A <code>struct</code> is public by default, a <code>class</code> is private by default &mdash; that is the only real difference between them in C++.</li><li>In an <code>enum</code>, numbering continues from the last value you assigned, so <code>{red, blue = 4, green}</code> gives 0, 4, 5.</li><li>A <b>reference</b> is an alias, must be initialised at declaration, and can never be made to refer to a different variable afterwards.</li></ul></div><div class="ag"><a href="#c3"><span class="n">03</span>The operators C++ adds</a><ul><li>Unary <code>::name</code> reaches the <b>global</b> version of a name that a local declaration is hiding &mdash; something C cannot do at all.</li><li>Binary <code>Class::member</code> names a member outside its class: member function definitions, static data definitions, static calls, inherited-name disambiguation.</li><li><code>new</code> calls the constructor and returns the right pointer type; <code>malloc</code> does neither. <code>delete</code> calls the destructor; <code>free</code> does not.</li><li>Whatever you take with <code>new[]</code>, give back with <code>delete[]</code>. Using plain <code>delete</code> on an array is <b>undefined behaviour</b>.</li><li><code>setw</code> affects only the next item and needs <code>iomanip</code>; <code>endl</code> is the only manipulator that comes free with <code>iostream</code>.</li></ul></div><div class="ag"><a href="#c4"><span class="n">04</span>Overloading, inline and default arguments</a><ul><li>Overloaded functions must differ in the <b>type, number or order</b> of parameters. A different return type alone is not an overload, it is an error.</li><li>Resolution order: exact match, then promotion, then standard conversion, then user-defined conversion, then ellipsis &mdash; and <b>promotion beats conversion</b>.</li><li>Default argument values belong in the <b>prototype</b>, and only trailing arguments may have them.</li><li>A one-argument call that matches both an overload and a defaulted parameter is <b>ambiguous</b>, and the error appears at the call, not at the declaration.</li><li><code>inline</code> is a request the compiler may refuse; a member function defined inside the class body is inline automatically.</li></ul></div><div class="ag"><a href="#c5"><span class="n">05</span>Call by value, address and reference</a><ul><li>Call by value passes a <b>copy</b>, so the caller&rsquo;s variable can never change.</li><li>Call by address passes the <b>address</b>; inside the function you must dereference with a star every time, and the call site shows an <code>&amp;</code>.</li><li>Call by reference passes an <b>alias</b>; the function body looks like call by value and so does the call, but the original does change.</li><li>Call by reference is the only one of the three that C does not have.</li><li>Use value for small unmodified types, reference to modify or to avoid copying a large object, address when a null argument has to be meaningful.</li></ul></div><div class="ag"><a href="#c6"><span class="n">06</span>Classes and objects</a><ul><li>A class declaration ends with <code>};</code> &mdash; the missing semicolon is the single most common syntax error in this subject.</li><li>Members of a class are <b>private by default</b>, and an object may reach them only through a public member function.</li><li>A member function defined outside the class needs the membership label <code>ClassName::</code>; without it, it is a global function with no access to private data.</li><li>A member function defined <b>inside</b> the class body is inline automatically.</li><li>Data members get one copy <b>per object</b>; member functions get <b>one copy for the whole class</b>.</li><li>Privacy is per class, not per object &mdash; a member function may read the private data of any object of its own class.</li></ul></div><div class="ag"><a href="#c7"><span class="n">07</span>static members, friends, const and this</a><ul><li>A <code>static</code> data member is <b>one variable shared by the whole class</b>, and it must be defined once outside the class or the program will not link.</li><li>A <code>static</code> member function is called as <code>ClassName::f()</code>, has no <code>this</code>, and may touch only other static members.</li><li>A <b>friend function is not a member</b>: no dot, no <code>ClassName::</code>, no <code>this</code>, and every object it works on is passed as an argument.</li><li>Friendship is granted by the class, is not mutual, and is not inherited.</li><li>A <code>const</code> member function may not modify the object, and a const object can call nothing else.</li><li><code>this</code> is the hidden pointer to the calling object; <code>return *this;</code> and <code>if (this != &amp;other)</code> are the two places you write it.</li></ul></div><div class="ag"><a href="#c8"><span class="n">08</span>Constructors and destructors</a><ul><li>A constructor has the class&rsquo;s name, no return type, runs automatically, and belongs in the public section.</li><li>Four kinds: <b>default, parameterized, copy, dynamic</b>. Constructors can be overloaded; a destructor cannot.</li><li>Write any constructor of your own and the free default one disappears &mdash; <code>Box b;</code> then fails to compile.</li><li>A destructor is <code>~ClassName()</code>, takes no arguments, and releases whatever the constructor allocated.</li><li>Objects are destroyed in the <b>reverse order of creation</b>, and an object in an inner block dies at that block&rsquo;s closing brace.</li></ul></div><div class="ag"><a href="#c9"><span class="n">09</span>The copy constructor, shallow and deep</a><ul><li>The copy constructor runs when an object is <b>created</b> from another, and when an object is passed or returned <b>by value</b>.</li><li><code>X b = a;</code> is the copy constructor because <code>b</code> is being created; <code>b = a;</code> on a later line is assignment.</li><li>The parameter must be a reference &mdash; <code>A(A)</code> would need a copy to build its own argument, forever.</li><li>A compiler-supplied copy is <b>shallow</b>: it copies the pointer, so two objects end up sharing one buffer and deleting it twice.</li><li>The <b>rule of three</b>: a class that owns memory through a raw pointer needs a destructor, a copy constructor and a copy assignment operator.</li></ul></div><div class="ag"><a href="#c10"><span class="n">10</span>Operator overloading, member or friend</a><ul><li>For a member operator, <code>a + b</code> becomes <code>a.operator+(b)</code>; for a friend it becomes <code>operator+(a, b)</code>.</li><li>A binary operator takes <b>one</b> argument as a member and <b>two</b> as a friend; a unary takes <b>none</b> as a member and <b>one</b> as a friend.</li><li><code>2 + a</code> cannot work with a member operator, because an <code>int</code> has no member functions &mdash; a friend function fixes it.</li><li>Cannot be overloaded at all: <code>::</code> <code>.</code> <code>.*</code> <code>?:</code>. Must be a member: <code>=</code> <code>()</code> <code>[]</code> <code>-&gt;</code>.</li><li>Postfix <code>++</code> is marked by a dummy <code>int</code> parameter that is never used.</li></ul></div><div class="ag"><a href="#c11"><span class="n">11</span>Inheritance and the three modes</a><ul><li>Inheritance exists for <b>reusability</b>, and it is only the right tool when "derived <b>is a</b> base" is literally true.</li><li><code>class D : B</code> defaults to <b>private</b> inheritance, which usually breaks <code>main()</code> while leaving the class itself legal.</li><li><code>protected</code> means accessible in its own class and in derived classes, but not outside &mdash; private to the family.</li><li>The visibility table: private is never accessible; protected stays protected except under private inheritance; public becomes public, protected or private to match the mode.</li><li>The mode is a <b>ceiling</b> &mdash; nothing comes through more open than the mode, and nothing is ever made more accessible than it was.</li></ul></div><div class="ag"><a href="#c12"><span class="n">12</span>Shapes, ambiguity and the virtual base</a><ul><li>Five kinds: <b>single, multilevel, hierarchical, multiple, hybrid</b> &mdash; and the access mode must be written for every base in a multiple-inheritance list.</li><li>Base constructors run first, <b>in the order listed after the colon</b>; destructors run in exactly the reverse order.</li><li>The same name in <b>two bases</b> is a compile error at the call, fixed with <code>obj.Base::func();</code>.</li><li>The same name in <b>base and derived</b> is not an error &mdash; the derived one hides the base one, and <code>obj.Base::func()</code> reaches the other.</li><li>In the diamond, a <code>Result</code> object holds <b>two copies</b> of <code>Student</code>; declaring the base <code>virtual</code> in the two intermediate classes leaves exactly one.</li><li>The <code>virtual</code> keyword goes on the intermediate classes, and the most derived class then constructs the shared base itself.</li></ul></div></div>
+  <p class="endnote">That is the entire revision set &mdash; 63 lines. If a line does not make
+  sense, the chapter it came from is one tap away, and the <a href="../notes/oops.html">full
+  course</a> is behind that.</p>
+  <div class="endlinks">
+    <a href="../notes/oops.html">The course</a>
+    <a href="../quiz/oops.html">The quiz</a>
+    <a href="../papers/oops.html">The papers</a>
+    <a href="../index.html">The dashboard</a>
+  </div>
+</footer>
+
+</main>
+</div>
+<script src="../assets/revision.js" defer></script>
+</body>
+</html>

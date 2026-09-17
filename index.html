@@ -99,6 +99,8 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
   font-weight:700;padding:0 14px;min-height:var(--tap);display:inline-flex;align-items:center;
   text-decoration:none;color:var(--stock);background:var(--sub-ink);white-space:nowrap}
 .row .acts a.b{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair)}
+.row .acts a.r{background:transparent;color:var(--sub-ink);box-shadow:inset 0 0 0 1.5px var(--sub-ink)}
+.row .acts a.r:hover{background:var(--sub-ink);color:var(--stock);opacity:1}
 .row .acts a{transition:opacity var(--press),transform var(--settle)}
 .row .acts a:hover{opacity:.84}
 .row .acts a:active{transform:scale(.96);opacity:.75}
@@ -246,6 +248,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
 <nav class="nav">
   <ul>
     <li><a href="#notes" class="on">The notes</a></li>
+    <li><a href="#revision">Revision</a></li>
     <li><a href="#quizzes">The quizzes</a></li>
     <li><a href="#papers">The papers</a></li>
     <li><a href="#offline">Downloads</a></li>
@@ -273,6 +276,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
         </div>
       </a>
       <div class="acts">
+        <a class="r" href="revision/dip.html">Revise</a>
         <a href="quiz/dip.html">Quiz</a>
         <a class="b" href="papers/dip.html">Papers</a>
       </div>
@@ -288,6 +292,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
         </div>
       </a>
       <div class="acts">
+        <a class="r" href="revision/dsp.html">Revise</a>
         <a href="quiz/dsp.html">Quiz</a>
         <a class="b" href="papers/dsp.html">Papers</a>
       </div>
@@ -303,6 +308,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
         </div>
       </a>
       <div class="acts">
+        <a class="r" href="revision/dcomm.html">Revise</a>
         <a href="quiz/dcomm.html">Quiz</a>
         <a class="b" href="papers/dcomm.html">Papers</a>
       </div>
@@ -318,6 +324,7 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
         </div>
       </a>
       <div class="acts">
+        <a class="r" href="revision/dcn.html">Revise</a>
         <a href="quiz/dcn.html">Quiz</a>
         <a class="b" href="papers/dcn.html">Papers</a>
       </div>
@@ -333,12 +340,51 @@ section.band{padding:52px 0 0;scroll-margin-top:60px}
         </div>
       </a>
       <div class="acts">
+        <a class="r" href="revision/oops.html">Revise</a>
         <a href="quiz/oops.html">Quiz</a>
         <a class="b" href="papers/oops.html">Papers</a>
       </div>
     </article>
 
   </div>
+</section>
+
+<!-- ============================ REVISION ============================ -->
+<section class="band" id="revision">
+  <div class="sechead">
+    <h2 class="sec">The night before</h2>
+    <span class="tag">the same five subjects, an hour each</span>
+  </div>
+  <p class="note" style="margin:0 0 22px">The course above explains things. <b>This does not &mdash; it reminds you.</b> Fifty-nine chapters across the five subjects, each one a screen or two, each one closing with four or five lines that are the whole chapter. And a switch in the margin that hides everything except those lines, which is what the last hour before a paper is actually for.</p>
+
+  <div class="pgrid">
+    <a class="prow" href="revision/dcn.html" style="--sub-ink:var(--dcn);--sub-wash:var(--dcn-wash)">
+      <span class="pcode">EC321</span>
+      <span><span class="pname">Communication Networks</span><span class="pmeta">11 chapters &middot; 58 summary lines &middot; 14 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="revision/dcomm.html" style="--sub-ink:var(--dcomm);--sub-wash:var(--dcomm-wash)">
+      <span class="pcode">EC301</span>
+      <span><span class="pname">Digital Communication</span><span class="pmeta">12 chapters &middot; 60 summary lines &middot; 11 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="revision/dsp.html" style="--sub-ink:var(--dsp);--sub-wash:var(--dsp-wash)">
+      <span class="pcode">EC303</span>
+      <span><span class="pname">Digital Signal Processing</span><span class="pmeta">12 chapters &middot; 69 summary lines &middot; 9 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="revision/dip.html" style="--sub-ink:var(--dip);--sub-wash:var(--dip-wash)">
+      <span class="pcode">EC341</span>
+      <span><span class="pname">Digital Image Processing</span><span class="pmeta">12 chapters &middot; 64 summary lines &middot; 11 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+    <a class="prow" href="revision/oops.html" style="--sub-ink:var(--oops);--sub-wash:var(--oops-wash)">
+      <span class="pcode">C++</span>
+      <span><span class="pname">Object Oriented Programming</span><span class="pmeta">12 chapters &middot; 63 summary lines &middot; 9 diagrams</span></span>
+      <span class="parrow">&rarr;</span>
+    </a>
+  </div>
+  <p class="freqkey" style="margin:12px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)">every chapter ends in a five-line summary &middot; the switch in the margin shows nothing but those</p>
 </section>
 
 <!-- ============================ QUIZZES ============================ -->

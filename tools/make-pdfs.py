@@ -8,6 +8,7 @@ Tu Chahiye — build the downloadable PDFs.
 
 Writes into  Tu-Chahiye/pdf/ :
     notes-<key>.pdf     the whole subject, every chapter, figures included
+    revision-<key>.pdf  the short version, chapter summaries included
     papers-<key>.pdf    the past papers and the predicted paper, solutions open
     quiz-<key>.pdf      the 40 questions as a printable paper, answer key at the back
 
@@ -258,6 +259,12 @@ def main():
             tmp = os.path.join(TMP, 'quiz-%s.html' % k)
             io.open(tmp, 'w', encoding='utf-8').write(quiz_html(k, bank))
             render(tmp, 'quiz-%s.pdf' % k, '%s &middot; quiz' % code)
+
+        print('revision')
+        for k in KEYS:
+            code, name, _ = SUBJECT[k]
+            render(os.path.join(APP, 'revision', k + '.html'),
+                   'revision-%s.pdf' % k, '%s &middot; revision' % code)
 
         print('notes')
         for k in KEYS:
