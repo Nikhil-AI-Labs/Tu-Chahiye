@@ -252,14 +252,7 @@ N8(p) = (2,2) (2,3) (2,4) (3,2) (3,4) (4,2) (4,3) (4,4)</div>
 seven of the eight qualify</div>
 <p><b>(ii) Shortest paths from p = (3,3) to q = (0,4), with V = {0, 3}.</b>
 Mark the pixels that are in V first &mdash; this one step prevents most errors:</p>
-<div class="eq">        col : 0   1   2   3   4
-      row 0 : #   .   .   .   #      q
-      row 1 : .   .   .   #   .
-      row 2 : .   .   #   #   .
-      row 3 : .   #   #   #   .      p
-      row 4 : #   #   .   #   .
-
-  #  = value is 0 or 3 (in V)      .  = not in V</div>
+<figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-paths.png" alt="" loading="lazy" decoding="async"></div><figcaption>The paper&rsquo;s own grid with V = {0,&nbsp;3}, and the shortest 8-path drawn. A breadth-first search over the same array confirms it, and confirms that no 4-path exists at all.</figcaption></figure>
 <p><b>Shortest 4-path: none exists.</b> Look at q and stop:</p>
 <div class="eq">the 4-neighbours of q = (0,4) inside the image are
    (0,3) = 2  ->  NOT in V

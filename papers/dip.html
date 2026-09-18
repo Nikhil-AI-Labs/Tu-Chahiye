@@ -239,10 +239,7 @@ ND(p)  = (2,-1), (2,1), (4,-1), (4,1)
 N8(p)  = N4(p) U ND(p) = (2,0), (3,1), (2,1)</div>
 <p><b>Always say this:</b> p is a border pixel, so several of its neighbours fall outside the image and it has fewer than eight. Examiners look for that sentence.</p>
 <p><b>(ii) Paths from p = (3,0) to q = (0,3), with V = {1,2}.</b> First mark which pixels are in V:</p>
-<div class="eqn">  3   1   2   1          .   *   *   *
-  2   2   0   2    ->    *   *   .   *       * = value in V = {1,2}
-  1   2   1   1          *   *   *   *       . = not in V
-  1   0   1   2          *   .   *   *</div>
+<figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-paths-predicted.png" alt="Computed figure" loading="lazy" decoding="async"></div><figcaption>The grid from the question with V = {1,&nbsp;2}, and all three shortest paths drawn. Every length was found by breadth-first search over this exact array, with the m-adjacency rule applied at each diagonal step &mdash; the 8-path is 4, and both the 4-path and the m-path are 6.</figcaption></figure>
 <p><b>Shortest 4-path.</b> Only side steps are allowed, and every pixel on the way must be in V:</p>
 <div class="eqn">(3,0) -&gt; (2,0) -&gt; (2,1) -&gt; (1,1) -&gt; (1,0)?  no, going backwards
 
@@ -430,15 +427,7 @@ r = L-1    :  z = [ (L-1)^2 (L-1) ]^(1/3)
   <div class="qn">Q-1 (a)</div>
   <div class="qt">(i) Draw the spectrum of Fig.1 and Fig.2. (ii) Draw the spectrum that results from the convolution of the two images shown in Fig.1 and Fig.2. &nbsp; <b>Fig.1:</b> a horizontal sine wave of frequency 8. &nbsp; <b>Fig.2:</b> a vertical sine wave of frequency 16.<span class="co">CO1</span><figure class="fig"><span class="lab"><b>From the paper</b></span><div class="hold"><img src="fig/dip25-fig1-2.png" alt="Figure from the question paper" loading="lazy"></div><figcaption>Fig.1 and Fig.2 exactly as they are printed on the paper &mdash; a horizontal sine of frequency 8, and a vertical sine of frequency 16.</figcaption></figure><details class="sol"><summary>Solution</summary><div class="solbody"><p><b>(i) The two spectra.</b></p>
 <p><b>Fig.1</b> is a sine wave varying along x with 8 cycles across the image &mdash; it looks like <i>vertical</i> stripes. A sinusoid transforms to a <b>pair of impulses</b>, placed at its frequency on the axis it varies along:</p>
-<div class="eqn">F1(u,v) : impulses at (u,v) = (+8, 0) and (-8, 0)
-          plus a DC term at (0,0) because a real image is non-negative
-
-     v
-     |
-  .  |  .        two bright points on the u-axis, 8 units either side
------+-----&gt; u   of the centre
-     |
-     |</div>
+<figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-sine-spectra.png" alt="Computed figure" loading="lazy" decoding="async"></div><figcaption>Both spectra, computed. Three non-zero points each, their coordinates read off the array &mdash; and the only one the two have in common is the origin, which is the entire answer.</figcaption></figure>
 <p><b>Fig.2</b> varies along y with 16 cycles &mdash; <i>horizontal</i> stripes. Same rule, other axis:</p>
 <div class="eqn">F2(u,v) : impulses at (u,v) = (0, +16) and (0, -16), plus DC
 
@@ -484,13 +473,7 @@ F(u,v) = 0.5 x 2 cos(2 pi v a)
 F(u,v) = cos(2 pi v a)          -- independent of u</div>
 <p><span class="ans">F(u,v) = cos(2&pi;va)</span></p>
 <p><b>Spectrum:</b> |F| = |cos(2&pi;va)| &mdash; a set of <b>horizontal bright and dark bands</b>, running parallel to the u-axis and repeating every 1/(2a) along v.</p>
-<div class="eqn">     y                            v
-     |  . (0,a)                   |=========  bright
-     |                            |
- ----+----&gt; x     ---FT---&gt;  -----+---------  dark    ---&gt; u
-     |                            |
-     |  . (0,-a)                  |=========  bright
-   space                       period 1/(2a) along v</div>
+<figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-impulse-ft.png" alt="Computed figure" loading="lazy" decoding="async"></div><figcaption>The pair of impulses and its transform, computed: |cos(2&pi;va)|, which is bands running parallel to the u-axis with period 1/(2a).</figcaption></figure>
 <div class="tipbox"><span class="l">The rule behind both parts</span>
 <p>An <b>impulse pair transforms to a cosine</b>, and a <b>cosine transforms to an impulse pair</b>. Note also the reciprocal relationship: the further apart the impulses are in space (larger a), the more closely spaced the bands are in frequency. And part (i) is just the limiting case a = 0, where the two impulses merge and the cosine flattens to the constant 1.</p></div><figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-impulse-ft.png" alt="Computed figure" loading="lazy" decoding="async"></div><figcaption>Both transforms, computed. A point gives a flat plane; a pair of points gives cosine bands of period 1/(2a).</figcaption></figure></div></details></div>
   <div class="qm">02</div>
@@ -631,12 +614,7 @@ m = 36 / 25 = 1.44</div>
 
 <div class="q">
   <div class="qn">Q-3 (a)</div>
-  <div class="qt">Consider the image segment shown in Fig.5. (i) Let V = {0,2,3}. Find the pixel relationship for N<sub>4</sub>(p), N<sub>D</sub>(p) and N<sub>8</sub>(p) (write only coordinates). (ii) Let V = {0,3}. Compute the lengths of the shortest 4-, 8- and m-paths between p and q. If a particular path does not exist between these two points, explain why.<span class="co">CO2</span><figure class="fig"><span class="lab"><b>From the paper</b></span><div class="hold"><img src="fig/dip25-fig5.png" alt="Figure from the question paper" loading="lazy"></div><figcaption>Fig.5 &mdash; the image segment. p is at (3,3) and q at (0,4), both marked on the scan.</figcaption></figure><details class="sol"><summary>Solution</summary><div class="solbody"><div class="eqn">        col:  0    1    2    3    4
-      row 0:  0    1    1    2    3  &lt;- q at (0,4)
-      row 1:  1    1    2    0    1
-      row 2:  2    2    3    3    2
-      row 3:  1    3    0    0    1  &lt;- p at (3,3)
-      row 4:  0    0    2    0    1</div>
+  <div class="qt">Consider the image segment shown in Fig.5. (i) Let V = {0,2,3}. Find the pixel relationship for N<sub>4</sub>(p), N<sub>D</sub>(p) and N<sub>8</sub>(p) (write only coordinates). (ii) Let V = {0,3}. Compute the lengths of the shortest 4-, 8- and m-paths between p and q. If a particular path does not exist between these two points, explain why.<span class="co">CO2</span><figure class="fig"><span class="lab"><b>From the paper</b></span><div class="hold"><img src="fig/dip25-fig5.png" alt="Figure from the question paper" loading="lazy"></div><figcaption>Fig.5 &mdash; the image segment. p is at (3,3) and q at (0,4), both marked on the scan.</figcaption></figure><details class="sol"><summary>Solution</summary><div class="solbody"><figure class="fig plate"><span class="lab"><b>Computed</b> &middot; tools/make-figures.py</span><div class="hold"><img src="/assets/fig/dip-paths.png" alt="Computed figure" loading="lazy" decoding="async"></div><figcaption>The paper&rsquo;s own segment with V = {0,&nbsp;3}, and the shortest 8-path drawn. The same search confirms there is <b>no 4-path at all</b>: q&rsquo;s only 4-neighbours are 2 and 1, and neither is in V.</figcaption></figure>
 <p><b>(i) Neighbourhoods of p = (3,3).</b> Written as (row, column):</p>
 <div class="eqn">N4(p)  = (2,3), (4,3), (3,2), (3,4)
 

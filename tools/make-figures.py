@@ -735,12 +735,90 @@ def fig_aloha_sim():
     save(fig, 'dcn-aloha-sim')
 
 
+
+def fig_bsc_capacity():
+    """C = 1 - H(p) for the binary symmetric channel"""
+    p = np.linspace(1e-6, 1 - 1e-6, 2000)
+    H = -(p * np.log2(p) + (1 - p) * np.log2(1 - p))
+    C = 1 - H
+    fig, ax = plt.subplots(figsize=(8.4, 3.4))
+    ax.plot(p, C, color=SPOT['dcomm'], lw=2.6)
+    ax.axhline(0, color=HAIR, lw=1)
+    for x, t in ((0.0, 'C = 1'), (1.0, 'C = 1')):
+        ax.plot([x], [1], 'o', ms=6, color=SPOT['dcomm'])
+    ax.plot([0.5], [0], 'o', ms=6, color=PINK)
+    ax.annotate('a perfect channel', xy=(0, 1), xytext=(.07, .84),
+                fontsize=8.6, color=INK2, fontfamily=MONO,
+                arrowprops=dict(arrowstyle='-', color=HAIR))
+    ax.annotate('a perfect inverter — just as good,\n'
+                'you only have to flip every bit',
+                xy=(1, 1), xytext=(.58, .78), fontsize=8.6, color=INK2,
+                fontfamily=MONO, arrowprops=dict(arrowstyle='-', color=HAIR),
+                linespacing=1.5)
+    ax.annotate('p = 0.5 — the output is\nindependent of the input,\n'
+                'so it carries nothing',
+                xy=(.5, 0), xytext=(.27, .26), fontsize=8.6, color=PINK,
+                fontfamily=MONO, arrowprops=dict(arrowstyle='-', color=PINK),
+                linespacing=1.5)
+    ax.set_xlabel('p  transition probability')
+    ax.set_ylabel('C  bits per channel use')
+    ax.set_xlim(0, 1); ax.set_ylim(-.02, 1.08); bare(ax)
+    ax.set_title('C = 1 − H(p), plotted from the definition',
+                 fontsize=9.4, color=INK2, pad=8)
+    save(fig, 'dcomm-bsc-capacity')
+
+
+
+def fig_paths_predicted():
+    """the 4x4 grid the predicted paper uses, V = {1, 2}"""
+    A = np.array([[3, 1, 2, 1],
+                  [2, 2, 0, 2],
+                  [1, 2, 1, 1],
+                  [1, 0, 1, 2]])
+    V = {1, 2}
+    inV = np.isin(A, list(V))
+    paths = [('shortest 4-path = 6',
+              [(3, 0), (2, 0), (2, 1), (1, 1), (0, 1), (0, 2), (0, 3)]),
+             ('shortest 8-path = 4',
+              [(3, 0), (2, 1), (1, 1), (0, 2), (0, 3)]),
+             ('shortest m-path = 6, and unique',
+              [(3, 0), (2, 0), (2, 1), (1, 1), (0, 1), (0, 2), (0, 3)])]
+    fig, ax = plt.subplots(1, 3, figsize=(11.2, 4.2))
+    for a, (title, path) in zip(ax, paths):
+        a.imshow(inV, cmap=matplotlib.colors.ListedColormap([STOCK, '#FBE7EE']),
+                 vmin=0, vmax=1)
+        for i in range(4):
+            for j in range(4):
+                a.text(j, i, str(A[i, j]), ha='center', va='center',
+                       fontsize=13, fontfamily=MONO,
+                       color=SPOT['dip'] if inV[i, j] else INK3,
+                       fontweight='bold' if inV[i, j] else 'normal')
+        a.set_xticks(np.arange(-.5, 4, 1), minor=True)
+        a.set_yticks(np.arange(-.5, 4, 1), minor=True)
+        a.grid(which='minor', color=HAIR, lw=1)
+        a.set_xticks([]); a.set_yticks([])
+        for sp in a.spines.values():
+            sp.set_color(INK); sp.set_linewidth(1.4)
+        ys = [q[0] for q in path]; xs = [q[1] for q in path]
+        a.plot(xs, ys, color=SPOT['dip'], lw=2.6, solid_capstyle='round', zorder=3)
+        a.scatter(xs, ys, s=64, color=SPOT['dip'], zorder=4)
+        a.text(0, 3.42, 'p', ha='center', fontsize=10, color=INK, fontweight='bold')
+        a.text(3, -0.46, 'q', ha='center', fontsize=10, color=INK, fontweight='bold')
+        a.set_title(title, fontsize=9, fontfamily=MONO, color=INK2, pad=8,
+                    fontweight='bold')
+    fig.suptitle('V = {1, 2}. Every length below was found by breadth-first '
+                 'search over this exact array, with the m-adjacency rule '
+                 'applied at each diagonal step.',
+                 fontsize=9.2, color=INK2, y=1.03)
+    save(fig, 'dip-paths-predicted')
+
+
 ALL = [
     fig_sine_pair, fig_sine_spectra, fig_conv_theorem, fig_impulse_ft,
     fig_bitplanes, fig_histeq, fig_smoothing, fig_sharpening, fig_gradient,
-    fig_gamma, fig_sampling_quant, fig_paths,
+    fig_gamma, fig_sampling_quant, fig_paths, fig_paths_predicted,
     fig_aliasing, fig_dft, fig_freq_response, fig_fft_saving,
-    fig_quant_snr, fig_isi, fig_eye, fig_ber,
+    fig_quant_snr, fig_isi, fig_eye, fig_ber, fig_bsc_capacity,
     fig_aloha_sim,
 ]
 
