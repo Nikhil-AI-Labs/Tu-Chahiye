@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../assets/press.css">
 <link rel="stylesheet" href="../assets/motion.css">
 <link rel="stylesheet" href="../assets/print.css">
+<link rel="stylesheet" href="../assets/katex/katex.css">
+<link rel="stylesheet" href="../assets/math.css">
 <style>
 :root{
   --stock:#EAE8E1;
@@ -491,7 +493,7 @@ var BANK = [
 
 {d:"easy",s:"The Nyquist sampling criterion says the sampling frequency must be at least…",
  o:["equal to the highest frequency in the signal","twice the highest frequency in the signal","half the highest frequency in the signal","ten times the highest frequency in the signal"],a:1,
- e:"fs >= 2·fm. You need at least two samples per cycle of the fastest wiggle — one for the peak, one for the trough. Fewer than two and a fast wave can masquerade as a slow one, which is aliasing, and it can never be undone afterwards.",ch:2},
+ e:"fs ≥ 2·fm. You need at least two samples per cycle of the fastest wiggle — one for the peak, one for the trough. Fewer than two and a fast wave can masquerade as a slow one, which is aliasing, and it can never be undone afterwards.",ch:2},
 
 {d:"easy",s:"In Shannon's sense, which message carries the most information?",
  o:["The longest one","The most important one","The one about the least likely event","The one that arrives first"],a:2,
@@ -523,7 +525,7 @@ var BANK = [
 
 {d:"easy",s:"For a fixed capacity, the Shannon–Hartley law says you can trade bandwidth against…",
  o:["signal power","frequency","cable length","the number of users"],a:0,
- e:"C = B·log2(1 + S/N). Bandwidth sits outside the logarithm and power sits inside it, so you can hold C constant by spreading the signal thinly over a lot of spectrum and whispering, or squeezing into a narrow band and shouting. GPS does the first; a broadcast tower does the second.",ch:6},
+ e:"C = B·log₂(1 + S/N). Bandwidth sits outside the logarithm and power sits inside it, so you can hold C constant by spreading the signal thinly over a lot of spectrum and whispering, or squeezing into a narrow band and shouting. GPS does the first; a broadcast tower does the second.",ch:6},
 
 /* ---------------- MEDIUM (2 pts) ---------------- */
 {d:"medium",s:"An 8-bit quantizer is used on a full-scale sine wave. What is the SQNR?",
@@ -540,7 +542,7 @@ var BANK = [
 
 {d:"medium",s:"What is the maximum possible entropy of a source with 8 symbols, and when does it occur?",
  o:["8 bits, when one symbol is certain","3 bits, when all eight are equally likely","1 bit, when the source is binary","Unlimited, it depends on the symbol rate"],a:1,
- e:"0 <= H(X) <= log2(m). With m = 8, log2(8) = 3 bits per symbol, reached when all eight symbols are equally likely — maximum unpredictability means maximum average information. The minimum, 0, happens when one symbol has probability 1.",ch:5},
+ e:"0 ≤ H(X) ≤ log₂(m). With m = 8, log₂(8) = 3 bits per symbol, reached when all eight symbols are equally likely — maximum unpredictability means maximum average information. The minimum, 0, happens when one symbol has probability 1.",ch:5},
 
 {d:"medium",s:"Why is a prefix-free code useful?",
  o:["It uses fewer bits than any other code","No codeword starts another, so the decoder knows a codeword has ended the moment it ends","It always satisfies the Kraft inequality with equality","It removes the need for a synchronisation pattern"],a:1,
@@ -556,7 +558,7 @@ var BANK = [
 
 {d:"medium",s:"Why is BPSK about 3 dB better than ASK for the same bit error rate?",
  o:["It uses twice the bandwidth","Its two symbols sit at −A and +A, which is twice as far apart as ASK's 0 and A","It has a constant envelope","Its receiver is non-coherent"],a:1,
- e:"Pe for ASK and FSK is Q(sqrt(Eb/N0)); for BPSK it is Q(sqrt(2·Eb/N0)). That factor of two is 3 dB, and geometrically it is just the distance between the symbols: ASK puts them A apart, BPSK puts them 2A apart. Whenever you can, spend power moving symbols apart rather than turning them off.",ch:9},
+ e:"Pe for ASK and FSK is Q(√(Eb/N0)); for BPSK it is Q(√(2·Eb/N0)). That factor of two is 3 dB, and geometrically it is just the distance between the symbols: ASK puts them A apart, BPSK puts them 2A apart. Whenever you can, spend power moving symbols apart rather than turning them off.",ch:9},
 
 {d:"medium",s:"What is a scrambler for?",
  o:["Encrypting the data so it cannot be read","Breaking up long runs of identical bits and periodic patterns so the receiver's clock stays locked","Compressing the data before transmission","Adding parity bits for error detection"],a:1,
@@ -564,20 +566,20 @@ var BANK = [
 
 {d:"medium",s:"In a convolutional encoder, what does the constraint length K mean?",
  o:["The number of output bits per input bit","The number of input bits that influence any one output bit","The length of the whole message","The number of states in the trellis"],a:1,
- e:"K is how many input bits affect any single output bit — the current one plus the K−1 held in the shift registers. For the rate-1/2, K = 3 encoder there are K − 1 = 2 flip-flops, so 2^2 = 4 states in the trellis, and the generator vectors g1 = 111 and g2 = 101 say which taps each adder is connected to.",ch:8},
+ e:"K is how many input bits affect any single output bit — the current one plus the K−1 held in the shift registers. For the rate-1/2, K = 3 encoder there are K − 1 = 2 flip-flops, so 2<sup>2</sup> = 4 states in the trellis, and the generator vectors g1 = 111 and g2 = 101 say which taps each adder is connected to.",ch:8},
 
 /* ---------------- HARD (3 pts) ---------------- */
 {d:"hard",s:"A television signal of bandwidth 4.2 MHz is sent by binary PCM with 512 quantization levels. Find the codeword length and the bit rate.",
  o:["n = 9 bits, Rb = 75.6 Mb/s","n = 8 bits, Rb = 67.2 Mb/s","n = 9 bits, Rb = 37.8 Mb/s","n = 10 bits, Rb = 84 Mb/s"],a:0,
- e:"fs = 2·fm = 8.4 MSamples/s. n = log2(512) = 9 bits per sample, since 512 = 2^9. Rb = n·fs = 9 × 8.4 × 10^6 = 75.6 Mb/s. For completeness the SQNR is 6.02(9) + 1.76 = 55.94 dB, and the polar-NRZ transmission bandwidth is Rb/2 = 37.8 MHz.",ch:2},
+ e:"fs = 2·fm = 8.4 MSamples/s. n = log₂(512) = 9 bits per sample, since 512 = 2<sup>9</sup>. Rb = n·fs = 9 × 8.4 × 10<sup>6</sup> = 75.6 Mb/s. For completeness the SQNR is 6.02(9) + 1.76 = 55.94 dB, and the polar-NRZ transmission bandwidth is Rb/2 = 37.8 MHz.",ch:2},
 
 {d:"hard",s:"A 3.5 kHz signal is sampled, quantized and coded, and the channel can carry only 50 kbit/s. Vpp = 4 V and Vrms = 0.2 V. What are n and the step size?",
  o:["n = 8, Δ = 0.0156 V","n = 7, Δ = 0.03125 V","n = 7, Δ = 0.0625 V","n = 14, Δ = 0.000244 V"],a:1,
- e:"fs = 2 × 3.5 kHz = 7 kSamples/s. n(max) = Rb/fs = 50,000/7,000 = 7.14, and since n must be a whole number and the channel rate must not be exceeded, round DOWN to n = 7. Then Δ = Vpp/2^n = 4/128 = 0.03125 V. (Round down for a channel-rate limit; round up for an accuracy requirement.)",ch:2},
+ e:"fs = 2 × 3.5 kHz = 7 kSamples/s. n(max) = Rb/fs = 50,000/7,000 = 7.14, and since n must be a whole number and the channel rate must not be exceeded, round DOWN to n = 7. Then Δ = Vpp/2<sup>n</sup> = 4/128 = 0.03125 V. (Round down for a channel-rate limit; round up for an accuracy requirement.)",ch:2},
 
 {d:"hard",s:"Continuing that problem — Vrms = 0.2 V and Δ = 0.03125 V. What is the SNR in dB?",
  o:["49.92 dB","43.94 dB","26.91 dB","13.46 dB"],a:2,
- e:"A Vrms is given, so use the general form, not 6.02n + 1.76. SNR = Vrms² / (Δ²/12) = 0.04 / (0.0009766/12) = 0.04 / 0.00008138 = 491.5. In dB: 10·log10(491.5) = 26.91 dB. It is far below the 43.9 dB a full-scale sine would give at 7 bits, because this signal is quiet — 0.2 V rms against a possible 1.414 V rms.",ch:2},
+ e:"A Vrms is given, so use the general form, not 6.02n + 1.76. SNR = Vrms² / (Δ²/12) = 0.04 / (0.0009766/12) = 0.04 / 0.00008138 = 491.5. In dB: 10·log₁₀(491.5) = 26.91 dB. It is far below the 43.9 dB a full-scale sine would give at 7 bits, because this signal is quiet — 0.2 V rms against a possible 1.414 V rms.",ch:2},
 
 {d:"hard",s:"A channel of bandwidth 75 kHz carries binary data at 0.1 Mb/s using raised-cosine pulses. What is the roll-off factor?",
  o:["α = 0.25","α = 0.5","α = 0.75","α = 1.0"],a:1,
@@ -589,16 +591,16 @@ var BANK = [
 
 {d:"hard",s:"A telephone line has a bandwidth of 3 kHz and an SNR of 30 dB. What is its Shannon capacity?",
  o:["About 90 kb/s","About 30 kb/s","About 9 kb/s","About 3 kb/s"],a:1,
- e:"First convert the dB: 30 = 10·log10(S/N) so S/N = 10^3 = 1000. Then C = B·log2(1 + S/N) = 3000 × log2(1001) = 3000 × 9.97 ≈ 29,900 bit/s. Never put a dB value straight into the formula — it wants the plain ratio. This number is why dial-up modems topped out near 33.6 kbit/s: they had hit a law of physics.",ch:6},
+ e:"First convert the dB: 30 = 10·log₁₀(S/N) so S/N = 10<sup>3</sup> = 1000. Then C = B·log₂(1 + S/N) = 3000 × log₂(1001) = 3000 × 9.97 ≈ 29,900 bit/s. Never put a dB value straight into the formula — it wants the plain ratio. This number is why dial-up modems topped out near 33.6 kbit/s: they had hit a law of physics.",ch:6},
 
 {d:"hard",s:"A link has B = 1 MHz, a noise density of −174 dBm/Hz and a received signal power of −100 dBm. What is the SNR in dB?",
- code:"B  = 1 x 10^6 Hz\nN0 = -174 dBm/Hz\nS  = -100 dBm",
+ code:"B  = 1 × 10<sup>6</sup> Hz\nN0 = -174 dBm/Hz\nS  = -100 dBm",
  o:["14.0 dB","74.0 dB","−274 dB","60.0 dB"],a:0,
- e:"N(dBm) = N0 + 10·log10(B) = −174 + 10·log10(10^6) = −174 + 60 = −114 dBm. Because both powers are already in dBm, the ratio becomes a subtraction: SNR = −100 − (−114) = 14.0 dB. That is S/N = 25.1 as a ratio, so C = 10^6 × log2(26.1) ≈ 4.71 Mb/s.",ch:6},
+ e:"N(dBm) = N0 + 10·log₁₀(B) = −174 + 10·log₁₀(10<sup>6</sup>) = −174 + 60 = −114 dBm. Because both powers are already in dBm, the ratio becomes a subtraction: SNR = −100 − (−114) = 14.0 dB. That is S/N = 25.1 as a ratio, so C = 10<sup>6</sup> × log₂(26.1) ≈ 4.71 Mb/s.",ch:6},
 
 {d:"hard",s:"A binary symmetric channel has a crossover probability p = 0.1. What is its capacity per symbol?",
  o:["0.9 bits/symbol","0.531 bits/symbol","0.469 bits/symbol","0.1 bits/symbol"],a:1,
- e:"Cs = 1 + p·log2(p) + (1−p)·log2(1−p) = 1 + 0.1(−3.322) + 0.9(−0.152) = 1 − 0.3322 − 0.1368 = 0.531 bits/symbol. Read the shape of the formula: capacity is 1 minus what the noise steals. A 10% error rate costs nearly half the capacity — which is why p = 0.5 gives zero.",ch:6},
+ e:"Cs = 1 + p·log₂(p) + (1−p)·log₂(1−p) = 1 + 0.1(−3.322) + 0.9(−0.152) = 1 − 0.3322 − 0.1368 = 0.531 bits/symbol. Read the shape of the formula: capacity is 1 minus what the noise steals. A 10% error rate costs nearly half the capacity — which is why p = 0.5 gives zero.",ch:6},
 
 {d:"hard",s:"Does a binary prefix-free code with codeword lengths 1, 2, 2, 3 exist?",
  o:["Yes, and it is perfectly efficient","Yes, but only with a fifth codeword added","No, because the Kraft sum comes to 1.125","No, because prefix-free codes must all be the same length"],a:2,
@@ -623,13 +625,13 @@ var BANK = [
  e:"The divisor is 4 bits so r = 3: append three zeros to get 11001011000 and divide modulo 2, which means XOR at every step and no borrowing. Working down gives a remainder of 111. Replace the three appended zeros with it: the codeword is 11001011111. At the receiver, dividing the whole codeword by 1011 must give a remainder of 000.",ch:8},
 
 {d:"hard",s:"A rate-1/2, K = 3 convolutional encoder has g1 = 111 and g2 = 101. What does the message 10011 produce?",
- code:"g1 = 111  ->  c1 = input XOR FF1 XOR FF2\ng2 = 101  ->  c2 = input XOR FF2\nmessage = 1 0 0 1 1",
+ code:"g1 = 111  →  c1 = input XOR FF1 XOR FF2\ng2 = 101  →  c2 = input XOR FF2\nmessage = 1 0 0 1 1",
  o:["11 10 11 11 01 01 11","11 01 10 01 11 00 11","10 11 01 11 10 01 11","11 11 10 10 01 01 11"],a:0,
  e:"As polynomials, m(D) = 1 + D³ + D⁴. Then c1(D) = (1 + D + D²)m(D) = 1 + D + D² + D³ + D⁶, so path 1 is 1111001; and c2(D) = (1 + D²)m(D) = 1 + D² + D³ + D⁴ + D⁵ + D⁶, so path 2 is 1011111. Interleaving one bit from each gives (11, 10, 11, 11, 01, 01, 11). The same answer falls out of a clock-by-clock table of the flip-flop contents — do it both ways to check yourself.",ch:8},
 
 {d:"hard",s:"Why does every practical Viterbi decoder use a trellis rather than a tree?",
  o:["The tree cannot represent all the paths","The tree doubles in size at every step, while the trellis folds the repeated states so the work per step is constant","The trellis is easier to draw by hand","The tree only works for rate-1/2 codes"],a:1,
- e:"A tree has 2^N branches after N bits — over a million after 20 bits. The trellis notices that the encoder keeps returning to the same small set of states, so it draws one row per state repeated across time. Combined with keeping only the best surviving path into each state, the work per time step stays constant no matter how long the message is.",ch:8},
+ e:"A tree has 2<sup>N</sup> branches after N bits — over a million after 20 bits. The trellis notices that the encoder keeps returning to the same small set of states, so it draws one row per state repeated across time. Combined with keeping only the best surviving path into each state, the work per time step stays constant no matter how long the message is.",ch:8},
 
 {d:"hard",s:"For a BPSK modulator with a carrier at 70 MHz and a bit rate of 10 Mbps, what are the side frequencies and the minimum bandwidth?",
  o:["65 and 75 MHz; bandwidth 10 MHz","60 and 80 MHz; bandwidth 20 MHz","69.5 and 70.5 MHz; bandwidth 1 MHz","70 and 80 MHz; bandwidth 10 MHz"],a:0,

@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../assets/press.css">
 <link rel="stylesheet" href="../assets/motion.css">
 <link rel="stylesheet" href="../assets/print.css">
+<link rel="stylesheet" href="../assets/katex/katex.css">
+<link rel="stylesheet" href="../assets/math.css">
 <style>
 :root{
   --stock:#EAE8E1;
@@ -543,8 +545,8 @@ var BANK = [
  e:"Positions 1, 2, 4, 8, 16 … and data bits fill everything else. That is what makes the scheme work: each parity bit checks the positions whose number contains its own bit, so adding up the positions of the failing checks gives the position of the wrong bit directly.",ch:4},
 
 {d:"medium",s:"For the same m-bit sequence number, how do the maximum sender window sizes of Go-Back-N and Selective Repeat compare?",
- o:["Both are 2^m","Go-Back-N is 2^m − 1, Selective Repeat is 2^(m−1)","Go-Back-N is 2^(m−1), Selective Repeat is 2^m − 1","Both are 2^(m−1)"],a:1,
- e:"Go-Back-N can use 2^m − 1 because its receiver window is 1, so only one frame is ever expected. Selective Repeat buffers out-of-order frames, so its windows must not overlap after a wrap-around — which caps both windows at half the sequence space, 2^(m−1).",ch:5},
+ o:["Both are 2<sup>m</sup>","Go-Back-N is 2<sup>m</sup> − 1, Selective Repeat is 2<sup>m−1</sup>","Go-Back-N is 2<sup>m−1</sup>, Selective Repeat is 2<sup>m</sup> − 1","Both are 2<sup>m−1</sup>"],a:1,
+ e:"Go-Back-N can use 2<sup>m</sup> − 1 because its receiver window is 1, so only one frame is ever expected. Selective Repeat buffers out-of-order frames, so its windows must not overlap after a wrap-around — which caps both windows at half the sequence space, 2<sup>m−1</sup>.",ch:5},
 
 {d:"medium",s:"A station using 1-persistent CSMA finds the channel busy. What does it do?",
  o:["Waits a random time, then senses again","Keeps sensing continuously and transmits the instant the channel goes idle","Gives up and reports failure","Transmits anyway and relies on collision detection"],a:1,
@@ -569,19 +571,19 @@ var BANK = [
 /* ---------------- HARD (3 pts) ---------------- */
 {d:"hard",s:"A pure ALOHA network transmits 100-bit frames on a shared 200 kbps channel. If the system produces 1000 frames per second, roughly how many get through?",
  o:["1000","368","184","500"],a:2,
- e:"Frame time Tfr = 100 bits / 200 kbps = 0.5 ms. Offered load G = 1000 × 0.5 ms = 0.5. Pure ALOHA throughput S = G·e^(−2G) = 0.5 × e^(−1) = 0.184. So 0.184 × 1000 ≈ 184 frames per second succeed — the channel is being offered far more than it can carry. Drop the load to 200 frames/s and G falls to 0.1, giving S = 0.0819 and about 82 successes — fewer in total, but 41% of what was offered instead of 18%.",ch:6},
+ e:"Frame time Tfr = 100 bits / 200 kbps = 0.5 ms. Offered load G = 1000 × 0.5 ms = 0.5. Pure ALOHA throughput S = G·e<sup>−2G</sup> = 0.5 × e<sup>−1</sup> = 0.184. So 0.184 × 1000 ≈ 184 frames per second succeed — the channel is being offered far more than it can carry. Drop the load to 200 frames/s and G falls to 0.1, giving S = 0.0819 and about 82 successes — fewer in total, but 41% of what was offered instead of 18%.",ch:6},
 
 {d:"hard",s:"What is the maximum throughput of pure ALOHA and of slotted ALOHA, and at what offered load does each occur?",
  o:["18.4% at G = 0.5 and 36.8% at G = 1","36.8% at G = 1 and 18.4% at G = 0.5","50% at G = 1 and 100% at G = 2","18.4% at G = 1 and 36.8% at G = 0.5"],a:0,
- e:"Pure ALOHA: S = G·e^(−2G), which peaks at S = 1/(2e) = 0.184 when G = 0.5. Slotted ALOHA: S = G·e^(−G), peaking at S = 1/e = 0.368 when G = 1. Slotting halves the vulnerable time from 2·Tfr to Tfr, and that alone doubles the throughput.",ch:6},
+ e:"Pure ALOHA: S = G·e<sup>−2G</sup>, which peaks at S = 1/(2e) = 0.184 when G = 0.5. Slotted ALOHA: S = G·e<sup>−G</sup>, peaking at S = 1/e = 0.368 when G = 1. Slotting halves the vulnerable time from 2·Tfr to Tfr, and that alone doubles the throughput.",ch:6},
 
 {d:"hard",s:"A CSMA/CD network runs at 10 Mbps and the maximum propagation time between two stations is 51.2 μs. What is the minimum frame size?",
  o:["512 bits","1024 bits","256 bits","2048 bits"],a:1,
- e:"A station must still be transmitting when the worst-case collision signal gets back to it, so Tfr ≥ 2 × Tp = 2 × 51.2 μs = 102.4 μs. Minimum frame = 10 × 10^6 × 102.4 × 10^−6 = 1024 bits, which is 128 bytes. (Standard Ethernet's famous 64-byte minimum comes from the same rule with Tp = 25.6 μs.)",ch:6},
+ e:"A station must still be transmitting when the worst-case collision signal gets back to it, so Tfr ≥ 2 × Tp = 2 × 51.2 μs = 102.4 μs. Minimum frame = 10 × 10<sup>6</sup> × 102.4 × 10^−6 = 1024 bits, which is 128 bytes. (Standard Ethernet's famous 64-byte minimum comes from the same rule with Tp = 25.6 μs.)",ch:6},
 
 {d:"hard",s:"In a Stop-and-Wait system the line is 1 Mbps and one bit takes 20 ms for a round trip. Frames are 1000 bits. What is the link utilisation?",
  o:["50%","20%","5%","75%"],a:2,
- e:"Bandwidth-delay product = 1 × 10^6 × 20 × 10^−3 = 20,000 bits — the pipe holds 20,000 bits. Stop-and-Wait puts only one 1000-bit frame in flight per round trip, so utilisation = 1000 / 20,000 = 5%. The link spends 95% of its time idle, waiting for an acknowledgement.",ch:5},
+ e:"Bandwidth-delay product = 1 × 10<sup>6</sup> × 20 × 10^−3 = 20,000 bits — the pipe holds 20,000 bits. Stop-and-Wait puts only one 1000-bit frame in flight per round trip, so utilisation = 1000 / 20,000 = 5%. The link spends 95% of its time idle, waiting for an acknowledgement.",ch:5},
 
 {d:"hard",s:"The same link — 1 Mbps, 20 ms round trip, 1000-bit frames — now uses a protocol that can send 15 frames before stopping for an acknowledgement. What is the utilisation?",
  o:["15%","75%","100%","50%"],a:1,
@@ -594,7 +596,7 @@ var BANK = [
 
 {d:"hard",s:"A 7-bit data word is to be protected by a Hamming code. How many parity bits are needed, and how long is the codeword?",
  o:["3 parity bits, 10-bit codeword","4 parity bits, 11-bit codeword","4 parity bits, 12-bit codeword","5 parity bits, 12-bit codeword"],a:1,
- e:"The condition is 2^r ≥ m + r + 1 with m = 7. Try r = 3: 8 ≥ 11 is false. Try r = 4: 16 ≥ 12 is true. So 4 parity bits, and the codeword is 7 + 4 = 11 bits, with the parity bits at positions 1, 2, 4 and 8.",ch:4},
+ e:"The condition is 2<sup>r</sup> ≥ m + r + 1 with m = 7. Try r = 3: 8 ≥ 11 is false. Try r = 4: 16 ≥ 12 is true. So 4 parity bits, and the codeword is 7 + 4 = 11 bits, with the parity bits at positions 1, 2, 4 and 8.",ch:4},
 
 {d:"hard",s:"An 11-bit Hamming codeword arrives and the parity checks at positions 1 and 4 fail, while those at 2 and 8 pass. Which bit is wrong?",
  o:["Bit 3","Bit 5","Bit 4","Bit 14"],a:1,
@@ -607,10 +609,10 @@ var BANK = [
 
 {d:"hard",s:"Why must a Selective Repeat receiver window be no larger than half the sequence-number space?",
  o:["To keep the buffers small","So that a retransmitted old frame can never be mistaken for a new one after a wrap-around","Because acknowledgements are numbered separately","To make the modulo arithmetic easier"],a:1,
- e:"The receiver buffers out-of-order frames, so at any moment it is willing to accept several sequence numbers. If the windows were more than half the space, an old retransmission could carry a number the receiver is currently expecting as *new*, and it would be accepted as fresh data — silent corruption. Capping both windows at 2^(m−1) makes the old and new ranges disjoint.",ch:5},
+ e:"The receiver buffers out-of-order frames, so at any moment it is willing to accept several sequence numbers. If the windows were more than half the space, an old retransmission could carry a number the receiver is currently expecting as *new*, and it would be accepted as fresh data — silent corruption. Capping both windows at 2<sup>m−1</sup> makes the old and new ranges disjoint.",ch:5},
 
 {d:"hard",s:"Four stations share a channel with CDMA. Station 1 has the Walsh code [+1 +1 +1 +1] and station 2 has [+1 −1 +1 −1]. Station 1 sends bit 1 and station 2 sends bit 0, and no one else transmits. What does the channel carry?",
- code:"station 1 : [+1 +1 +1 +1]  sends 1  ->  +1 x code\nstation 2 : [+1 -1 +1 -1]  sends 0  ->  -1 x code",
+ code:"station 1 : [+1 +1 +1 +1]  sends 1  →  +1 x code\nstation 2 : [+1 -1 +1 -1]  sends 0  →  -1 x code",
  o:["[+2 0 +2 0]","[0 +2 0 +2]","[+1 +1 +1 +1]","[+2 +2 +2 +2]"],a:1,
  e:"A 1 is sent as +1 times the code, a 0 as −1 times the code. Station 1 contributes [+1 +1 +1 +1] and station 2 contributes [−1 +1 −1 +1]. Adding element by element gives [0 +2 0 +2]. Station 1 recovers its bit by multiplying by its own code and averaging: (0−0 … ) = (0 + 2 + 0 + 2)/4 = +1, so bit 1. Station 2 gets (0 − 2 + 0 − 2)/4 = −1, so bit 0.",ch:6},
 

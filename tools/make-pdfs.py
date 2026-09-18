@@ -208,12 +208,45 @@ def quiz_html(key, bank):
 
 
 # ------------------------------------------------------------------- driver
+def serve(root):
+    """A page is rendered over HTTP, not from a file, because a
+    root-absolute path -- /assets/fig/..., and the maths font faces --
+    resolves against the drive root under file:/// and quietly fails. This
+    way the PDF is made from exactly what the deployed site serves."""
+    import threading
+    try:
+        from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+    except ImportError:                                    # py2
+        from SimpleHTTPServer import SimpleHTTPRequestHandler
+        from BaseHTTPServer import HTTPServer as ThreadingHTTPServer
+
+    class H(SimpleHTTPRequestHandler):
+        protocol_version = 'HTTP/1.1'
+
+        def translate_path(self, path):
+            path = path.split('?', 1)[0].split('#', 1)[0]
+            return os.path.join(root, path.lstrip('/').replace('/', os.sep))
+
+        def log_message(self, *a):
+            pass
+
+    srv = ThreadingHTTPServer(('127.0.0.1', 0), H)
+    srv.daemon_threads = True
+    t = threading.Thread(target=srv.serve_forever)
+    t.daemon = True
+    t.start()
+    return srv, 'http://127.0.0.1:%d' % srv.server_address[1]
+
+
 def main():
     from playwright.sync_api import sync_playwright
 
     for d in (OUT, TMP):
         if not os.path.isdir(d):
             os.makedirs(d)
+
+    srv, base = serve(APP)
+    print('serving the app on %s for the render' % base)
 
     made = []
     with sync_playwright() as p:
@@ -222,8 +255,8 @@ def main():
         pg = ctx.new_page()
 
         def render(src_path, out_name, label, landscape=False):
-            url = 'file:///' + src_path.replace('\\', '/')
-            pg.goto(url, wait_until='load')
+            rel = os.path.relpath(src_path, APP).replace(os.sep, '/')
+            pg.goto(base + '/' + rel, wait_until='load')
             pg.wait_for_timeout(900)
             pg.evaluate(OPEN_ALL)
             try:
@@ -252,7 +285,7 @@ def main():
         print('quizzes')
         for k in KEYS:
             code, name, _ = SUBJECT[k]
-            pg.goto('file:///' + os.path.join(APP, 'quiz', k + '.html').replace('\\', '/'),
+            pg.goto(base + '/quiz/' + k + '.html',
                     wait_until='load')
             pg.wait_for_timeout(500)
             bank = pg.evaluate('BANK')

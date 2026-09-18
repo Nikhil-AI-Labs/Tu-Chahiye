@@ -1,4 +1,6 @@
 tools/_tmp/
+tools/_math/
+tools/__pycache__/
 .DS_Store
 Thumbs.db
 .vercel

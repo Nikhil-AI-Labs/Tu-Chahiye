@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../assets/press.css">
 <link rel="stylesheet" href="../assets/motion.css">
 <link rel="stylesheet" href="../assets/print.css">
+<link rel="stylesheet" href="../assets/katex/katex.css">
+<link rel="stylesheet" href="../assets/math.css">
 <style>
 :root{
   --stock:#EAE8E1;
@@ -491,7 +493,7 @@ var BANK = [
 
 {d:"easy",s:"An LTI system is completely described by which single function?",
  o:["Its step response","Its impulse response h(n)","Its input signal","Its sampling rate"],a:1,
- e:"Once you know h(n) you know everything: the output for any input is y(n) = x(n) * h(n). Linearity and time invariance are what let one response stand in for all of them.",ch:2},
+ e:"Once you know h(n) you know everything: the output for any input is y(n) = x(n) ∗ h(n). Linearity and time invariance are what let one response stand in for all of them.",ch:2},
 
 {d:"easy",s:"If x(n) has length 4 and h(n) has length 3, how long is their linear convolution?",
  o:["3","4","6","7"],a:2,
@@ -502,12 +504,12 @@ var BANK = [
  e:"Region of Convergence — the set of z values for which the sum actually converges. It is not optional extra information: the same algebraic X(z) with two different ROCs describes two completely different sequences, one causal and one anti-causal.",ch:3},
 
 {d:"easy",s:"How many complex multiplications does a direct N-point DFT need?",
- o:["N","N log2 N","N squared","N/2"],a:2,
- e:"N² complex multiplications and N(N−1) complex additions, because each of the N outputs is a sum over all N inputs. The radix-2 FFT cuts this to (N/2)·log2(N), and that single change is what made real-time spectral analysis possible.",ch:5},
+ o:["N","N log₂ N","N squared","N/2"],a:2,
+ e:"N² complex multiplications and N(N−1) complex additions, because each of the N outputs is a sum over all N inputs. The radix-2 FFT cuts this to (N/2)·log₂(N), and that single change is what made real-time spectral analysis possible.",ch:5},
 
 {d:"easy",s:"What is the twiddle factor W(N) in the DFT?",
  o:["e raised to (−j2π/N)","e raised to (+j2πN)","2π/N","N/2π"],a:0,
- e:"W(N) = e^(−j2π/N), the complex Nth root of unity. The DFT is X(k) = Σ x(n)·W(N)^(nk), and the FFT exists because the powers of W(N) repeat — the symmetry W(N)^(k+N/2) = −W(N)^k is what lets half the work be reused.",ch:5},
+ e:"W(N) = e<sup>−j2π/N</sup>, the complex Nth root of unity. The DFT is X(k) = Σ x(n)·W(N)<sup>nk</sup>, and the FFT exists because the powers of W(N) repeat — the symmetry W(N)<sup>k+N/2</sup> = −W(N)<sup>k</sup> is what lets half the work be reused.",ch:5},
 
 {d:"easy",s:"Aliasing happens when…",
  o:["the sampling rate is more than twice the highest frequency","the sampling rate is less than twice the highest frequency","the signal is quantized too finely","the signal is periodic"],a:1,
@@ -518,8 +520,8 @@ var BANK = [
  e:"Absolute summability: Σ|h(n)| < ∞. In the z-domain the same condition says the ROC must include the unit circle. For a causal system that means every pole lies strictly inside the unit circle.",ch:2},
 
 {d:"easy",s:"In a radix-2 FFT of length N, how many stages are there?",
- o:["N","N/2","log2 N","2N"],a:2,
- e:"log2(N) stages, each with N/2 butterflies. For N = 8 that is 3 stages of 4 butterflies; for N = 1024 it is 10 stages of 512. The total (N/2)·log2(N) multiplications is where the whole saving comes from.",ch:5},
+ o:["N","N/2","log₂ N","2N"],a:2,
+ e:"log₂(N) stages, each with N/2 butterflies. For N = 8 that is 3 stages of 4 butterflies; for N = 1024 it is 10 stages of 512. The total (N/2)·log₂(N) multiplications is where the whole saving comes from.",ch:5},
 
 {d:"easy",s:"What does a causal system mean?",
  o:["Its output depends only on present and past inputs","Its output depends only on future inputs","It has no memory","Its impulse response is symmetric"],a:0,
@@ -530,18 +532,18 @@ var BANK = [
  o:["Not periodic","Periodic, N = 8","Periodic, N = 16","Periodic, N = 4"],a:2,
  e:"A discrete sinusoid cos(ω0·n + φ) is periodic only if ω0/2π is rational. Here ω0 = π/8, so N = 2πk/ω0 = 2πk/(π/8) = 16k, and the smallest whole-number answer is N = 16. The phase 0.2 shifts the wave but cannot change its period.",ch:1},
 
-{d:"medium",s:"Is x(n) = e^(jn) periodic?",
+{d:"medium",s:"Is x(n) = e<sup>jn</sup> periodic?",
  o:["Yes, N = 1","Yes, N = 2π","Yes, N = 6","No"],a:3,
- e:"Here ω0 = 1, so periodicity would need N = 2πk/1 = 2πk to be a whole number for some integer k — impossible, because π is irrational. The continuous-time signal e^(jt) is perfectly periodic; sampling it destroys the periodicity. This is one of the real differences between the discrete and continuous worlds.",ch:1},
+ e:"Here ω0 = 1, so periodicity would need N = 2πk/1 = 2πk to be a whole number for some integer k — impossible, because π is irrational. The continuous-time signal e<sup>jt</sup> is perfectly periodic; sampling it destroys the periodicity. This is one of the real differences between the discrete and continuous worlds.",ch:1},
 
 {d:"medium",s:"Convolve x(n) = {1, 2, 3} with h(n) = {1, 1}.",
  code:"x(n) = 1, 2, 3     (n = 0,1,2)\nh(n) = 1, 1        (n = 0,1)",
  o:["{1, 3, 5, 3}","{1, 2, 3, 1}","{1, 3, 5}","{1, 2, 5, 3}"],a:0,
  e:"Length 3 + 2 − 1 = 4. Each output is a sum of products whose indices add up to n: y(0) = 1·1 = 1; y(1) = 1·1 + 2·1 = 3; y(2) = 2·1 + 3·1 = 5; y(3) = 3·1 = 3. Free check: Σy = 12 must equal (Σx)(Σh) = 6 × 2 = 12.",ch:2},
 
-{d:"medium",s:"What is the z-transform of x(n) = a^n·u(n), and what is its ROC?",
+{d:"medium",s:"What is the z-transform of x(n) = a<sup>n</sup>·u(n), and what is its ROC?",
  o:["1/(1 − a·z^−1), ROC |z| > |a|","1/(1 − a·z^−1), ROC |z| < |a|","1/(1 + a·z^−1), ROC |z| > |a|","a/(z − 1), ROC all z"],a:0,
- e:"X(z) = Σ a^n·z^−n = Σ (a·z^−1)^n, a geometric series that converges when |a·z^−1| < 1, that is |z| > |a| — the outside of a circle through the pole. The same X(z) with ROC |z| < |a| belongs to the anti-causal sequence −a^n·u(−n−1), which is why the ROC must always be stated.",ch:3},
+ e:"X(z) = Σ a<sup>n</sup>·z^−n = Σ (a·z^−1)<sup>n</sup>, a geometric series that converges when |a·z^−1| < 1, that is |z| > |a| — the outside of a circle through the pole. The same X(z) with ROC |z| < |a| belongs to the anti-causal sequence −a<sup>n</sup>·u(−n−1), which is why the ROC must always be stated.",ch:3},
 
 {d:"medium",s:"A causal system has poles at z = 0.5 and z = 2. Is it stable?",
  o:["Yes, because one pole is inside the unit circle","No, because the pole at z = 2 is outside the unit circle","Yes, because it is causal","Cannot be decided without the zeros"],a:1,
@@ -555,9 +557,9 @@ var BANK = [
  o:["0, 1, 2, 3, 4, 5, 6, 7","0, 4, 2, 6, 1, 5, 3, 7","7, 6, 5, 4, 3, 2, 1, 0","0, 2, 4, 6, 1, 3, 5, 7"],a:1,
  e:"Write each index in 3 bits and reverse the bits: 0 = 000 → 000 = 0; 1 = 001 → 100 = 4; 2 = 010 → 010 = 2; 3 = 011 → 110 = 6; and so on. The sequence is 0, 4, 2, 6, 1, 5, 3, 7. It is not the same as taking evens then odds once — that is only the first split.",ch:5},
 
-{d:"medium",s:"What is the value of the twiddle factor W(8)^4?",
+{d:"medium",s:"What is the value of the twiddle factor W(8)<sup>4</sup>?",
  o:["+1","−1","+j","−j"],a:1,
- e:"W(8)^4 = e^(−j2π·4/8) = e^(−jπ) = −1. In general W(N)^(N/2) = −1, and that single identity is the symmetry the whole butterfly is built on: it turns a multiplication into a sign change.",ch:5},
+ e:"W(8)<sup>4</sup> = e<sup>−j2π·4/8</sup> = e<sup>−jπ</sup> = −1. In general W(N)<sup>N/2</sup> = −1, and that single identity is the symmetry the whole butterfly is built on: it turns a multiplication into a sign change.",ch:5},
 
 {d:"medium",s:"When is circular convolution of two sequences equal to their linear convolution?",
  o:["Always","Never","When the DFT length N is at least L1 + L2 − 1","When both sequences are the same length"],a:2,
@@ -565,13 +567,13 @@ var BANK = [
 
 {d:"medium",s:"What does the DFT of the shifted impulse x(n) = δ(n − n0) look like?",
  o:["A single impulse at k = n0","A constant of magnitude 1 with a linear phase −2πk·n0/N","Zero everywhere","A constant N with zero phase"],a:1,
- e:"X(k) = e^(−j2πk·n0/N). The magnitude is 1 at every k — a single sample is spread over all frequencies equally — while the shift appears entirely in the phase, as a straight line. This is the time-shift property: shifting in time multiplies by a complex exponential in frequency.",ch:4},
+ e:"X(k) = e<sup>−j2πk·n0/N</sup>. The magnitude is 1 at every k — a single sample is spread over all frequencies equally — while the shift appears entirely in the phase, as a straight line. This is the time-shift property: shifting in time multiplies by a complex exponential in frequency.",ch:4},
 
 /* ---------------- HARD (3 pts) ---------------- */
 {d:"hard",s:"A 4-point signal has x(0) = −2, x(1) = 1, x(2) = 1, x(3) = 2. What is X(1)?",
- code:"x(n) = -2, 1, 1, 2   for n = 0..3\nX(k) = sum x(n) (-j)^(nk)",
+ code:"x(n) = -2, 1, 1, 2   for n = 0..3\nX(k) = sum x(n) (-j)<sup>nk</sup>",
  o:["−3 + j","−3 − j","−4","2"],a:0,
- e:"With N = 4 the twiddle W(4)^(nk) = (−j)^(nk). X(1) = −2·1 + 1·(−j) + 1·(−j)² + 2·(−j)³ = −2 − j + 1(−1) + 2(j) = −3 + j. For the record the rest are X(0) = 2, X(2) = −4, X(3) = −3 − j, and X(0) and X(3) are conjugate-symmetric partners because x(n) is real.",ch:5},
+ e:"With N = 4 the twiddle W(4)<sup>nk</sup> = (−j)<sup>nk</sup>. X(1) = −2·1 + 1·(−j) + 1·(−j)² + 2·(−j)³ = −2 − j + 1(−1) + 2(j) = −3 + j. For the record the rest are X(0) = 2, X(2) = −4, X(3) = −3 − j, and X(0) and X(3) are conjugate-symmetric partners because x(n) is real.",ch:5},
 
 {d:"hard",s:"For that same 4-point signal, the question asks for X(0) through X(7). What are X(4) to X(7)?",
  o:["All zero","The same as X(0) to X(3), because the DFT is periodic with period N","The negatives of X(0) to X(3)","Undefined — a 4-point DFT has only four values"],a:1,
@@ -579,15 +581,15 @@ var BANK = [
 
 {d:"hard",s:"An LTI system is described by y(n) − ½·y(n−1) = x(n). What is the magnitude of its frequency response at ω = 0?",
  o:["0.5","1.0","1.5","2.0"],a:3,
- e:"Take the z-transform: H(z) = 1/(1 − 0.5z^−1), so H(e^jω) = 1/(1 − 0.5e^−jω). At ω = 0, e^−jω = 1, giving H = 1/(1 − 0.5) = 2. In general |H(e^jω)| = 1/sqrt(1.25 − cos ω), which is largest at ω = 0 and smallest at ω = π — so this is a low-pass system with a DC gain of 2.",ch:4},
+ e:"Take the z-transform: H(z) = 1/(1 − 0.5z^−1), so H(e^jω) = 1/(1 − 0.5e^−jω). At ω = 0, e^−jω = 1, giving H = 1/(1 − 0.5) = 2. In general |H(e^jω)| = 1/√(1.25 − cos ω), which is largest at ω = 0 and smallest at ω = π — so this is a low-pass system with a DC gain of 2.",ch:4},
 
 {d:"hard",s:"For the same system, what is |H(e^jω)| at ω = π?",
  o:["2/3","1/2","2","1"],a:0,
- e:"At ω = π, e^−jπ = −1, so H = 1/(1 + 0.5) = 2/3 ≈ 0.667. Check against the general form: 1/sqrt(1.25 − cos π) = 1/sqrt(2.25) = 1/1.5 = 0.667. Gain 2 at DC falling to 0.667 at the highest discrete frequency confirms the low-pass character.",ch:4},
+ e:"At ω = π, e^−jπ = −1, so H = 1/(1 + 0.5) = 2/3 ≈ 0.667. Check against the general form: 1/√(1.25 − cos π) = 1/√(2.25) = 1/1.5 = 0.667. Gain 2 at DC falling to 0.667 at the highest discrete frequency confirms the low-pass character.",ch:4},
 
 {d:"hard",s:"How many complex multiplications does a 1024-point radix-2 FFT need, and how does that compare with the direct DFT?",
  o:["5120, about 205 times fewer","10240, about 102 times fewer","1024, about 1024 times fewer","512, about 2048 times fewer"],a:0,
- e:"FFT: (N/2)·log2(N) = 512 × 10 = 5120. Direct DFT: N² = 1,048,576. The ratio is 1,048,576 / 5120 = 204.8, so roughly a 205-fold saving. The saving grows with N: at N = 8 it is only about 5, at N = 512 it is 114.",ch:5},
+ e:"FFT: (N/2)·log₂(N) = 512 × 10 = 5120. Direct DFT: N² = 1,048,576. The ratio is 1,048,576 / 5120 = 204.8, so roughly a 205-fold saving. The saving grows with N: at N = 8 it is only about 5, at N = 512 it is 114.",ch:5},
 
 {d:"hard",s:"A causal LTI system has H(z) = 1/(1 − 0.5z^−1)(1 − 2z^−1). What are its ROC, its stability, and can it be made stable?",
  o:["ROC |z| > 2, unstable; a stable version exists but is non-causal","ROC |z| > 0.5, stable","ROC 0.5 < |z| < 2, stable and causal","ROC |z| < 0.5, unstable"],a:0,
@@ -606,7 +608,7 @@ var BANK = [
  e:"DIT divides the input sequence into its even-indexed and odd-indexed samples, which is why the input must be bit-reversed. DIF divides the input into its first N/2 and last N/2 samples and splits the OUTPUT into even and odd frequency bins, so the output comes out bit-reversed. The butterfly is also arranged differently: DIT multiplies by the twiddle before the add-subtract, DIF after.",ch:5},
 
 {d:"hard",s:"How is the inverse DFT computed using a forward FFT routine?",
- o:["Run the FFT backwards through the butterflies","Conjugate the input, run the forward FFT, conjugate the result and divide by N","Replace W(N) with W(N)^2 and run the FFT","Reverse the input sequence and run the FFT"],a:1,
+ o:["Run the FFT backwards through the butterflies","Conjugate the input, run the forward FFT, conjugate the result and divide by N","Replace W(N) with W(N)<sup>2</sup> and run the FFT","Reverse the input sequence and run the FFT"],a:1,
  e:"The IDFT differs from the DFT only by the sign in the exponent and a 1/N factor. Since conjugating flips that sign, x(n) = (1/N)·conj( FFT( conj(X(k)) ) ). One routine then serves both directions, which is why a hardware FFT block never needs a separate inverse unit.",ch:5},
 
 {d:"hard",s:"Why does the FFT store 2N locations for data plus N/2 for twiddle factors, and what is in-place computation?",
@@ -615,15 +617,15 @@ var BANK = [
 
 {d:"hard",s:"For a radix-3 FFT with N = 9, how many stages are needed, and what is the general butterfly size?",
  o:["2 stages, 3-point butterflies","3 stages, 2-point butterflies","9 stages, 3-point butterflies","2 stages, 9-point butterflies"],a:0,
- e:"Radix-3 needs N = 3^v, and the number of stages is v = log3(N) = log3(9) = 2. Each butterfly now handles three inputs rather than two, and each stage contains N/3 = 3 of them. The same divide-and-conquer idea drives every radix — split the DFT into smaller DFTs and reuse the twiddle symmetry.",ch:5},
+ e:"Radix-3 needs N = 3<sup>v</sup>, and the number of stages is v = log3(N) = log3(9) = 2. Each butterfly now handles three inputs rather than two, and each stage contains N/3 = 3 of them. The same divide-and-conquer idea drives every radix — split the DFT into smaller DFTs and reuse the twiddle symmetry.",ch:5},
 
-{d:"hard",s:"Find the particular solution of y(n) − ½·y(n−1) = x(n) when x(n) = 2^n·u(n).",
- o:["y(n) = (4/3)·2^n","y(n) = 2^n","y(n) = (2/3)·2^n","y(n) = (1/2)^n"],a:0,
- e:"For a forcing function 2^n, try a particular solution y(n) = K·2^n. Substituting: K·2^n − ½·K·2^(n−1) = 2^n, so K·2^n − (K/4)·2^n = 2^n, giving K(1 − ¼) = 1 and K = 4/3. So y(n) = (4/3)·2^n for n ≥ 0. The complete solution would add the homogeneous term C·(½)^n, fixed by the initial condition.",ch:2},
+{d:"hard",s:"Find the particular solution of y(n) − ½·y(n−1) = x(n) when x(n) = 2<sup>n</sup>·u(n).",
+ o:["y(n) = (4/3)·2<sup>n</sup>","y(n) = 2<sup>n</sup>","y(n) = (2/3)·2<sup>n</sup>","y(n) = (1/2)<sup>n</sup>"],a:0,
+ e:"For a forcing function 2<sup>n</sup>, try a particular solution y(n) = K·2<sup>n</sup>. Substituting: K·2<sup>n</sup> − ½·K·2<sup>n−1</sup> = 2<sup>n</sup>, so K·2<sup>n</sup> − (K/4)·2<sup>n</sup> = 2<sup>n</sup>, giving K(1 − ¼) = 1 and K = 4/3. So y(n) = (4/3)·2<sup>n</sup> for n ≥ 0. The complete solution would add the homogeneous term C·(½)<sup>n</sup>, fixed by the initial condition.",ch:2},
 
 {d:"hard",s:"Which of these describes the difference between an energy signal and a power signal?",
  o:["Energy signals are finite in length, power signals are infinite","Energy signals have finite total energy and zero average power; power signals have infinite energy and finite non-zero average power","Energy signals are periodic, power signals are not","Energy signals are discrete, power signals are continuous"],a:1,
- e:"A decaying signal such as (½)^n·u(n) has a finite energy sum and therefore zero average power — an energy signal. A signal that never dies away, such as a sinusoid or a unit step, has infinite energy but a finite non-zero mean square — a power signal. Every periodic signal is a power signal, but a signal can be a power signal without being periodic. No signal can be both.",ch:1},
+ e:"A decaying signal such as (½)<sup>n</sup>·u(n) has a finite energy sum and therefore zero average power — an energy signal. A signal that never dies away, such as a sinusoid or a unit step, has infinite energy but a finite non-zero mean square — a power signal. Every periodic signal is a power signal, but a signal can be a power signal without being periodic. No signal can be both.",ch:1},
 
 {d:"hard",s:"What is the ROC of the z-transform of a finite-length sequence x(n) = {1, 2, 3} for n = 0, 1, 2?",
  o:["|z| > 3","|z| < 1","The entire z-plane except z = 0","The entire z-plane except z = ∞"],a:2,
@@ -647,7 +649,7 @@ var BANK = [
 
 {d:"hard",s:"What does the convolution property of the z-transform say, and why is it useful?",
  o:["Convolution in time becomes addition in z","Convolution in time becomes multiplication in z, turning a sum-of-products into an algebra problem","Multiplication in time becomes convolution in z, which is harder","It only holds for causal sequences"],a:1,
- e:"y(n) = x(n) * h(n) becomes Y(z) = X(z)·H(z), with an ROC that contains at least the intersection of the two. It is useful because convolving two long sequences by hand is a bookkeeping exercise, while multiplying two rational functions and inverting by partial fractions is ordinary algebra — and it is also how cascades of systems are analysed.",ch:3}
+ e:"y(n) = x(n) ∗ h(n) becomes Y(z) = X(z)·H(z), with an ROC that contains at least the intersection of the two. It is useful because convolving two long sequences by hand is a bookkeeping exercise, while multiplying two rational functions and inverting by partial fractions is ordinary algebra — and it is also how cascades of systems are analysed.",ch:3}
 ];
 
 /* ======================================================================

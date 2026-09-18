@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../assets/press.css">
 <link rel="stylesheet" href="../assets/motion.css">
 <link rel="stylesheet" href="../assets/print.css">
+<link rel="stylesheet" href="../assets/katex/katex.css">
+<link rel="stylesheet" href="../assets/math.css">
 <style>
 :root{
   --stock:#EAE8E1;
@@ -631,7 +633,7 @@ var BANK = [
  e:"A friend is not a member, so it is called as `mean(X)`, never `X.mean()`. The other three are all false: friendship is granted not taken, it is not mutual, it is not inherited, and inside the function you must write `s.a` — it has no object of its own to work from.",ch:42},
 
 {d:"hard",s:"In this program, which destructor runs FIRST?",
- code:"int main()\n{\n    alpha A1, A2, A3;\n    {\n        alpha A4;\n    }\n    cout << \"back in main\";\n    return 0;\n}",
+ code:"int main()\n{\n    α A1, A2, A3;\n    {\n        α A4;\n    }\n    cout << \"back in main\";\n    return 0;\n}",
  o:["A1","A4","A3","All four run together at the end of main"],a:1,
  e:"Destruction follows scope exactly. A4 was declared in the inner block, so it is destroyed at that block's closing brace — before “back in main” is even printed. A3, A2 and A1 then follow, in that order, when main ends.",ch:47},
 

@@ -1,0 +1,190 @@
+/* ==========================================================================
+   TU CHAHIYE — set mathematics
+   The expressions on these pages are typeset at build time and arrive as
+   finished markup. There is no maths JavaScript in the browser, which is
+   why an equation survives printing, the PDF export, and a phone with no
+   signal.
+
+   Two things this file has to reconcile. KaTeX ships Computer Modern,
+   which is a book face from the era this whole design is pretending to be
+   printed in, so it belongs here — but it arrives sized and coloured for
+   somebody else's page, and it has to be pulled onto our stock, in our
+   ink, at our measure.
+   ========================================================================== */
+
+/* ---------- the display block ----------------------------------------------
+   It stands where a monospace block used to stand, so it keeps that
+   furniture: flooded panel, spot-ink rule down the left edge. */
+.mathblock{
+  background:var(--stock-2);
+  border-left:3px solid var(--spot,var(--pink));
+  padding:13px 16px;
+  margin:0 0 13px;
+  isolation:isolate;
+}
+
+/* The scroller. A long derivation does not reflow — reflowing an equation
+   destroys the alignment that is the whole point of setting it — so it
+   scrolls, and says so with a 2px bar in the spot ink.
+
+   The bar is drawn twice: once pinned to the content and once to the box.
+   The content-coloured copy sits exactly on top of the other when you
+   reach the end, so the mark disappears when there is nothing more to
+   see. No JavaScript, no scroll listener. */
+.mathblock .mrow{
+  overflow-x:auto;
+  overflow-y:hidden;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  background-image:
+    linear-gradient(to left, var(--stock-2) 0 12px, transparent 12px),
+    linear-gradient(to left, var(--spot,var(--pink)) 0 2px, transparent 2px);
+  /* the covering strip overhangs by 1.5px: a block whose content is a
+     fraction of a pixel wider than its box is not scrollable in any way
+     that matters, and must not show the mark */
+  background-position:calc(100% + 1.5px) 0, calc(100% - 1px) 0;
+  background-size:12px 100%, 2px 100%;
+  background-repeat:no-repeat;
+  background-attachment:local, scroll;
+}
+
+.mathblock .katex-display{margin:0;padding:2px 0}
+.mathblock .katex-display>.katex{text-align:left}
+.katex-display{overflow:visible}
+
+/* ---------- ink and measure ---------- */
+.katex{
+  color:var(--ink);
+  font-size:1.045em;      /* KaTeX's own 1.21em is set for a 16px serif page */
+  text-indent:0;
+  text-rendering:auto;
+}
+.mathblock .katex{font-size:1.09em;line-height:1.3}
+
+/* Words inside an equation — \text{...} — are words, so they are set in
+   the page's own face. Leaving them in Computer Modern makes a formula
+   with a label in it look like two different documents. */
+.katex .mord.text,
+.katex .text{font-family:var(--body);letter-spacing:-.003em}
+
+/* A remark in the right-hand column is an aside, so it reads as one. */
+.mathblock .katex .mord.text{color:var(--ink-2)}
+.mathblock .katex .mord.text .mord.text{color:inherit}
+
+/* ---------- inline ---------- */
+.minline{
+  display:inline-block;
+  max-width:100%;
+  vertical-align:baseline;
+  hyphens:none;
+}
+.minline .katex{
+  /* KaTeX sets nowrap, which stops a table cell shrinking and pushes the
+     page wider than the phone. It offers break opportunities at the top
+     level relations, so let the line use them. */
+  white-space:normal;
+  color:var(--spot,var(--pink));
+  font-size:1.02em;
+}
+/* an inline expression carried a <code> tint before; keep that weight of
+   emphasis without the monospace box */
+p .minline .katex,li .minline .katex,td .minline .katex,dd .minline .katex{
+  color:var(--ink);
+}
+
+/* ---------- dark ---------- */
+:root[data-theme="dark"] .katex,
+:root[data-theme="dark"] .mathblock .katex{color:var(--ink)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .katex{color:var(--ink)}
+}
+
+/* KaTeX draws rules — fraction bars, radicals, the overline — with
+   borders and background colours that default to black. On a dark stock
+   a black fraction bar is an invisible fraction bar. */
+.katex .frac-line,
+.katex .overline .overline-line,
+.katex .underline .underline-line,
+.katex .hline,.katex .hdashline,
+.katex .rule,.katex .overline-line,.katex .sqrt>.root{
+  border-color:currentColor;
+}
+.katex .frac-line{border-bottom-width:.055em}
+.katex .sqrt>.sqrt-line{border-top-color:currentColor}
+.katex .vlist-t2>.vlist-r>.vlist>span>.rule,
+.katex .stretchy,.katex svg{color:currentColor}
+.katex svg *{stroke:currentColor;fill:currentColor}
+
+/* ---------- small screens ----------------------------------------------
+   The block gets a little tighter rather than a lot smaller: shrinking an
+   equation past legibility to avoid a scroll is a bad trade. */
+@media (max-width:620px){
+  .mathblock{padding:11px 12px;margin-bottom:11px}
+  .mathblock .katex{font-size:1.0em}
+  .mathblock .mrow{
+    background-size:10px 100%, 2px 100%;
+  }
+}
+@media (max-width:420px){
+  .mathblock .katex{font-size:.93em}
+  .mathblock{padding:10px 9px}
+}
+
+/* On a papers page the solution sits in the second column of a grid, with
+   the question number holding the first. Prose should stay in that column
+   — it is what makes the number mean anything — but an equation is not
+   prose, and on a phone that indent is 15% of the screen. So the panel,
+   and only the panel, reaches back to the page gutter.
+
+   The two values are the grid's own: 52px + 12px gap, and 38px + 9px
+   below 560px, which is where paper.css narrows it. */
+@media (max-width:620px){
+  .solbody > .mathblock,
+  .qt .mathblock{margin-left:-64px}
+}
+@media (max-width:560px){
+  .solbody > .mathblock,
+  .qt .mathblock{margin-left:-47px}
+}
+
+/* And the page gutter itself. A panel is a printed field, not a paragraph,
+   so on a phone it runs to the edge of the sheet and the spot rule becomes
+   a tab down the side. Fifteen pixels each side is another 9% of measure,
+   which is a line of algebra. */
+@media (max-width:620px){
+  .body > .mathblock,
+  .ch > .mathblock,
+  .solbody > .mathblock,
+  .qt .mathblock{margin-right:-15px}
+  .body > .mathblock,
+  .ch > .mathblock{margin-left:-15px}
+  .solbody > .mathblock,
+  .qt .mathblock{margin-left:-79px}
+}
+@media (max-width:560px){
+  .solbody > .mathblock,
+  .qt .mathblock{margin-left:-62px}
+}
+
+/* ---------- print ----------------------------------------------------------
+   Paper has no scrollbars, so a long line has to be allowed to break out
+   of the column rather than be clipped away. */
+@media print{
+  .mathblock{
+    background:#F2F1EC;
+    border-left:2.5pt solid #444;
+    padding:8pt 10pt;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .mathblock .mrow{overflow:visible;background-image:none}
+  .katex{color:#000;font-size:1em}
+  .katex .frac-line{border-color:#000}
+  .minline .katex{color:#000}
+}
+
+/* ---------- house rules --------------------------------------------------
+   Nothing in this design has a rounded corner or a shadow, and KaTeX's
+   reset does not know that. */
+.katex *,.mathblock *{border-radius:0;box-shadow:none}
+.katex-display>.katex>.katex-html>.tag{position:relative;right:0}

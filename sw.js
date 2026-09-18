@@ -13,6 +13,8 @@
                    is not.
      CSS/JS/fonts  cache first, refreshed in the background. These change
                    rarely and blocking on them is what makes a page feel slow.
+                   The maths fonts live here too, which is what lets an
+                   equation still set itself with no signal.
      figures       cache first. They never change once published.
      PDFs, scans   never cached. They are 30 MB and the browser already
                    handles a download.
@@ -20,7 +22,7 @@
    Bump VERSION to invalidate everything.
    ========================================================================== */
 
-var VERSION = 'tc-v1';
+var VERSION = 'tc-v2';   /* v2: the maths is typeset, so the stylesheets changed */
 var SHELL = VERSION + '-shell';
 var PAGES = VERSION + '-pages';
 var MEDIA = VERSION + '-media';
@@ -36,8 +38,19 @@ var PRECACHE = [
   '/assets/motion.js',
   '/assets/pwa.js',
   '/assets/print.css',
+  '/assets/math.css',
+  '/assets/katex/katex.css',
   '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon-512.png',
+  /* The six faces the expressions on these pages actually call for.
+     KaTeX ships twenty; the other fourteen are never asked for, so they
+     are left to load on demand if a future page ever needs one. */
+  '/assets/katex/fonts/KaTeX_Main-Regular.woff2',
+  '/assets/katex/fonts/KaTeX_Math-Italic.woff2',
+  '/assets/katex/fonts/KaTeX_Size1-Regular.woff2',
+  '/assets/katex/fonts/KaTeX_Size2-Regular.woff2',
+  '/assets/katex/fonts/KaTeX_Size3-Regular.woff2',
+  '/assets/katex/fonts/KaTeX_Size4-Regular.woff2'
 ];
 
 self.addEventListener('install', function (e) {

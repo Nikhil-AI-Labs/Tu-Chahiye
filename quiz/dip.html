@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../assets/press.css">
 <link rel="stylesheet" href="../assets/motion.css">
 <link rel="stylesheet" href="../assets/print.css">
+<link rel="stylesheet" href="../assets/katex/katex.css">
+<link rel="stylesheet" href="../assets/math.css">
 <style>
 :root{
   --stock:#EAE8E1;
@@ -499,14 +501,14 @@ var BANK = [
 
 {d:"easy",s:"An image uses k bits per pixel. How many gray levels does it have?",
  o:["k","2k","2 raised to the power k","k squared"],a:2,
- e:"L = 2^k. So 1 bit gives 2 levels, 4 bits give 16, and 8 bits give 256. The intensity values are whole numbers in the interval [0, L−1].",ch:6},
+ e:"L = 2<sup>k</sup>. So 1 bit gives 2 levels, 4 bits give 16, and 8 bits give 256. The intensity values are whole numbers in the interval [0, L−1].",ch:6},
 
 {d:"easy",s:"How many pixels are in the set N₄(p)?",
  o:["2","4","8","9"],a:1,
- e:"N₄(p) holds the pixels above, below, left and right of p — the ones sharing a full side. The four corner pixels form N_D(p), and the two sets joined together make N₈(p), which has eight.",ch:7},
+ e:"N₄(p) holds the pixels above, below, left and right of p — the ones sharing a full side. The four corner pixels form N<sub>D</sub>(p), and the two sets joined together make N₈(p), which has eight.",ch:7},
 
 {d:"easy",s:"Which distance measure is known as the city-block distance?",
- o:["The Euclidean distance","D₄","D₈","D_m"],a:1,
+ o:["The Euclidean distance","D₄","D₈","D<sub>m</sub>"],a:1,
  e:"D₄(p,q) = |x−s| + |y−t|. It is called city-block because only horizontal and vertical moves are allowed, like walking in a city laid out in a rectangular grid of streets. Pixels at equal D₄ distance form a diamond.",ch:9},
 
 {d:"easy",s:"What is the negative transformation of an image with gray levels in [0, L−1]?",
@@ -518,8 +520,8 @@ var BANK = [
  e:"There is no general theory of image enhancement — it is problem-oriented, and a method that suits X-ray images may be wrong for infrared ones. Restoration is the opposite: it is objective, because it is built on a mathematical model of the degradation.",ch:15},
 
 {d:"easy",s:"Which band of the electromagnetic spectrum has the highest energy per photon?",
- o:["Radio waves","Microwaves","X-rays","Gamma rays"],a:3,
- e:"Ordered by falling energy per photon: gamma rays, X-rays, ultraviolet, visible, infrared, microwaves, radio waves. Wavelength runs the other way, so gamma rays are the shortest and radio waves the longest.",ch:3},
+ o:["Radio waves","Microwaves","X-rays","Γ rays"],a:3,
+ e:"Ordered by falling energy per photon: γ rays, X-rays, ultraviolet, visible, infrared, microwaves, radio waves. Wavelength runs the other way, so γ rays are the shortest and radio waves the longest.",ch:3},
 
 {d:"easy",s:"In the histogram `h(rk) = nk`, what is nk?",
  o:["The kth gray level itself","The number of pixels in the image having gray level rk","The probability of gray level rk","The total number of pixels in the image"],a:1,
@@ -602,13 +604,13 @@ var BANK = [
  o:["The result must come out square","The sum of all values in y equals (sum of x) × (sum of h)","y must contain no zeros","y(0,0) is always zero"],a:1,
  e:"Two free checks exist. The corner y(0,0) is always just x(0,0)·h(0,0), and the grand total obeys Σy = (Σx)(Σh). For x = [1 2; 3 4] and h = [5 6; 7 8] that is 10 × 26 = 260, and the 3 × 3 answer does add up to 260.",ch:12},
 
-{d:"hard",s:"Why can the D_m distance between two fixed pixels change while D₄ and D₈ between them stay the same?",
- o:["Because D₄ and D₈ also change, but more slowly","Because m-adjacency refuses a corner step whenever a common 4-neighbour is in V, so the path has to detour","Because the coordinates of the pixels change","It cannot change — D_m depends only on the coordinates"],a:1,
- e:"D₄ and D₈ are formulas on the coordinates alone, so nothing else can affect them. D_m is the length of the shortest m-path, and m-adjacency looks at the values of the neighbouring pixels. In the standard example the answer moves between 2, 3 and 4 as p₁ and p₃ change from 0 to 1.",ch:9},
+{d:"hard",s:"Why can the D<sub>m</sub> distance between two fixed pixels change while D₄ and D₈ between them stay the same?",
+ o:["Because D₄ and D₈ also change, but more slowly","Because m-adjacency refuses a corner step whenever a common 4-neighbour is in V, so the path has to detour","Because the coordinates of the pixels change","It cannot change — D<sub>m</sub> depends only on the coordinates"],a:1,
+ e:"D₄ and D₈ are formulas on the coordinates alone, so nothing else can affect them. D<sub>m</sub> is the length of the shortest m-path, and m-adjacency looks at the values of the neighbouring pixels. In the standard example the answer moves between 2, 3 and 4 as p₁ and p₃ change from 0 to 1.",ch:9},
 
-{d:"hard",s:"A monitor has a gamma of 2.5. What transformation must be applied to the image before it is displayed?",
+{d:"hard",s:"A monitor has a γ of 2.5. What transformation must be applied to the image before it is displayed?",
  o:["`s = c r^2.5`","`s = c r^0.4`","`s = 255 - r`","`s = c log(1 + r)`"],a:1,
- e:"Gamma correction pre-distorts the image with the inverse power, s = c r^(1/γ) = c r^0.4. The two non-linearities then cancel, since (r^0.4)^2.5 = r. Without it the display crushes the mid-tones and the picture looks too dark.",ch:16},
+ e:"Γ correction pre-distorts the image with the inverse power, s = c r<sup>1/γ</sup> = c r<sup>0</sup>.4. The two non-linearities then cancel, since (r<sup>0</sup>.4)<sup>2</sup>.5 = r. Without it the display crushes the mid-tones and the picture looks too dark.",ch:16},
 
 {d:"hard",s:"In histogram matching, a pixel has sk = 3 after equalization. The rounded table of G(zq) for q = 0 to 7 is 0, 0, 0, 1, 2, 5, 6, 7. Which zq does it map to?",
  o:["z₃","z₄","z₅","z₆"],a:1,
@@ -621,7 +623,7 @@ var BANK = [
 {d:"hard",s:"The pixel value 167 is rebuilt using only bit planes 8 and 7. What value results?",
  code:"167 in binary  =  1 0 1 0 0 1 1 1\nplane weights  = 128 64 32 16  8  4  2  1",
  o:["160","128","167","64"],a:1,
- e:"Plane n contributes 2^(n−1). Plane 8 holds a 1 and is worth 128; plane 7 holds a 0 and is worth nothing. Everything below is discarded, so the rebuilt value is 128 + 0 = 128. Keeping only plane 8 can produce just two values, 0 and 128.",ch:18},
+ e:"Plane n contributes 2<sup>n−1</sup>. Plane 8 holds a 1 and is worth 128; plane 7 holds a 0 and is worth nothing. Everything below is discarded, so the rebuilt value is 128 + 0 = 128. Keeping only plane 8 can produce just two values, 0 and 128.",ch:18},
 
 {d:"hard",s:"Why does 4-connectivity usually find more objects in a binary image than 8-connectivity does?",
  o:["Because it scans the image faster","Because it refuses corner contacts, so pixels touching only at a corner are counted as separate objects","Because it ignores the background","Because it uses a larger neighbourhood"],a:1,
@@ -633,9 +635,9 @@ var BANK = [
 
 {d:"hard",s:"A kernel made of four 1s, one step away from the origin in each direction, has the frequency response 2cos ω₁ + 2cos ω₂. What kind of filter is it?",
  o:["A high-pass sharpening filter","A low-pass smoothing filter, because the response peaks at ω = 0","A band-reject filter","An all-pass filter"],a:1,
- e:"Substituting z = e^(jω) and using e^(jθ) + e^(−jθ) = 2cos θ gives that response. It reaches its maximum of 4 at ω₁ = ω₂ = 0 and falls away as the frequency rises, so low frequencies — the smooth areas — are passed and high frequencies are suppressed.",ch:13},
+ e:"Substituting z = e<sup>jω</sup> and using e<sup>jθ</sup> + e<sup>−jθ</sup> = 2cos θ gives that response. It reaches its maximum of 4 at ω₁ = ω₂ = 0 and falls away as the frequency rises, so low frequencies — the smooth areas — are passed and high frequencies are suppressed.",ch:13},
 
-{d:"hard",s:"In the adaptive rule g = C·f applied when m_Sxy ≤ k₀m_G AND k₁σ_G ≤ σ_Sxy ≤ k₂σ_G, what does the lower limit k₁σ_G reject?",
+{d:"hard",s:"In the adaptive rule g = C·f applied when m_Sxy ≤ k₀m<sub>G</sub> AND k₁σ_G ≤ σ_Sxy ≤ k₂σ_G, what does the lower limit k₁σ_G reject?",
  o:["Bright regions of the image","Completely flat patches, which contain nothing to reveal","Regions that already have high contrast","Pixels on the border of the image"],a:1,
  e:"The first condition picks patches that are darker than the image as a whole. The second says the patch must have some variation but not much: the lower limit throws away perfectly uniform patches where there is nothing hidden, and the upper limit k₂σ_G throws away patches that already have good contrast.",ch:22},
 
