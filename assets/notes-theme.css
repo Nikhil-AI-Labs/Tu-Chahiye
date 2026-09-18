@@ -288,11 +288,36 @@ summary:active{opacity:.6}
    never touch code inside <pre>, where the line breaks are the content.
    ========================================================================== */
 @media (max-width:620px){
-  .m,.eq,kbd,samp,var,:not(pre) > code{
+  /* inline things, in running prose: wrap them */
+  .m,kbd,samp,var,:not(pre) > code{
     white-space:normal !important;
     overflow-wrap:anywhere;
     word-break:break-word;
   }
+  /* a displayed calculation is a column of aligned figures. Reflowing it
+     destroys the alignment, which is the only reason it is set in monospace
+     at all -- so it scrolls instead, with a 2px bar in the spot ink that
+     disappears once you have reached the end. */
+  .eq,pre,.code pre,.slab pre{
+    white-space:pre !important;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    font-size:11.6px;
+    line-height:1.75;
+    background-image:
+      linear-gradient(to left, var(--tc-stock-2) 0 12px, transparent 12px),
+      linear-gradient(to left, var(--spot) 0 2px, transparent 2px);
+    background-repeat:no-repeat;
+    background-position:100% 0, 100% 0;
+    background-size:12px 100%, 2px 100%;
+    background-attachment:local, scroll;
+  }
+  .slab pre,.code pre{
+    background-image:
+      linear-gradient(to left, var(--tc-slab) 0 12px, transparent 12px),
+      linear-gradient(to left, var(--spot) 0 2px, transparent 2px)}
+  table{font-size:13px}
 }
 
 /* ==========================================================================

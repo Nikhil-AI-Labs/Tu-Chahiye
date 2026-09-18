@@ -156,3 +156,50 @@ figure.fig img.inv{filter:invert(1) hue-rotate(180deg);mix-blend-mode:screen}
   figure.fig{break-inside:avoid;page-break-inside:avoid;border-color:#B4B2AC}
   figure.fig img{filter:none !important;mix-blend-mode:normal !important}
 }
+
+/* ==========================================================================
+   Calculations on a phone
+   A worked calculation is a column of aligned figures. Wrapping it destroys
+   the alignment, which is the whole reason it is set in monospace -- so it
+   does not wrap, it scrolls, and a 2px bar in the spot ink shows when there
+   is more to the right. The bar is drawn twice: once pinned to the content
+   (background-attachment:local) in the block's own colour, and once pinned
+   to the box, so the first covers the second exactly at the edge and the
+   hint disappears when you reach the end.
+   ========================================================================== */
+.eqn{
+  white-space:pre;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  background-image:
+    linear-gradient(to left,  var(--stock-2) 0 14px, transparent 14px),
+    linear-gradient(to left,  var(--spot,var(--pink)) 0 2px, transparent 2px);
+  background-repeat:no-repeat;
+  background-position:100% 0, 100% 0;
+  background-size:14px 100%, 2px 100%;
+  background-attachment:local, scroll;
+}
+@media (max-width:620px){
+  .eqn{font-size:11.8px;line-height:1.75;padding:10px 12px;
+    background-size:12px 100%, 2px 100%}
+}
+@media (max-width:400px){
+  .eqn{font-size:11px}
+}
+
+
+/* ==========================================================================
+   A computed plate
+   These are photographs of a computation -- a real spectrum, a real histogram,
+   a real filtered image. Inverting one in dark mode would show a negative, so
+   it never inverts. It sits on its own lit plate instead, the way a print
+   tipped onto a dark page does.
+   ========================================================================== */
+figure.fig.plate .hold{background:#EAE8E1;padding:0}
+figure.fig.plate img{mix-blend-mode:normal;filter:none;display:block;width:100%;
+  height:auto;margin:0}
+:root[data-theme="dark"] figure.fig.plate img,
+figure.fig.plate img{filter:none !important;mix-blend-mode:normal !important}
+figure.fig.plate .lab b{color:var(--spot)}
+@media print{figure.fig.plate .hold{background:#fff}}
