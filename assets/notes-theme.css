@@ -385,3 +385,24 @@ summary:active{opacity:.6}
   a{text-decoration:none;color:inherit}
   a[href^="#"]{color:inherit}
 }
+
+
+/* ==========================================================================
+   Computed plates on a course page. The same chrome the revision sheets and
+   the papers give a figure that was made by tools/make-figures.py: a label,
+   a hairline frame, and a lit plate that never inverts in dark mode --
+   inverting a photograph of a spectrum would show a negative.
+   ========================================================================== */
+figure.fig{margin:22px 0;border:1px solid var(--hair);background:var(--stock);max-width:none}
+figure.fig .lab{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-3);padding:7px 12px 6px;
+  border-bottom:1px solid var(--hair-2)}
+figure.fig .lab b{color:var(--spot,var(--pink));font-weight:700}
+figure.fig .hold{padding:0;text-align:center;overflow-x:auto;-webkit-overflow-scrolling:touch}
+figure.fig figcaption{font-size:13.5px;line-height:1.5;color:var(--ink-2);
+  padding:10px 14px 12px;margin:0;max-width:none;text-align:left}
+figure.fig figcaption b{color:var(--ink);font-weight:600}
+figure.fig.plate .hold{background:#EAE8E1}
+figure.fig.plate img{display:block;width:100%;height:auto;margin:0;
+  filter:none !important;mix-blend-mode:normal !important}
+@media print{figure.fig.plate .hold{background:#fff}}

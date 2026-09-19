@@ -93,6 +93,9 @@ def bars_are_drawn(t):
     return any(v >= 3 for v in cols.values())   # a column of bars is an axis
 
 BINARY = re.compile(r'\b[01]{5,}\b')
+# a byte written out with spaces between the bits is a bit pattern too, and
+# so are nibble pairs like `0000 0001`
+BITS = re.compile(r'(?<![\d.])[01](?:\s+[01]){6,}(?![\d.])|\b[01]{4}\s+[01]{4}\b')
 XOR = re.compile(r'(?i)\bx?or\b|\bxor\b')
 TAGS = re.compile(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)[^>]*>')
 SAFE_TAGS = set(['b', 'i', 'em', 'strong', 'code', 'sup', 'sub', 'span', 'br'])
@@ -162,7 +165,7 @@ def skip_reason(raw):
         return 'code'
     if ART.search(t) or bars_are_drawn(t):
         return 'diagram'
-    if BINARY.search(t) or XOR.search(t):
+    if BINARY.search(t) or XOR.search(t) or BITS.search(t):
         return 'bit pattern'
     # an entity the table does not know would be typeset as its own name
     left = re.search(r'&[a-zA-Z][a-zA-Z0-9]*;', t)
@@ -176,11 +179,178 @@ def skip_reason(raw):
     return None
 
 
-DATA_ROW = re.compile(r'^\s*[-+]?\d+(?:\.\d+)?(?:\s+[-+]?\d+(?:\.\d+)?){2,}\s*$')
+DATA_CELL = r'[-+]?\d+(?:\.\d+)?(?:\s?(?:pi|deg|dB|%))?'
+DATA_ROW = re.compile(r'^\s*' + DATA_CELL + r'(?:\s+' + DATA_CELL + r'){2,}\s*$')
+LABELLED = re.compile(r'^\s*[A-Za-z][A-Za-z0-9 _()\'.]{0,26}[:=]\s*')
+SENTENCE = re.compile(r'[a-z]{2,}\.\s+[A-Z]')
+INDEX_LINE = re.compile(r'^\s*(?:[A-Za-z]\d?\s+)*[A-Za-z]\d?\s*$')
+BIGWORD = re.compile(r'\b(SUM|sum|PROD|prod)\b(?![_^])')
+_N = r'[-+]?\d+(?:\.\d+)?(?:/\d+)?'
+NUMRUN = re.compile(r'(?<![\w.])' + _N + r'(?:\s+' + _N + r'){2,}(?![\w.])')
+TABLE2 = re.compile(r'^\s*[A-Za-z][\w()]*\s+' + _N + r'(?:\s+' + _N + r')+\s*$')
+BARE = re.compile(r'^(?:' + re.escape(BS) + r'text\{[^{}]*\}|'
+                  + re.escape(BS) + r'mathrm\{[^{}]*\}|[A-Za-z])$')
+WORDS_ONLY = re.compile(re.escape(BS) + r'(?:text|mathrm)\{[^{}]*\}|[()\s]|' + re.escape(BS) + r',')
+MATHY = re.compile(r'[\^_<>=]|^[A-Za-z]\(')
 
 
 def is_data_row(l):
     return DATA_ROW.match(l) is not None
+
+
+def is_table_row(l):
+    """`index :  0  1  2  3`, `z4 z5 z6 = 10 10 10`, `A : +1 -1 +1 -1` -- a
+       row of numbers with nothing computed in it is a table row"""
+    l = tex.split_comment(l.rstrip())[0]
+    head = LABELLED.sub('', l, 1)
+    if DATA_ROW.match(head) or TABLE2.match(head):
+        return True
+    if not NUMRUN.search(head):
+        return False
+    rest = NUMRUN.sub(' ', head)
+    rest = re.sub(r'\([A-Za-z0-9 ]*\)', ' ', rest)     # a label like Pz (zq)
+    return (re.search(r'[+*/^()\[\]{}<>|]', rest) is None and '->' not in rest
+            and re.search(r'[A-Za-z]\s*-\s*[A-Za-z0-9]', rest) is None)
+
+
+def has_rel(r):
+    """does the row state a relation? commas and colons do not count"""
+    return any(p.startswith(BS) or p in ('=', '<', '>')
+               for p in r['parts'][1::2])
+
+
+def prose_tex(t, subject=''):
+    """words as text, with the formulas that sit among them set as maths:
+       `entry (k, n) is W_N^(kn)` keeps its W_N^(kn)"""
+    t = tex.LISTNUM.sub('', ' '.join(t.split()))
+    if t.startswith('--'):
+        t = t[2:].strip()
+    out = []
+    for w in t.split(' '):
+        m = re.match(r'^(.*?)([,.;:]*)$', w)
+        core, tail = m.group(1), m.group(2)
+        # a closing bracket that closes nothing belongs to the sentence
+        while core.endswith(')') and core.count(')') > core.count('('):
+            core, tail = core[:-1], ')' + tail
+        # the dialect's names for symbols: theta, ->, <=, inf
+        if core in tex.GREEK:
+            out.append('$' + BS + core + '$' + tex.textify(tail))
+            continue
+        if core in tex.RELTEX:
+            out.append('$' + tex.RELTEX[core] + '$' + tex.textify(tail))
+            continue
+        if core in ('inf', 'infinity'):
+            out.append('$' + BS + 'infty$' + tex.textify(tail))
+            continue
+        if MATHY.search(core) and 1 < len(core) <= 24 and '--' not in core:
+            try:
+                r = tex.line(core, subject)
+            except tex.TexError:
+                r = None
+            if r and r['math'].strip() and not r['label'] and not r['note']:
+                out.append('$' + r['math'] + '$' + tex.textify(tail))
+                continue
+        out.append(tex.textify(w))
+    return ' '.join(out)
+
+
+def attach_sum_indices(lines):
+    """`SUM SUM w(s,t)` with `s   t` written on the line below: the letters
+       are the summation indices, so put them where the parser reads them"""
+    out, i = [], 0
+    while i < len(lines):
+        l = lines[i]
+        nxt = lines[i + 1] if i + 1 < len(lines) else ''
+        k = len(BIGWORD.findall(l))
+        if k and INDEX_LINE.match(nxt) and len(nxt.split()) == k:
+            idx = iter(nxt.split())
+            l = BIGWORD.sub(lambda m: m.group(1).lower() + '_' + next(idx), l)
+            out.append(l)
+            i += 2
+            continue
+        out.append(l)
+        i += 1
+    return out
+
+
+RELCH = re.compile(r'[=<>]|->|=>|<->')
+
+
+def split_middots(lines):
+    """`E = ...  .  P = ...  .  energy signal => P = 0`: a line that strings
+       statements together with wide-spaced middle dots is one statement
+       per row (`n . x(n)`, a product, has single spaces)"""
+    out = []
+    for l in lines:
+        parts = re.split(r'\s{2,}\.\s{2,}', l)
+        if len(parts) >= 2 and all(RELCH.search(p) for p in parts):
+            out.extend(parts)
+        else:
+            out.append(l)
+    return out
+
+
+def texty(r, line):
+    """a sentence that happens to parse is still a sentence: one with a
+       full stop in it, or with no relation and only words, or a bare word
+       with a remark hanging off it (`PIFS   - point coordination`)"""
+    if SENTENCE.search(line):
+        return True
+    math = r['math'].strip()
+    words = ' '.join(re.findall(re.escape(BS) + r'text\{([^{}]*)\}', math))
+    if has_rel(r):
+        # a sentence with an equation inside it is still a sentence
+        return len(words.split()) > 12
+    if BARE.match(math):
+        return True                         # nothing but words
+    if r['note'] and len(r['note']) >= 12 and WORDS_ONLY.sub('', math) == '':
+        return True                         # `DIFS (longest)   - ordinary data`
+    if re.search(r'[\^_]|' + re.escape(BS) + r'(?:frac|sqrt|sum|int)', math):
+        return False                        # there is structure worth setting
+    return len(words.split()) >= 6
+
+
+def simple_row(r):
+    """a word and a number, a name -- nothing a formula would be made of"""
+    rest = re.sub(re.escape(BS) + r'(?:text|mathrm)\{[^{}]*\}', '', r['math'])
+    rest = re.sub(re.escape(BS) + r'[A-Za-z]+', '', rest)
+    return (len(re.findall(r'[A-Za-z0-9.]+', rest)) <= 2
+            and not re.search(r'[\^_()]', rest))
+
+
+def merge_note(r, l, subject):
+    """`Step 1 -- rewrite: x(-n-2) = x(-(n+2))` -- the mathematics is in
+       the remark, so set the remark and keep the head as its label"""
+    try:
+        rn = tex.line(r['note'], subject)
+    except tex.TexError:
+        return None
+    if not rn['math'].strip() or not has_rel(rn):
+        return None
+    head = ' '.join(tex.split_comment(l.rstrip())[0].split())
+    head = tex.LISTNUM.sub('', head)
+    if not head or len(head) > 30 or re.search(r'[=<>^_]', head):
+        return None
+    rn['label'] = head + (' -- ' + rn['label'] if rn['label'] else '')
+    return rn
+
+
+def note_latex(note, subject=''):
+    """a remark that is really mathematics (`= A^2/2`, `check: 42 = 6 x 7`)
+       is set as mathematics; anything else is text. Returns (latex, is_math)"""
+    if re.search(r'[=<>^_]|\d\s*/\s*\d|\w\(', note):
+        try:
+            r = tex.line(note, subject)
+        except tex.TexError:
+            r = None
+        if r and r['math'].strip():
+            out = r['math']
+            if r['label']:
+                out = BS + 'text{%s}:' % tex.textify(r['label']) + BS + '; ' + out
+            if r['note']:
+                out += BS + ';' + BS + 'text{%s}' % prose_tex(r['note'], subject)
+            return out, True
+    return BS + 'text{%s}' % prose_tex(note, subject), False
 
 
 # --------------------------------------------------------------- matrices
@@ -224,6 +394,8 @@ def build_block(raw, subject):
     if not lines:
         return None
 
+    lines = attach_sum_indices(lines)
+    lines = split_middots(lines)
     live = [l for l in lines if l.strip()]
     # a matrix needs to look like one: OOPS blocks are program output
     if subject != 'oops':
@@ -231,34 +403,52 @@ def build_block(raw, subject):
         if m:
             return m
 
-    # a run of bare-number rows is data, not algebra
+    # a run of bare-number rows is data, not algebra; two labelled rows of
+    # numbers are a table, whose columns only line up in monospace
     if sum(1 for l in live if is_data_row(l)) >= 2:
         return None
+    if sum(1 for l in live if is_table_row(l)) >= 2:
+        return None
 
-    rows = []
+    rows = []                               # ('math', row) / ('prose', text) / ('gap', None)
     for l in lines:
         if not l.strip() or re.match(r'^\s*[-=_.]{3,}\s*$', l):
             rows.append(('gap', None))
             continue
         if is_data_row(l):
             return None
+        if is_table_row(l):
+            rows.append(('prose', l.strip()))
+            continue
         try:
             r = tex.line(l, subject)
         except tex.TexError:
             if tex.is_prose(l):
-                rows.append(('prose', BS + 'text{%s}' % tex.textify(l.strip())))
+                rows.append(('prose', l.strip()))
                 continue
             return None
         if not r['math'].strip():
-            rows.append(('gap', None))
+            if r['note']:
+                rows.append(('prose', r['note']))
+            else:
+                rows.append(('gap', None))
+            continue
+        if not has_rel(r) and r['note'] and not r['label']:
+            r = merge_note(r, l, subject) or r
+        if texty(r, l):
+            rows.append(('prose', l.strip()))
             continue
         rows.append(('math', r))
 
     maths = [r for k, r in rows if k == 'math']
+    prose = len([r for k, r in rows if k == 'prose'])
     if not maths:
         return None
-    # a block that is all prose belongs in a paragraph, not in a formula
-    if len(maths) < max(1, len([r for k, r in rows if k == 'prose'])):
+    # a block that is mostly prose belongs in a paragraph, not in a formula
+    if 3 * len(maths) < prose:
+        return None
+    # rows of names and numbers with no relation anywhere: program output
+    if len(rows) > 1 and not any(has_rel(r) for r in maths) and all(simple_row(r) for r in maths):
         return None
 
     single = len(rows) == 1 and rows[0][0] == 'math'
@@ -272,9 +462,9 @@ def build_block(raw, subject):
                 out[-1] = out[-1] + BS + BS + '[5pt]'
             continue
         if kind == 'prose':
-            out.extend(note_rows(r[len(BS) + 5:-1]))
+            out.extend(note_rows(r, subject))
             continue
-        out.extend(aligned_row(r))
+        out.extend(aligned_row(r, subject))
     body = (' ' + BS + BS + ' ').join(out)
     body = body.replace(BS + BS + '[5pt] ' + BS + BS + ' ', BS + BS + '[5pt] ')
     return BS + 'begin{aligned} ' + body + ' ' + BS + 'end{aligned}'
@@ -286,7 +476,14 @@ SHORT_NOTE = 18
 WRAP_NOTE = 46
 
 
-def aligned_row(r):
+def tex_block(raw):
+    """a block the author wrote in LaTeX: only the HTML escaping comes off"""
+    t = raw.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
+    t = re.sub(r'<br\s*/?>', '\n', t)
+    return t.strip()
+
+
+def aligned_row(r, subject=''):
     """lhs &= rhs && note -- the alignment point is the first relation"""
     parts = r['parts']
     lhs = parts[0]
@@ -300,16 +497,21 @@ def aligned_row(r):
     note = r['note']
     if not note:
         return [cell]
+    latex, is_math = note_latex(note, subject)
+    if is_math:
+        if len(note) <= WRAP_NOTE:
+            return [cell + ' && ' + latex]
+        return [cell, '&' + BS + 'quad ' + latex]
     if len(note) <= SHORT_NOTE:
-        return [cell + ' && ' + BS + 'text{%s}' % tex.textify(note)]
-    return [cell] + note_rows(tex.textify(note))
+        return [cell + ' && ' + latex]
+    return [cell] + note_rows(note, subject)
 
 
-def note_rows(text):
+def note_rows(text, subject=''):
     """a remark on its own row, in the second column, split if very long"""
     rows = []
-    for piece in split_words(text, WRAP_NOTE):
-        rows.append('&' + BS + 'quad ' + BS + 'text{%s}' % piece)
+    for piece in split_words(' '.join(text.split()), WRAP_NOTE):
+        rows.append('&' + BS + 'quad ' + BS + 'text{%s}' % prose_tex(piece, subject))
     return rows
 
 
@@ -385,7 +587,7 @@ def build_inline(txt, subject):
 
 
 # --------------------------------------------------------------- driver
-BLOCK_RE = re.compile(r'<(div|p) class="(eqn|eq)">(.*?)</\1>', re.S)
+BLOCK_RE = re.compile(r'<(div|p) class="(eqn|eq)( tex)?">(.*?)</\1>', re.S)
 CODE_RE = re.compile(r'<code>(.*?)</code>', re.S)
 SCRIPT_RE = re.compile(r'<(script|style)\b.*?</\1>', re.S | re.I)
 
@@ -425,7 +627,17 @@ def collect(paths, do_inline=True):
             if in_dead(zones, m.start(), m.end()):
                 st['skip']['in script'] = st['skip'].get('in script', 0) + 1
                 continue
-            raw = m.group(3)
+            raw = m.group(4)
+            if m.group(3):
+                # written as LaTeX already: render it exactly as given
+                if 'katex' in raw:
+                    st['skip']['already set'] = st['skip'].get('already set', 0) + 1
+                    continue
+                latex = tex_block(raw)
+                jobs.append({'id': len(jobs), 'tex': latex, 'display': True})
+                sites.append((rel, m.start(), m.end(), 'block', raw))
+                st['block'] += 1
+                continue
             why = skip_reason(raw)
             if why:
                 st['skip'][why] = st['skip'].get(why, 0) + 1

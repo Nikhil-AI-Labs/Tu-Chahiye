@@ -813,6 +813,532 @@ def fig_paths_predicted():
     save(fig, 'dip-paths-predicted')
 
 
+# ==========================================================================
+#  DSP — the FIR unit, the DFT properties, and the class-notebook pictures
+#  Every one of these is computed. The filters really are designed with the
+#  formulas the page states; the ripple figures are measured off the
+#  responses, not quoted.
+# ==========================================================================
+def _lpf_hd(M, wc):
+    """ideal low-pass impulse response, delayed by tau = (M-1)/2"""
+    tau = (M - 1) / 2.0
+    n = np.arange(M)
+    with np.errstate(divide='ignore', invalid='ignore'):
+        h = np.where(n == tau, wc / np.pi, np.sin(wc * (n - tau)) / (np.pi * (n - tau)))
+    return h
+
+
+def _H(h, w):
+    """|H(e^jw)| from the coefficients, straight from the definition"""
+    n = np.arange(len(h))
+    return np.abs(np.array([np.sum(h * np.exp(-1j * wi * n)) for wi in w]))
+
+
+def _db(x):
+    return 20 * np.log10(np.maximum(x, 1e-9))
+
+
+def _stem(ax, n, v, color=None, ms=4.5, lw=1.4):
+    color = color or SPOT['dsp']
+    m, s, b = ax.stem(n, v, linefmt='-', markerfmt='o', basefmt=' ')
+    plt.setp(s, color=color, linewidth=lw)
+    plt.setp(m, color=color, markersize=ms)
+    ax.axhline(0, color=HAIR, lw=1, zorder=0)
+
+
+def fig_fir_types():
+    """the four linear-phase families: symmetric or antisymmetric, M odd or even"""
+    fig, ax = plt.subplots(2, 2, figsize=(9.6, 5.4))
+    cases = [(9, +1, 'Type 1: symmetric, M odd'), (8, +1, 'Type 2: symmetric, M even'),
+             (9, -1, 'Type 3: antisymmetric, M odd'), (8, -1, 'Type 4: antisymmetric, M even')]
+    rng = np.random.default_rng(5)
+    for a, (M, sgn, title) in zip(ax.ravel(), cases):
+        n = np.arange(M)
+        half = rng.uniform(0.25, 1.0, size=M // 2) * np.array([0.35, 0.6, 0.9, 1.0])[:M // 2]
+        h = np.zeros(M)
+        h[:M // 2] = half
+        h[M - M // 2:] = sgn * half[::-1]
+        if M % 2 == 1:
+            h[M // 2] = 1.0 if sgn > 0 else 0.0
+        _stem(a, n, h)
+        tau = (M - 1) / 2.0
+        a.axvline(tau, color=INK3, lw=1, ls=(0, (3, 3)))
+        a.text(tau, 1.12, 'centre  n = (M−1)/2 = %g' % tau, ha='center', fontsize=8,
+               color=INK2, fontfamily=MONO)
+        a.set_ylim(-1.25, 1.3); a.set_xlim(-0.6, M - 0.4)
+        a.set_title(title, fontsize=9.2, fontfamily=MONO, color=INK2, loc='left')
+        a.set_xlabel('n'); bare(a)
+        a.xaxis.set_major_locator(MaxNLocator(integer=True))
+        note = {(9, 1): 'h(n) = h(M−1−n); nothing forced to zero',
+                (8, 1): 'h(n) = h(M−1−n); H(π) = 0 — no high-pass',
+                (9, -1): 'h(n) = −h(M−1−n); centre tap 0; H(0) = H(π) = 0',
+                (8, -1): 'h(n) = −h(M−1−n); H(0) = 0'}[(M, sgn)]
+        a.text(0.02, 0.06, note, transform=a.transAxes, fontsize=8, color=SPOT['dsp'],
+               fontfamily=MONO)
+    fig.suptitle('Linear phase needs symmetry about the centre tap. Which of the four '
+                 'families you can use depends on the filter you want.',
+                 fontsize=9.4, color=INK2, y=1.01)
+    fig.tight_layout()
+    save(fig, 'dsp-fir-types')
+
+
+def fig_fir_zeros():
+    """the zeros of the M = 11 rectangular-window low-pass, found by np.roots"""
+    h = _lpf_hd(11, np.pi / 2)
+    z = np.roots(h)
+    fig, ax = plt.subplots(figsize=(5.6, 5.4))
+    th = np.linspace(0, 2 * np.pi, 400)
+    ax.plot(np.cos(th), np.sin(th), color=HAIR, lw=1.2)
+    ax.axhline(0, color=HAIR, lw=1); ax.axvline(0, color=HAIR, lw=1)
+    on = np.isclose(np.abs(z), 1, atol=1e-6)
+    ax.plot(z[on].real, z[on].imag, 'o', ms=8, mfc='none', mec=INK, mew=1.6,
+            label='on the unit circle — conjugate pairs')
+    ax.plot(z[~on].real, z[~on].imag, 'o', ms=8, mfc='none', mec=SPOT['dsp'], mew=1.8,
+            label='off it — reciprocal AND conjugate, a quadruplet')
+    for zz in z[~on]:
+        ax.annotate('|z| = %.3f' % abs(zz), xy=(zz.real, zz.imag),
+                    xytext=(zz.real + 0.12, zz.imag + 0.12 * np.sign(zz.imag + 1e-9)),
+                    fontsize=8, color=SPOT['dsp'], fontfamily=MONO)
+    ax.set_aspect('equal'); ax.set_xlim(-2.1, 2.1); ax.set_ylim(-2.1, 2.1)
+    ax.set_xlabel('Re z'); ax.set_ylabel('Im z'); bare(ax)
+    ax.legend(loc='lower left', fontsize=8, bbox_to_anchor=(0, 1.0))
+    ax.set_title('Zeros of the 11-tap low-pass, ωc = π/2 (rectangular window). '
+                 'Symmetric h(n) means H(z) = z^{-(M-1)} H(1/z):\nevery zero at z comes '
+                 'with one at 1/z, and real coefficients add the conjugate of each.',
+                 fontsize=8.8, color=INK2, pad=54, loc='left')
+    save(fig, 'dsp-fir-zeros')
+
+
+def fig_fir_ideal():
+    """the four ideal responses and their truncated impulse responses, M = 21"""
+    M = 21; tau = 10; n = np.arange(M)
+    w = np.linspace(-np.pi, np.pi, 801)
+    wc, w1, w2 = 0.4 * np.pi, 0.3 * np.pi, 0.6 * np.pi
+    with np.errstate(divide='ignore', invalid='ignore'):
+        d = n - tau
+        lp = np.where(d == 0, wc / np.pi, np.sin(wc * d) / (np.pi * d))
+        hp = np.where(d == 0, 1 - wc / np.pi, (np.sin(np.pi * d) - np.sin(wc * d)) / (np.pi * d))
+        bp = np.where(d == 0, (w2 - w1) / np.pi, (np.sin(w2 * d) - np.sin(w1 * d)) / (np.pi * d))
+        bs = np.where(d == 0, 1 - (w2 - w1) / np.pi,
+                      (np.sin(w1 * d) - np.sin(w2 * d) + np.sin(np.pi * d)) / (np.pi * d))
+    ideal = [(np.abs(w) <= wc), (np.abs(w) >= wc),
+             ((np.abs(w) >= w1) & (np.abs(w) <= w2)), ~((np.abs(w) >= w1) & (np.abs(w) <= w2))]
+    names = ['Low-pass  ωc = 0.4π', 'High-pass  ωc = 0.4π', 'Band-pass  0.3π–0.6π',
+             'Band-stop  0.3π–0.6π']
+    hs = [lp, hp, bp, bs]
+    fig, ax = plt.subplots(2, 4, figsize=(12.4, 5.0))
+    for k in range(4):
+        a = ax[0, k]
+        a.plot(w / np.pi, ideal[k].astype(float), color=INK3, lw=1.3, ls=(0, (4, 3)),
+               label='ideal Hd(ω)')
+        a.plot(w / np.pi, _H(hs[k], w), color=SPOT['dsp'], lw=1.8, label='truncated, M = 21')
+        a.set_title(names[k], fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+        a.set_xlabel('ω / π'); a.set_ylim(-0.1, 1.25); bare(a)
+        if k == 0:
+            a.legend(fontsize=7.6, loc='upper right')
+        b = ax[1, k]
+        _stem(b, n, hs[k], ms=3.6, lw=1.2)
+        b.set_xlabel('n'); bare(b)
+        b.set_title('hd(n), n = 0…20', fontsize=8.6, fontfamily=MONO, color=INK2, loc='left')
+    fig.suptitle('Every ideal response has a closed-form hd(n) — a sinc, or two sincs '
+                 'subtracted. Cut it off at M taps and the ripple appears.',
+                 fontsize=9.4, color=INK2, y=1.01)
+    fig.tight_layout()
+    save(fig, 'dsp-fir-ideal')
+
+
+def fig_gibbs():
+    """truncating the ideal response: the overshoot does not shrink with M"""
+    w = np.linspace(0, np.pi, 3000)
+    wc = np.pi / 2
+    fig, ax = plt.subplots(1, 2, figsize=(10.6, 3.6))
+    for M, col in ((11, HAIR), (61, INK3), (101, SPOT['dsp'])):
+        H = _H(_lpf_hd(M, wc), w)
+        over = H[w < wc].max() - 1
+        ax[0].plot(w / np.pi, H, color=col, lw=1.6 if M < 101 else 2.1,
+                   label='M = %d   overshoot %.1f%%' % (M, 100 * over))
+    ax[0].axhline(1, color=HAIR, lw=1, ls=(0, (3, 3)))
+    ax[0].set_xlabel('ω / π'); ax[0].set_ylabel('|H(ω)|'); bare(ax[0])
+    ax[0].legend(fontsize=8.2, loc='upper right')
+    ax[0].set_title('Rectangular window: more taps make the ripple faster, never smaller',
+                    fontsize=9, color=INK2, loc='left')
+    for M, col, name, wn in ((61, INK3, 'rectangular', np.ones(61)),
+                             (61, SPOT['dsp'], 'Hamming', np.hamming(61))):
+        H = _H(_lpf_hd(M, wc) * wn, w)
+        sb = _db(H[w > 0.62 * np.pi].max())
+        ax[1].plot(w / np.pi, _db(H), color=col, lw=1.9,
+                   label='%s, M = 61   stopband peak %.0f dB' % (name, sb))
+    ax[1].set_ylim(-110, 8); ax[1].set_xlabel('ω / π'); ax[1].set_ylabel('dB'); bare(ax[1])
+    ax[1].legend(fontsize=8.2, loc='upper right')
+    ax[1].set_title('The same M with a tapered window: ripple gone, transition wider',
+                    fontsize=9, color=INK2, loc='left')
+    fig.suptitle('Gibbs: a hard cut in the time domain is a sinc in the frequency domain, '
+                 'and its first sidelobe is 9% high whatever M is.',
+                 fontsize=9.4, color=INK2, y=1.02)
+    fig.tight_layout()
+    save(fig, 'dsp-gibbs')
+
+
+def fig_windows():
+    """the window family, in time and in dB, with the sidelobe measured"""
+    M = 51; n = np.arange(M)
+    fam = [('rectangular', np.ones(M), INK3),
+           ('Bartlett', np.bartlett(M), '#8C7A4C'),
+           ('Hann', np.hanning(M), BLUE),
+           ('Hamming', np.hamming(M), SPOT['dsp']),
+           ('Blackman', np.blackman(M), PINK)]
+    fig, ax = plt.subplots(1, 2, figsize=(11.2, 3.8))
+    for name, wv, col in fam:
+        ax[0].plot(n, wv, color=col, lw=1.9, label=name)
+        W = np.abs(np.fft.fft(wv, 8192)); W /= W[0]
+        Wdb = _db(W[:4096])
+        rising = np.where(np.diff(W[:4096]) > 0)[0]
+        null = rising[0] if len(rising) else 1
+        side = Wdb[null:].max()
+        wgrid = np.linspace(0, np.pi, 4096)
+        ax[1].plot(wgrid / np.pi, Wdb, color=col, lw=1.6,
+                   label='%-11s sidelobe %5.0f dB   main lobe %.0fπ/M'
+                         % (name, side, 2 * (null / 8192 * 2 * np.pi) / (2 * np.pi / M)))
+    ax[0].set_xlabel('n'); ax[0].set_ylabel('w(n)'); bare(ax[0])
+    ax[0].set_title('M = 51 taps', fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    ax[0].legend(fontsize=8, loc='upper right')
+    ax[1].set_ylim(-110, 5); ax[1].set_xlim(0, 0.25)
+    ax[1].set_xlabel('ω / π'); ax[1].set_ylabel('|W(ω)|  dB'); bare(ax[1])
+    ax[1].legend(fontsize=7.4, loc='upper right', prop={'family': MONO, 'size': 7.4})
+    ax[1].set_title('Each spectrum, normalised: the trade is main-lobe width against '
+                    'sidelobe height', fontsize=9, color=INK2, loc='left')
+    fig.tight_layout()
+    save(fig, 'dsp-windows')
+
+
+def _bessel_i0(x):
+    from scipy.special import i0
+    return i0(x)
+
+
+def fig_kaiser():
+    """one window, one knob: beta"""
+    M = 51; n = np.arange(M)
+    fig, ax = plt.subplots(1, 2, figsize=(11.2, 3.8))
+    for beta, col, lab in ((0, INK3, 'β = 0   (rectangular)'), (3.4, BLUE, 'β = 3.4'),
+                           (5.44, SPOT['dsp'], 'β = 5.44 (≈ Hamming)'),
+                           (8.5, PINK, 'β = 8.5 (≈ Blackman)')):
+        arg = 1 - (2 * n / (M - 1) - 1) ** 2
+        wv = _bessel_i0(beta * np.sqrt(np.maximum(arg, 0))) / _bessel_i0(beta)
+        ax[0].plot(n, wv, color=col, lw=1.9, label=lab)
+        W = np.abs(np.fft.fft(wv, 8192)); W /= W[0]
+        Wdb = _db(W[:4096])
+        rising = np.where(np.diff(W[:4096]) > 0)[0]
+        null = rising[0] if len(rising) else 1
+        ax[1].plot(np.linspace(0, 1, 4096), Wdb, color=col, lw=1.6,
+                   label='%s   sidelobe %.0f dB' % (lab, Wdb[null:].max()))
+    ax[0].set_xlabel('n'); ax[0].set_ylabel('w(n)'); bare(ax[0]); ax[0].legend(fontsize=8)
+    ax[1].set_ylim(-120, 5); ax[1].set_xlim(0, 0.25)
+    ax[1].set_xlabel('ω / π'); ax[1].set_ylabel('dB'); bare(ax[1]); ax[1].legend(fontsize=7.8)
+    fig.suptitle('Kaiser: w(n) = I₀(β√(1 − (2n/(M−1) − 1)²)) / I₀(β). Raising β buys '
+                 'stopband attenuation and pays for it with transition width.',
+                 fontsize=9.4, color=INK2, y=1.02)
+    fig.tight_layout()
+    save(fig, 'dsp-kaiser')
+
+
+def fig_fir_lpf_design():
+    """the two designs worked on the page, computed and plotted"""
+    w = np.linspace(0, np.pi, 1200)
+    wt = np.arange(0, 1.001, 0.1) * np.pi
+    fig, ax = plt.subplots(2, 2, figsize=(10.6, 6.2))
+    # (a) rectangular, M = 11, wc = pi/2
+    h = _lpf_hd(11, np.pi / 2)
+    _stem(ax[0, 0], np.arange(11), h)
+    ax[0, 0].set_title('(a) rectangular window, M = 11, ωc = π/2 — h(n)', fontsize=9,
+                       fontfamily=MONO, color=INK2, loc='left')
+    for i, v in enumerate(h):
+        if abs(v) > 1e-9:
+            ax[0, 0].text(i, v + (0.03 if v > 0 else -0.06), '%.3f' % v, ha='center',
+                          fontsize=7.4, color=INK2, fontfamily=MONO)
+    ax[0, 1].plot(w / np.pi, _db(_H(h, w)), color=SPOT['dsp'], lw=1.9)
+    ax[0, 1].plot(wt / np.pi, _db(_H(h, wt)), 'o', ms=4, color=INK)
+    ax[0, 1].axhline(-6.02, color=HAIR, lw=1, ls=(0, (3, 3)))
+    ax[0, 1].text(0.52, -4.4, '−6.02 dB at ωc, exactly half', fontsize=7.8, color=INK2,
+                  fontfamily=MONO)
+    ax[0, 1].set_ylim(-60, 6); ax[0, 1].set_title('|H(ω)| in dB, dots at ω = 0, 0.1π … π '
+                                                   '(the table on the page)',
+                                                   fontsize=9, color=INK2, loc='left')
+    # (b) Hamming, M = 7, wc = 3pi/4
+    hd = _lpf_hd(7, 3 * np.pi / 4); wn = np.hamming(7); h2 = hd * wn
+    _stem(ax[1, 0], np.arange(7), hd, color=HAIR, ms=5)
+    _stem(ax[1, 0], np.arange(7), h2)
+    ax[1, 0].set_title('(b) Hamming window, M = 7, ωc = 3π/4 — hd(n) grey, h(n) = hd·w ink',
+                       fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    for i, v in enumerate(h2):
+        ax[1, 0].text(i, v + (0.03 if v >= 0 else -0.07), '%.3f' % v, ha='center',
+                      fontsize=7.4, color=INK2, fontfamily=MONO)
+    ax[1, 1].plot(w / np.pi, _db(_H(h2, w)), color=SPOT['dsp'], lw=1.9)
+    ax[1, 1].plot(wt / np.pi, _db(_H(h2, wt)), 'o', ms=4, color=INK)
+    ax[1, 1].set_ylim(-14, 2)
+    ax[1, 1].set_title('|H(ω)| in dB — only −10.7 dB at π: seven taps cannot do better',
+                       fontsize=9, color=INK2, loc='left')
+    for a in ax.ravel():
+        bare(a)
+    for a in ax[:, 0]:
+        a.set_xlabel('n'); a.xaxis.set_major_locator(MaxNLocator(integer=True))
+    for a in ax[:, 1]:
+        a.set_xlabel('ω / π'); a.set_ylabel('dB')
+    fig.tight_layout()
+    save(fig, 'dsp-fir-lpf-design')
+
+
+def fig_freq_sampling():
+    """design by sampling the ideal response: exact at the samples, ripple between"""
+    w = np.linspace(0, np.pi, 3000)
+    fig, ax = plt.subplots(1, 2, figsize=(11.2, 3.9))
+    # M = 17, wc = pi/2 : H(k) = 1 for k = 0..4
+    M = 17; n = np.arange(M)
+    h = (1 + 2 * np.sum([np.cos(2 * np.pi * k * (n - 8) / M) for k in range(1, 5)], axis=0)) / M
+    H = _H(h, w)
+    ax[0].plot(w / np.pi, H, color=SPOT['dsp'], lw=1.9, label='|H(ω)| of the 17 taps')
+    kk = np.arange(9); wk = 2 * np.pi * kk / M
+    Hk = (kk <= 4).astype(float)
+    ax[0].plot(wk / np.pi, Hk, 'o', ms=6, color=INK, label='the samples H(k), k = 0…8')
+    ax[0].plot(w / np.pi, (w <= np.pi / 2).astype(float), color=HAIR, lw=1.2, ls=(0, (4, 3)),
+               label='ideal')
+    rip = H[w < 0.45 * np.pi].max() - 1; sb = H[w > 0.62 * np.pi].max()
+    ax[0].text(0.03, 1.13, 'passes through every sample exactly; between them: +%.0f%% ripple, '
+               'stopband peak %.2f' % (100 * rip, sb), fontsize=7.8, color=INK2, fontfamily=MONO)
+    ax[0].set_ylim(-0.08, 1.28); ax[0].set_xlabel('ω / π'); bare(ax[0])
+    ax[0].legend(fontsize=7.8, loc='center right')
+    ax[0].set_title('M = 17, ωc = π/2, samples at ω = 2πk/17', fontsize=9, fontfamily=MONO,
+                    color=INK2, loc='left')
+    # Proakis 8.6 vs 8.7
+    M = 15; n = np.arange(M)
+    h1 = (1 + 2 * np.sum([np.cos(2 * np.pi * k * (n - 7) / M) for k in range(1, 4)], axis=0)) / M
+    h2 = h1 + 0.8 * np.cos(8 * np.pi * (n - 7) / M) / M
+    for hh, col, lab in ((h1, INK3, 'H(4) = 0     hard edge'), (h2, SPOT['dsp'], 'H(4) = 0.4   one transition sample')):
+        Hh = _H(hh, w)
+        ax[1].plot(w / np.pi, _db(Hh), color=col, lw=1.9,
+                   label='%s → stopband %.0f dB' % (lab, _db(Hh[w > 0.75 * np.pi].max())))
+    ax[1].set_ylim(-70, 6); ax[1].set_xlabel('ω / π'); ax[1].set_ylabel('dB'); bare(ax[1])
+    ax[1].legend(fontsize=8, loc='upper right')
+    ax[1].set_title('M = 15: Proakis 8.6 against 8.7 — what one sample in the transition buys',
+                    fontsize=9, color=INK2, loc='left')
+    fig.tight_layout()
+    save(fig, 'dsp-freq-sampling')
+
+
+def fig_diff_hilbert():
+    """the two antisymmetric designs: differentiator and Hilbert transformer"""
+    M = 21; tau = 10; n = np.arange(M); d = n - tau
+    w = np.linspace(0, np.pi, 1500)
+    with np.errstate(divide='ignore', invalid='ignore'):
+        hdiff = np.where(d == 0, 0.0, np.cos(np.pi * d) / d)
+        hhil = np.where(d == 0, 0.0, (1 - np.cos(np.pi * d)) / (np.pi * d))
+    hdiff_w = hdiff * np.hamming(M); hhil_w = hhil * np.hamming(M)
+    fig, ax = plt.subplots(2, 2, figsize=(10.6, 5.8))
+    _stem(ax[0, 0], n, hdiff_w); ax[0, 0].set_title('differentiator, hd(n)·Hamming, M = 21',
+                                                   fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    ax[0, 1].plot(w / np.pi, w, color=HAIR, lw=1.2, ls=(0, (4, 3)), label='ideal |H| = ω')
+    ax[0, 1].plot(w / np.pi, _H(hdiff_w, w), color=SPOT['dsp'], lw=1.9, label='designed')
+    ax[0, 1].legend(fontsize=8); ax[0, 1].set_title('|H(ω)| — a straight line through the origin',
+                                                    fontsize=9, color=INK2, loc='left')
+    _stem(ax[1, 0], n, hhil_w); ax[1, 0].set_title('Hilbert transformer, hd(n)·Hamming, M = 21 '
+                                                  '(every even tap is zero)',
+                                                  fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    ax[1, 1].plot(w / np.pi, np.ones_like(w), color=HAIR, lw=1.2, ls=(0, (4, 3)), label='ideal |H| = 1')
+    ax[1, 1].plot(w / np.pi, _H(hhil_w, w), color=SPOT['dsp'], lw=1.9, label='designed')
+    ax[1, 1].set_ylim(0, 1.3); ax[1, 1].legend(fontsize=8, loc='lower center')
+    ax[1, 1].set_title('|H(ω)| — flat, with a −90° phase shift at every frequency',
+                       fontsize=9, color=INK2, loc='left')
+    for a in ax.ravel():
+        bare(a)
+    for a in ax[:, 0]:
+        a.set_xlabel('n')
+    for a in ax[:, 1]:
+        a.set_xlabel('ω / π')
+    fig.suptitle('Both are antisymmetric — h(n) = −h(M−1−n) — so both are Type 3 here, '
+                 'and both have H(0) = 0 as they must.', fontsize=9.4, color=INK2, y=1.01)
+    fig.tight_layout()
+    save(fig, 'dsp-diff-hilbert')
+
+
+def fig_dft_symmetry():
+    """a real sequence's DFT is conjugate-symmetric — the 'first five points' example"""
+    given = np.array([0.25, 0.125 - 0.3018j, 0, 0.125 - 0.0518j, 0])
+    X = np.concatenate([given, np.conj(given[3:0:-1])])          # X(5)=X*(3), X(6)=X*(2), X(7)=X*(1)
+    x = np.fft.ifft(X)
+    k = np.arange(8)
+    fig, ax = plt.subplots(1, 3, figsize=(11.6, 3.4))
+    _stem(ax[0], k, np.abs(X))
+    ax[0].axvline(4, color=HAIR, lw=1, ls=(0, (3, 3)))
+    ax[0].set_title('|X(k)| — a mirror about k = N/2 = 4', fontsize=9, fontfamily=MONO,
+                    color=INK2, loc='left'); ax[0].set_xlabel('k')
+    _stem(ax[1], k, np.angle(X))
+    ax[1].axvline(4, color=HAIR, lw=1, ls=(0, (3, 3)))
+    ax[1].set_title('∠X(k) — odd about k = 4', fontsize=9, fontfamily=MONO, color=INK2,
+                    loc='left'); ax[1].set_xlabel('k')
+    _stem(ax[2], k, x.real)
+    ax[2].set_title('IDFT of the completed X(k): real, max |Im| = %.1e' % np.abs(x.imag).max(),
+                    fontsize=9, fontfamily=MONO, color=INK2, loc='left'); ax[2].set_xlabel('n')
+    for a in ax:
+        bare(a); a.xaxis.set_major_locator(MaxNLocator(integer=True))
+    fig.suptitle('Given X(0)…X(4) of a real 8-point sequence, X(N−k) = X*(k) supplies the rest '
+                 '— and transforming back really does give a real x(n).',
+                 fontsize=9.2, color=INK2, y=1.03)
+    fig.tight_layout()
+    save(fig, 'dsp-dft-symmetry')
+
+
+def fig_circular_shift():
+    """x(n) = {5, 4, 3, 2} on a ring: a circular shift and a circular fold"""
+    x = np.array([5, 4, 3, 2])
+    N = 4
+    panels = [('x(n)', x), ('x((n − 2))₄  — shifted two places', np.roll(x, 2)),
+              ('x((−n))₄  — folded', x[(-np.arange(N)) % N])]
+    fig, ax = plt.subplots(1, 3, figsize=(11.4, 3.9))
+    for a, (title, v) in zip(ax, panels):
+        th = np.linspace(0, 2 * np.pi, 200)
+        a.plot(np.cos(th), np.sin(th), color=HAIR, lw=1.4)
+        for i in range(N):
+            ang = np.pi / 2 - 2 * np.pi * i / N          # n = 0 at the top, clockwise
+            px, py = np.cos(ang), np.sin(ang)
+            a.plot(px, py, 'o', ms=26, color=STOCK2, mec=SPOT['dsp'], mew=1.8)
+            a.text(px, py, '%d' % v[i], ha='center', va='center', fontsize=11, color=INK,
+                   fontweight='bold')
+            a.text(1.32 * px, 1.32 * py, 'n=%d' % i, ha='center', va='center', fontsize=8.5,
+                   color=INK3, fontfamily=MONO)
+        a.set_xlim(-1.6, 1.6); a.set_ylim(-1.6, 1.6); a.set_aspect('equal'); a.axis('off')
+        a.set_title(title, fontsize=9.4, fontfamily=MONO, color=INK2)
+        a.text(0, -1.55, '{ ' + ', '.join(str(t) for t in v) + ' }', ha='center', fontsize=9,
+               color=SPOT['dsp'], fontfamily=MONO)
+    fig.suptitle('The index lives on a ring of N = 4 positions. A shift is a rotation; a fold '
+                 'is a reflection through n = 0. Nothing falls off the end.',
+                 fontsize=9.4, color=INK2, y=1.0)
+    fig.tight_layout()
+    save(fig, 'dsp-circular-shift')
+
+
+def fig_fir_spec():
+    """a real design, with the tolerance scheme read off it"""
+    from scipy.signal import kaiserord, firwin
+    wp, ws = 0.35 * np.pi, 0.45 * np.pi
+    numtaps, beta = kaiserord(45, (ws - wp) / np.pi)
+    if numtaps % 2 == 0:
+        numtaps += 1
+    h = firwin(numtaps, (wp + ws) / 2 / np.pi, window=('kaiser', beta))
+    w = np.linspace(0, np.pi, 4000)
+    H = _H(h, w)
+    d1 = np.abs(H[w <= wp] - 1).max(); d2 = H[w >= ws].max()
+    fig, ax = plt.subplots(figsize=(9.4, 3.9))
+    ax.plot(w / np.pi, H, color=SPOT['dsp'], lw=2)
+    ax.axvspan(0, wp / np.pi, color=STOCK2, alpha=0.9, zorder=0)
+    ax.axvspan(ws / np.pi, 1, color=STOCK2, alpha=0.9, zorder=0)
+    # the two passband lines are only 2δ₁ apart, so one label sits above and one below
+    for y, lab, va in ((1 + d1, '1 + δ₁', 'bottom'), (1 - d1, '1 − δ₁', 'top'), (d2, 'δ₂', 'center')):
+        ax.plot([0, 1], [y, y], color=INK3, lw=1, ls=(0, (3, 3)))   # stop at pi, clear of the label
+        ax.text(1.01, y, lab, fontsize=8.5, color=INK2, fontfamily=MONO, va=va)
+    ax.text(wp / 2 / np.pi, 0.5, 'passband\n0 ≤ ω ≤ ωp', ha='center', fontsize=8.6, color=INK2)
+    ax.text((wp + ws) / 2 / np.pi, 0.5, 'transition\nωs − ωp', ha='center', fontsize=8.6, color=INK2)
+    ax.text((ws / np.pi + 1) / 2, 0.5, 'stopband\nωs ≤ ω ≤ π', ha='center', fontsize=8.6, color=INK2)
+    ax.set_xticks([0, wp / np.pi, ws / np.pi, 1]); ax.set_xticklabels(['0', 'ωp', 'ωs', 'π'])
+    ax.set_ylim(-0.05, 1.15); ax.set_xlim(0, 1.06); ax.set_ylabel('|H(ω)|'); bare(ax)
+    ax.set_title('A %d-tap Kaiser design for ωp = 0.35π, ωs = 0.45π, 45 dB: measured '
+                 'δ₁ = %.4f, δ₂ = %.4f (%.1f dB)' % (numtaps, d1, d2, _db(d2)),
+                 fontsize=9.2, color=INK2, loc='left', pad=8)
+    save(fig, 'dsp-fir-spec')
+
+
+def fig_goertzel():
+    """one DFT bin as a second-order filter, run on x = 1..8"""
+    x = np.arange(1, 9.0); N = 8
+    X = np.fft.fft(x)
+    fig, ax = plt.subplots(figsize=(9.0, 3.4))
+    _stem(ax, np.arange(N), np.abs(X), color=HAIR, ms=5)
+    got = []
+    for k in range(N):
+        c = 2 * np.cos(2 * np.pi * k / N); v1 = v2 = 0.0
+        for xn in list(x) + [0.0]:
+            v = xn + c * v1 - v2; v2, v1 = v1, v
+        got.append(v1 - np.exp(-2j * np.pi * k / N) * v2)
+    got = np.array(got)
+    ax.plot(np.arange(N), np.abs(got), 'o', ms=7, mfc='none', mec=SPOT['dsp'], mew=2,
+            label='Goertzel, one bin at a time')
+    ax.legend(fontsize=8.5)
+    ax.set_xlabel('k'); ax.set_ylabel('|X(k)|'); bare(ax)
+    ax.set_title('x = 1…8: each Goertzel bin agrees with the FFT to %.0e — '
+                 'N multiplications per bin, so it wins when you want fewer than log₂N of them'
+                 % np.abs(got - X).max(), fontsize=9, color=INK2, loc='left', pad=8)
+    save(fig, 'dsp-goertzel')
+
+
+FIR_FIGS = [fig_fir_spec, fig_fir_types, fig_fir_zeros, fig_fir_ideal, fig_gibbs, fig_windows,
+            fig_kaiser, fig_fir_lpf_design, fig_freq_sampling, fig_diff_hilbert,
+            fig_dft_symmetry, fig_circular_shift, fig_goertzel]
+
+
+
+def fig_overlap():
+    """block convolution, both ways, on the class-notebook example"""
+    h = np.array([2, 2, 1]); x = np.array([3, 0, -2, 0, 2, 1, 0, -2, -1, 0])
+    N, M = 8, 3; L = N - M + 1
+    y_direct = np.convolve(x, h)
+    cc = lambda a, b: np.real(np.rint(np.fft.ifft(np.fft.fft(a, N) * np.fft.fft(b, N)))).astype(int)
+    fig, ax = plt.subplots(2, 2, figsize=(11.6, 6.0))
+    # ---- overlap-add (left column)
+    a = ax[0, 0]
+    y = np.zeros(len(x) + M - 1, int)
+    cols = [SPOT['dsp'], BLUE]
+    for i, s in enumerate(range(0, len(x), L)):
+        yb = cc(x[s:s + L], h)
+        n = np.arange(s, s + N)
+        keep = n < len(y)
+        a.bar(n[keep] + (0.18 if i else -0.18), yb[keep], width=0.34, color=cols[i],
+              label='block %d output (8 points)' % (i + 1))
+        y[s:s + N] += yb[:np.sum(keep)]
+    a.axvspan(5.5, 7.5, color=STOCK2, zorder=0)
+    a.text(6.5, -5.6, 'overlap:\nadd', ha='center', fontsize=8, color=INK2, fontfamily=MONO)
+    a.set_title('Overlap-ADD: blocks of L = 6 inputs, each gives 8 outputs',
+                fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    a.legend(fontsize=7.6, loc='lower right'); a.set_xlabel('n'); a.set_ylim(-7.2, 7); bare(a)
+    b = ax[1, 0]
+    _stem(b, np.arange(len(y)), y)
+    b.plot(np.arange(len(y_direct)), y_direct, 'o', ms=9, mfc='none', mec=INK, mew=1.4,
+           label='direct linear convolution')
+    b.legend(fontsize=7.8); b.set_xlabel('n'); bare(b)
+    b.set_title('sum of the blocks = %s' % ' '.join(str(v) for v in y),
+                fontsize=8.6, fontfamily=MONO, color=INK2, loc='left')
+    # ---- overlap-save (right column)
+    c = ax[0, 1]
+    xp = np.concatenate([np.zeros(M - 1, int), x, np.zeros(N, int)]); out = []
+    for i, s in enumerate(range(0, len(x), L)):
+        yb = cc(xp[s:s + N], h)
+        n = np.arange(s, s + N)
+        good = np.arange(N) >= M - 1
+        c.bar(n[good] - (M - 1) + (0.18 if i else -0.18), yb[good], width=0.34, color=cols[i],
+              label='block %d, the 6 kept' % (i + 1))
+        c.bar(n[~good] - (M - 1) + (0.18 if i else -0.18), yb[~good], width=0.34,
+              color=HAIR, hatch='//', edgecolor=cols[i], lw=0.8)
+        out.extend(yb[M - 1:])
+    c.text(-1.4, -4.9, 'hatched: first M−1 = 2\nof each block, thrown away', ha='left', fontsize=7.8,
+           color=INK2, fontfamily=MONO)
+    c.set_title('Overlap-SAVE: blocks of N = 8 inputs that overlap by M−1 = 2',
+                fontsize=9, fontfamily=MONO, color=INK2, loc='left')
+    c.legend(fontsize=7.6, loc='lower right'); c.set_xlabel('n'); c.set_ylim(-7.2, 7); bare(c)
+    d = ax[1, 1]
+    ys = np.array(out[:len(y_direct)])
+    _stem(d, np.arange(len(ys)), ys)
+    d.plot(np.arange(len(y_direct)), y_direct, 'o', ms=9, mfc='none', mec=INK, mew=1.4,
+           label='direct linear convolution')
+    d.legend(fontsize=7.8); d.set_xlabel('n'); bare(d)
+    d.set_title('kept samples, joined = %s' % ' '.join(str(v) for v in ys),
+                fontsize=8.6, fontfamily=MONO, color=INK2, loc='left')
+    fig.suptitle('h = {2, 2, 1}, x = {3, 0, −2, 0, 2, 1, 0, −2, −1, 0}, 8-point DFTs. Both '
+                 'ways land exactly on the direct answer.', fontsize=9.4, color=INK2, y=1.01)
+    fig.tight_layout()
+    save(fig, 'dsp-overlap-add-save')
+
+
+FIR_FIGS.append(fig_overlap)
+
+
 ALL = [
     fig_sine_pair, fig_sine_spectra, fig_conv_theorem, fig_impulse_ft,
     fig_bitplanes, fig_histeq, fig_smoothing, fig_sharpening, fig_gradient,
@@ -820,7 +1346,7 @@ ALL = [
     fig_aliasing, fig_dft, fig_freq_response, fig_fft_saving,
     fig_quant_snr, fig_isi, fig_eye, fig_ber, fig_bsc_capacity,
     fig_aloha_sim,
-]
+] + FIR_FIGS
 
 if __name__ == '__main__':
     only = sys.argv[1:] or None

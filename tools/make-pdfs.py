@@ -62,6 +62,23 @@ WAIT_IMAGES = """() => Promise.all(
     new Promise(r => { i.onload = i.onerror = r; }))
 ).then(() => document.images.length)"""
 
+# The printed column is 184 mm wide (A4 less the margins below). On screen a
+# wide formula or code block scrolls sideways; on paper it would be cut off
+# at the edge, so each box wider than its column is shrunk to fit.
+PRINT_W = 695
+FIT_WIDE = """() => {
+  let n = 0;
+  const fit = e => {
+    const k = e.clientWidth / e.scrollWidth;
+    if (k < 0.995) { e.style.zoom = String(Math.max(0.5, k * 0.985)); n++; }
+  };
+  document.querySelectorAll('.katex-display').forEach(fit);
+  document.querySelectorAll('pre, .eqn, .eq, .tw').forEach(e => {
+    if (!e.querySelector('.katex-display')) fit(e);
+  });
+  return n;
+}"""
+
 
 # ---------------------------------------------------------------- quiz paper
 QUIZ_HEAD = u"""<!DOCTYPE html>
@@ -264,6 +281,12 @@ def main():
             except Exception:
                 pass
             pg.wait_for_timeout(700)
+            # lay the page out at the printed width, then shrink what is
+            # still too wide (the measurement needs the print stylesheet)
+            pg.emulate_media(media='print')
+            pg.set_viewport_size({'width': PRINT_W, 'height': 1100})
+            pg.wait_for_timeout(200)
+            shrunk = pg.evaluate(FIT_WIDE)
             dst = os.path.join(OUT, out_name)
             pg.pdf(path=dst, format='A4', print_background=True,
                    landscape=landscape,
@@ -272,6 +295,10 @@ def main():
                    footer_template=FTR,
                    margin={'top': '16mm', 'bottom': '16mm',
                            'left': '13mm', 'right': '13mm'})
+            pg.emulate_media(media='screen')
+            pg.set_viewport_size({'width': 1200, 'height': 1600})
+            if shrunk:
+                print('  %-22s %d boxes shrunk to the column' % ('', shrunk))
             kb = os.path.getsize(dst) / 1024.0
             made.append((out_name, kb))
             print('  %-22s %8.0f KB' % (out_name, kb))

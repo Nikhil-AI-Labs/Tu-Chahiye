@@ -45,18 +45,18 @@ ENT = {
     'le': '<=', 'ge': '>=', 'ne': '!=', 'asymp': '~=', 'equiv': '==',
     'rarr': '->', 'larr': '<-', 'harr': '<->', 'rArr': '=>',
     'plusmn': '+/-', 'infin': ' inf ', 'deg': ' deg',
-    'hellip': '...', 'lowast': '*', 'radic': 'sqrt', 'sum': 'sum',
+    'hellip': '...', 'lowast': '*', 'radic': ' sqrt ', 'sum': 'sum',
     'prod': 'prod', 'int': 'integral', 'part': 'd', 'nabla': 'grad',
     'sup2': '^2', 'sup3': '^3', 'frac12': '1/2', 'frac14': '1/4',
     'ldquo': '"', 'rdquo': '"', 'lsquo': "'", 'rsquo': "'", 'prime': "'",
     'bull': ' . ', 'lowbar': '_',
     'oplus': ' xor ', 'otimes': ' * ', 'ominus': ' - ',
-    'cap': ' cap ', 'cup': ' cup ', 'isin': ' in ', 'ni': ' in ',
+    'cap': ' cap ', 'cup': ' cup ', 'isin': ' isin ', 'ni': ' isin ',
     'notin': ' notin ', 'sube': ' subset ', 'sub': ' subset ',
     'empty': ' emptyset ', 'forall': ' forall ', 'exist': ' exists ',
-    'ang': ' angle ', 'perp': ' perp ', 'and': ' and ', 'or': ' or ',
+    'ang': ' /_ ', 'perp': ' perp ', 'and': ' and ', 'or': ' or ',
     'lowast': '*', 'lceil': '[', 'rceil': ']', 'lfloor': '[',
-    'rfloor': ']', 'larr': '<-', 'uarr': ' up ', 'darr': ' down ',
+    'rfloor': ']', 'larr': '<-', 'uarr': ' uparrow ', 'darr': ' downarrow ',
 }
 for _g in ('alpha beta gamma delta epsilon zeta eta theta iota kappa lambda '
            'mu nu xi rho sigma tau upsilon phi chi psi omega Delta Gamma '
@@ -69,11 +69,12 @@ UNI = {
     u'÷': '/', u'≤': '<=', u'≥': '>=', u'≠': '!=',
     u'≈': '~=', u'≡': '==', u'→': '->', u'←': '<-',
     u'↔': '<->', u'⇒': '=>', u'±': '+/-', u'∞': ' inf ',
-    u'°': ' deg', u'…': '...', u'∗': '*', u'√': 'sqrt',
+    u'°': ' deg', u'…': '...', u'∗': '*', u'√': ' sqrt ',
     u'∑': 'sum', u'∏': 'prod', u'∫': 'integral',
     u'∂': 'd', u'∇': 'grad', u'·': ' . ', u' ': ' ',
-    u'′': "'", u'✓': ' -- ok', u'✗': ' -- no',
-    u'≡': '==', u'∅': ' emptyset ', u'∈': ' in ',
+    u'′': "'", u'✓': ' -- ok', u'✗': ' -- no', u'∠': ' /_ ',
+    u'↑': ' uparrow ', u'↓': ' downarrow ',
+    u'≡': '==', u'∅': ' emptyset ', u'∈': ' isin ', u'∉': ' notin ',
     u'α': ' alpha ', u'β': ' beta ', u'γ': ' gamma ',
     u'δ': ' delta ', u'ε': ' epsilon ', u'θ': ' theta ',
     u'λ': ' lambda ', u'μ': ' mu ', u'π': ' pi ',
@@ -82,7 +83,7 @@ UNI = {
     u'Δ': ' Delta ', u'Γ': ' Gamma ', u'Ω': ' Omega ',
     u'Φ': ' Phi ', u'Σ': ' Sigma ', u'Θ': ' Theta ',
     u'Λ': ' Lambda ', u'Π': ' Pi ',
-    u'²': '^2', u'³': '^3', u'½': '(1/2)',
+    u'²': '^(2)', u'³': '^(3)', u'½': '(1/2)',
     u'¼': '(1/4)', u'¾': '(3/4)', u'⅓': '(1/3)',
     u'⅔': '(2/3)', u'⅕': '(1/5)', u'⅙': '(1/6)',
     u'⅛': '(1/8)',
@@ -117,7 +118,7 @@ FUNC = {
     'sinc': BS + 'operatorname{sinc}', 'exp': BS + 'exp',
     'ln': BS + 'ln', 'log': BS + 'log',
     'max': BS + 'max', 'min': BS + 'min',
-    'sgn': BS + 'operatorname{sgn}', 'sign': BS + 'operatorname{sgn}',
+    'sgn': BS + 'operatorname{sgn}',
     'arg': BS + 'arg', 'det': BS + 'det', 'gcd': BS + 'gcd',
     'mod': BS + 'bmod',
     'arctan': BS + 'arctan', 'arcsin': BS + 'arcsin',
@@ -131,6 +132,7 @@ FUNC = {
 # letters multiplied together; with it, it is the bit rate.
 COMMON = {
     'Rb': 'R_b', 'Tb': 'T_b', 'Ts': 'T_s', 'Tp': 'T_p', 'Fs': 'F_s',
+    'Tfr': 'T_{fr}',
     'fs': 'f_s', 'fm': 'f_m', 'fc': 'f_c', 'fb': 'f_b', 'fB': 'f_B',
     'fN': 'f_N', 'BT': 'B_T', 'Bw': 'B_W',
     'Vmax': 'V_{' + BS + 'max}', 'Vmin': 'V_{' + BS + 'min}',
@@ -175,9 +177,24 @@ WORDY = re.compile(r'^[A-Za-z][a-z]{2,}$')
 
 NOT_WORDS = set('sum prod integral lim sqrt log ln exp sin cos tan sgn max '
                 'min inf deg mod abs cosh sinh tanh sinc erfc rect tri var '
-                'arg det gcd sign'.split())
+                'arg det gcd'.split())
 
-TEXTY = set('vs no ok yes all any one two per'.split())
+TEXTY = set('vs no ok yes all any one two per up down out off by'.split())
+
+# words the entity tables produce for symbols that have no ASCII spelling
+SYMWORD = {
+    'isin': BS + 'in', 'notin': BS + 'notin', 'subset': BS + 'subset',
+    'emptyset': BS + 'emptyset', 'forall': BS + 'forall',
+    'exists': BS + 'exists', 'cap': BS + 'cap', 'cup': BS + 'cup',
+    'perp': BS + 'perp', 'xor': BS + 'oplus',
+    'uparrow': BS + 'uparrow', 'downarrow': BS + 'downarrow',
+}
+
+# what a unit may be "per": bits/second, rad/s, samples/symbol
+UNIT_DENOM = set('s sec second seconds sample samples symbol symbols Hz '
+                 'pixel bit bits'.split())
+CONN_RUN = re.compile(r'^' + re.escape(BS) + r'quad' + re.escape(BS)
+                      + r'text\{[^{}]*\}' + re.escape(BS) + r'quad$')
 
 STOPWORD = set('of in on is to at by or if as per the a an and for with '
                'than from that its it be are was were no not'.split())
@@ -185,24 +202,66 @@ STOPWORD = set('of in on is to at by or if as per the a an and for with '
 CONNECTIVE = set('for where when if with and or otherwise else then so at '
                  'to per since because all every each of in on is as'.split())
 
+ABBREV = ('i.e.', 'e.g.', 'etc.', 'vs.', 'cf.', 'viz.')
+
+
+def wordish(p):
+    """an English word, as opposed to a name for a quantity: `round` and
+       `Level` are words, `Rb`, `SNR` and `cos` are not"""
+    if p in COMMON or p in FUNC or p in GREEK or p in UNITS or len(p) < 2:
+        return False
+    return p.islower() or (p[0].isupper() and p[1:].islower() and len(p) >= 3)
+
+
+def hyphen_word(w):
+    """`round-trip`, `non-zero`, `z-transform`, `4-point`, `radix-2`, `k-th`
+       are single words with a hyphen in them; `n-k` and `N-1` are not"""
+    parts = w.split('-')
+    if len(parts) < 2 or any(not p for p in parts):
+        return False
+    a, rest = parts[0], parts[1:]
+    if a.isdigit():
+        return all(p.isalpha() and (len(p) >= 2 or p == 'D') for p in rest)
+    if not a.isalpha():
+        return False
+    if len(parts) == 2 and rest[0].isdigit():
+        return wordish(a) and len(a) >= 3
+    if not all(p.isalpha() for p in rest):
+        return False
+    if all(wordish(p) for p in parts):
+        return True
+    if len(parts) == 2 and len(a) == 1:
+        b = rest[0]
+        return (wordish(b) and len(b) >= 3) or b in ('th', 'st', 'nd', 'rd')
+    return False
+
 
 # --------------------------------------------------------------- tokeniser
 class Tok(object):
-    __slots__ = ('k', 'v')
+    __slots__ = ('k', 'v', 'g')
 
-    def __init__(self, k, v):
-        self.k, self.v = k, v
+    def __init__(self, k, v, g=False):
+        self.k, self.v, self.g = k, v, g      # g: glued to the token before
 
     def __repr__(self):
         return '%s(%s)' % (self.k, self.v)
 
 
-REL = ['<->', '-->', '<--', '<=>', '==', '<=', '>=', '!=', '~=', '->', '<-',
-       '=>', '=', '<', '>']
+REL = ['<-->', '<->', '-->', '<--', '<=>', '==', '<=', '>=', '!=', '~=',
+       '->', '<-', '=>', '=', '<', '>']
 NUM = re.compile(r'\d{1,3}(?:,\d{3})+(?:\.\d+)?'
                  r'|\d+(?:\.\d+)?(?:[eE][-+]?\d+)?')
 IDENT = re.compile(r'[A-Za-z][A-Za-z0-9]*')
+HYPH = re.compile(r'[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+')
 OPCH = '+-*/^_(){}[]|,;:!%&#.@'
+
+
+def abbrev_at(s, i):
+    for ab in ABBREV:
+        if s.startswith(ab, i) and (i + len(ab) >= len(s)
+                                    or not s[i + len(ab)].isalnum()):
+            return ab
+    return None
 
 
 def tokenize(s):
@@ -210,10 +269,29 @@ def tokenize(s):
     while i < n:
         c = s[i]
         if c in ' \t':
-            i += 1
+            j = i
+            while j < n and s[j] in ' \t':
+                j += 1
+            # two spaces or more is a column break, and the parser needs to
+            # know: `= 4    x(1) = ...` is two statements, not 4 times x(1)
+            wide = (j - i >= 2) or ('\t' in s[i:j])
             if out and out[-1].k != 'ws':
-                out.append(Tok('ws', ' '))
+                out.append(Tok('ws', '  ' if wide else ' '))
+            elif out and wide:
+                out[-1].v = '  '
+            i = j
             continue
+        if c.isalpha() or c.isdigit():
+            ab = abbrev_at(s, i)
+            if ab:
+                out.append(Tok('id', ab))
+                i += len(ab)
+                continue
+            m = HYPH.match(s, i)
+            if m and hyphen_word(m.group(0)):
+                out.append(Tok('id', m.group(0)))
+                i = m.end()
+                continue
         m = UNIT_PHRASE.match(s, i)
         if m and (i + len(m.group(0)) >= n or not s[i + len(m.group(0))].isalnum()):
             out.append(Tok('unit', m.group(0)))
@@ -246,13 +324,43 @@ def tokenize(s):
             continue
         m = NUM.match(s, i)
         if m:
-            out.append(Tok('num', m.group(0)))
-            i = m.end()
+            v, end = m.group(0), m.end()
+            # `50 000` and `1 000 000`: thousands written with spaces
+            if re.match(r'^\d{1,3}$', v):
+                while True:
+                    mm = re.match(r' (\d{3})(?![\d.,])', s[end:])
+                    if not mm:
+                        break
+                    v += ',' + mm.group(1)
+                    end += mm.end()
+            out.append(Tok('num', v))
+            i = end
+            continue
+        # `.35` is 0.35 when nothing numeric comes before the point
+        if (c == '.' and i + 1 < n and s[i + 1].isdigit()
+                and (i == 0 or not s[i - 1].isalnum())):
+            m = re.match(r'\.\d+', s[i:])
+            out.append(Tok('num', '0' + m.group(0)))
+            i += m.end()
             continue
         m = IDENT.match(s, i)
         if m:
-            out.append(Tok('id', m.group(0)))
-            i = m.end()
+            v, end = m.group(0), m.end()
+            # `j0.3536` is j times 0.3536, not a symbol called j0
+            mm = re.match(r'^([A-Za-z]+)(\d+)$', v)
+            if mm and end + 1 < n and s[end] == '.' and s[end + 1].isdigit():
+                v = mm.group(1)
+                end = i + len(v)
+            # `j2pi` is j times 2 times pi (but d2f is a derivative)
+            mm = re.match(r'^([A-Za-z])(\d{1,2})([A-Za-z]+)$', v)
+            if mm and v[0] != 'd':
+                out.append(Tok('id', mm.group(1)))
+                out.append(Tok('num', mm.group(2), True))
+                out.append(Tok('id', mm.group(3), True))
+                i = end
+                continue
+            out.append(Tok('id', v))
+            i = end
             continue
         if c in OPCH:
             out.append(Tok('op', c))
@@ -270,6 +378,7 @@ RELTEX = {
     '!=': BS + 'ne', '~=': BS + 'approx', '==': BS + 'equiv',
     '->': BS + 'to', '<-': BS + 'leftarrow', '<->': BS + 'leftrightarrow',
     '-->': BS + 'longrightarrow', '<--': BS + 'longleftarrow',
+    '<-->': BS + 'longleftrightarrow',
     '=>': BS + 'Rightarrow', '<=>': BS + 'Leftrightarrow',
 }
 
@@ -279,8 +388,9 @@ IDENTLIKE = re.compile(
 
 
 class P(object):
-    def __init__(self, toks, sym):
+    def __init__(self, toks, sym, mats=None):
         self.t, self.i, self.sym = toks, 0, sym
+        self.mats = mats or []
         self.inbar = 0
 
     # -- cursor
@@ -323,6 +433,89 @@ class P(object):
             i += 1
         return i + 1 < len(self.t) and self.t[i + 1].k == 'ws'
 
+    def gap_next(self):
+        """two or more spaces before the next token: a column, not a product"""
+        t = self.peek_raw()
+        return t is not None and t.k == 'ws' and len(t.v) >= 2
+
+    def statement_ahead(self, t):
+        """after a column gap, is what follows a statement of its own?
+           `= 4    x(1) = ...` yes; `mu  sum a_k p(t)` no, that is a product;
+           `N   log2 N = 24` no, a function never opens a statement"""
+        if t.k == 'op':
+            if t.v not in '([{':
+                return False
+        elif t.k == 'id':
+            v = t.v
+            if (v in CONNECTIVE or v in STOPWORD or v in TEXTY or v in UNITS
+                    or v in FUNC or v in ABBREV or '-' in v
+                    or v.lower() in ('sum', 'prod', 'integral', 'int', 'sqrt',
+                                     'lim')
+                    or v.startswith('log')):
+                return False
+            # a name opens a statement only with its arguments, a subscript
+            # or a relation right behind it (`x, y = position` counts too)
+            j = self.i
+            while j < len(self.t) and self.t[j].k == 'ws':
+                j += 1
+            k = j + 1
+            while k < len(self.t) and self.t[k].k == 'ws':
+                k += 1
+            if k >= len(self.t):
+                return False
+            n2 = self.t[k]
+            if n2.k == 'op' and n2.v == ',':
+                rest = [x for x in self.t[k + 1:k + 6] if x.k != 'ws'][:2]
+                return (len(rest) == 2 and rest[0].k == 'id'
+                        and rest[1].k == 'rel')
+            if not ((n2.k == 'op' and n2.v in '([_') or n2.k == 'rel'):
+                return False
+        elif t.k != 'num':
+            return False
+        # and a relation has to come before the clause ends
+        depth = 0
+        for x in self.t[self.i:]:
+            if x.k == 'op' and x.v in '([{':
+                depth += 1
+            elif x.k == 'op' and x.v in ')]}':
+                depth -= 1
+                if depth < 0:
+                    return False
+            elif depth == 0 and x.k == 'op' and x.v in ',;':
+                return False
+            elif depth == 0 and x.k == 'rel':
+                return True
+        return False
+
+    def upcoming(self, k):
+        """the k-th non-space token ahead, or None"""
+        i, seen = self.i, 0
+        while i < len(self.t):
+            if self.t[i].k != 'ws':
+                seen += 1
+                if seen == k:
+                    return self.t[i]
+            i += 1
+        return None
+
+    def function_word(self, k):
+        """is the k-th token ahead `and`, `of`, `the`...? then a lone `x`
+           before it is a variable (`lengths of x and h`), not a times sign"""
+        t = self.upcoming(k)
+        return (t is not None and t.k == 'id'
+                and (t.v in STOPWORD or t.v in CONNECTIVE or t.v in TEXTY))
+
+    def is_word(self, t, strict=False):
+        """an English word, so that a lone `a` next to it is the article"""
+        if t is None or t.k != 'id' or len(t.v) < 2:
+            return False
+        if '-' in t.v:
+            return True
+        if strict:
+            return (WORDY.match(t.v) is not None and t.v not in NOT_WORDS
+                    and t.v not in STOPWORD and self.sym_of(t.v) is None)
+        return t.v in STOPWORD or self.sym_of(t.v) is None
+
     def starts_factor(self, t):
         if t.k in ('num', 'id', 'unit'):
             return True
@@ -331,10 +524,14 @@ class P(object):
                 return True
             if t.v == '|' and self.inbar == 0:
                 return True
+            if t.v == 'angle':
+                return True                 # 0.7367 /_ 28.68 deg
         return False
 
     # -- symbols
     def sym_of(self, name, script=False):
+        if '-' in name or name in ABBREV:
+            return None                     # round-trip, i.e. -- prose
         if name in self.sym:
             return self.sym[name]
         if name in COMMON:
@@ -350,7 +547,13 @@ class P(object):
             return '%s_{%s}' % (m.group(1), m.group(2))
         if m:
             return '%s %s' % (m.group(1), m.group(2))
+        if script and name.isalpha():
+            return BS + 'mathrm{%s}' % name  # V_in, V_out, x_max
+        low = name.lower()
         if name in TEXTY or name in STOPWORD or name in CONNECTIVE:
+            return None
+        # `In`, `If`, `The` at the start of a sentence; not `aN`, not `NOT`
+        if name.istitle() and (low in STOPWORD or low in CONNECTIVE):
             return None
         if name.isupper() or name in UNITS:
             return BS + 'mathrm{%s}' % name
@@ -412,41 +615,96 @@ class P(object):
             self.next()
             out.append(t.v)
             out.append(self.term())
-        return ' '.join(x for x in out if x != '')
+        left = ' '.join(x for x in out if x != '')
+        # `A   /   B` written with wide spaces: the whole of A over the
+        # whole of B, which a tight `a/b` never means
+        t = self.peek()
+        if t and t.k == 'op' and t.v == '/' and self.gap_next():
+            self.next()
+            return BS + 'frac{%s}{%s}' % (bare(left), bare(self.expr()))
+        # `... SNR is Eb/N0`: a connective starts a fresh term
+        if t and t.k == 'id' and t.v in CONNECTIVE and not self.script_next():
+            rest = self.expr()
+            sep = BS + ', ' if rest.startswith(BS + 'text{') else ' '
+            return left + sep + rest
+        return left
 
     def term(self):
         left = self.factor()
+        # a connective (`so`, `where`) never binds to what follows it:
+        # `so Eb/N0 = 124` is `so` and then a fraction
+        if CONN_RUN.match(left):
+            t = self.peek()
+            if t is not None and self.starts_factor(t):
+                return left + ' ' + self.term()
+            return left
+        last = left
         while True:
             t = self.peek()
             if t is None:
                 break
+            # a connective ends the term: `... SNR is Eb/N0`
+            if (t.k == 'id' and t.v in CONNECTIVE and left
+                    and not self.script_next()):
+                break
+            # `0 .. N/2 - 1`, `n = -3 .. 0`: a range
+            if t.k == 'op' and t.v == '...':
+                self.next()
+                nxt = self.peek()
+                if nxt is not None and self.starts_factor(nxt):
+                    return left + ' ' + BS + 'dots ' + self.expr()
+                return left + ' ' + BS + 'dots'
             if t.k == 'op' and t.v == '/':
+                if self.gap_next():
+                    break                   # expr() sets the wide fraction
+                den = self.upcoming(2)
+                after = self.upcoming(3)
+                if (is_unitish(last) and den is not None and den.k == 'id'
+                        and den.v in UNIT_DENOM
+                        and not (after is not None and after.k == 'id'
+                                 and self.is_word(after))):
+                    self.next()
+                    self.next()             # bits/second, rad/s: one unit
+                    left = left + '/' + BS + 'mathrm{%s}' % den.v
+                    last = ''
+                    continue
                 self.next()
                 right = self.tight_chain()
                 if is_unitish(left) and is_unitish(right):
                     left = left + '/' + right
                 else:
                     left = BS + 'frac{%s}{%s}' % (bare(left), bare(right))
+                last = left
                 continue
             if t.k == 'op' and t.v in '*.':
                 self.next()
                 right = self.factor()
                 left = (join_conv(left, right) if t.v == '*'
                         else left + ' ' + BS + 'cdot ' + right)
+                last = right
                 continue
             if (t.k == 'id' and t.v == 'x' and times_ok(left)
-                    and self.spaced_both()):
+                    and self.spaced_both() and not self.function_word(2)):
                 save = self.i
                 self.next()
                 nxt = self.peek()
                 if nxt and self.starts_factor(nxt):
                     right = self.factor()
                     left = left + ' ' + BS + 'times ' + right
+                    last = right
                     continue
                 self.i = save
                 break
             if self.starts_factor(t):
-                left = join_implicit(left, self.factor())
+                if (self.gap_next() and self.statement_ahead(t)
+                        and not left.rstrip().endswith(BS + 'quad')):
+                    sep = BS + 'quad ' if ends_with_text(left) else BS + 'qquad '
+                    right = self.factor()
+                    left = left + ' ' + sep + right
+                else:
+                    right = self.factor()
+                    left = join_implicit(left, right)
+                last = right
                 continue
             break
         return left
@@ -462,6 +720,12 @@ class P(object):
             if not self.starts_factor(t):
                 break
             out = join_implicit(out, self.factor())
+        # `frame bits / bit rate`: the word after a unit completes the name
+        t = self.peek()
+        if (is_unitish(out) and t is not None and self.is_word(t, strict=True)
+                and not self.gap_next()):
+            self.next()
+            out = out + BS + ', ' + BS + 'text{%s}' % textify(t.v)
         return out
 
     def factor(self):
@@ -495,10 +759,22 @@ class P(object):
             return t.v + self.script()
         if t.k == 'id':
             self.next()
-            return self.sym_of(t.v, script=True)
+            out = self.sym_of(t.v, script=True)
+            # e^(-j2w): the pieces of a split name stay in the exponent
+            while self.peek_raw() is not None and self.peek_raw().g:
+                nt = self.next()
+                out += ' ' + (nt.v if nt.k == 'num' else self.sym_of(nt.v, script=True))
+            return out
         if t.k == 'num':
             self.next()
-            return t.v
+            out = t.v
+            nt = self.peek_raw()            # W_N^2k: the k belongs up there,
+            nt2 = self.upcoming(2)          # but a^2y(-1) is a squared times y(-1)
+            if (nt is not None and nt.k == 'id' and len(nt.v) == 1
+                    and not (nt2 is not None and nt2.k == 'op' and nt2.v == '(')):
+                self.next()
+                out += nt.v
+            return out
         return self.postfix()
 
     def postfix(self):
@@ -577,8 +853,22 @@ class P(object):
 
     def ident_atom(self, t):
         name = t.v
-        if name in ('sum', 'prod', 'integral', 'int'):
-            return self.bigop(name)
+        if name.lower() in ('sum', 'prod'):
+            nxt = self.upcoming(1)
+            if (name == 'sum' and nxt is not None and nxt.k == 'id'
+                    and nxt.v != 'over'
+                    and (nxt.v in ('of', 'is', 'and', 'the', 'to')
+                         or self.is_word(nxt, strict=True))):
+                return self.text_run(name)  # `the sum of the mask coefficients`
+            return self.bigop(name.lower())
+        if name in ('integral', 'int', 'INT'):
+            return self.bigop('integral')
+        if name in SYMWORD:
+            return SYMWORD[name]
+        if name.startswith('MATRIX') and name[6:].isdigit():
+            return self.mats[int(name[6:])]
+        if name == 'a' and self.is_word(self.upcoming(1), strict=True):
+            return self.text_run(name)      # `a random number`, not a times
         if name == 'lim':
             return self.limit()
         if name == 'sqrt':
@@ -586,6 +876,9 @@ class P(object):
         if name in ('log2', 'log10', 'lg'):
             sub = {'log2': '2', 'log10': '10', 'lg': '2'}[name]
             return BS + 'log_{%s}' % sub
+        m = re.match(r'^log(\d+)([A-Za-z]?)$', name)
+        if m:                               # log3, or log2N written flat
+            return BS + 'log_{%s}%s' % (m.group(1), (' ' + m.group(2)) if m.group(2) else '')
         if name == 'grad':
             return self.grad()
         if name == 'deg':
@@ -607,9 +900,23 @@ class P(object):
             t = self.peek()
             if t is None or t.k != 'id':
                 break
-            # a single letter is a symbol, never a word in a phrase
+            # a single letter is a symbol, never a word in a phrase --
+            # except `a` with a word on either side of it
             if len(t.v) < 2:
+                if t.v == 'a' and self.is_word(self.upcoming(2)):
+                    self.next()
+                    words.append('a')
+                    continue
                 break
+            # `discrete sum S_D = ...`: after a word, `sum` is a noun unless
+            # a summand follows it directly
+            if t.v == 'sum':
+                after = self.upcoming(2)
+                if after is None or after.k == 'rel' or (
+                        after.k == 'id' and after.v[:1].isupper()):
+                    self.next()
+                    words.append('sum')
+                    continue
             if self.sym_of(t.v) is not None and t.v not in STOPWORD:
                 break
             self.next()
@@ -805,9 +1112,18 @@ FUNCISH = re.compile(r'^[a-zA-Z](?:_\{[^{}]*\})?\([^()]*\)$')
 
 def join_conv(a, b):
     """an explicit * between two signals is convolution, not a product"""
-    if FUNCISH.match(a.strip()) and FUNCISH.match(b.strip()):
+    a, b = a.strip(), b.strip()
+    if FUNCISH.match(a) and FUNCISH.match(b):
         return a + ' ' + BS + 'ast ' + b
+    if a.endswith(BS + '}') and b.startswith(BS + '{'):
+        return a + ' ' + BS + 'ast ' + b    # {1, 2, 3} * {1, 1}
+    if a[-1:].isdigit() and b[:1].isdigit():
+        return a + ' ' + BS + 'cdot ' + b   # 2 * 600
     return join_implicit(a, b)
+
+
+def ends_with_text(s):
+    return re.search(re.escape(BS) + r'text\{[^{}]*\}\s*$', s) is not None
 
 
 def join_implicit(a, b):
@@ -817,7 +1133,11 @@ def join_implicit(a, b):
     if not b:
         return a
     if a[-1:].isdigit() and b[:1].isdigit():
-        return a + ' ' + BS + 'cdot ' + b
+        # `31 713` is thirty-one thousand; any other pair of numbers side
+        # by side is a list, never a product (products are written 2*3)
+        if re.match(r'^\d+$', a) and re.match(r'^\d{3}$', b):
+            return a + '{,}' + b
+        return a + ' ' + BS + 'quad ' + b
     if b.startswith(BS + 'mathrm{') and a[-1:].isdigit():
         return a + BS + ', ' + b            # 9 bits, 4.2 MHz
     if re.search(re.escape(BS) + r'text\{[^{}]*\}$', a):
@@ -833,18 +1153,43 @@ def textify(s):
                  ('&', BS + '&'), ('#', BS + '#'), ('$', BS + '$'),
                  ('_', BS + '_'), ('^', BS + 'textasciicircum ')):
         s = s.replace(a, b)
-    return s
+    return s.replace(' -- ', ' --- ')
 
 
 # --------------------------------------------------------------- line level
 LABEL = re.compile(r'^([A-Za-z][A-Za-z0-9 ,\'()/+-]{0,46}?)\s*:\s+(\S.*)$')
 LISTNUM = re.compile(r'^\s*(\d{1,2})[.)]\s+(?=[A-Za-z])')
+LISTLET = re.compile(r'^\s*\(([a-z])\)\s+')
+REMARK = re.compile(r'^\s*--\s*(.*)$')
+_CELL = r'[-+]?\d+(?:\.\d+)?'
+MAT = re.compile(r'\[\s*(' + _CELL + r'(?:[ \t]+' + _CELL + r')*'
+                 r'(?:\s*;\s*' + _CELL + r'(?:[ \t]+' + _CELL + r')*)+)\s*\]')
+
+
+def pull_matrices(body):
+    """`[2 1 3 1; 1 2 1 3]` -- rows of numbers split by semicolons -- is a
+       matrix; it is set aside and put back as one bracketed block"""
+    mats = []
+
+    def sub(m):
+        rows = [r.split() for r in m.group(1).split(';')]
+        if len(rows) < 2 or len(set(len(r) for r in rows)) != 1:
+            return m.group(0)
+        body = (' ' + BS + BS + ' ').join(' & '.join(r) for r in rows)
+        mats.append(BS + 'begin{bmatrix} ' + body + ' ' + BS + 'end{bmatrix}')
+        return ' MATRIX%d ' % (len(mats) - 1)
+    return MAT.sub(sub, body), mats
 
 
 def split_comment(s):
     """`X = 3        the answer` -> ('X = 3', 'the answer')"""
     m = re.search(r'\s+--\s+(.+)$', s)
     if m and s[:m.start()].strip():
+        return s[:m.start()], m.group(1).strip()
+    # `d : 1 0 1 1 0 1   <-- the original sequence`
+    m = re.search(r'\s+<--\s+([A-Za-z].+)$', s)
+    if (m and s[:m.start()].strip() and not re.search(r'[=<>^_]', m.group(1))
+            and len(re.findall(r'[A-Za-z]{3,}', m.group(1))) >= 2):
         return s[:m.start()], m.group(1).strip()
     m = re.search(r'\s{3,}(.+)$', s)
     if not m or not s[:m.start()].strip():
@@ -904,12 +1249,29 @@ def line(src, subject=''):
         return {'label': None, 'math': '', 'note': None}
     src = re.sub(r'(?<=[0-9])\s*[xX]\s*(?=[0-9])', ' x ', src)
     src = LISTNUM.sub('', src)
+    # a line that opens with a dash is a remark, unless it is a bullet in
+    # front of an equation: `-- a = 0.5, N = 4:` is still mathematics
+    m = REMARK.match(src)
+    if m:
+        rest = m.group(1).strip()
+        if not re.search(r'[=<>]|->|=>', rest):
+            return {'label': None, 'math': '', 'note': rest, 'parts': []}
+        src = rest
+    # `(a) x(n) = ...`: the letter numbers the line, it is not a symbol
+    enum = None
+    m = LISTLET.match(src)
+    if m:
+        enum = '(%s)' % m.group(1)
+        src = src[m.end():]
     head, note = split_comment(src)
     label, body = split_label(head.strip())
+    if enum:
+        label = enum + (' ' + label if label else '')
+    body, mats = pull_matrices(body)
     toks = tokenize(body)
     if not toks:
         raise TexError('empty after tokenising')
-    p = P(toks, SUBJECT.get(subject, {}))
+    p = P(toks, SUBJECT.get(subject, {}), mats)
     parts = p.relation_parts()
     if not p.done():
         raise TexError('trailing tokens at %d (%r)' % (p.i, p.t[p.i].v))
